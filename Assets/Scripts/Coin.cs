@@ -10,7 +10,7 @@ public class Coin : MonoBehaviour
         PlayerController controller = other.GetComponent<PlayerController>();
         if (controller != null)
         {
-            controller.ChangeCoin(pointsPerCoin);
+            controller.ChangeMoney(pointsPerCoin);
             Destroy(gameObject);
         }
     }

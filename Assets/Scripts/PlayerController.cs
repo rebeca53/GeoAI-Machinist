@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
 
-    // Coin system
-    public int coins { get { return currentCoins; } }
-    private int currentCoins;
+    // Money system
+    public int coins { get { return currentMoney; } }
+    private int currentMoney;
 
     // Start is called before the first frame update
     void Start()
@@ -36,17 +36,18 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        currentCoins = 0;
+        currentMoney = 0;
     }
 
-    public void ChangeCoin(int amount)
+    public void ChangeMoney(int amount)
     {
-        currentCoins += amount;
-        Debug.Log("currentCoins = " + currentCoins);
+        currentMoney += amount;
+        UIHandler.instance.SetMoneyValue(currentMoney);
     }
+
     private void OnDisable()
     {
-        GameManager.instance.playerCoinPoints = currentCoins;
+        GameManager.instance.playerCoinPoints = currentMoney;
     }
 
     // Update is called once per frame
