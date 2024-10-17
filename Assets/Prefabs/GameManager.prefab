@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5748736400580035003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6836215550790920951}
+  - component: {fileID: 3114838762962312735}
+  - component: {fileID: 2948700656701474599}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6836215550790920951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748736400580035003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.699825, y: 0.34500003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3114838762962312735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748736400580035003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb0a1665be6ffa418559a16d4847c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardScript: {fileID: 0}
+  playerCoinPoints: 0
+--- !u!114 &2948700656701474599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748736400580035003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9baf93c8a0c86409158c6545407214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 8
+  rows: 8
+  coinCount:
+    minimum: 3
+    maximum: 5
+  containerCount: 10
+  sampleCount: 10
+  exit: {fileID: 1342552224242970805, guid: 4d977a9afc2d6d84788134605a8eb3bb, type: 3}
+  invisibleWall: {fileID: 1923504658405240674, guid: 5b9a28e5f9f29de418a7d0a614a5c1f6, type: 3}
+  floorTiles:
+  - {fileID: 5876016749300493335, guid: c95eb109f8c6e82458ca125820e04942, type: 3}
+  - {fileID: 6158027594891905111, guid: 627ed249215e5584c943de06e14dcf45, type: 3}
+  - {fileID: 8417710179796532191, guid: 81a83675d6b7e3140a5c4eda0760d273, type: 3}
+  wallTiles:
+  - {fileID: 6185207748404172677, guid: ac9035caddd7d7e468ba452e4a5129de, type: 3}
+  - {fileID: 7102785764617054828, guid: b4887964f08b23847bd02c28a986ff61, type: 3}
+  - {fileID: 6160899479645567768, guid: 4eb1be5becc5e584aab498c36094a258, type: 3}
+  - {fileID: 1307175277777795682, guid: ed2651d42492aac42b41d8e940274a5a, type: 3}
+  - {fileID: 367384921546622881, guid: a75edd10c9d0c254ca03d387bd3d48c5, type: 3}
+  - {fileID: 558934326134458216, guid: ccdb911f960342c4a92745c6fb9d7414, type: 3}
+  - {fileID: 3920411290346381036, guid: f2b3e5881a188a04ab94da772fd807d1, type: 3}
+  - {fileID: 8147516145294753100, guid: 432f3d253e9b638419431cf86780c58e, type: 3}
+  coinTile: {fileID: 8134060838376081522, guid: ab7a67a1f4863d841b6deb583931e62e, type: 3}
+  sampleTiles:
+  - {fileID: 6251051242839970032, guid: f459c631a6e49994b8b3ecf4eebcb191, type: 3}
+  - {fileID: 7968378284765316319, guid: 5f9998f2950756b4c944cf98a47ece9b, type: 3}
+  - {fileID: 4337719924756294856, guid: 18edb2361dc5a7941a621307af543171, type: 3}
+  - {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
+  - {fileID: 2114756257808181123, guid: f4377743b45692c4fbe84413813ed7cd, type: 3}
+  - {fileID: 5767029681481404365, guid: 50f725ea08ea0184fa5718fddae5b12c, type: 3}
+  - {fileID: 597654459375332329, guid: 17611b1a8b26b96418f5b0db56824002, type: 3}
+  - {fileID: 865287147992422790, guid: 01800c2c7ec64fd4c970030be85f1801, type: 3}
+  - {fileID: 4279266988055134235, guid: 27619ef6d4ff19e489f22feaea1d4f87, type: 3}
+  - {fileID: 5893761661544321983, guid: bed6627608f3a5f4fb9d3bb17939d400, type: 3}
+  containerTile: {fileID: 113377864810306097, guid: 45f1156f560c7f14288d371403d0a880, type: 3}
