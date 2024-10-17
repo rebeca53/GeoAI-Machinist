@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //Delay time in seconds to restart level.
     public float changeLevelDelay = 1f;
@@ -26,9 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject grabbedObject = null;
 
     // Coin system
-    public int pointsPerCoin = 1;
+    public int coins { get { return currentCoins; } }
     private int currentCoins;
-    public int maxCoin = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -40,10 +39,10 @@ public class PlayerMovement : MonoBehaviour
         currentCoins = 0;
     }
 
-    void ChangeCoin(int amount)
+    public void ChangeCoin(int amount)
     {
-        currentCoins = Math.Clamp(currentCoins + amount, 0, maxCoin);
-        Debug.Log(currentCoins + "/" + maxCoin);
+        currentCoins += amount;
+        Debug.Log("currentCoins = " + currentCoins);
     }
     private void OnDisable()
     {
@@ -187,14 +186,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Debug.Log("On trigger enter 2d " + other.tag);
-
-        if (other.tag == "Coin")
-        {
-            currentCoins += pointsPerCoin;
-            Debug.Log("Total coin points are " + currentCoins);
-            other.gameObject.SetActive(false);
-        }
-        else if (other.tag == "Exit")
+        if (other.tag == "Exit")
         {
             Invoke("AttemptExit", changeLevelDelay);
         }
