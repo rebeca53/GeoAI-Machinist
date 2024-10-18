@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class Exit : MonoBehaviour
 {
+    //Delay time in seconds to restart level.
+    public float changeLevelDelay = 1f;
     public int TotalContainers = 10;
     private static int amountMatchedContainers;
 
     public Sprite unlockedDoor;
+    private static bool isUnlocked = false;
 
     private static SpriteRenderer spriteRenderer;
 
@@ -44,6 +47,27 @@ public class Exit : MonoBehaviour
 
     private void UnlockExit()
     {
+        isUnlocked = true;
         spriteRenderer.sprite = unlockedDoor;
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        PlayerController controller = other.GetComponent<PlayerController>();
+        if (controller != null)
+        {
+            Invoke(nameof(AttemptExit), changeLevelDelay);
+        }
+    }
+
+    private void AttemptExit()
+    {
+        Debug.Log("Exit is unlocked: " + isUnlocked);
+        if (isUnlocked)
+        {
+            //Load the last scene loaded, in this case Main, the only scene in the game.
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
+    }
+
 }

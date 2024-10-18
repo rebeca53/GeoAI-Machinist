@@ -11,9 +11,6 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    //Delay time in seconds to restart level.
-    public float changeLevelDelay = 1f;
-
     // Movement
     [SerializeField] private float moveSpeed = 1.5f;
     private Rigidbody2D rb;
@@ -69,7 +66,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Check if input movement is only vertical
-    private bool isOnlyVertical(Vector2 input)
+    private bool IsOnlyVertical(Vector2 input)
     {
         return input.x.Equals(0) && !input.y.Equals(0);
     }
@@ -82,7 +79,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("playerWalk", false);
 
             // only-vertical movement won't change direction
-            if (!isOnlyVertical(moveInput))
+            if (!IsOnlyVertical(moveInput))
             {
                 animator.SetFloat("LastInputX", moveInput.x);
             }
@@ -91,7 +88,7 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
 
         // only-vertical movement keep previous direction
-        if (isOnlyVertical(moveInput))
+        if (IsOnlyVertical(moveInput))
         {
             animator.SetFloat("InputX", animator.GetFloat("LastInputX"));
         }
@@ -102,9 +99,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void grabSampleBox()
+    private void GrabSampleBox()
     {
-        if (nearObject == null || nearObject.tag != "SampleBox")
+        if (nearObject == null || !nearObject.CompareTag("SampleBox"))
         {
             return;
         }
@@ -120,7 +117,7 @@ public class PlayerController : MonoBehaviour
         grabbedObject = nearObject;
     }
 
-    private void dropObject()
+    private void DropObject()
     {
         // Debug.Log("drop object");
         // Change scale
@@ -131,7 +128,7 @@ public class PlayerController : MonoBehaviour
         grabbedObject = null;
     }
 
-    private void attemptToFillAContainer()
+    private void AttemptToFillAContainer()
     {
         // Debug.Log("drop object onto container");
 
@@ -153,18 +150,18 @@ public class PlayerController : MonoBehaviour
         // TODO: improve the context of an action
         if (grabbedObject)
         {
-            if (nearObject.tag == "Container")
+            if (nearObject.CompareTag("Container"))
             {
-                attemptToFillAContainer();
+                AttemptToFillAContainer();
             }
             else
             {
-                dropObject();
+                DropObject();
             }
         }
         else
         {
-            grabSampleBox();
+            GrabSampleBox();
         }
     }
 
@@ -186,44 +183,13 @@ public class PlayerController : MonoBehaviour
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Debug.Log("On trigger enter 2d " + other.tag);
-        if (other.tag == "Exit")
-        {
-            Invoke("AttemptExit", changeLevelDelay);
-        }
-        else if (other.tag == "Container")
-        {
-            Container container = other.gameObject.GetComponent<Container>();
-            // Debug.Log(container.type);
-        }
-        else if (other.tag == "SampleBox")
-        {
-
-        }
         nearObject = other.gameObject;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         // Debug.Log("On trigger stay 2d " + other.tag);
-
-        if (other.tag == "Container")
-        {
-            Container container = other.gameObject.GetComponent<Container>();
-            // Debug.Log(container.type);
-        }
-        else if (other.tag == "SampleBox")
-        {
-
-        }
         nearObject = other.gameObject;
-    }
-
-    private void AttemptExit()
-    {
-        Debug.Log("TODO: check if game is unclock");
-        //Load the last scene loaded, in this case Main, the only scene in the game.
-        // SceneManager.LoadScene(0);
     }
 
     private void OnTriggerExit2D(Collider2D other)
