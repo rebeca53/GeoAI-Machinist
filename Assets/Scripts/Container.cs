@@ -13,6 +13,11 @@ public class Container : MonoBehaviour
     private TextMeshPro label;
     private float verticalOffset = 0.3f;
 
+    // Audio
+    AudioSource audioSource;
+    public AudioClip mismatchClip;
+    public AudioClip matchClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +25,8 @@ public class Container : MonoBehaviour
         label.text = SplitCamelCase(type);
 
         animator = GetComponent<Animator>();
+
+        audioSource = GetComponent<AudioSource>();
 
         // Debug.Log("Container type is " + type);
     }
@@ -31,6 +38,7 @@ public class Container : MonoBehaviour
 
     public void MatchContainer(SampleBox sampleBox)
     {
+        PlaySound(matchClip);
         // Change container characteristics
         animator.SetBool("matchContainer", true);
 
@@ -54,6 +62,12 @@ public class Container : MonoBehaviour
 
     public void OnMismatch()
     {
+        PlaySound(mismatchClip);
         animator.SetTrigger("mismatchContainer");
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Exit : MonoBehaviour
 {
     //Delay time in seconds to restart level.
-    public float changeLevelDelay = 1f;
+    public float changeLevelDelay = 2f;
     public int TotalContainers = 10;
     private static int amountMatchedContainers;
 
@@ -14,6 +14,12 @@ public class Exit : MonoBehaviour
     private static bool isUnlocked = false;
 
     private static SpriteRenderer spriteRenderer;
+
+    // Audio
+    private static AudioSource audioSource;
+    public AudioClip unlockClip;
+    public AudioClip exitClip;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,8 @@ public class Exit : MonoBehaviour
             Debug.LogError("Sprite Renderer not assigned");
         }
         amountMatchedContainers = 0;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void RegisterContainers(GameObject[] containersToObserve)
@@ -48,6 +56,7 @@ public class Exit : MonoBehaviour
     private void UnlockExit()
     {
         isUnlocked = true;
+        PlaySound(unlockClip);
         spriteRenderer.sprite = unlockedDoor;
     }
 
@@ -56,18 +65,27 @@ public class Exit : MonoBehaviour
         PlayerController controller = other.GetComponent<PlayerController>();
         if (controller != null)
         {
-            Invoke(nameof(AttemptExit), changeLevelDelay);
+            StartCoroutine(AttemptExit());
         }
     }
 
-    private void AttemptExit()
+    IEnumerator AttemptExit()
     {
         Debug.Log("Exit is unlocked: " + isUnlocked);
         if (isUnlocked)
         {
+            PlaySound(exitClip);
+
+            yield return new WaitForSeconds(changeLevelDelay); // wait time
+
             //Load the last scene loaded, in this case Main, the only scene in the game.
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
 }

@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     public int CurrentMoney { get { return currentMoney; } }
     private int currentMoney;
 
+    // Audio
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         currentMoney = 0;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ChangeMoney(int amount)
@@ -45,6 +50,11 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         GameManager.instance.playerCoinPoints = currentMoney;
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
     // Update is called once per frame
