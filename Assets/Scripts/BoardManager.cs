@@ -253,7 +253,17 @@ public class BoardManager : MonoBehaviour
         // LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
 
         //Instantiate the exit tile in the upper right hand corner of our game board
+        LayoutExitFixed();
+    }
+
+    private void LayoutExitFixed()
+    {
         Instantiate(exit, new Vector3(columns - 1, rows, 0f), Quaternion.identity);
         Instantiate(invisibleWall, new Vector3(columns - 1, rows + 1, 0f), Quaternion.identity);
+
+        Exit exitScript = exit.GetComponent<Exit>();
+        GameObject[] containers = GameObject.FindGameObjectsWithTag("Container");
+        exitScript.RegisterContainers(containers);
     }
+
 }

@@ -7,10 +7,8 @@ using UnityEngine;
 
 public class Container : MonoBehaviour
 {
-    public Color empty = Color.gray;
-    public Color incorrect = Color.red;
-    public Color correct = Color.green;
-    public String type;
+    public event Action OnMatch;
+    public string type;
     private Animator animator;
     private TextMeshPro label;
     private float verticalOffset = 0.3f;
@@ -31,7 +29,7 @@ public class Container : MonoBehaviour
         return System.Text.RegularExpressions.Regex.Replace(input, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
     }
 
-    public void fillContainer(SampleBox sampleBox)
+    public void MatchContainer(SampleBox sampleBox)
     {
         // Change container characteristics
         animator.SetBool("matchContainer", true);
@@ -44,9 +42,11 @@ public class Container : MonoBehaviour
         sampleBox.gameObject.transform.parent = gameObject.transform;
         sampleBox.gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + verticalOffset);
         sampleBox.fitInContainer();
+
+        OnMatch?.Invoke();
     }
 
-    public bool isMatch(SampleBox sampleBox)
+    public bool IsMatch(SampleBox sampleBox)
     {
         Debug.Log("container type is " + type + ", and box type is " + sampleBox.type);
         return sampleBox.type == type;

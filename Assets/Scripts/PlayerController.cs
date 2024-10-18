@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public GameObject grabbedObject = null;
 
     // Money system
-    public int coins { get { return currentMoney; } }
+    public int CurrentMoney { get { return currentMoney; } }
     private int currentMoney;
 
     // Start is called before the first frame update
@@ -138,13 +138,13 @@ public class PlayerController : MonoBehaviour
         Container container = nearObject.GetComponent<Container>();
         SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
 
-        if (!container.isMatch(sampleBox))
+        if (!container.IsMatch(sampleBox))
         {
             container.OnMismatch();
             return;
         }
 
-        container.fillContainer(sampleBox);
+        container.MatchContainer(sampleBox);
         grabbedObject = null;
     }
 
