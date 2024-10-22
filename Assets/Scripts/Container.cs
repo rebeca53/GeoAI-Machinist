@@ -8,6 +8,7 @@ using UnityEngine;
 public class Container : MonoBehaviour
 {
     public event Action OnMatch;
+    public event Action<string> OnMatchDisplay;
     public string type;
     private Animator animator;
     private TextMeshPro label;
@@ -52,6 +53,7 @@ public class Container : MonoBehaviour
         sampleBox.fitInContainer();
 
         OnMatch?.Invoke();
+        OnMatchDisplay?.Invoke(type);
     }
 
     public bool IsMatch(SampleBox sampleBox)

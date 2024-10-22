@@ -254,6 +254,8 @@ public class BoardManager : MonoBehaviour
 
         //Instantiate the exit tile in the upper right hand corner of our game board
         LayoutExitFixed();
+
+        UIHandler.instance.RegisterContainers();
     }
 
     private void LayoutExitFixed()
