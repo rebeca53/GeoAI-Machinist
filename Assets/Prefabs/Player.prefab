@@ -291,6 +291,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   grabbedObject: {fileID: 0}
+  talkAction:
+    m_Name: Talk
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3096c4bd-5d50-4c95-9886-3409589773ed
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!82 &-8476699751156865484
 AudioSource:
   m_ObjectHideFlags: 0

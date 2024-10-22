@@ -7,12 +7,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.5f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private Vector2 moveDirection = new Vector2(1, 0);
+
     private Animator animator;
 
     // Action
     bool spaceAction = false;
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
+
+    public InputAction talkAction;
 
     // Money system
     public int CurrentMoney { get { return currentMoney; } }
@@ -31,6 +35,9 @@ public class PlayerController : MonoBehaviour
         currentMoney = 0;
 
         audioSource = GetComponent<AudioSource>();
+
+        talkAction.Enable();
+        talkAction.performed += FindFriend;
     }
 
     public void ChangeMoney(int amount)
@@ -88,6 +95,12 @@ public class PlayerController : MonoBehaviour
         }
 
         moveInput = context.ReadValue<Vector2>();
+
+        if (!Mathf.Approximately(moveInput.x, 0.0f))
+        {
+            moveDirection.Set(moveInput.x, moveInput.y);
+            moveDirection.Normalize();
+        }
 
         // only-vertical movement keep previous direction
         if (IsOnlyVertical(moveInput))
@@ -190,14 +203,30 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        // Debug.Log("On trigger stay 2d " + other.tag);
+        Debug.Log("On trigger stay 2d " + other.tag);
         nearObject = other.gameObject;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Debug.Log("on trigger exit 2d " + other.tag);
+        Debug.Log("on trigger exit 2d " + other.tag);
         nearObject = null;
+    }
+
+    void FindFriend(InputAction.CallbackContext context)
+    {
+        Debug.Log("Try to find friend. moveDirection =" + moveDirection);
+        RaycastHit2D hit = Physics2D.Raycast(rb.position + Vector2.up * 0.2f, moveDirection, 2.5f, LayerMask.GetMask("NPC"));
+
+        if (hit.collider != null)
+        {
+            NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+            if (character != null)
+            {
+                UIHandler.instance.DisplayDialogue();
+            }
+            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+        }
     }
 
 }
