@@ -9,7 +9,7 @@ public class UIHandler : MonoBehaviour
 
     private Label moneyText;
 
-    public float displayTime = 4.0f;
+    public float displayTime = 15.0f;
     private VisualElement m_NonPlayerDialogue;
     private Label message;
     private float m_TimerDisplay;
@@ -63,16 +63,16 @@ public class UIHandler : MonoBehaviour
     {
         var myDict = new Dictionary<string, string>
         {
-            { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons and typically only one." },
-            { "Forest", "Forests are" },
-            { "HerbaceousVegetation", "Herbaceous Vegetation are" },
-            { "Highway", "Highways are ..."},
-            { "Industrial", "Industrial are" },
-            { "Pasture", "Pasture are" },
-            { "PermanentCrop", "PermanentCrop are" },
-            { "Residential", "Residential are" },
-            { "River", "River are" },
-            { "SeaLake", "SeaLake are" }
+            { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons and typically only one. These include crops like wheat, corn, and rice, which are planted and harvested within a single year." },
+            { "Forest", "Forests are large areas covered chiefly with trees and undergrowth, providing habitat for wildlife and playing a role in carbon sequestration and oxygen production." },
+            { "HerbaceousVegetation", "Herbaceous vegetation consists of non-woody plants, such as grasses." },
+            { "Highway", "Highways are major public roads, often connecting cities and towns, designed for high-speed traffic and usually characterized by multiple lanes." },
+            { "Industrial", "Industrial areas are zones designated for manufacturing, warehousing, and other commercial enterprises involved in the production of goods and services." },
+            { "Pasture", "Pastures are grasslands or other vegetative areas managed primarily for the grazing of livestock, such as cattle, sheep, and goats." },
+            { "PermanentCrop", "Permanent crops (e.g., fruit trees and vines) last for more than two growing seasons, either dying back after each season or growing continuously, and include plants like apple trees, vineyards, and coffee bushes." },
+            { "Residential", "Residential areas are zones primarily designated for housing, where people live and where infrastructure like schools, parks, and other community facilities are often located." },
+            { "River", "Rivers are natural flowing watercourses, usually freshwater, that flow towards a larger body of water such as an ocean, sea, lake, or another river." },
+            { "SeaLake", "Sea or lakes are large bodies of water, with seas being saline water connected to oceans and lakes generally freshwater, often enclosed by land." }
         };
 
         Debug.Log("Message type: " + type + ", content: " + myDict[type]);
