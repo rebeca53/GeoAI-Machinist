@@ -23,7 +23,7 @@ public class BoardManager : MonoBehaviour
     // size of the game board
     public int columns = 8;
     public int rows = 8;
-    public Count coinCount = new Count(3, 5);
+    public const int coinCount = 4;
     static List<string> classNames = new List<string> { "AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", "Industrial", "Pasture", "PermanentCrop", "Residential", "River", "SeaLake" };
     public int containerCount = classNames.Count;
     public int sampleCount = classNames.Count;
@@ -190,6 +190,20 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    void LayoutObjectAtRandom(GameObject tileChoice, int objectCount)
+    {
+        //Choose a random number of objects to instantiate within the minimum and maximum limits
+        //Instantiate objects until the randomly chosen limit objectCount is reached
+        for (int i = 0; i < objectCount; i++)
+        {
+            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+            Vector3 randomPosition = RandomPosition();
+
+            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
+            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+        }
+    }
+
     void LayoutSampleAtRandom()
     {
         //Instantiate objects until the randomly chosen limit objectCount is reached
@@ -244,7 +258,7 @@ public class BoardManager : MonoBehaviour
         LayoutContainerFixed();
 
         //Instantiate a random number of coind tiles based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(coinTile, coinCount.minimum, coinCount.maximum);
+        LayoutObjectAtRandom(coinTile, coinCount);
 
         //Instantiate the ten Sample tiles
         LayoutSampleAtRandom();
