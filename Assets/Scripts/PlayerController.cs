@@ -203,13 +203,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        // Debug.Log("On trigger stay 2d " + other.tag);
+        Debug.Log("On trigger stay 2d " + other.tag);
         nearObject = other.gameObject;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Debug.Log("on trigger exit 2d " + other.tag);
+        Debug.Log("on trigger exit 2d " + other.tag);
         nearObject = null;
     }
 
