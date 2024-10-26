@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveInput * moveSpeed;
 
         spaceAction = Input.GetKeyDown(KeyCode.Space);
-        animator.SetBool("playerAction", spaceAction);
         if (spaceAction)
         {
             OnSpaceAction();
@@ -120,6 +119,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        animator.SetTrigger("playerGrab");
         // Debug.Log("grab object");
         // Change scale
         nearObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -134,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void DropObject()
     {
+        animator.SetTrigger("playerGrab");
         // Debug.Log("drop object");
         // Change scale
         grabbedObject.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -193,7 +195,6 @@ public class PlayerController : MonoBehaviour
             grabbedObject.transform.position = playerObj.transform.position;
         }
     }
-
 
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)
