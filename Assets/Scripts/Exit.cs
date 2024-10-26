@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Properties;
 using UnityEngine;
 
@@ -55,24 +56,25 @@ public class Exit : MonoBehaviour
 
     private void UnlockExit()
     {
+        UIHandler.instance.DisplayDialogue("Wow! You really know everything about Land Cover and Land Use as expected from the GeoAI Machinist ;)");
+
         isUnlocked = true;
         PlaySound(unlockClip);
         spriteRenderer.sprite = unlockedDoor;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void AttemptExit()
     {
-        PlayerController controller = other.GetComponent<PlayerController>();
-        if (controller != null)
-        {
-            StartCoroutine(AttemptExit());
-        }
+        StartCoroutine(DoAttemptExit());
     }
 
-    IEnumerator AttemptExit()
+    IEnumerator DoAttemptExit()
     {
-        Debug.Log("Exit is unlocked: " + isUnlocked);
-        if (isUnlocked)
+        if (!HasCollectedAllCoins())
+        {
+            UIHandler.instance.DisplayDialogue("Oops! I see you didn't collect all Coins. They will be useful in the future!");
+        }
+        else if (IsPhaseOver())
         {
             PlaySound(exitClip);
 
@@ -81,6 +83,24 @@ public class Exit : MonoBehaviour
             //Load the last scene loaded, in this case Main, the only scene in the game.
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
+        else
+        {
+            UIHandler.instance.DisplayDialogue("Don't forget your mission, Machinist: labeling the data is essential so the Big Machine can learn.");
+        }
+
+    }
+
+    private bool IsPhaseOver()
+    {
+        Debug.Log("Exit is unlocked: " + isUnlocked);
+        Debug.Log("has collected all coins: " + HasCollectedAllCoins());
+        return HasCollectedAllCoins() && isUnlocked;
+    }
+
+    private bool HasCollectedAllCoins()
+    {
+        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
+        return coins.Count() == 0;
     }
 
     public void PlaySound(AudioClip clip)

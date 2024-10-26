@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,7 +5,6 @@ using UnityEngine.UIElements;
 public class UIHandler : MonoBehaviour
 {
     public static UIHandler instance { get; private set; }
-
     private Label moneyText;
 
     public float displayTime = 15.0f;
@@ -53,7 +51,15 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayDialogue()
     {
-        DisplayDialogue("Hey! Help me to classify all this images. Press \"space\" to grab and drop them. Approach me to chat.");
+
+        // DisplayDialogue("Hello, GeoAI Machinist! I'm your Robot Assistant, I'm here to help you, you slept for a while and may not remember many things.\n" +
+        // // "As the GeoAI Machinist, your mission is to fix the Big Machine, an space station that surveys Earth and intervenes on emergency situations.\n" +
+        // // "The ancient knowledge needed to fix the malfunction is almost lost, only the GeoAI Machinist has been trained to hold this knowledge and can save humanity.\n" +
+        // "Your first step to fix it is to classify all these images by placing them in the correct container. This way the Big Machine can learn from your knowledge. Press space to interact with objects in the scene, and approach me to chat.");
+
+        DisplayDialogue("Hi, GeoAI Machinist! Your first mission is labeling all these images by placing them in the correct container." +
+        "This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to chat.");
+
     }
 
     public void DisplayDialogue(string content)

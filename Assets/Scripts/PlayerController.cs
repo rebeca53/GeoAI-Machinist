@@ -159,6 +159,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnSpaceAction()
     {
+        if (nearObject.CompareTag("Exit"))
+        {
+            Exit exit = nearObject.GetComponent<Exit>();
+            exit.AttemptExit();
+        }
         // TODO: improve the context of an action
         if (grabbedObject)
         {
