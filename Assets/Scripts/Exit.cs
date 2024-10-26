@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Unity.Properties;
 using UnityEngine;
 
 public class Exit : MonoBehaviour
@@ -56,7 +54,9 @@ public class Exit : MonoBehaviour
 
     private void UnlockExit()
     {
-        UIHandler.instance.DisplayDialogue("Wow! You really know everything about Land Cover and Land Use as expected from the GeoAI Machinist ;)");
+        Debug.Log("UnlockExit");
+
+        UIHandler.Instance.DisplayDialogue("Wow! You really know everything about Land Cover and Land Use as expected from the GeoAI Machinist ;)");
 
         isUnlocked = true;
         PlaySound(unlockClip);
@@ -72,7 +72,7 @@ public class Exit : MonoBehaviour
     {
         if (!HasCollectedAllCoins())
         {
-            UIHandler.instance.DisplayDialogue("Oops! I see you didn't collect all Coins. They will be useful in the future!");
+            UIHandler.Instance.DisplayDialogue("Oops! I see you didn't collect all Coins. They will be useful in the future!", 10);
         }
         else if (IsPhaseOver())
         {
@@ -81,11 +81,11 @@ public class Exit : MonoBehaviour
             yield return new WaitForSeconds(changeLevelDelay); // wait time
 
             //Load the last scene loaded, in this case Main, the only scene in the game.
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            // UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
         else
         {
-            UIHandler.instance.DisplayDialogue("Don't forget your mission, Machinist: labeling the data is essential so the Big Machine can learn.");
+            UIHandler.Instance.DisplayDialogue("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn.");
         }
 
     }

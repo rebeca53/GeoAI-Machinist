@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Container : MonoBehaviour
@@ -50,7 +47,7 @@ public class Container : MonoBehaviour
         // change box parent
         sampleBox.gameObject.transform.parent = gameObject.transform;
         sampleBox.gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + verticalOffset);
-        sampleBox.fitInContainer();
+        sampleBox.FitInContainer();
 
         OnMatch?.Invoke();
         OnMatchDisplay?.Invoke(type);
@@ -71,15 +68,5 @@ public class Container : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("CONTAINER On trigger stay 2d " + other.tag);
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("CONTAINER on trigger exit 2d " + other.tag);
     }
 }

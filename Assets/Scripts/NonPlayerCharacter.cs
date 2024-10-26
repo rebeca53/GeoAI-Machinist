@@ -21,7 +21,7 @@ public class NonPlayerCharacter : MonoBehaviour
         Debug.Log("On trigger stay 2d " + other.tag);
         if (other.CompareTag("Player"))
         {
-            UIHandler.instance.DisplayDialogue();
+            UIHandler.Instance.DisplayIntroduction();
         }
     }
 

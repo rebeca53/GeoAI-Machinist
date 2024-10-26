@@ -8,7 +8,7 @@ public class SampleBox : MonoBehaviour
     public string type;
     private BoxCollider2D boxCollider;
 
-    public void fitInContainer()
+    public void FitInContainer()
     {
         boxCollider.enabled = false;
     }
@@ -20,13 +20,4 @@ public class SampleBox : MonoBehaviour
         type = gameObject.name.Substring(0, gameObject.name.LastIndexOf("_"));
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("BOX On trigger stay 2d " + other.tag);
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("BOX on trigger exit 2d " + other.tag);
-    }
 }

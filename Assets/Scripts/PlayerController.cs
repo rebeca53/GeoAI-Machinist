@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     // Action
+    bool isEnabled = false;
     bool spaceAction = false;
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
@@ -35,10 +36,14 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    public void Enable()
+    {
+        isEnabled = true;
+    }
     public void ChangeMoney(int amount)
     {
         currentMoney += amount;
-        UIHandler.instance.SetMoneyValue(currentMoney);
+        UIHandler.Instance.SetMoneyValue(currentMoney);
     }
 
     private void OnDisable()
@@ -54,6 +59,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isEnabled)
+        {
+            return;
+        }
+
         rb.velocity = moveInput * moveSpeed;
 
         spaceAction = Input.GetKeyDown(KeyCode.Space);
