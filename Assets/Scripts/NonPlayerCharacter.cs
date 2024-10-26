@@ -15,4 +15,14 @@ public class NonPlayerCharacter : MonoBehaviour
     {
 
     }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log("On trigger stay 2d " + other.tag);
+        if (other.CompareTag("Player"))
+        {
+            UIHandler.instance.DisplayDialogue();
+        }
+    }
+
 }

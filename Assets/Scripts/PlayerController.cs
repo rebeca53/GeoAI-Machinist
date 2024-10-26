@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
 
-    public InputAction talkAction;
-
     // Money system
     public int CurrentMoney { get { return currentMoney; } }
     private int currentMoney;
@@ -35,9 +33,6 @@ public class PlayerController : MonoBehaviour
         currentMoney = 0;
 
         audioSource = GetComponent<AudioSource>();
-
-        talkAction.Enable();
-        talkAction.performed += FindFriend;
     }
 
     public void ChangeMoney(int amount)
@@ -213,21 +208,4 @@ public class PlayerController : MonoBehaviour
         Debug.Log("on trigger exit 2d " + other.tag);
         nearObject = null;
     }
-
-    void FindFriend(InputAction.CallbackContext context)
-    {
-        Debug.Log("Try to find friend. moveDirection =" + moveDirection);
-        RaycastHit2D hit = Physics2D.Raycast(rb.position + Vector2.up * 0.2f, moveDirection, 2.5f, LayerMask.GetMask("NPC"));
-
-        if (hit.collider != null)
-        {
-            NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
-            if (character != null)
-            {
-                UIHandler.instance.DisplayDialogue();
-            }
-            Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
-        }
-    }
-
 }

@@ -53,7 +53,12 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayDialogue()
     {
-        message.text = "Hey! Help me to classify all this images. Press \"space\" to grab and drop them. Press \"t\" while near me to chat.";
+        DisplayDialogue("Hey! Help me to classify all this images. Press \"space\" to grab and drop them. Approach me to chat.");
+    }
+
+    public void DisplayDialogue(string content)
+    {
+        message.text = content;
         m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
         m_TimerDisplay = displayTime;
     }
