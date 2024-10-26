@@ -66,6 +66,7 @@ public class UIHandler : MonoBehaviour
             { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons and typically only one." },
             { "Forest", "Forests are" },
             { "HerbaceousVegetation", "Herbaceous Vegetation are" },
+            { "Highway", "Highways are ..."},
             { "Industrial", "Industrial are" },
             { "Pasture", "Pasture are" },
             { "PermanentCrop", "PermanentCrop are" },

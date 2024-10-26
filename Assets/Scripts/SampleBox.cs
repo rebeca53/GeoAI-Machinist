@@ -19,4 +19,14 @@ public class SampleBox : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         type = gameObject.name.Substring(0, gameObject.name.LastIndexOf("_"));
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("BOX On trigger stay 2d " + other.tag);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("BOX on trigger exit 2d " + other.tag);
+    }
 }

@@ -72,4 +72,14 @@ public class Container : MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("CONTAINER On trigger stay 2d " + other.tag);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("CONTAINER on trigger exit 2d " + other.tag);
+    }
 }
