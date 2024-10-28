@@ -7,6 +7,13 @@ using UnityEngine.Tilemaps;
 // TODO: Have an Abstract class for all Board Manager
 public class OverviewBoardManager : MonoBehaviour
 {
+    public class CellData
+    {
+        public bool Passable;
+    }
+
+    private CellData[,] m_BoardData;
+
     private Tilemap m_Tilemap;
 
     public int Width;
@@ -20,17 +27,24 @@ public class OverviewBoardManager : MonoBehaviour
     {
         m_Tilemap = GetComponentInChildren<Tilemap>();
 
+        m_BoardData = new CellData[Width, Height];
 
         for (int y = 0; y < Height; ++y)
         {
             for (int x = 0; x < Width; ++x)
             {
                 Tile tile;
+                m_BoardData[x, y] = new CellData();
 
                 if (IsBorder(x, y) && !IsCorridor(x, y))
                 {
                     tile = GetWallTile(x, y);
+                    m_BoardData[x, y].Passable = false;
                     m_Tilemap.SetTile(new Vector3Int(x, y, 1), tile);
+                }
+                else
+                {
+                    m_BoardData[x, y].Passable = true;
                 }
 
                 // Also have floor behind the walls

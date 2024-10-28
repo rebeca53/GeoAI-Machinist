@@ -42,7 +42,6 @@ public class UIHandler : MonoBehaviour
     {
         DisplayDialogue("Your first mission is labeling all these images by placing them in the correct container." +
     "This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again.");
-
     }
 
     public IEnumerator MultiPageDisplayIntroduction()
