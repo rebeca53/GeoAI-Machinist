@@ -5,21 +5,9 @@ using Unity.Collections;
 using UnityEngine;
 //Tells Random to use the Unity Engine random number generator.
 using Random = UnityEngine.Random;
+// TODO: Have an Abstract class for all Board Manager
 public class BoardManager : MonoBehaviour
 {
-    [Serializable]
-    public class Count
-    {
-        public int minimum;
-        public int maximum;
-
-        public Count(int min, int max)
-        {
-            maximum = max;
-            minimum = min;
-        }
-    }
-
     // size of the game board
     public int columns = 8;
     public int rows = 8;
@@ -36,7 +24,6 @@ public class BoardManager : MonoBehaviour
     public GameObject containerTile;
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
-
 
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList()
@@ -246,7 +233,7 @@ public class BoardManager : MonoBehaviour
     }
 
     //SetupScene initializes our level and calls the previous functions to lay out the game board
-    public void SetupScene(int level)
+    public void SetupScene()
     {
         //Creates the outer walls and floor.
         BoardSetup();

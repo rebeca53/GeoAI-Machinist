@@ -51,7 +51,7 @@ public class UIHandler : MonoBehaviour
         yield return CoroutineDisplay("As the GeoAI Machinist, your mission is to fix the Big Machine, a space station that surveys Earth and intervenes on emergency situations.", 8);
         yield return CoroutineDisplay("The ancient knowledge needed to fix the malfunction is almost lost, only the GeoAI Machinist has been trained to hold this knowledge and can save humanity.", 10);
         yield return CoroutineDisplay("Your first mission is labeling all these images by placing them in the correct container." +
-        "This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again.");
+        "This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again.", 12);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Enable();
     }
