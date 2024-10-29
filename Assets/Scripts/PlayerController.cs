@@ -3,10 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // Position
-    private OverviewBoardManager m_Board;
-    private Vector2Int m_CellPosition;
-
     // Movement
     [SerializeField] private float moveSpeed = 1.5f;
     private Rigidbody2D rb;
@@ -47,11 +43,9 @@ public class PlayerController : MonoBehaviour
 
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
-        m_Board = boardManager;
-        m_CellPosition = cell;
-
-        transform.position = m_Board.CellToWorld(cell);
+        transform.position = boardManager.CellToWorld(cell);
     }
+
     public void ChangeMoney(int amount)
     {
         currentMoney += amount;
