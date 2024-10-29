@@ -15,6 +15,7 @@ public class OverviewBoardManager : MonoBehaviour
     private CellData[,] m_BoardData;
 
     private Tilemap m_Tilemap;
+    private Tilemap m_Wallsmap;
     private Grid m_Grid;
 
     public int Width;
@@ -29,6 +30,7 @@ public class OverviewBoardManager : MonoBehaviour
     void Start()
     {
         m_Tilemap = GetComponentInChildren<Tilemap>();
+        m_Wallsmap = GameObject.Find("Walls").GetComponent<Tilemap>();
         m_Grid = GetComponentInChildren<Grid>();
 
         m_BoardData = new CellData[Width, Height];
@@ -44,7 +46,7 @@ public class OverviewBoardManager : MonoBehaviour
                 {
                     tile = GetWallTile(x, y);
                     m_BoardData[x, y].Passable = false;
-                    m_Tilemap.SetTile(new Vector3Int(x, y, 1), tile);
+                    m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
                 }
                 else
                 {
@@ -57,6 +59,7 @@ public class OverviewBoardManager : MonoBehaviour
             }
         }
         Player.Spawn(this, new Vector2Int(1, 1));
+
     }
 
     private bool IsBorder(int x, int y)
