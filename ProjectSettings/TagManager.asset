@@ -8,6 +8,7 @@ TagManager:
   - Container
   - Exit
   - Coin
+  - CNNLayer
   layers:
   - Default
   - TransparentFX
