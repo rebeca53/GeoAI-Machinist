@@ -16,7 +16,20 @@ public class UIHandler : MonoBehaviour
     bool displayingDialogue = false;
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+
+        UIDocument uiDocument = GetComponent<UIDocument>();
+        m_NonPlayerDialogue = uiDocument.rootVisualElement.Q<VisualElement>("NPCDialogue");
+        m_NonPlayerDialogue.style.display = DisplayStyle.None;
     }
 
     // Start is called before the first frame update

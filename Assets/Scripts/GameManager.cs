@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     public int playerCoinPoints = 0;
 
     // TODO: have all the levels possibilities and have a state machine that defines the transition from one to another
-    private int level = 1;
+    private int currentLevel = 1;
 
     void Awake()
     {
@@ -33,8 +34,20 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-        // boardScript.SetupScene();
+        boardScript.SetupScene();
+    }
+
+    public void GoNextLevel()
+    {
+        switch (currentLevel)
+        {
+            case 1:
+                UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+                break;
+            default:
+                break;
+        }
+        currentLevel++;
     }
 
     // Update is called once per frame
