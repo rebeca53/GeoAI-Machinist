@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    // Position
+    private OverviewBoardManager m_Board;
+    private Vector2Int m_CellPosition;
+
     // Movement
     [SerializeField] private float moveSpeed = 1.5f;
     private Rigidbody2D rb;
@@ -12,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     // Action
-    bool isEnabled = false;
+    bool isEnabled = true;
     bool spaceAction = false;
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
@@ -36,9 +40,17 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Enable()
+    public void SetEnable(bool enable)
     {
-        isEnabled = true;
+        isEnabled = enable;
+    }
+
+    public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
+    {
+        m_Board = boardManager;
+        m_CellPosition = cell;
+
+        transform.position = m_Board.CellToWorld(cell);
     }
     public void ChangeMoney(int amount)
     {

@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        boardScript.SetupScene();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        // boardScript.SetupScene();
     }
 
     // Update is called once per frame

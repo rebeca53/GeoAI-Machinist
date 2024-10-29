@@ -15,6 +15,7 @@ public class OverviewBoardManager : MonoBehaviour
     private CellData[,] m_BoardData;
 
     private Tilemap m_Tilemap;
+    private Grid m_Grid;
 
     public int Width;
     public int Height;
@@ -22,10 +23,13 @@ public class OverviewBoardManager : MonoBehaviour
 
     public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
 
+    public PlayerController Player;
+
     // Start is called before the first frame update
     void Start()
     {
         m_Tilemap = GetComponentInChildren<Tilemap>();
+        m_Grid = GetComponentInChildren<Grid>();
 
         m_BoardData = new CellData[Width, Height];
 
@@ -52,6 +56,7 @@ public class OverviewBoardManager : MonoBehaviour
                 m_Tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
         }
+        Player.Spawn(this, new Vector2Int(1, 1));
     }
 
     private bool IsBorder(int x, int y)
@@ -117,9 +122,8 @@ public class OverviewBoardManager : MonoBehaviour
         return WallTiles[1];
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 CellToWorld(Vector2Int cellIndex)
     {
-
+        return m_Grid.GetCellCenterWorld((Vector3Int)cellIndex);
     }
 }
