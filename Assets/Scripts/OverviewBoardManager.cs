@@ -20,6 +20,9 @@ public class OverviewBoardManager : MonoBehaviour
 
     public GameObject cnnLayerRoom;
 
+    public GameObject inputHolder;
+    public GameObject sampleTile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +50,7 @@ public class OverviewBoardManager : MonoBehaviour
         Player.Spawn(this, new Vector2Int(1, 1));
 
         LayoutCNNLayers();
+        LayoutInputHolder();
     }
 
     private bool IsBorder(int x, int y)
@@ -145,6 +149,23 @@ public class OverviewBoardManager : MonoBehaviour
             GameObject instance = Instantiate(tileChoice, fixedPosition, Quaternion.identity);
             instance.GetComponent<CNNLayer>().DrawConnection();
         }
+    }
 
+    void LayoutInputHolder()
+    {
+        Debug.Log("Layout Input Holder");
+        GameObject instance = Instantiate(inputHolder, new Vector3(1f, 9f, 0f), Quaternion.identity);
+        InputHolder script = instance.GetComponent<InputHolder>();
+        // script.Spawn(this, new Vector2Int(1, 9));
+        script.DrawConnection();
+
+        LayoutSample(script);
+    }
+
+    void LayoutSample(InputHolder inputHolder)
+    {
+        GameObject instance = Instantiate(sampleTile, new Vector3(1f, 10f, 0f), Quaternion.identity);
+        SampleBox sampleBox = instance.GetComponent<SampleBox>();
+        inputHolder.FeedInputSample(sampleBox);
     }
 }

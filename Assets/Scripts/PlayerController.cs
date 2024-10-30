@@ -178,6 +178,18 @@ public class PlayerController : MonoBehaviour
         grabbedObject = null;
     }
 
+    private void FillInputHolder()
+    {
+        // Debug.Log("drop object onto container");
+
+        InputHolder inputHolder = nearObject.GetComponent<InputHolder>();
+        SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
+
+        inputHolder.FeedInputSample(sampleBox);
+
+        grabbedObject = null;
+    }
+
     private void OnSpaceAction()
     {
         if (nearObject.CompareTag("Exit"))
@@ -191,6 +203,10 @@ public class PlayerController : MonoBehaviour
             if (nearObject.CompareTag("Container"))
             {
                 AttemptToFillAContainer();
+            }
+            else if (nearObject.CompareTag("InputHolder"))
+            {
+                FillInputHolder();
             }
             else
             {
