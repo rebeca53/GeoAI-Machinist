@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -131,15 +132,27 @@ public class OverviewBoardManager : MonoBehaviour
         //Instantiate objects until the randomly chosen limit objectCount is reached
         for (int i = 0; i < CNNArchitecture.Count; i++)
         {
-            CNNLayer container = tileChoice.GetComponent<CNNLayer>();
-            container.type = CNNArchitecture[i];
+            CNNLayer cnnLayer = tileChoice.GetComponent<CNNLayer>();
+            cnnLayer.type = CNNArchitecture[i];
 
             //Declare a variable of type Vector3 called fixedPosition, set it's value to the entry at fixedIndex from our List gridPositions.
             Vector3 fixedPosition = positions[i];
-            Debug.Log("place at " + fixedPosition);
+            Debug.Log("place at " + fixedPosition.x);
 
             //Instantiate tileChoice at the position
             Instantiate(tileChoice, fixedPosition, Quaternion.identity);
+            // cnnLayer.Reset();
+
+            if (fixedPosition.x == 12f)
+            {
+                Debug.Log("Is end of row: " + cnnLayer.type);
+            }
+            else
+            {
+                Debug.Log("It is not end of row " + cnnLayer.type);
+            }
+            cnnLayer.DrawConnection(new(0, -1f, 0), new(1.5f, -0.5f, 0));
+
         }
     }
 }
