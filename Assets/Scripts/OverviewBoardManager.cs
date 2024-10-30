@@ -19,7 +19,6 @@ public class OverviewBoardManager : MonoBehaviour
     public PlayerController Player;
 
     public GameObject cnnLayerRoom;
-    List<string> CNNArchitecture = new List<string> { "Input", "Convolutional", "Activation", "Convolutional", "Activation", "Pooling", "Convolutional", "Activation", "Convolutional", "Activation", "Pooling", "Output" };
 
     // Start is called before the first frame update
     void Start()
@@ -120,39 +119,32 @@ public class OverviewBoardManager : MonoBehaviour
 
     void LayoutCNNLayers()
     {
-        GameObject tileChoice = cnnLayerRoom;
+        Debug.Log("Layout CNN Layer");
+        // // TODO: Read layers from actual CNN model
 
-        Vector3[] positions = {
+        List<string> layerNames = new List<string> {
+            "Input", "Convolutional 1", "Activation 1", "Convolutional 2",
+            "Activation 2", "Pooling 1", "Convolutional 3", "Activation 3",
+            "Convolutional 4", "Activation 4", "Pooling 2", "Output" };
+        List<Vector3> positions = new List<Vector3> {
             new Vector3(3f, 9f, 0f), new Vector3(6f, 9f, 0f), new Vector3(9f, 9f, 0f), new Vector3(12f, 9f, 0f),
             new Vector3(3f, 6f, 0f), new Vector3(6f, 6f, 0f), new Vector3(9f, 6f, 0f), new Vector3(12f, 6f, 0f),
             new Vector3(3f, 3f, 0f), new Vector3(6f, 3f, 0f), new Vector3(9f, 3f, 0f), new Vector3(12f, 3f, 0f)
         };
 
-        // TODO: Read layers from actual CNN model
-        //Instantiate objects until the randomly chosen limit objectCount is reached
-        for (int i = 0; i < CNNArchitecture.Count; i++)
+        GameObject tileChoice = cnnLayerRoom;
+
+        for (int i = 0; i < 12; i++)
         {
             CNNLayer cnnLayer = tileChoice.GetComponent<CNNLayer>();
-            cnnLayer.type = CNNArchitecture[i];
+            cnnLayer.type = layerNames[i];
+            cnnLayer.isEndOfRow = cnnLayer.type.Equals("Convolutional 2") || cnnLayer.type.Equals("Activation 3") || cnnLayer.type.Equals("Output");
 
-            //Declare a variable of type Vector3 called fixedPosition, set it's value to the entry at fixedIndex from our List gridPositions.
             Vector3 fixedPosition = positions[i];
-            Debug.Log("place at " + fixedPosition.x);
 
-            //Instantiate tileChoice at the position
-            Instantiate(tileChoice, fixedPosition, Quaternion.identity);
-            // cnnLayer.Reset();
-
-            if (fixedPosition.x == 12f)
-            {
-                Debug.Log("Is end of row: " + cnnLayer.type);
-            }
-            else
-            {
-                Debug.Log("It is not end of row " + cnnLayer.type);
-            }
-            cnnLayer.DrawConnection(new(0, -1f, 0), new(1.5f, -0.5f, 0));
-
+            GameObject instance = Instantiate(tileChoice, fixedPosition, Quaternion.identity);
+            instance.GetComponent<CNNLayer>().DrawConnection();
         }
+
     }
 }

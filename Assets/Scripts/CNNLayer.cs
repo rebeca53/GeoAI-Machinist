@@ -6,6 +6,7 @@ public class CNNLayer : MonoBehaviour
 {
     public string type;
     private TextMeshPro label;
+    public bool isEndOfRow = false;
 
     private LineRenderer lineRenderer;
 
@@ -14,9 +15,38 @@ public class CNNLayer : MonoBehaviour
     {
         label = gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
         label.text = type;
-
-        lineRenderer = GameObject.Find("Line").GetComponent<LineRenderer>();
     }
+
+    public void DrawConnection()
+    {
+        Debug.Log("cnn layer position is " + transform.position);
+        Debug.Log("cnn layer local position is " + transform.localPosition);
+        if (type.Equals("Output"))
+        {
+            Transform line = transform.Find("Line");
+            if (line == null)
+            {
+                Debug.LogError("Failed to retrieve Line");
+            }
+            LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+            if (lineRenderer == null)
+            {
+                Debug.LogError("Failed to retrieve LineRenderer");
+            }
+            lineRenderer.positionCount = 0;
+            return;
+        }
+
+        if (isEndOfRow)
+        {
+            DrawLongConnection(new(0, -1f, 0), new(-10f, -3f, 0));
+        }
+        else
+        {
+            DrawConnection(new(0, -1f, 0), new(1.5f, -0.5f, 0));
+        }
+    }
+
 
     public void DrawConnection(Vector3 startPoint, Vector3 endPoint)
     {
@@ -33,6 +63,23 @@ public class CNNLayer : MonoBehaviour
         Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine();
+    }
+
+    public void DrawLongConnection(Vector3 startPoint, Vector3 endPoint)
+    {
+        Transform line = transform.Find("Line");
+        if (line == null)
+        {
+            Debug.LogError("Failed to retrieve Line");
+        }
+        LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+        {
+            Debug.LogError("Failed to retrieve LineRenderer");
+        }
+        Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
+        Connection conn = new(startPoint, endPoint, lineRenderer);
+        conn.DrawLongLine();
     }
 
     class Connection
@@ -78,6 +125,31 @@ public class CNNLayer : MonoBehaviour
             for (float ratio = 0; ratio <= 1; ratio += 0.1f)
             {
                 Vector3 curve = EvaluateSlerpPoint(center, End, -1 * offset, ratio);
+                line.Add(curve);
+            }
+
+            lineRenderer.positionCount = line.Count;
+            lineRenderer.SetPositions(line.ToArray());
+        }
+
+        public void DrawLongLine()
+        {
+            List<Vector3> line = new List<Vector3>();
+            Vector3 firstStop = new(Begin.x - 1f, (Begin.y + End.y) / 2, 0f);
+            Vector3 secondStop = new(End.x + 1f, (Begin.y + End.y) / 2, 0f);
+            Debug.Log("Set positions: ");
+
+            float offset = 0.5f;
+
+            for (float ratio = 0; ratio <= 1; ratio += 0.1f)
+            {
+                Vector3 curve = EvaluateSlerpPoint(Begin, firstStop, offset, ratio);
+                line.Add(curve);
+            }
+
+            for (float ratio = 0; ratio <= 1; ratio += 0.1f)
+            {
+                Vector3 curve = EvaluateSlerpPoint(secondStop, End, -1 * offset, ratio);
                 line.Add(curve);
             }
 
