@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,6 +16,9 @@ public class OverviewBoardManager : MonoBehaviour
     public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
 
     public PlayerController Player;
+
+    public GameObject cnnLayerRoom;
+    List<string> CNNArchitecture = new List<string> { "Input", "Convolutional", "Activation", "Convolutional", "Activation", "Pooling", "Convolutional", "Activation", "Convolutional", "Activation", "Pooling", "Output" };
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,7 @@ public class OverviewBoardManager : MonoBehaviour
         }
         Player.Spawn(this, new Vector2Int(1, 1));
 
+        LayoutCNNLayers();
     }
 
     private bool IsBorder(int x, int y)
@@ -113,5 +115,31 @@ public class OverviewBoardManager : MonoBehaviour
     public Vector3 CellToWorld(Vector2Int cellIndex)
     {
         return m_Grid.GetCellCenterWorld((Vector3Int)cellIndex);
+    }
+
+    void LayoutCNNLayers()
+    {
+        GameObject tileChoice = cnnLayerRoom;
+
+        Vector3[] positions = {
+            new Vector3(3f, 9f, 0f), new Vector3(6f, 9f, 0f), new Vector3(9f, 9f, 0f), new Vector3(12f, 9f, 0f),
+            new Vector3(3f, 6f, 0f), new Vector3(6f, 6f, 0f), new Vector3(9f, 6f, 0f), new Vector3(12f, 6f, 0f),
+            new Vector3(3f, 3f, 0f), new Vector3(6f, 3f, 0f), new Vector3(9f, 3f, 0f), new Vector3(12f, 3f, 0f)
+        };
+
+        // TODO: Read layers from actual CNN model
+        //Instantiate objects until the randomly chosen limit objectCount is reached
+        for (int i = 0; i < CNNArchitecture.Count; i++)
+        {
+            CNNLayer container = tileChoice.GetComponent<CNNLayer>();
+            container.type = CNNArchitecture[i];
+
+            //Declare a variable of type Vector3 called fixedPosition, set it's value to the entry at fixedIndex from our List gridPositions.
+            Vector3 fixedPosition = positions[i];
+            Debug.Log("place at " + fixedPosition);
+
+            //Instantiate tileChoice at the position
+            Instantiate(tileChoice, fixedPosition, Quaternion.identity);
+        }
     }
 }

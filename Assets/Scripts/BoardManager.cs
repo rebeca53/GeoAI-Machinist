@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 //Tells Random to use the Unity Engine random number generator.
 using Random = UnityEngine.Random;

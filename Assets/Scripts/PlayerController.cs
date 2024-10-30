@@ -91,6 +91,11 @@ public class PlayerController : MonoBehaviour
     }
     public void Move(InputAction.CallbackContext context)
     {
+        if (!isEnabled)
+        {
+            return;
+        }
+
         animator.SetBool("playerWalk", true);
 
         if (context.canceled)

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 480702542}
   - component: {fileID: 480702544}
   - component: {fileID: 480702543}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,8 +193,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1003343121
-  m_SortingLayer: 3
+  m_SortingLayerID: 1708531127
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -315,7 +315,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -340,7 +340,7 @@ Transform:
   m_GameObject: {fileID: 1314770080}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 4, z: -10}
+  m_LocalPosition: {x: 8, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -691,8 +691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fcc7c78a079214e8919925baa732fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 8
-  Height: 8
+  Width: 16
+  Height: 12
   GroundTiles:
   - {fileID: 11400000, guid: 967b4f843c995844d8c50dcb48352747, type: 2}
   - {fileID: 11400000, guid: 951eb6ee6b4d23a48b8f63f76adf46d6, type: 2}
@@ -707,66 +707,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e45b6be6d3fa1e44fb919dd3c0a6164e, type: 2}
   - {fileID: 11400000, guid: ac71bbeaff8a12344b2d52f6e8cce75e, type: 2}
   Player: {fileID: 517288183}
---- !u!1001 &341806122307068722
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2211488293589547634, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_Name
-      value: CNNLayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.9330907
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.801678
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.02580243
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2497358886621176569, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1967295905126169353, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
+  cnnLayerRoom: {fileID: 2211488293589547634, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -774,4 +715,3 @@ SceneRoots:
   - {fileID: 1314770083}
   - {fileID: 1800234212}
   - {fileID: 1740082963}
-  - {fileID: 341806122307068722}

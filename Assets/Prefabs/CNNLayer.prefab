@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6639892304708573832}
   - component: {fileID: 5334523731915269932}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SquareTopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1708531127
-  m_SortingLayer: 1
+  m_SortingLayerID: 27589227
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2497358886621176569}
   - component: {fileID: 1826013886347846086}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CNNLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b744dd3f2b05d42b900ae31f0f646d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 
+  type: Output
 --- !u!1 &4622687814682402773
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6887120282692135426}
   - component: {fileID: 3436168962481167904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SquareBottomLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,8 +378,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1708531127
-  m_SortingLayer: 1
+  m_SortingLayerID: 1003343121
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 9007014667548674730}
   - component: {fileID: 2199342243915032970}
   - component: {fileID: 4767472243078023627}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,8 +718,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1708531127
-  m_SortingLayer: 1
+  m_SortingLayerID: 1003343121
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -871,7 +871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8968289619348904660}
   - component: {fileID: 8708676503982955009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SquareTopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,8 +931,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1708531127
-  m_SortingLayer: 1
+  m_SortingLayerID: 27589227
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
