@@ -23,17 +23,7 @@ public class CNNLayer : MonoBehaviour
         Debug.Log("cnn layer local position is " + transform.localPosition);
         if (type.Equals("Output"))
         {
-            Transform line = transform.Find("Line");
-            if (line == null)
-            {
-                Debug.LogError("Failed to retrieve Line");
-            }
-            LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
-            if (lineRenderer == null)
-            {
-                Debug.LogError("Failed to retrieve LineRenderer");
-            }
-            lineRenderer.positionCount = 0;
+            DrawConnection(new(0, -1f, 0), new(3.5f, 2f, 0));
             return;
         }
 
