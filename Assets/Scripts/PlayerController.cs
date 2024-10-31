@@ -46,6 +46,11 @@ public class PlayerController : MonoBehaviour
         transform.position = boardManager.CellToWorld(cell);
     }
 
+    public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
+    {
+        transform.position = boardManager.CellToWorld(cell);
+    }
+
     public void ChangeMoney(int amount)
     {
         currentMoney += amount;

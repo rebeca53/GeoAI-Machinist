@@ -12,6 +12,8 @@ public class OverviewBoardManager : MonoBehaviour
 
     public int Width;
     public int Height;
+    float startCorridor;
+    float endCorridor;
     public Tile[] GroundTiles;
 
     public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
@@ -26,6 +28,9 @@ public class OverviewBoardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startCorridor = Height * (1f / 3f);
+        endCorridor = Height * (2f / 3f);
+
         m_Tilemap = GetComponentInChildren<Tilemap>();
         m_Wallsmap = GameObject.Find("Walls").GetComponent<Tilemap>();
         m_Grid = GetComponentInChildren<Grid>();
@@ -90,6 +95,16 @@ public class OverviewBoardManager : MonoBehaviour
         if (x == Width - 1 && y == Height - 1) // TopRight
         {
             return WallTiles[2];
+        }
+
+        if (x == Width - 1 && y == startCorridor) // Corner Bottom Right
+        {
+            return WallTiles[9];
+        }
+
+        if (x == Width - 1 && y == endCorridor) // Corner Top Right
+        {
+            return WallTiles[8];
         }
 
         if (x == 0) // Left
