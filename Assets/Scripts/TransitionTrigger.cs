@@ -8,16 +8,16 @@ public class TransitionTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Debug.Log("Something entered the Transition trigger: " + other.tag);
-        if (sceneLoaded)
-        {
-            sceneLoaded = false;
-            SceneManager.UnloadSceneAsync(SceneIndex);
-        }
-        else
-        {
-            sceneLoaded = true;
-            SceneManager.LoadSceneAsync(SceneIndex, LoadSceneMode.Additive);
-        }
+        // // Debug.Log("Something entered the Transition trigger: " + other.tag);
+        // if (sceneLoaded)
+        // {
+        //     sceneLoaded = false;
+        //     SceneManager.UnloadSceneAsync(SceneIndex);
+        // }
+        // else
+        // {
+        //     sceneLoaded = true;
+        //     SceneManager.LoadSceneAsync(SceneIndex, LoadSceneMode.Additive);
+        // }
     }
 }

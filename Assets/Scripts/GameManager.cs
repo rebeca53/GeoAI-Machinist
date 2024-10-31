@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(3, UnityEngine.SceneManagement.LoadSceneMode.Additive);
                 break;
             default:
                 break;
