@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OverviewScene.unity
     guid: 581b9c3186865c446bb89585165a9e1b
+  - enabled: 1
+    path: Assets/Scenes/CorridorScene.unity
+    guid: e203e455e49e89742ab61c8096d7ee40
+  - enabled: 1
+    path: Assets/Scenes/CommandCenterScene.unity
+    guid: 6b400fa67dc04114aa0acc615c6b5154
   m_configObjects: {}
