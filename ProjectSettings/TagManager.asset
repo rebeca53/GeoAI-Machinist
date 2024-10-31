@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - CNNLayer
   - InputHolder
+  - Computer
   layers:
   - Default
   - TransparentFX
