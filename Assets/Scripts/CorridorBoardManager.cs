@@ -36,7 +36,6 @@ public class CorridorBoardManager : MonoBehaviour
         {
             for (int x = 0; x < Width; ++x)
             {
-                Tile tile;
                 // Draw Corridor
                 if (IsCorridor(x, y))
                 {
@@ -47,9 +46,8 @@ public class CorridorBoardManager : MonoBehaviour
                 }
             }
         }
+
     }
-
-
 
     private bool IsCorridor(int x, int y)
     {

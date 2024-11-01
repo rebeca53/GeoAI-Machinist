@@ -61,15 +61,6 @@ public class CommandCenterBoardManager : MonoBehaviour
 
     private bool IsBorder(int x, int y)
     {
-        // if (y < startCorridor)
-        // {
-        //     return false;
-        // }
-        // if (y > startCorridor && y <= endCorridor)
-        // {
-        //     return false;
-        // }
-
         return x == 0 || y == 0 || x == Width - 1 || y == Height - 1;
     }
 
