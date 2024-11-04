@@ -222,9 +222,13 @@ public class InputMiniGameManager : MonoBehaviour
 
     private void DrawBandRegion()
     {
-        // Message
-        // Color
+        // Game Object - Prefab
+        // positions pre-defined - a tiny label for each
+        // rectangle with matching color
+        // Connections towards the end of the room foreach rectangle
         // Label
+        // Message - display on Stay
+        // void MatchSpectralBand() -> place the different bands of the same Sample aligned (same position)
     }
 
     private void GameOver()
