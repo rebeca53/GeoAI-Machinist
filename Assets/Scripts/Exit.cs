@@ -80,8 +80,7 @@ public class Exit : MonoBehaviour
 
             yield return new WaitForSeconds(changeLevelDelay); // wait time
 
-            //Load the last scene loaded, in this case Main, the only scene in the game.
-            GameManager.instance.GoNextLevel();
+            GameManager.instance.StartOverviewScene();
         }
         else
         {

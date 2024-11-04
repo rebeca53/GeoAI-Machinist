@@ -34,25 +34,23 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene();
     }
 
-    public void GoNextLevel()
+    public void StartOverviewScene()
     {
-        switch (currentLevel)
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(3, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+    }
+
+    public void StartMiniGame(string type)
+    {
+        switch (type)
         {
-            case 1:
-                UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(3, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            case "Input":
+                UnityEngine.SceneManagement.SceneManager.LoadScene(4);
                 break;
             default:
                 break;
         }
-        currentLevel++;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void GameOver()
