@@ -19,12 +19,9 @@ public class CameraZoom : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
-            Debug.Log("Mouse screoll " + scroll);
             orthoSize = Input.GetAxis("Mouse ScrollWheel") * sensitivity;
             orthoSize = virtualCamera.m_Lens.OrthographicSize - orthoSize;
-            Debug.Log("new Ortho sieze " + orthoSize);
             orthoSize = Mathf.Clamp(orthoSize, MinOrthoSize, MaxOrthoSize);
-            Debug.Log("clamped ortho size " + orthoSize);
 
             virtualCamera.m_Lens.OrthographicSize = orthoSize;
         }

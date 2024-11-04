@@ -11,6 +11,7 @@ TagManager:
   - CNNLayer
   - InputHolder
   - Computer
+  - SpectralBand
   layers:
   - Default
   - TransparentFX

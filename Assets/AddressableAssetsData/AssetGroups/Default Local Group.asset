@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3356fd07acd7fca479675b0e827ee1fb
+  m_SerializeEntries:
+  - m_GUID: 5ef8514c132163d4990830cdac6774fb
+    m_Address: AnnualCrop_1_Blue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a4c1032c70b39a47a8afbded7eb9793
+    m_Address: AnnualCrop_1_Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 926d3bb3fbb4a4c4e93355a9018045f4
+    m_Address: AnnualCrop_1_SWIR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c377d08d59d39f141afe037ffd5f68dd
+    m_Address: AnnualCrop_1_Red
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eaed95ec234c7d94282a81b8137f3f5b
+    m_Address: AnnualCrop_1_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a46327587bc469446a0e2f0634d9fa2b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 983c2728f833a774898cdbab5eac8f36, type: 2}
+    - {fileID: 11400000, guid: cdb4844aa65cc2646b4409edeb22b06b, type: 2}

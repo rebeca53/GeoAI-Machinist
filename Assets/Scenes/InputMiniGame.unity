@@ -198,6 +198,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac71bbeaff8a12344b2d52f6e8cce75e, type: 2}
   Player: {fileID: 457495160}
   NPC: {fileID: 925519514}
+  sampleTiles:
+  - {fileID: 6251051242839970032, guid: f459c631a6e49994b8b3ecf4eebcb191, type: 3}
+  - {fileID: 7968378284765316319, guid: 5f9998f2950756b4c944cf98a47ece9b, type: 3}
+  - {fileID: 4337719924756294856, guid: 18edb2361dc5a7941a621307af543171, type: 3}
+  - {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
+  spectralBandTile: {fileID: 1569074529029992454, guid: f15a5eb81e5083148a4dd11ee71cb6da, type: 3}
 --- !u!1001 &457495158
 PrefabInstance:
   m_ObjectHideFlags: 0

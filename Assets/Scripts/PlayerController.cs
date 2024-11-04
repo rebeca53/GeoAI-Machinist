@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -137,7 +138,9 @@ public class PlayerController : MonoBehaviour
 
     private void GrabSampleBox()
     {
-        if (nearObject == null || !nearObject.CompareTag("SampleBox"))
+        Debug.Log("grab " + nearObject.tag);
+
+        if (nearObject == null || !(nearObject.CompareTag("SampleBox") || nearObject.CompareTag("SpectralBand")))
         {
             return;
         }
@@ -153,6 +156,18 @@ public class PlayerController : MonoBehaviour
         nearObject.transform.position = playerObj.transform.position;
 
         grabbedObject = nearObject;
+    }
+
+    private void BreakSampleBox()
+    {
+        Debug.Log("break " + nearObject.tag);
+        if (nearObject == null || !nearObject.CompareTag("SampleBox"))
+        {
+            return;
+        }
+
+        SampleBox sampleBox = nearObject.GetComponent<SampleBox>();
+        sampleBox.BreakMultiband();
     }
 
     private void DropObject()
@@ -230,6 +245,7 @@ public class PlayerController : MonoBehaviour
         // TODO: improve the context of an action
         if (grabbedObject)
         {
+            Debug.Log("space action and BUT grabbed object");
             if (nearObject.CompareTag("Container"))
             {
                 AttemptToFillAContainer();
@@ -245,7 +261,26 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            GrabSampleBox();
+            Debug.Log("space action and no grabbed object");
+            if (nearObject.CompareTag("SampleBox"))
+            {
+                Scene currentScene = SceneManager.GetActiveScene();
+                // Retrieve the name of this scene.
+                string sceneName = currentScene.name;
+                if (sceneName == "InputMiniGame")
+                {
+                    BreakSampleBox();
+                }
+                else
+                {
+                    GrabSampleBox();
+                }
+            }
+            else if (nearObject.CompareTag("SpectralBand"))
+            {
+                GrabSampleBox();
+            }
+
         }
     }
 

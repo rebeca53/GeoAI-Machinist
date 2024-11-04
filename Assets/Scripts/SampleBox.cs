@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SampleBox : MonoBehaviour
 {
+    public event Action<string, Vector3> OnBreak;
     public string type;
     private BoxCollider2D boxCollider;
 
@@ -18,6 +19,12 @@ public class SampleBox : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider2D>();
         type = gameObject.name.Substring(0, gameObject.name.LastIndexOf("_"));
+    }
+
+    public void BreakMultiband()
+    {
+        OnBreak?.Invoke(type, transform.position);
+        Destroy(gameObject);
     }
 
 }

@@ -122,6 +122,7 @@ public class BoardManager : MonoBehaviour
         instance.transform.SetParent(boardHolder);
     }
 
+    // TODO: Move to Abstract class
     //RandomPosition returns a random position from our list gridPositions.
     Vector3 RandomPosition()
     {
