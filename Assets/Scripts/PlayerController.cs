@@ -51,14 +51,15 @@ public class PlayerController : MonoBehaviour
         transform.position = boardManager.CellToWorld(cell);
     }
 
+    public void Spawn(InputMiniGameManager boardManager, Vector2Int cell)
+    {
+        transform.position = boardManager.CellToWorld(cell);
+    }
+
     public void ChangeMoney(int amount)
     {
         currentMoney += amount;
         UIHandler.Instance.SetMoneyValue(currentMoney);
-    }
-
-    private void OnDisable()
-    {
         GameManager.instance.playerCoinPoints = currentMoney;
     }
 
@@ -195,13 +196,37 @@ public class PlayerController : MonoBehaviour
         grabbedObject = null;
     }
 
+    private void StartMiniGame()
+    {
+        Transform parent = nearObject.transform.parent;
+
+        if (parent != null)
+        {
+            CNNLayer layer = parent.GetComponent<CNNLayer>();
+            Debug.Log("layer " + layer.type);
+            GameManager.instance.StartMiniGame(layer.type);
+        }
+        else
+        {
+            Debug.Log("This GameObject has no parent!");
+        }
+    }
+
     private void OnSpaceAction()
     {
         if (nearObject.CompareTag("Exit"))
         {
             Exit exit = nearObject.GetComponent<Exit>();
             exit.AttemptExit();
+            return;
         }
+
+        if (nearObject.CompareTag("CNNLayer"))
+        {
+            StartMiniGame();
+            return;
+        }
+
         // TODO: improve the context of an action
         if (grabbedObject)
         {

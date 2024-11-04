@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class NonPlayerCharacter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnTriggerStay2D(Collider2D other)
     {
         Debug.Log("On trigger stay 2d " + other.tag);
@@ -23,6 +11,21 @@ public class NonPlayerCharacter : MonoBehaviour
         {
             UIHandler.Instance.DisplayIntroduction();
         }
+    }
+
+    public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
+    {
+        transform.position = boardManager.CellToWorld(cell);
+    }
+
+    public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
+    {
+        transform.position = boardManager.CellToWorld(cell);
+    }
+
+    public void Spawn(InputMiniGameManager boardManager, Vector2Int cell)
+    {
+        transform.position = boardManager.CellToWorld(cell);
     }
 
 }

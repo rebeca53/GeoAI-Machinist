@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,6 +16,7 @@ public class CorridorBoardManager : MonoBehaviour
 
     public Tile[] GroundTiles;
 
+    // TODO: remove ununsed tiles
     public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
 
 

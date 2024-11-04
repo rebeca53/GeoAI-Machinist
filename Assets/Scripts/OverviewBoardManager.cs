@@ -19,6 +19,8 @@ public class OverviewBoardManager : MonoBehaviour
     public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
 
     public PlayerController Player;
+    public NonPlayerCharacter NPC;
+
 
     public GameObject cnnLayerRoom;
 
@@ -53,11 +55,13 @@ public class OverviewBoardManager : MonoBehaviour
             }
         }
         Player.Spawn(this, new Vector2Int(1, 1));
+        NPC.Spawn(this, new Vector2Int(1, 2));
 
         LayoutCNNLayers();
         LayoutInputHolder();
     }
 
+    // TODO: move to Abstract class 
     private bool IsBorder(int x, int y)
     {
         return x == 0 || y == 0 || x == Width - 1 || y == Height - 1;
@@ -70,7 +74,7 @@ public class OverviewBoardManager : MonoBehaviour
         float startCorridor = Height * (1f / 3f);
         float endCorridor = Height * (2f / 3f);
         bool isWithinRange = y > startCorridor && y < endCorridor;
-        Debug.Log("isRight " + isRight + ", startCorridor: " + startCorridor + ", endCorridor: " + endCorridor + ", x: " + x + ", y:" + y);
+        // Debug.Log("isRight " + isRight + ", startCorridor: " + startCorridor + ", endCorridor: " + endCorridor + ", x: " + x + ", y:" + y);
         return isRight && isWithinRange;
     }
 
