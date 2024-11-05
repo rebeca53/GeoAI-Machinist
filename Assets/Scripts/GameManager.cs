@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,21 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
 
     public int playerCoinPoints = 0;
+    public Dictionary<string, bool> solvedMinigames = new()
+    {
+        {"Input", false},
+        {"Convolutional 1", false},
+        {"Activation 1", false},
+        {"Convolutional 2", false},
+        {"Activation 2", false},
+        {"Pooling 1", false},
+        {"Convolutional 3", false},
+        {"Activation 3", false},
+        {"Convolutional 4", false},
+        {"Activation 4", false},
+        {"Pooling 2", false},
+        {"Output", false}
+    };
 
     // TODO: have all the levels possibilities and have a state machine that defines the transition from one to another
     private int currentLevel = 1;
@@ -31,7 +47,9 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        boardScript.SetupScene();
+        // boardScript.SetupScene();
+        // StartOverviewScene();
+        StartMiniGame("Input");
     }
 
     public void StartOverviewScene()

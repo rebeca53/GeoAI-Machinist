@@ -33,7 +33,7 @@ public class InputMiniGameManager : MonoBehaviour
     private int padding = 2;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
-
+    private int countFull = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +61,6 @@ public class InputMiniGameManager : MonoBehaviour
         LayoutSample();
         DrawBandContainers();
     }
-
 
     // TODO: move to Abstract class
     private Tile GetFloorTile()
@@ -141,7 +140,6 @@ public class InputMiniGameManager : MonoBehaviour
         return m_Grid.GetCellCenterWorld((Vector3Int)cellIndex);
     }
 
-
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList()
     {
@@ -198,6 +196,8 @@ public class InputMiniGameManager : MonoBehaviour
         upper.y++;
         //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
         GameObject blue = Instantiate(tileChoice, upper, Quaternion.identity);
+        SampleSpectralBand scriptBlue = blue.GetComponent<SampleSpectralBand>();
+        scriptBlue.LoadSprite("AnnualCrop_1_Blue");
 
         Vector3 down = position;
         down.y--;
@@ -240,12 +240,27 @@ public class InputMiniGameManager : MonoBehaviour
             SpectralBandContainer spectralBandContainer = instance.GetComponent<SpectralBandContainer>();
             spectralBandContainer.SetType(bandTypes[i]);
             spectralBandContainer.DrawConnections(inputPosition: new(-9.9f, (Height / 2) - yPosition, 0f));
+            spectralBandContainer.OnFull += CheckWinCondition;
         }
+    }
+
+    private void CheckWinCondition(string type)
+    {
+        countFull++;
+        if (countFull == bandTypes.Count)
+        {
+            GameOver();
+        }
+    }
+
+    private void ExitWithoutSolving()
+    {
+        GameManager.instance.StartOverviewScene();
     }
 
     private void GameOver()
     {
-        // TODO: Update OverviewBoardManager
+        GameManager.instance.solvedMinigames["Input"] = true;
         GameManager.instance.StartOverviewScene();
     }
 }

@@ -1,5 +1,6 @@
 
 
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,6 +32,10 @@ public class SpectralBandContainer : MonoBehaviour
         {"swir", "SWIR (B12)"},
         {"redEdge", "Red Edge (B5)"}
     };
+
+    public event Action<string> OnFull;
+    private int countMatched = 0;
+    private const int totalMatched = 1;
 
     public void SetType(string bandType)
     {
@@ -82,7 +87,7 @@ public class SpectralBandContainer : MonoBehaviour
 
     void DisplayMessage()
     {
-        UIHandler.Instance.DisplayDialogue(typeToMessage[type]);
+        UIHandler.Instance.DisplayMessage(typeToMessage[type]);
     }
 
     public bool IsMatch(SampleSpectralBand sampleSpectralBand)
@@ -109,6 +114,12 @@ public class SpectralBandContainer : MonoBehaviour
         sampleSpectralBand.gameObject.transform.parent = parentSquare;
         sampleSpectralBand.gameObject.transform.position = new Vector3(parentSquare.position.x, parentSquare.position.y + verticalOffset);
         sampleSpectralBand.FitInContainer();
+
+        countMatched++;
+        if (countMatched == totalMatched)
+        {
+            OnFull?.Invoke(type);
+        }
     }
 
     private Transform GetSquareParent(SampleSpectralBand sampleSpectralBand)

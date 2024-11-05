@@ -9,12 +9,32 @@ public class CNNLayer : MonoBehaviour
     public bool isEndOfRow = false;
 
     private LineRenderer lineRenderer;
+    public Sprite statusBad;
+    public Sprite statusGood;
+
 
     // Start is called before the first frame update
     void Start()
     {
         label = gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
         label.text = type;
+
+        SetGameStatus();
+    }
+
+    private void SetGameStatus()
+    {
+        bool solved = GameManager.instance.solvedMinigames[type];
+        SpriteRenderer spriteRenderer = transform.Find("StatusIndicator").GetComponent<SpriteRenderer>();
+
+        if (solved)
+        {
+            spriteRenderer.sprite = statusGood;
+        }
+        else
+        {
+            spriteRenderer.sprite = statusBad;
+        }
     }
 
     public void DrawConnection()

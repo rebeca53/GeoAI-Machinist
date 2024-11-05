@@ -88,6 +88,11 @@ public class UIHandler : MonoBehaviour
         }
     }
 
+    public void DisplayMessage(string content, float time = displayTime)
+    {
+        StartCoroutine(CoroutineDisplay(content, time));
+    }
+
     // Land Use and Land Cover Classes Information
     private void DisplayClassInfo(string type)
     {

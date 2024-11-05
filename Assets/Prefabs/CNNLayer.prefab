@@ -464,6 +464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Output
   isEndOfRow: 1
+  statusBad: {fileID: 21300000, guid: 0799174d9e3c27f48870099ce87e293f, type: 3}
+  statusGood: {fileID: 21300000, guid: b4e389d2a5e399c46a24261399c9deeb, type: 3}
 --- !u!1 &4622687814682402773
 GameObject:
   m_ObjectHideFlags: 0
