@@ -54,7 +54,7 @@ public class OverviewBoardManager : MonoBehaviour
                 m_Tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
         }
-        Player.Spawn(this, new Vector2Int(1, 1));
+        Player.Spawn(this, GameManager.instance.playerPositionOverview);
         NPC.Spawn(this, new Vector2Int(1, 2));
 
         LayoutCNNLayers();

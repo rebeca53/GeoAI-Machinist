@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
 
+    public Vector2Int playerPositionOverview = new(1, 1);
+
     public int playerCoinPoints = 0;
     public Dictionary<string, bool> solvedMinigames = new()
     {
@@ -47,9 +49,9 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        // boardScript.SetupScene();
+        boardScript.SetupScene();
         // StartOverviewScene();
-        StartMiniGame("Input");
+        // StartMiniGame("Input");
     }
 
     public void StartOverviewScene()
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
         {
             case "Input":
                 UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+                playerPositionOverview = new Vector2Int(3, 8);
                 break;
             default:
                 break;

@@ -30,6 +30,10 @@ public class InputMiniGameManager : MonoBehaviour
     public GameObject spectralBandContainerTile;
     private List<Vector3> samplePositions = new List<Vector3>();
     private int regionsDelimiter = 10;
+    private float exitXPosition = 10f;
+    private Vector3 exitPosition = new(10f, 0f, 0f);
+    public GameObject exitObject;
+
     private int padding = 2;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
@@ -47,9 +51,13 @@ public class InputMiniGameManager : MonoBehaviour
             {
                 DrawFloor(x, y);
 
-                if (IsBorder(x, y))
+                if (IsBorder(x, y) && !IsExit(x, y))
                 {
                     DrawWall(x, y);
+                }
+                if (IsExit(x, y))
+                {
+                    DrawExit(x, y);
                 }
             }
         }
@@ -80,8 +88,33 @@ public class InputMiniGameManager : MonoBehaviour
         return x == 0 || y == 0 || x == Width - 1 || y == Height - 1;
     }
 
+    private bool IsExit(int x, int y)
+    {
+        bool isBottom = y == 0;
+        bool isExitRegion = x == exitXPosition || x == exitXPosition - 1 || x == exitXPosition + 1;
+        return isBottom && isExitRegion;
+    }
+
+    private void DrawExit(int x, int y)
+    {
+        if (x == exitXPosition - 1)
+        {
+            Tile tile = WallTiles[9];
+            m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
+            return;
+        }
+        if (x == exitXPosition + 1)
+        {
+            Tile tile = WallTiles[8];
+            m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
+            return;
+        }
+        Instantiate(exitObject, new Vector3(10.5f, 0.5f, 0f), Quaternion.identity);
+    }
+
     private Tile GetWallTile(int x, int y)
     {
+
         // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
         if (x == 0 && y == Height - 1) // TopLeft
         {
