@@ -32,8 +32,6 @@ public class Connection
         List<Vector3> line = new List<Vector3>();
         Vector3 center = new((Begin.x + End.x) / 2, (Begin.y + End.y) / 2, 0f);
 
-        Debug.Log("Set positions: ");
-
         for (float ratio = 0; ratio <= 1; ratio += 0.1f)
         {
             Vector3 curve = EvaluateSlerpPoint(Begin, center, offset, ratio);
@@ -55,7 +53,6 @@ public class Connection
         List<Vector3> line = new List<Vector3>();
         Vector3 firstStop = new(Begin.x - 1f, (Begin.y + End.y) / 2, 0f);
         Vector3 secondStop = new(End.x + 1f, (Begin.y + End.y) / 2, 0f);
-        Debug.Log("Set positions: ");
 
         float offset = 0.5f;
 

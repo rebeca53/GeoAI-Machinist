@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
     private void AttemptToFillAContainer()
     {
-        // Debug.Log("drop object onto container");
+        Debug.Log("drop object onto container");
 
         Container container = nearObject.GetComponent<Container>();
         SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
@@ -197,6 +197,20 @@ public class PlayerController : MonoBehaviour
 
         container.MatchContainer(sampleBox);
         grabbedObject = null;
+    }
+
+    private void AttemptToFillSpectralBandContainer()
+    {
+        Debug.Log("drop object onto SPECTRAL BAND container");
+
+        SpectralBandContainer container = nearObject.GetComponent<SpectralBandContainer>();
+        SampleSpectralBand sampleBand = grabbedObject.GetComponent<SampleSpectralBand>();
+
+        if (container.IsMatch(sampleBand))
+        {
+            container.MatchSpectralBand(sampleBand);
+            grabbedObject = null;
+        }
     }
 
     private void FillInputHolder()
@@ -254,6 +268,10 @@ public class PlayerController : MonoBehaviour
             {
                 FillInputHolder();
             }
+            else if (nearObject.CompareTag("SpectralBandContainer"))
+            {
+                AttemptToFillSpectralBandContainer();
+            }
             else
             {
                 DropObject();
@@ -306,7 +324,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("On trigger stay 2d " + other.tag);
+        // Debug.Log("On trigger stay 2d " + other.tag);
         nearObject = other.gameObject;
     }
 

@@ -19,8 +19,8 @@ public class CNNLayer : MonoBehaviour
 
     public void DrawConnection()
     {
-        Debug.Log("cnn layer position is " + transform.position);
-        Debug.Log("cnn layer local position is " + transform.localPosition);
+        // Debug.Log("cnn layer position is " + transform.position);
+        // Debug.Log("cnn layer local position is " + transform.localPosition);
         if (type.Equals("Output"))
         {
             DrawConnection(new(0, -1f, 0), new(3.5f, 2f, 0));

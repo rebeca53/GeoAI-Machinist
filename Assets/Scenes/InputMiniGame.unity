@@ -204,6 +204,7 @@ MonoBehaviour:
   - {fileID: 4337719924756294856, guid: 18edb2361dc5a7941a621307af543171, type: 3}
   - {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
   spectralBandTile: {fileID: 1569074529029992454, guid: f15a5eb81e5083148a4dd11ee71cb6da, type: 3}
+  spectralBandContainerTile: {fileID: 3192559152887246772, guid: 414c176359d6fcc4c8077bf169cad1c9, type: 3}
 --- !u!1001 &457495158
 PrefabInstance:
   m_ObjectHideFlags: 0

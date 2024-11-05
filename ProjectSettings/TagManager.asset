@@ -12,6 +12,7 @@ TagManager:
   - InputHolder
   - Computer
   - SpectralBand
+  - SpectralBandContainer
   layers:
   - Default
   - TransparentFX

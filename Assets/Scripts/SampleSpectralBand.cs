@@ -7,6 +7,72 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class SampleSpectralBand : MonoBehaviour
 {
     string address;
+    private BoxCollider2D boxCollider;
+
+
+    public string GetClass()
+    {
+        if (address.Contains("AnnualCrop"))
+        {
+            return "AnnualCrop";
+        }
+
+        if (address.Contains("Forest"))
+        {
+            return "Forest";
+        }
+
+        if (address.Contains("HerbaceousVegetation"))
+        {
+            return "HerbaceousVegetation";
+        }
+
+        if (address.Contains("Highway"))
+        {
+            return "Highway";
+        }
+
+        if (address.Contains("Industrial"))
+        {
+            return "Industrial";
+        }
+        return "";
+    }
+
+    public string GetBandType()
+    {
+        if (address.Contains("RedEdge"))
+        {
+            return "redEdge";
+        }
+
+        if (address.Contains("Red"))
+        {
+            return "red";
+        }
+
+        if (address.Contains("Green"))
+        {
+            return "green";
+        }
+
+        if (address.Contains("Blue"))
+        {
+            return "blue";
+        }
+
+        if (address.Contains("SWIR"))
+        {
+            return "swir";
+        }
+        return "";
+    }
+
+    public void FitInContainer()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider.enabled = false;
+    }
 
     public void LoadSprite(string address)
     {

@@ -43,7 +43,7 @@ public class UIHandler : MonoBehaviour
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
         message = uiDocument.rootVisualElement.Q<Label>("DialogueMessage");
 
-        StartCoroutine(MultiPageDisplayIntroduction());
+        // StartCoroutine(MultiPageDisplayIntroduction());
     }
 
     public void SetMoneyValue(int amount)

@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEditor.ShaderGraph.Internal;
 
 
 // TODO: Have an Abstract class for all Board Manager
@@ -26,8 +27,12 @@ public class InputMiniGameManager : MonoBehaviour
 
     public GameObject[] sampleTiles;
     public GameObject spectralBandTile;
-    private List<Vector3> gridPositions = new List<Vector3>();
+    public GameObject spectralBandContainerTile;
+    private List<Vector3> samplePositions = new List<Vector3>();
+    private int regionsDelimiter = 10;
+    private int padding = 2;
 
+    private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +59,7 @@ public class InputMiniGameManager : MonoBehaviour
 
         InitialiseList();
         LayoutSample();
+        DrawBandContainers();
     }
 
 
@@ -140,16 +146,16 @@ public class InputMiniGameManager : MonoBehaviour
     void InitialiseList()
     {
         //Clear our list gridPositions.
-        gridPositions.Clear();
+        samplePositions.Clear();
 
         //Loop through x axis (columns).
-        for (int x = 1; x < Width - 1; x++)
+        for (int x = 1; x < regionsDelimiter; x++)
         {
             //Within each column, loop through y axis (rows).
-            for (int y = 1; y < Height - 1; y++)
+            for (int y = padding; y < Height - padding; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(x, y, 0f));
+                samplePositions.Add(new Vector3(x, y, 0f));
             }
         }
     }
@@ -159,12 +165,12 @@ public class InputMiniGameManager : MonoBehaviour
     Vector3 RandomPosition()
     {
         //Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-        int randomIndex = Random.Range(0, gridPositions.Count);
+        int randomIndex = Random.Range(0, samplePositions.Count);
         //Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
-        Vector3 randomPosition = gridPositions[randomIndex];
+        Vector3 randomPosition = samplePositions[randomIndex];
 
         //Remove the entry at randomIndex from the list so that it can't be re-used.
-        gridPositions.RemoveAt(randomIndex);
+        samplePositions.RemoveAt(randomIndex);
 
         //Return the randomly selected Vector3 position.
         return randomPosition;
@@ -185,7 +191,7 @@ public class InputMiniGameManager : MonoBehaviour
 
     private void LayoutGrayscaleBands(string sampleBox, Vector3 position)
     {
-        Debug.Log("Break the box");
+        Debug.Log("Break the box " + sampleBox);
         GameObject tileChoice = spectralBandTile;
 
         Vector3 upper = position;
@@ -220,15 +226,21 @@ public class InputMiniGameManager : MonoBehaviour
         scriptRedEdge.LoadSprite("AnnualCrop_1_RedEdge");
     }
 
-    private void DrawBandRegion()
+    private void DrawBandContainers()
     {
-        // Game Object - Prefab
-        // positions pre-defined - a tiny label for each
-        // rectangle with matching color
-        // Connections towards the end of the room foreach rectangle
-        // Label
-        // Message - display on Stay
-        // void MatchSpectralBand() -> place the different bands of the same Sample aligned (same position)
+        float verticalGap = 2f;
+        float verticalOffset = 2f;
+        float xPosition = 10f;
+
+        for (int i = 0; i < 5; i++)
+        {
+            float yPosition = verticalOffset + i * verticalGap;
+            Vector3 position = new(xPosition, yPosition, 0f);
+            GameObject instance = Instantiate(spectralBandContainerTile, position, Quaternion.identity);
+            SpectralBandContainer spectralBandContainer = instance.GetComponent<SpectralBandContainer>();
+            spectralBandContainer.SetType(bandTypes[i]);
+            spectralBandContainer.DrawConnections(inputPosition: new(-9.9f, (Height / 2) - yPosition, 0f));
+        }
     }
 
     private void GameOver()
