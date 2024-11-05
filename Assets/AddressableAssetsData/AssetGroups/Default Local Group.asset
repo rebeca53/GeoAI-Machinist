@@ -18,102 +18,102 @@ MonoBehaviour:
   m_GUID: 3356fd07acd7fca479675b0e827ee1fb
   m_SerializeEntries:
   - m_GUID: 0ca3c343bc2399c4084f4ffa2dd19b13
-    m_Address: Forest_1_Red
+    m_Address: Forest_Red
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 23ffedfcc30f3c14385837baae80532e
-    m_Address: HerbaceousVegetation_2_Red
+    m_Address: HerbaceousVegetation_Red
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2fca6a55d58369e4683a4437d99b5879
-    m_Address: Highway_1_Green
+    m_Address: Highway_Green
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e2bc061c1b405647ac3a1a926ff452b
-    m_Address: HerbaceousVegetation_2_SWIR
+    m_Address: HerbaceousVegetation_SWIR
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40106eedaedbe54488a469ea91469df4
-    m_Address: HerbaceousVegetation_2_Blue
+    m_Address: HerbaceousVegetation_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40c1781068656664189add8adadf74df
-    m_Address: Highway_1_RedEdge
+    m_Address: Highway_RedEdge
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4d9594ed895794344b02d8a207a63fff
-    m_Address: HerbaceousVegetation_2_RedEdge
+    m_Address: HerbaceousVegetation_RedEdge
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ef8514c132163d4990830cdac6774fb
-    m_Address: AnnualCrop_1_Blue
+    m_Address: AnnualCrop_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6009f922ed88d03499be3c48ecb55e9d
-    m_Address: Highway_1_SWIR
+    m_Address: Highway_SWIR
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a4c1032c70b39a47a8afbded7eb9793
-    m_Address: AnnualCrop_1_Green
+    m_Address: AnnualCrop_Green
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 926d3bb3fbb4a4c4e93355a9018045f4
-    m_Address: AnnualCrop_1_SWIR
+    m_Address: AnnualCrop_SWIR
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac840e3ec0f5b404b988a7d642df6d82
-    m_Address: Highway_1_Blue
+    m_Address: Highway_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b6b4a2b08c1e0874a8f0ada257078047
-    m_Address: Forest_1_SWIR
+    m_Address: Forest_SWIR
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1baae699e305b34390f8e1fd2012379
-    m_Address: Forest_1_RedEdge
+    m_Address: Forest_RedEdge
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c377d08d59d39f141afe037ffd5f68dd
-    m_Address: AnnualCrop_1_Red
+    m_Address: AnnualCrop_Red
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbe0d86f2a94d9945b9bc71d340f57a6
-    m_Address: Highway_1_Red
+    m_Address: Highway_Red
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e142904176b83394b8a1d82cd2a6f86d
-    m_Address: Forest_1_Green
+    m_Address: Forest_Green
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e55c3c911df3f4a4d8592e49ff6859c2
-    m_Address: HerbaceousVegetation_2_Green
+    m_Address: HerbaceousVegetation_Green
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e763a19aef05b814f9aa7338e7bebca0
-    m_Address: Forest_1_Blue
+    m_Address: Forest_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eaed95ec234c7d94282a81b8137f3f5b
-    m_Address: AnnualCrop_1_RedEdge
+    m_Address: AnnualCrop_RedEdge
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

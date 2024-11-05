@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEditor.ShaderGraph.Internal;
-
 
 // TODO: Have an Abstract class for all Board Manager
 public class InputMiniGameManager : MonoBehaviour
@@ -209,15 +207,17 @@ public class InputMiniGameManager : MonoBehaviour
 
     private void LayoutSample()
     {
-        GameObject tileChoice = sampleTiles[0];
+        foreach (GameObject tileChoice in sampleTiles)
+        {
+            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+            Vector3 randomPosition = RandomPosition();
 
-        //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-        Vector3 randomPosition = RandomPosition();
-
-        //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-        GameObject instance = Instantiate(tileChoice, randomPosition, Quaternion.identity);
-        SampleBox sampleBox = instance.GetComponent<SampleBox>();
-        sampleBox.OnBreak += LayoutGrayscaleBands;
+            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
+            GameObject instance = Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            SampleBox sampleBox = instance.GetComponent<SampleBox>();
+            sampleBox.OnBreak += LayoutGrayscaleBands;
+        }
+        // GameObject tileChoice = sampleTiles[0];
     }
 
     private void LayoutGrayscaleBands(string sampleBox, Vector3 position)
@@ -230,33 +230,33 @@ public class InputMiniGameManager : MonoBehaviour
         //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
         GameObject blue = Instantiate(tileChoice, upper, Quaternion.identity);
         SampleSpectralBand scriptBlue = blue.GetComponent<SampleSpectralBand>();
-        scriptBlue.LoadSprite("AnnualCrop_1_Blue");
+        scriptBlue.LoadSprite(sampleBox + "_Blue");
 
         Vector3 down = position;
         down.y--;
         GameObject green = Instantiate(tileChoice, down, Quaternion.identity);
         SampleSpectralBand script = green.GetComponent<SampleSpectralBand>();
-        script.LoadSprite("AnnualCrop_1_Green");
+        script.LoadSprite(sampleBox + "_Green");
 
         Vector3 upperRight = position;
         upperRight.y++;
         upperRight.x++;
         GameObject red = Instantiate(tileChoice, upperRight, Quaternion.identity);
         SampleSpectralBand scriptRed = red.GetComponent<SampleSpectralBand>();
-        scriptRed.LoadSprite("AnnualCrop_1_Red");
+        scriptRed.LoadSprite(sampleBox + "_Red");
 
         Vector3 right = position;
         right.x++;
         GameObject swir = Instantiate(tileChoice, right, Quaternion.identity);
         SampleSpectralBand scriptSWIR = swir.GetComponent<SampleSpectralBand>();
-        scriptSWIR.LoadSprite("AnnualCrop_1_SWIR");
+        scriptSWIR.LoadSprite(sampleBox + "_SWIR");
 
         Vector3 downRight = position;
         downRight.y--;
         downRight.x++;
         GameObject redEdge = Instantiate(tileChoice, downRight, Quaternion.identity);
         SampleSpectralBand scriptRedEdge = redEdge.GetComponent<SampleSpectralBand>();
-        scriptRedEdge.LoadSprite("AnnualCrop_1_RedEdge");
+        scriptRedEdge.LoadSprite(sampleBox + "_RedEdge");
     }
 
     private void DrawBandContainers()
