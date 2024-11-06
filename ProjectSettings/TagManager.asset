@@ -13,6 +13,7 @@ TagManager:
   - Computer
   - SpectralBand
   - SpectralBandContainer
+  - VirtualCamera
   layers:
   - Default
   - TransparentFX

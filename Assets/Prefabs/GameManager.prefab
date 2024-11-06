@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   columns: 8
-  rows: 8
+  rows: 6
   containerCount: 10
   sampleCount: 10
   exit: {fileID: 1342552224242970805, guid: 4d977a9afc2d6d84788134605a8eb3bb, type: 3}
@@ -93,3 +93,4 @@ MonoBehaviour:
   - {fileID: 5893761661544321983, guid: bed6627608f3a5f4fb9d3bb17939d400, type: 3}
   containerTile: {fileID: 113377864810306097, guid: 45f1156f560c7f14288d371403d0a880, type: 3}
   NPC: {fileID: 3433668287301722486, guid: 5ca2353d8589a5b459bec930122380bd, type: 3}
+  player: {fileID: 1559715277681379453, guid: 72013fef11c50734db318fb83fc9454d, type: 3}

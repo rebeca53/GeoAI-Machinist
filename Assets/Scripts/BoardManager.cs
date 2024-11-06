@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 //Tells Random to use the Unity Engine random number generator.
 using Random = UnityEngine.Random;
@@ -22,6 +24,7 @@ public class BoardManager : MonoBehaviour
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
     public GameObject NPC;
+    public GameObject player;
 
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList()
@@ -139,43 +142,6 @@ public class BoardManager : MonoBehaviour
         return randomPosition;
     }
 
-    //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
-    {
-        //Choose a random number of objects to instantiate within the minimum and maximum limits
-        int objectCount = Random.Range(minimum, maximum + 1);
-
-        //Instantiate objects until the randomly chosen limit objectCount is reached
-        for (int i = 0; i < objectCount; i++)
-        {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition();
-
-            //Choose a random tile from tileArray and assign it to tileChoice
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
-        }
-    }
-
-    //LayoutObjectAtRandom accepts a game object to choose from along with a minimum and maximum range for the number of objects to create.
-    void LayoutObjectAtRandom(GameObject tileChoice, int minimum, int maximum)
-    {
-        //Choose a random number of objects to instantiate within the minimum and maximum limits
-        int objectCount = Random.Range(minimum, maximum + 1);
-
-        //Instantiate objects until the randomly chosen limit objectCount is reached
-        for (int i = 0; i < objectCount; i++)
-        {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition();
-
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
-        }
-    }
-
     void LayoutObjectAtRandom(GameObject tileChoice, int objectCount)
     {
         //Choose a random number of objects to instantiate within the minimum and maximum limits
@@ -256,8 +222,7 @@ public class BoardManager : MonoBehaviour
         LayoutExitFixed();
 
         UIHandler.Instance.RegisterContainers();
-
-        NPC.GetComponent<NonPlayerCharacter>().DisplayIntroduction();
+        StartCoroutine(AnimateIntroduction());
     }
 
     private void LayoutExitFixed()
@@ -268,6 +233,46 @@ public class BoardManager : MonoBehaviour
         Exit exitScript = exit.GetComponent<Exit>();
         GameObject[] containers = GameObject.FindGameObjectsWithTag("Container");
         exitScript.RegisterContainers(containers);
+    }
+
+    IEnumerator AnimateIntroduction()
+    {
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("Retrieveing object");
+        }
+
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        // Zoom in
+        cameraZoom.Block();
+        // cameraZoom.ChangeZoom(1f);
+
+        // block player
+        playerController.Disable();
+
+        // display message one
+        // Audio source plays
+        NPC.GetComponent<NonPlayerCharacter>().DisplayIntroduction();
+        yield return new WaitForSeconds(3f);
+
+        // TODO:
+        // have an animation
+        // listen to click to advance to the next message / or time out?
+        // display messages in the queue
+
+        // zoom out
+        cameraZoom.ChangeZoom(4f);
+        cameraZoom.Release();
+
+        // enable player
+        playerController.Enable();
     }
 
 }

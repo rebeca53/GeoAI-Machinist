@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Debug.Log("Hello");
+        Debug.Log("Hello");
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        TurnLeft();
         currentMoney = 0;
 
         audioSource = GetComponent<AudioSource>();
@@ -40,6 +40,16 @@ public class PlayerController : MonoBehaviour
     public void SetEnable(bool enable)
     {
         isEnabled = enable;
+    }
+
+    public void Disable()
+    {
+        isEnabled = false;
+    }
+
+    public void Enable()
+    {
+        isEnabled = true;
     }
 
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
@@ -55,6 +65,12 @@ public class PlayerController : MonoBehaviour
     public void Spawn(InputMiniGameManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
+    }
+
+    private void TurnLeft()
+    {
+        Debug.Log("Turn left");
+        animator.SetFloat("LastInputX", -1f);
     }
 
     public void ChangeMoney(int amount)
