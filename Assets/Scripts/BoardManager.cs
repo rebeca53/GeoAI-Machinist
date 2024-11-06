@@ -21,6 +21,7 @@ public class BoardManager : MonoBehaviour
     public GameObject containerTile;
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
+    public GameObject NPC;
 
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList()
@@ -255,6 +256,8 @@ public class BoardManager : MonoBehaviour
         LayoutExitFixed();
 
         UIHandler.Instance.RegisterContainers();
+
+        NPC.GetComponent<NonPlayerCharacter>().DisplayIntroduction();
     }
 
     private void LayoutExitFixed()

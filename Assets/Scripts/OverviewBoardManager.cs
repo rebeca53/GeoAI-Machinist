@@ -27,6 +27,8 @@ public class OverviewBoardManager : MonoBehaviour
     public GameObject inputHolder;
     public GameObject sampleTile;
 
+    static bool firstLoad = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +57,15 @@ public class OverviewBoardManager : MonoBehaviour
             }
         }
         Player.Spawn(this, GameManager.instance.playerPositionOverview);
+
+        UIHandler.Instance.HideMessage();
+
         NPC.Spawn(this, new Vector2Int(1, 2));
+        if (firstLoad)
+        {
+            NPC.DisplayIntroduction();
+            firstLoad = false;
+        }
 
         LayoutCNNLayers();
         LayoutInputHolder();

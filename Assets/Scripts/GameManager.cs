@@ -13,17 +13,17 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, bool> solvedMinigames = new()
     {
         {"Input", false},
-        {"Convolutional 1", false},
-        {"Activation 1", false},
-        {"Convolutional 2", false},
-        {"Activation 2", false},
-        {"Pooling 1", false},
-        {"Convolutional 3", false},
-        {"Activation 3", false},
-        {"Convolutional 4", false},
-        {"Activation 4", false},
-        {"Pooling 2", false},
-        {"Output", false}
+        {"Convolutional 1", true},
+        {"Activation 1", true},
+        {"Convolutional 2", true},
+        {"Activation 2", true},
+        {"Pooling 1", true},
+        {"Convolutional 3", true},
+        {"Activation 3", true},
+        {"Convolutional 4", true},
+        {"Activation 4", true},
+        {"Pooling 2", true},
+        {"Output", true}
     };
 
     // TODO: have all the levels possibilities and have a state machine that defines the transition from one to another

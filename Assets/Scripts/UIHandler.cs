@@ -114,6 +114,11 @@ public class UIHandler : MonoBehaviour
         StartCoroutine(CoroutineDisplay(myDict[type]));
     }
 
+    public void HideMessage()
+    {
+        m_NonPlayerDialogue.style.display = DisplayStyle.None;
+    }
+
     public void RegisterContainers()
     {
         GameObject[] containers = GameObject.FindGameObjectsWithTag("Container");

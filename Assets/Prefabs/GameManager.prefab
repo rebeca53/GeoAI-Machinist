@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
+  playerPositionOverview: {x: 1, y: 1}
   playerCoinPoints: 0
 --- !u!114 &2948700656701474599
 MonoBehaviour:
@@ -61,9 +62,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 8
   rows: 8
-  coinCount:
-    minimum: 3
-    maximum: 5
   containerCount: 10
   sampleCount: 10
   exit: {fileID: 1342552224242970805, guid: 4d977a9afc2d6d84788134605a8eb3bb, type: 3}
@@ -94,3 +92,4 @@ MonoBehaviour:
   - {fileID: 4279266988055134235, guid: 27619ef6d4ff19e489f22feaea1d4f87, type: 3}
   - {fileID: 5893761661544321983, guid: bed6627608f3a5f4fb9d3bb17939d400, type: 3}
   containerTile: {fileID: 113377864810306097, guid: 45f1156f560c7f14288d371403d0a880, type: 3}
+  NPC: {fileID: 3433668287301722486, guid: 5ca2353d8589a5b459bec930122380bd, type: 3}

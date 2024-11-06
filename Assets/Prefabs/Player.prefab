@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6434f4a7f607c46a92f02b4a2f5e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 3.5
   grabbedObject: {fileID: 0}
 --- !u!82 &-8476699751156865484
 AudioSource:
