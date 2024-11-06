@@ -22,9 +22,9 @@ public class SampleSpectralBand : MonoBehaviour
             return "Forest";
         }
 
-        if (address.Contains("HerbaceousVegetation"))
+        if (address.Contains("Residential"))
         {
-            return "HerbaceousVegetation";
+            return "Residential";
         }
 
         if (address.Contains("Highway"))
@@ -32,9 +32,9 @@ public class SampleSpectralBand : MonoBehaviour
             return "Highway";
         }
 
-        if (address.Contains("Industrial"))
+        if (address.Contains("River"))
         {
-            return "Industrial";
+            return "River";
         }
         return "";
     }

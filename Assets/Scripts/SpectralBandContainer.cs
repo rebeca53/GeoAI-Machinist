@@ -41,9 +41,9 @@ public class SpectralBandContainer : MonoBehaviour
     {
         type = bandType;
 
-        ChangeSquareColor(transform.Find("SquareIndustrial"));
+        ChangeSquareColor(transform.Find("SquareResidential"));
         ChangeSquareColor(transform.Find("SquareHighway"));
-        ChangeSquareColor(transform.Find("SquareHerbaceous"));
+        ChangeSquareColor(transform.Find("SquareRiver"));
         ChangeSquareColor(transform.Find("SquareForest"));
         ChangeSquareColor(transform.Find("SquareAnnualCrop"));
 

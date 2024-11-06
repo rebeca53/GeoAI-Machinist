@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 3356fd07acd7fca479675b0e827ee1fb
   m_SerializeEntries:
+  - m_GUID: 0c8a1f360d07c284fb767b995905ea59
+    m_Address: Residential_Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0ca3c343bc2399c4084f4ffa2dd19b13
     m_Address: Forest_Red
     m_ReadOnly: 0
@@ -29,6 +34,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2fca6a55d58369e4683a4437d99b5879
     m_Address: Highway_Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3486dcadecabb8d4c949c72913d5df9e
+    m_Address: Residential_Red
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -47,8 +57,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42baa33885addba4e8e2ce0c8a39f937
+    m_Address: River_Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4d9594ed895794344b02d8a207a63fff
     m_Address: HerbaceousVegetation_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5627c9ef3067430478878e3470efcead
+    m_Address: River_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57b56db0456836e4292a13184f40358f
+    m_Address: River_Red
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -62,8 +87,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60d772f3a017c8443b8062d9393c109b
+    m_Address: Residential_Blue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a4c1032c70b39a47a8afbded7eb9793
     m_Address: AnnualCrop_Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f2ebe020513410498fd4c6c151d753c
+    m_Address: Residential_RedEdge
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -92,6 +127,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cda87bdac92e3894f980ff5497853bfb
+    m_Address: River_SWIR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbe0d86f2a94d9945b9bc71d340f57a6
     m_Address: Highway_Red
     m_ReadOnly: 0
@@ -107,6 +147,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e598dd785df01be409fb3da3cf9ac265
+    m_Address: Residential_SWIR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e763a19aef05b814f9aa7338e7bebca0
     m_Address: Forest_Blue
     m_ReadOnly: 0
@@ -114,6 +159,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eaed95ec234c7d94282a81b8137f3f5b
     m_Address: AnnualCrop_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd5f9231e765e934683aa8dcb6b5e666
+    m_Address: River_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 7488163439626611474}
   - component: {fileID: 5279773075404491209}
   m_Layer: 6
-  m_Name: SquareIndustrial
+  m_Name: SquareResidential
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,7 +959,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Industrial
+  m_text: Residential
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 5924936244705453155}
   - component: {fileID: 8192685159331291997}
   m_Layer: 6
-  m_Name: SquareHerbaceous
+  m_Name: SquareRiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1813,7 +1813,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Herbaceous Vegetation
+  m_text: River
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1840,7 +1840,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.75
+  m_fontSize: 1.55
   m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 1
