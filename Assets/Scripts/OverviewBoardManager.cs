@@ -60,7 +60,7 @@ public class OverviewBoardManager : MonoBehaviour
 
         UIHandler.Instance.HideMessage();
 
-        NPC.Spawn(this, new Vector2Int(1, 2));
+        NPC.Spawn(this, new Vector2Int(0, 1));
         if (firstLoad)
         {
             NPC.DisplayIntroduction();
@@ -69,6 +69,24 @@ public class OverviewBoardManager : MonoBehaviour
 
         LayoutCNNLayers();
         LayoutInputHolder();
+        ZoomIn();
+    }
+
+    public void ZoomIn()
+    {
+        Debug.Log("Zoom In");
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("Retrieveing object");
+        }
+        cameraZoom.ChangeZoom(1f);
     }
 
     // TODO: move to Abstract class 

@@ -147,7 +147,7 @@ MonoBehaviour:
   changeLevelDelay: 1
   TotalContainers: 10
   unlockedDoor: {fileID: 1428080076, guid: 326ead6bc0137a643bbdb203e019d6d7, type: 3}
-  unlockClip: {fileID: 8300000, guid: 48ef74505109b12409fefa86ec0f2033, type: 3}
+  unlockClip: {fileID: 8300000, guid: dd246fa44b99b6a4f99c8334fc43591a, type: 3}
   exitClip: {fileID: 8300000, guid: 54c44d399b489064c8cbc1caa3b3cdcb, type: 3}
 --- !u!82 &-6376032262591195066
 AudioSource:

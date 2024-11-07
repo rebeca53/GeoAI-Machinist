@@ -12,9 +12,9 @@ public class NonPlayerCharacter : MonoBehaviour
 
 
     Dictionary<string, string> sceneToInstruction = new Dictionary<string, string> {
-        {"SampleScene", "Your first mission is labeling all these images by placing them in the correct container. This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again."},
-        {"OverviewScene", "The Big Machine is a Convolutional Neural Network. Fancy name, right? It is a sequence of 'layers'. Each 'layer' executes a type of operation of matrices. Oops, fancy word again... For us, matrices are the same as images!\n Your mission is to enter the 'layer' rooms and fix them."},
-        {"InputMiniGame", "This is the first layer. It breaks the image into spectral bands. Spectral bands are wavelenghts interval of light. Some bands are visible such as Red, Green, and Blue. But there are more things in heaven and Earth that humans can see. And there are invisible spectral bands to reveal them. Your mission here is to manipulate the input sample to feed each spectral band separately."}
+        {"SampleScene", "Hello, GeoAI Machinist! Your first mission is labeling all these images by placing them in the correct container. This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again."},
+        {"OverviewScene", "The Big Machine is a Convolutional Neural Network (CNN) to identify land use and land cover. Fancy name, right? A CNN is a sequence of mathematical operations over 'matrices'. Each step in this sequence of operation is called a 'layer'. For us, matrices are just another name for images!\nYour mission is to enter the each 'layer' to fix them."},
+        {"InputMiniGame", "This is the first layer of the CNN. It breaks the image into spectral bands. Spectral bands are wavelenghts interval of light. Some bands are visible such as Red, Green, and Blue. But there are more things in heaven and Earth that humans can see. And there are invisible spectral bands to reveal them. Your mission here is to manipulate the input samples to feed each spectral band separately."}
     };
 
     void Start()
@@ -36,7 +36,7 @@ public class NonPlayerCharacter : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         // Retrieve the name of this scene.
         string sceneName = currentScene.name;
-        UIHandler.Instance.DisplayMessage(sceneToInstruction[sceneName], time);
+        UIHandler.Instance.DisplayDialogue(sceneToInstruction[sceneName], time);
     }
 
     // Actually not working. It is just play on Awake

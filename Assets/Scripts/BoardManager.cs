@@ -268,7 +268,7 @@ public class BoardManager : MonoBehaviour
         // display messages in the queue
 
         // zoom out
-        cameraZoom.ChangeZoom(4f);
+        // cameraZoom.ChangeZoom(4f);
         cameraZoom.Release();
 
         // enable player

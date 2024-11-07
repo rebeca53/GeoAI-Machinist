@@ -61,14 +61,28 @@ public class Exit : MonoBehaviour
         isUnlocked = true;
         PlaySound(unlockClip);
         spriteRenderer.sprite = unlockedDoor;
+        spriteRenderer.color = Color.green;
+
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("Retrieveing object");
+        }
+        cameraZoom.ChangeZoom(4f);
     }
 
     public void AttemptExit()
     {
-        StartCoroutine(DoAttemptExit());
+        StartCoroutine(DoExit());
     }
 
-    IEnumerator DoAttemptExit()
+    IEnumerator DoExit()
     {
         if (!HasCollectedAllCoins())
         {
