@@ -1,0 +1,1227 @@
+fileFormatVersion: 2
+guid: 828b1f0a9bca0ea4095b13c9a6879683
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pixel planet earth high quality_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc3b15ac7e8108141b7f4883e75c8b7c
+      internalID: 316854815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_1
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b330d6260fce6c74ea185fc8f39459ad
+      internalID: 431503926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_2
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fa7366e34d42a44b8405f8b0a2eee91
+      internalID: -1103125174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_3
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67a2815191ac78b47bcedc016897c232
+      internalID: 884350106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_4
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50a9b0442b3a21d47890d03c1ccc58c7
+      internalID: 1593575249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_5
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecbd4dc91d43e564fa868c91222f355f
+      internalID: 1971678310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_6
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e98374ed45315409b17408226c2104
+      internalID: 1816213444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_7
+      rect:
+        serializedVersion: 2
+        x: 1799
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a78254cbceee00e488eef475928e8464
+      internalID: 1032485983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_8
+      rect:
+        serializedVersion: 2
+        x: 2056
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 069adf79437412c4e9a0bcc71771b803
+      internalID: -1921853213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_9
+      rect:
+        serializedVersion: 2
+        x: 2313
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52461cfa37d380448c02ea2934900b3
+      internalID: 412410257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_10
+      rect:
+        serializedVersion: 2
+        x: 2570
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0684ad560e9bb6748be04cce2dc6cf95
+      internalID: 961203338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_11
+      rect:
+        serializedVersion: 2
+        x: 2827
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01fc7a0abeadf6a4087b984fb35aeee4
+      internalID: -473023672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_12
+      rect:
+        serializedVersion: 2
+        x: 3084
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf89e0596c8fa444bb01485138a93b5f
+      internalID: 1392712678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_13
+      rect:
+        serializedVersion: 2
+        x: 3341
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b90e93b1468eb1479ef968b57b12866
+      internalID: 1969156114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_14
+      rect:
+        serializedVersion: 2
+        x: 3598
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72c75dc86e723a143a0a112ad1b79e54
+      internalID: -94065905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_15
+      rect:
+        serializedVersion: 2
+        x: 3855
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6492ad4c06c86048b3e66fd30184690
+      internalID: -1740345572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_16
+      rect:
+        serializedVersion: 2
+        x: 4112
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ff554d3badae0645bf3aa9576da06a3
+      internalID: 984758080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_17
+      rect:
+        serializedVersion: 2
+        x: 4369
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71ab7390b071f354e90265da09af320c
+      internalID: -844182986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_18
+      rect:
+        serializedVersion: 2
+        x: 4626
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120f3d2efce78264eb5404a34c2495f9
+      internalID: -1091085520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_19
+      rect:
+        serializedVersion: 2
+        x: 4883
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a4babb6878da2544b5742c6fdef6de0
+      internalID: 864844932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_20
+      rect:
+        serializedVersion: 2
+        x: 5140
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f101553d247b2b04386d8ade3be2ae7f
+      internalID: -873784779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_21
+      rect:
+        serializedVersion: 2
+        x: 5397
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a25d40226a018f345a496b1631532e1f
+      internalID: -1506848434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_22
+      rect:
+        serializedVersion: 2
+        x: 5654
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd1b5bca7e70bd240953051baf8f383c
+      internalID: 378886674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_23
+      rect:
+        serializedVersion: 2
+        x: 5911
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f2ff5fae4704d044aef3b82a44d192c
+      internalID: -1883332091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_24
+      rect:
+        serializedVersion: 2
+        x: 6168
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f4f1735e85dba54cbec26322d72bed1
+      internalID: -866092268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_25
+      rect:
+        serializedVersion: 2
+        x: 6425
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bfa2247002b9174588b50f597ece444
+      internalID: 147457723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_26
+      rect:
+        serializedVersion: 2
+        x: 6682
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08fd095265618724fb4aef298e64f3ae
+      internalID: 1185709701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_27
+      rect:
+        serializedVersion: 2
+        x: 6939
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f45482caa1ea1654294f2329ee76a7d0
+      internalID: -344987515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_28
+      rect:
+        serializedVersion: 2
+        x: 7196
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e174e1e7998826c48b49ec733bb3b49b
+      internalID: 1393452444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_29
+      rect:
+        serializedVersion: 2
+        x: 7453
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76a875c930c224b4f871cb7ed91f2ceb
+      internalID: -1339450378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_30
+      rect:
+        serializedVersion: 2
+        x: 7710
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66f3ecfeaec98b140870aeee1cf09dba
+      internalID: -1191655131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_31
+      rect:
+        serializedVersion: 2
+        x: 7967
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a862e40c7b148942b793757d215d3bc
+      internalID: 847733589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_32
+      rect:
+        serializedVersion: 2
+        x: 8224
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1ae4b12a2b946d4497e71e669d2b5e7
+      internalID: 78224580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_33
+      rect:
+        serializedVersion: 2
+        x: 8481
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee7b199af6524a41ae2142adbc7c583
+      internalID: 1922373366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_34
+      rect:
+        serializedVersion: 2
+        x: 8738
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9482fcba4fd56fa4e988f903c340f8bd
+      internalID: -1020602869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_35
+      rect:
+        serializedVersion: 2
+        x: 8995
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9acacdd528b02394dbe27e85fda0944b
+      internalID: -1848611007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_36
+      rect:
+        serializedVersion: 2
+        x: 9252
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b968675d44fd4446b7ef3e918456471
+      internalID: -1050843642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_37
+      rect:
+        serializedVersion: 2
+        x: 9509
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce48c95c20d62841b3ae9dbe4bab882
+      internalID: -399437866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_38
+      rect:
+        serializedVersion: 2
+        x: 9766
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09e6b4e5209f0944296b2ec8a0084206
+      internalID: -873503150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_39
+      rect:
+        serializedVersion: 2
+        x: 10023
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb60733645c5b842903259078e9fc86
+      internalID: -728869098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_40
+      rect:
+        serializedVersion: 2
+        x: 10280
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cada2d237a5f0645b1a93262ca28a2b
+      internalID: -1134393153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_41
+      rect:
+        serializedVersion: 2
+        x: 10537
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec33953a779a2ee46a99570b209d2e3c
+      internalID: 1951666861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_42
+      rect:
+        serializedVersion: 2
+        x: 10794
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff19a7a183c32e348af10a8bc59bb2f7
+      internalID: -586164121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_43
+      rect:
+        serializedVersion: 2
+        x: 11051
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a3fe8c1e7c491f4e915adb3d7bdbae5
+      internalID: -386181970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_44
+      rect:
+        serializedVersion: 2
+        x: 11308
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae4a916240bfa604b999d229114b0796
+      internalID: 2145036832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_45
+      rect:
+        serializedVersion: 2
+        x: 11565
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae79fe1e96abf864b99ea2a50aa69fdf
+      internalID: -977945436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_46
+      rect:
+        serializedVersion: 2
+        x: 11822
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 208c01c55dff95540bbc1968c57581bf
+      internalID: 1472519371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_47
+      rect:
+        serializedVersion: 2
+        x: 12079
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90ffa9cfd7760dc4cbedf7d206cc7f06
+      internalID: -1164085980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_48
+      rect:
+        serializedVersion: 2
+        x: 12336
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33561ded0bba57c42b5a639c96281704
+      internalID: 1015588700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixel planet earth high quality_49
+      rect:
+        serializedVersion: 2
+        x: 12593
+        y: 1
+        width: 250
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c404cc2d5ad4cf5408afc2236fa033b0
+      internalID: -1891023721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      pixel planet earth high quality_0: 316854815
+      pixel planet earth high quality_1: 431503926
+      pixel planet earth high quality_10: 961203338
+      pixel planet earth high quality_11: -473023672
+      pixel planet earth high quality_12: 1392712678
+      pixel planet earth high quality_13: 1969156114
+      pixel planet earth high quality_14: -94065905
+      pixel planet earth high quality_15: -1740345572
+      pixel planet earth high quality_16: 984758080
+      pixel planet earth high quality_17: -844182986
+      pixel planet earth high quality_18: -1091085520
+      pixel planet earth high quality_19: 864844932
+      pixel planet earth high quality_2: -1103125174
+      pixel planet earth high quality_20: -873784779
+      pixel planet earth high quality_21: -1506848434
+      pixel planet earth high quality_22: 378886674
+      pixel planet earth high quality_23: -1883332091
+      pixel planet earth high quality_24: -866092268
+      pixel planet earth high quality_25: 147457723
+      pixel planet earth high quality_26: 1185709701
+      pixel planet earth high quality_27: -344987515
+      pixel planet earth high quality_28: 1393452444
+      pixel planet earth high quality_29: -1339450378
+      pixel planet earth high quality_3: 884350106
+      pixel planet earth high quality_30: -1191655131
+      pixel planet earth high quality_31: 847733589
+      pixel planet earth high quality_32: 78224580
+      pixel planet earth high quality_33: 1922373366
+      pixel planet earth high quality_34: -1020602869
+      pixel planet earth high quality_35: -1848611007
+      pixel planet earth high quality_36: -1050843642
+      pixel planet earth high quality_37: -399437866
+      pixel planet earth high quality_38: -873503150
+      pixel planet earth high quality_39: -728869098
+      pixel planet earth high quality_4: 1593575249
+      pixel planet earth high quality_40: -1134393153
+      pixel planet earth high quality_41: 1951666861
+      pixel planet earth high quality_42: -586164121
+      pixel planet earth high quality_43: -386181970
+      pixel planet earth high quality_44: 2145036832
+      pixel planet earth high quality_45: -977945436
+      pixel planet earth high quality_46: 1472519371
+      pixel planet earth high quality_47: -1164085980
+      pixel planet earth high quality_48: 1015588700
+      pixel planet earth high quality_49: -1891023721
+      pixel planet earth high quality_5: 1971678310
+      pixel planet earth high quality_6: 1816213444
+      pixel planet earth high quality_7: 1032485983
+      pixel planet earth high quality_8: -1921853213
+      pixel planet earth high quality_9: 412410257
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
