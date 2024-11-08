@@ -6,6 +6,6 @@ public class HomeScene : MonoBehaviour
 {
     public void LoadGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 }

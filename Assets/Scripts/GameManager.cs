@@ -56,9 +56,9 @@ public class GameManager : MonoBehaviour
 
     public void StartOverviewScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(3, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(4, UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 
     public void StartMiniGame(string type)
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         switch (type)
         {
             case "Input":
-                UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(5);
                 playerPositionOverview = new Vector2Int(3, 8);
                 break;
             default:
