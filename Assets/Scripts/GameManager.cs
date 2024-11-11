@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, bool> solvedMinigames = new()
     {
         {"Input", false},
-        {"Convolutional 1", true},
+        {"Convolutional 1", false},
         {"Activation 1", true},
         {"Convolutional 2", true},
         {"Activation 2", true},
@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        boardScript.SetupScene();
-        // StartOverviewScene();
+        // boardScript.SetupScene();
+        StartOverviewScene();
         // StartMiniGame("Input");
     }
 
@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour
             case "Input":
                 UnityEngine.SceneManagement.SceneManager.LoadScene(5);
                 playerPositionOverview = new Vector2Int(3, 8);
+                break;
+            case "Convolutional 1":
+                UnityEngine.SceneManagement.SceneManager.LoadScene(6);
+                playerPositionOverview = new Vector2Int(6, 8);
                 break;
             default:
                 break;

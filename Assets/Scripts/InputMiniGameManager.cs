@@ -3,35 +3,15 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 //Tells Random to use the Unity Engine random number generator.
 using Random = UnityEngine.Random;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 // TODO: Have an Abstract class for all Board Manager
-public class InputMiniGameManager : MonoBehaviour
+public class InputMiniGameManager : BaseBoard
 {
-    private Tilemap m_Tilemap;
-    private Tilemap m_Wallsmap;
-    private Grid m_Grid;
-
-    public int Width;
-    public int Height;
-
-    public Tile[] GroundTiles;
-
-    public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
-
-    public PlayerController Player;
-    public NonPlayerCharacter NPC;
-
     public GameObject[] sampleTiles;
     public GameObject spectralBandTile;
     public GameObject spectralBandContainerTile;
     private List<Vector3> samplePositions = new List<Vector3>();
     private int regionsDelimiter = 10;
-    private float exitXPosition = 10f;
-    private Vector3 exitPosition = new(10f, 0f, 0f);
-    public GameObject exitObject;
-
     private int padding = 2;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
@@ -39,9 +19,9 @@ public class InputMiniGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Tilemap = GetComponentInChildren<Tilemap>();
-        m_Wallsmap = transform.Find("Walls").GetComponent<Tilemap>();
-        m_Grid = GetComponentInChildren<Grid>();
+        exitXPosition = 3f;
+
+        InitializeTilemap();
 
         for (int y = 0; y < Height; ++y)
         {
@@ -66,109 +46,6 @@ public class InputMiniGameManager : MonoBehaviour
         InitialiseList();
         LayoutSample();
         DrawBandContainers();
-    }
-
-    // TODO: move to Abstract class
-    private Tile GetFloorTile()
-    {
-        return GroundTiles[Random.Range(0, GroundTiles.Length)];
-    }
-
-    private void DrawFloor(int x, int y)
-    {
-        Tile tile = GetFloorTile();
-        m_Tilemap.SetTile(new Vector3Int(x, y, 0), tile);
-    }
-
-    // TODO: move to Abstract class
-    private bool IsBorder(int x, int y)
-    {
-        return x == 0 || y == 0 || x == Width - 1 || y == Height - 1;
-    }
-
-    private bool IsExit(int x, int y)
-    {
-        bool isBottom = y == 0;
-        bool isExitRegion = x == exitXPosition || x == exitXPosition - 1 || x == exitXPosition + 1;
-        return isBottom && isExitRegion;
-    }
-
-    private void DrawExit(int x, int y)
-    {
-        if (x == exitXPosition - 1)
-        {
-            Tile tile = WallTiles[9];
-            m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
-            return;
-        }
-        if (x == exitXPosition + 1)
-        {
-            Tile tile = WallTiles[8];
-            m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
-            return;
-        }
-        Instantiate(exitObject, new Vector3(10.5f, 0.5f, 0f), Quaternion.identity);
-    }
-
-    private Tile GetWallTile(int x, int y)
-    {
-
-        // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
-        if (x == 0 && y == Height - 1) // TopLeft
-        {
-            return WallTiles[0];
-        }
-
-        if (x == 0 && y == 0) // BottomLeft
-        {
-            return WallTiles[5];
-        }
-
-        if (x == Width - 1 && y == 0) // BottomRight
-        {
-            return WallTiles[7];
-        }
-
-        if (x == Width - 1 && y == Height - 1) // TopRight
-        {
-            return WallTiles[2];
-        }
-
-        if (x == 0) // Left
-        {
-            return WallTiles[3];
-        }
-
-        if (x == Width - 1) // Right
-        {
-            return WallTiles[4];
-        }
-
-        if (y == 0) // Bottom
-        {
-            return WallTiles[6];
-        }
-
-        if (y == Height - 1) // Top
-        {
-            return WallTiles[1];
-        }
-
-        // Default
-        return WallTiles[1];
-    }
-
-    // TODO: move to Abstract class
-    private void DrawWall(int x, int y)
-    {
-        Tile tile = GetWallTile(x, y);
-        m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
-    }
-
-    // TODO: move to Abstract class
-    public Vector3 CellToWorld(Vector2Int cellIndex)
-    {
-        return m_Grid.GetCellCenterWorld((Vector3Int)cellIndex);
     }
 
     //Clears our list gridPositions and prepares it to generate a new board.
@@ -291,7 +168,7 @@ public class InputMiniGameManager : MonoBehaviour
         GameManager.instance.StartOverviewScene();
     }
 
-    private void GameOver()
+    protected override void GameOver()
     {
         GameManager.instance.solvedMinigames["Input"] = true;
         GameManager.instance.StartOverviewScene();

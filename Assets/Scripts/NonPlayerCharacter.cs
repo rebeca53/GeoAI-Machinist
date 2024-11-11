@@ -61,10 +61,9 @@ public class NonPlayerCharacter : MonoBehaviour
         DisplayIntroduction();
     }
 
-    public void Spawn(InputMiniGameManager boardManager, Vector2Int cell)
+    public void Spawn(BaseBoard boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
         DisplayIntroduction();
     }
-
 }
