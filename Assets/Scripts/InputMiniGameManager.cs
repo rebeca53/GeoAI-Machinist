@@ -14,7 +14,7 @@ public class InputMiniGameManager : BaseBoard
     private int padding = 2;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
-    private int countFull = 0;
+    private int fullSpectralBandsContainer = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -153,8 +153,9 @@ public class InputMiniGameManager : BaseBoard
 
     private void CheckWinCondition(string type)
     {
-        countFull++;
-        if (countFull == bandTypes.Count)
+        fullSpectralBandsContainer++;
+        int totalCount = bandTypes.Count;
+        if (fullSpectralBandsContainer == totalCount)
         {
             GameOver();
         }

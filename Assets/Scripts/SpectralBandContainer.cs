@@ -35,7 +35,7 @@ public class SpectralBandContainer : MonoBehaviour
 
     public event Action<string> OnFull;
     private int countMatched = 0;
-    private const int totalMatched = 1;
+    private const int totalMatched = 5;
 
     public void SetType(string bandType)
     {
