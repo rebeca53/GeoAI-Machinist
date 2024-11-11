@@ -57,6 +57,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
                 GameObject instance = Instantiate(pixelTile, position, Quaternion.identity);
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
+                Color color = xPosition == yPosition ? Color.white : Color.gray;
+                instance.GetComponent<SpriteRenderer>().color = color;
                 // Pixel pixel = instance.GetComponent<Pixel>();
                 // pixel.SetValue(cnnNode.GetValue());
             }

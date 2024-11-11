@@ -82,10 +82,10 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayDialogue(string content, float time = displayTime)
     {
-        if (!displayingDialogue)
-        {
-            StartCoroutine(CoroutineDisplay(content, time));
-        }
+        // if (!displayingDialogue)
+        // {
+        StartCoroutine(CoroutineDisplay(content, time));
+        // }
     }
 
     public void DisplayMessage(string content, float time = displayTime)

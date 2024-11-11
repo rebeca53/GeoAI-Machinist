@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 //Tells Random to use the Unity Engine random number generator.
 using Random = UnityEngine.Random;
 
@@ -19,8 +18,6 @@ public class InputMiniGameManager : BaseBoard
     // Start is called before the first frame update
     void Start()
     {
-        exitXPosition = 3f;
-
         InitializeTilemap();
 
         for (int y = 0; y < Height; ++y)
