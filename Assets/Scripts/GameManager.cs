@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        // boardScript.SetupScene();
-        StartOverviewScene();
+        boardScript.SetupScene();
+        // StartOverviewScene();
         // StartMiniGame("Input");
     }
 
