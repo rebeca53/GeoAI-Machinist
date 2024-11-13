@@ -39,8 +39,8 @@ public class MatrixPixel : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         Debug.Log("stay over pixel. tag: " + other.tag);
-        Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
-        if (other.transform.parent.CompareTag("Kernel"))
+        // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
+        if (other.CompareTag("KernelCenter"))
         {
             Transform outline = transform.Find("Outline");
             outline.GetComponent<LineRenderer>().enabled = true;
@@ -51,7 +51,7 @@ public class MatrixPixel : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log("out of pixel");
-        if (other.CompareTag("Kernel"))
+        if (other.CompareTag("KernelCenter"))
         {
             Transform outline = transform.Find("Outline");
             outline.GetComponent<LineRenderer>().enabled = false;

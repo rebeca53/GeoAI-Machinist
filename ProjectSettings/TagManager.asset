@@ -15,6 +15,7 @@ TagManager:
   - SpectralBandContainer
   - VirtualCamera
   - Kernel
+  - KernelCenter
   layers:
   - Default
   - TransparentFX
