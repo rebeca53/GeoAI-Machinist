@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -49,9 +50,10 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        boardScript.SetupScene();
+        // boardScript.SetupScene();
         // StartOverviewScene();
         // StartMiniGame("Input");
+        StartMiniGame("Convolutional 1");
     }
 
     public void StartOverviewScene()

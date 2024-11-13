@@ -314,6 +314,20 @@ public class PlayerController : MonoBehaviour
             {
                 GrabSampleBox();
             }
+            else if (nearObject.transform.parent.CompareTag("Kernel"))
+            {
+                Transform grabbeableObject = nearObject.transform.parent;
+                animator.SetTrigger("playerGrab");
+                // Debug.Log("grab object");
+                // Change scale
+                // change box parent
+                GameObject playerObj = GameObject.Find("Player");
+                grabbeableObject.parent = playerObj.transform;
+                // get player position and Change box position
+                grabbeableObject.position = playerObj.transform.position;
+
+                grabbedObject = grabbeableObject.gameObject;
+            }
 
         }
     }

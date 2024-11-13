@@ -5,11 +5,11 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera virtualCamera;
-    const float MaxOrthoSize = 4;
-    const float MinOrthoSize = 1;
+    const float MaxOrthoSize = 5f;
+    const float MinOrthoSize = 0.5f;
 
     float orthoSize;
-    [SerializeField] float sensitivity = 1f;
+    [SerializeField] float sensitivity = 0.5f;
     bool blocked = false;
 
     // Update is called once per frame
