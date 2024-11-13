@@ -581,7 +581,7 @@ MonoBehaviour:
   exitObject: {fileID: 8191159248190923328, guid: 661c4f25c008ea444b93bd019c7b17f3, type: 3}
   Player: {fileID: 635274337}
   NPC: {fileID: 152860277}
-  pixelTile: {fileID: 5939479234428872911, guid: 9ad8cd2499479c04e84361a85ad3bb4d, type: 3}
+  inputObject: {fileID: 5193837272101232164, guid: 6dd078792b36bf842965d71a93c5066f, type: 3}
   kernelObject: {fileID: 3229884844357770729, guid: 3c128c2d6db34e740b342a58d7045c63, type: 3}
 --- !u!156049354 &745591845
 Grid:

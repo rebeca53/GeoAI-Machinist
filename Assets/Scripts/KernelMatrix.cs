@@ -7,7 +7,7 @@ using UnityEngine;
 public class KernelMatrix : MonoBehaviour
 {
     public GameObject kernelPixel;
-    public float pixelSize = 0.2f;
+    public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
 
     // Data
     double[][] kernel = {
@@ -32,8 +32,8 @@ public class KernelMatrix : MonoBehaviour
     void Start()
     {
         int kernelSize = 3;
-        float verticalOffset = 2f;
-        float horizontalOffset = 1f;
+        float verticalOffset = transform.position.x;
+        float horizontalOffset = transform.position.y;
 
         for (int i = 0; i < kernelSize; i++)
         {
