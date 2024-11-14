@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera virtualCamera;
-    const float MaxOrthoSize = 5f;
-    const float MinOrthoSize = 0.5f;
+    [SerializeField] float MaxOrthoSize = 8f;
+    [SerializeField] float MinOrthoSize = 0.5f;
 
     float orthoSize;
     [SerializeField] float sensitivity = 0.5f;

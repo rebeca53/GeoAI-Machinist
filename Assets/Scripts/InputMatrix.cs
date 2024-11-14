@@ -6,6 +6,7 @@ public class InputMatrix : MonoBehaviour
 {
     public GameObject inputPixel;
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
+    int matrixSize = 64;
 
     // Data
     double[][] inputImage = {
@@ -4238,10 +4239,14 @@ public class InputMatrix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int matrixSize = 64;
-        float verticalOffset = 2f;
+        // Draw();
+    }
+
+    void Draw()
+    {
+        float verticalOffset = ConvolutionalMiniGameManager.verticalOffsetImages;
         float horizontalOffset = 2f;
-        
+
         for (int i = 0; i < matrixSize; i++)
         {
             float xPosition = horizontalOffset + i * pixelSize;
@@ -4258,12 +4263,6 @@ public class InputMatrix : MonoBehaviour
                 pixelScript.Initialize(GetPixelValue(i, j));
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private double GetPixelValue(int i, int j)
