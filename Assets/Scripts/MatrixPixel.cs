@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -30,31 +28,40 @@ public class MatrixPixel : MonoBehaviour
         return rounded.ToString("N2");
     }
 
-    private void Start()
+    public void Highlight()
+    {
+        Transform outline = transform.Find("Outline");
+        outline.GetComponent<LineRenderer>().enabled = true;
+    }
+
+    public void Unhighlight()
     {
         Transform outline = transform.Find("Outline");
         outline.GetComponent<LineRenderer>().enabled = false;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void Start()
     {
-        Debug.Log("stay over pixel. tag: " + other.tag);
-        // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
-        if (other.CompareTag("KernelCenter"))
-        {
-            Transform outline = transform.Find("Outline");
-            outline.GetComponent<LineRenderer>().enabled = true;
-        }
-
+        Unhighlight();
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("out of pixel");
-        if (other.CompareTag("KernelCenter"))
-        {
-            Transform outline = transform.Find("Outline");
-            outline.GetComponent<LineRenderer>().enabled = false;
-        }
-    }
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //     Debug.Log("stay over pixel. tag: " + other.tag);
+    //     // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
+    //     if (other.CompareTag("KernelCenter"))
+    //     {
+    //         Highlight();
+    //     }
+
+    // }
+
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     Debug.Log("out of pixel");
+    //     if (other.CompareTag("KernelCenter"))
+    //     {
+    //         Unhighlight();
+    //     }
+    // }
 }

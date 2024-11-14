@@ -47,8 +47,9 @@ public class KernelMatrix : MonoBehaviour
                 instance.transform.parent = transform;
 
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
-                if (IsKernelCenter(i, j)) {
-                    instance.tag = "KernelCenter";
+                if (IsKernelCenter(i, j))
+                {
+                    instance.GetComponent<KernelPixel>().SetKernelCenter();
                 }
                 // instance.tag = "Kernel";
                 TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
@@ -69,7 +70,8 @@ public class KernelMatrix : MonoBehaviour
         return kernel[i][j];
     }
 
-    private bool IsKernelCenter(int i, int j) {
+    private bool IsKernelCenter(int i, int j)
+    {
         return (i == 1) && (j == 1);
     }
 }

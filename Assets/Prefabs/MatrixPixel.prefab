@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 5530081821259096519}
   m_Layer: 6
   m_Name: MatrixPixel
-  m_TagString: Untagged
+  m_TagString: InputPixel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

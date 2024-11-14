@@ -4239,7 +4239,7 @@ public class InputMatrix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Draw();
+        Draw();
     }
 
     void Draw()

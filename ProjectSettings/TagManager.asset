@@ -16,6 +16,7 @@ TagManager:
   - VirtualCamera
   - Kernel
   - KernelCenter
+  - InputPixel
   layers:
   - Default
   - TransparentFX

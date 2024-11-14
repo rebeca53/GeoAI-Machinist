@@ -39,7 +39,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
 
-        // LayoutInputMatrix();
+        LayoutInputMatrix();
         LayoutKernel();
         LayoutOutputMatrix();
     }
