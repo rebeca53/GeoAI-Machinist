@@ -8,6 +8,9 @@ public class InputMatrix : MonoBehaviour
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
     int matrixSize = 64;
 
+    [SerializeField] public Dictionary<Vector3, GameObject> positions = new Dictionary<Vector3, GameObject>();
+    private List<Vector3> samplePositions = new List<Vector3>();
+
     // Data
     double[][] inputImage = {
         new double[] {
@@ -4240,6 +4243,7 @@ public class InputMatrix : MonoBehaviour
     void Start()
     {
         Draw();
+        RegisterToKernelCenter();
     }
 
     void Draw()
@@ -4259,12 +4263,81 @@ public class InputMatrix : MonoBehaviour
                 instance.transform.parent = transform;
 
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
-                MatrixPixel pixelScript = instance.GetComponent<MatrixPixel>();
-                pixelScript.Initialize(GetPixelValue(i, j));
+                InputMatrixPixel pixelScript = instance.GetComponent<InputMatrixPixel>();
+                pixelScript.Initialize(GetPixelValue(i, j), position);
+
+                positions.Add(instance.transform.position, instance);
             }
         }
     }
 
+    public void HighlightNeighboors(Vector3 pixelPosition)
+    {
+        float x = pixelPosition.x;
+        float y = pixelPosition.y;
+
+        Vector3[] nbPositions = {
+            new(x - pixelSize, y + pixelSize, 0f),
+            new(x, y+pixelSize, 0f),
+            new(x+pixelSize, y+pixelSize, 0f),
+            new(x-pixelSize, y, 0f),
+            new(x+pixelSize, y, 0f),
+            new(x-pixelSize, y-pixelSize, 0f),
+            new(x, y-pixelSize, 0f),
+            new(x+pixelSize, y-pixelSize, 0f)
+        };
+
+        Debug.Log("For the pixel: " + pixelPosition);
+
+        foreach (Vector3 position in nbPositions)
+        {
+            Debug.Log(position);
+            if (!positions.ContainsKey(position))
+            {
+                Debug.Log("NOT valid neighboor " + position);
+                continue;
+            }
+            GameObject nbObject = positions[position];
+            nbObject.GetComponent<InputMatrixPixel>().Highlight();
+        }
+    }
+
+    public void UnhighlightNeighboors(Vector3 pixelPosition)
+    {
+        float x = pixelPosition.x;
+        float y = pixelPosition.y;
+
+        Vector3[] nbPositions = {
+            new(x - pixelSize, y + pixelSize, 0f),
+            new(x, y+pixelSize, 0f),
+            new(x+pixelSize, y+pixelSize, 0f),
+            new(x-pixelSize, y, 0f),
+            new(x+pixelSize, y, 0f),
+            new(x-pixelSize, y-pixelSize, 0f),
+            new(x, y-pixelSize, 0f),
+            new(x+pixelSize, y-pixelSize, 0f)
+        };
+
+
+        foreach (Vector3 position in nbPositions)
+        {
+            if (!positions.ContainsKey(position))
+            {
+                Debug.Log("NOT valid neighboor " + position);
+                continue;
+            }
+            GameObject nbObject = positions[position];
+            nbObject.GetComponent<InputMatrixPixel>().Unhighlight();
+        }
+    }
+
+    private void RegisterToKernelCenter()
+    {
+        GameObject instance = GameObject.FindWithTag("KernelCenter");
+        KernelPixel kernelCenter = instance.GetComponent<KernelPixel>();
+        kernelCenter.OnHoverPixel += HighlightNeighboors;
+        kernelCenter.OnExitPixel += UnhighlightNeighboors;
+    }
     private double GetPixelValue(int i, int j)
     {
         return inputImage[i][j];

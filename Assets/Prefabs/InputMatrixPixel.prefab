@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1810551033809486605}
   - component: {fileID: 5530081821259096519}
   m_Layer: 6
-  m_Name: MatrixPixel
+  m_Name: InputMatrixPixel
   m_TagString: InputPixel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

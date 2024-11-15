@@ -395,7 +395,7 @@ LineRenderer:
   - {x: 0.5, y: 0.5, z: 0}
   - {x: 0.5, y: -0.5, z: 0}
   - {x: -0.5, y: -0.5, z: 0}
-  - {x: -0.5, y: 0.53, z: 0}
+  - {x: -0.5, y: 0.505, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -403,8 +403,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.021812439
-        value: 0.18518448
+        time: 0.030193329
+        value: 0.04515457
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -416,8 +416,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.27070594, b: 1, a: 1}
-      key1: {r: 0, g: 0.27070594, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

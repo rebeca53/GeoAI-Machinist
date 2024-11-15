@@ -1,18 +1,29 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ConvolutionalMiniGameManager : BaseBoard
 {
+    // Pre-fabs
     public GameObject inputObject;
 
     public GameObject kernelObject;
 
     public GameObject outputObject;
 
-    static public float pixelSize = 0.2f;
+    // Instances
+    GameObject instanceInput;
+    GameObject instanceOutput;
+    KernelMatrix kernelMatrix;
+    KernelPixel kernelCenter;
 
-    static public float verticalOffsetImages = 5f;
+    // UI constants
+    static public readonly float pixelSize = 0.2f;
+    static public readonly float verticalOffsetImages = 5f;
+
+    // Movement
+    private readonly float step = pixelSize;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +47,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
             }
         }
 
+        Player.moveSpeed = 1f;
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
 
@@ -56,7 +68,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         float horizontalOffset = 5f;
 
         Vector3 position = new(horizontalOffset, verticalOffset, 0f);
-        GameObject instanceInput = Instantiate(inputObject, position, Quaternion.identity);
+        instanceInput = Instantiate(inputObject, position, Quaternion.identity);
     }
 
     private void LayoutKernel()
@@ -66,6 +78,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         Vector3 position = new(horizontalOffset, verticalOffset, 0f);
         GameObject instanceKernel = Instantiate(kernelObject, position, Quaternion.identity);
+        kernelMatrix = instanceKernel.GetComponent<KernelMatrix>();
+        // RegisterToKernelPixel();
     }
 
     private void LayoutOutputMatrix()
@@ -74,7 +88,57 @@ public class ConvolutionalMiniGameManager : BaseBoard
         float horizontalOffset = OutputMatrix.horizontalOffset;
 
         Vector3 position = new(horizontalOffset, verticalOffset, 0f);
-        GameObject instanceOutput = Instantiate(outputObject, position, Quaternion.identity);
+        instanceOutput = Instantiate(outputObject, position, Quaternion.identity);
+    }
+
+    // TODO: Move Convolution mechanics to this BoardManager
+    private void RegisterToKernelPixel()
+    {
+        kernelCenter = kernelMatrix.GetKernelCenter();
+        kernelCenter.OnHoverPixel += MultiplyMatrices;
+        // kernelPixel.OnExitPixel += MultiplyMatrices;
+    }
+
+    private void MultiplyMatrices(Vector3 position)
+    {
+        Debug.Log("Multiply Matrices on Hover Pixel");
+        instanceOutput.GetComponent<InputMatrix>().HighlightNeighboors(position);
+    }
+
+    // Kernel Controller
+    // void Update()
+    // {
+    //     if (kernelMatrix && kernelMatrix.IsGrabbed())
+    //     {
+    //         HandleInput();
+    //     }
+    // }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            kernelMatrix.MoveRight();
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            kernelMatrix.MoveLeft();
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            kernelMatrix.MoveUp();
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            kernelMatrix.MoveDown();
+            return;
+        }
     }
 
 }

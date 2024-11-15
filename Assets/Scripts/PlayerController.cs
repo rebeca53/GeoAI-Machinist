@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // Movement
-    [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] public float moveSpeed = 1.5f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Vector2 moveDirection = new Vector2(1, 0);
@@ -112,6 +112,12 @@ public class PlayerController : MonoBehaviour
     {
         return input.x.Equals(0) && !input.y.Equals(0);
     }
+
+    public void MoveManual(Vector3 newPosition)
+    {
+        rb.position = newPosition;
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         if (!isEnabled)
@@ -229,6 +235,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void GrabKernel()
+    {
+        Transform grabbeableObject = nearObject.transform.parent;
+        animator.SetTrigger("playerGrab");
+
+        grabbeableObject.GetComponent<KernelMatrix>().Grab(transform.position);
+
+        // Debug.Log("grab object");
+        // Change scale
+        // change box parent
+        GameObject playerObj = GameObject.Find("Player");
+        grabbeableObject.parent = playerObj.transform;
+        // get player position and Change box position
+        grabbeableObject.position = playerObj.transform.position;
+
+        grabbedObject = grabbeableObject.gameObject;
+    }
+
     private void FillInputHolder()
     {
         // Debug.Log("drop object onto container");
@@ -316,17 +340,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (nearObject.transform.parent.CompareTag("Kernel"))
             {
-                Transform grabbeableObject = nearObject.transform.parent;
-                animator.SetTrigger("playerGrab");
-                // Debug.Log("grab object");
-                // Change scale
-                // change box parent
-                GameObject playerObj = GameObject.Find("Player");
-                grabbeableObject.parent = playerObj.transform;
-                // get player position and Change box position
-                grabbeableObject.position = playerObj.transform.position;
-
-                grabbedObject = grabbeableObject.gameObject;
+                GrabKernel();
             }
 
         }

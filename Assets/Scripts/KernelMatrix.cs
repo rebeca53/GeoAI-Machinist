@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,6 +8,13 @@ public class KernelMatrix : MonoBehaviour
     public GameObject kernelPixel;
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
 
+    static readonly int kernelSize = 3;
+
+    private bool grabbed = false;
+    private KernelPixel center;
+    private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
+    float verticalOffset;
+    float horizontalOffset;
     // Data
     double[][] kernel = {
     new double[] {
@@ -31,9 +37,8 @@ public class KernelMatrix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int kernelSize = 3;
-        float verticalOffset = transform.position.x;
-        float horizontalOffset = transform.position.y;
+        verticalOffset = transform.position.x;
+        horizontalOffset = transform.position.y;
 
         for (int i = 0; i < kernelSize; i++)
         {
@@ -49,12 +54,14 @@ public class KernelMatrix : MonoBehaviour
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
                 if (IsKernelCenter(i, j))
                 {
-                    instance.GetComponent<KernelPixel>().SetKernelCenter();
+                    center = instance.GetComponent<KernelPixel>();
+                    center.SetKernelCenter();
                 }
                 // instance.tag = "Kernel";
                 TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
                 label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
 
+                kernelPixels.Add(instance.GetComponent<KernelPixel>());
             }
         }
     }
@@ -74,4 +81,72 @@ public class KernelMatrix : MonoBehaviour
     {
         return (i == 1) && (j == 1);
     }
+
+    public void MoveRight()
+    {
+        transform.position = new(transform.position.x + pixelSize, transform.position.y, transform.position.z);
+    }
+
+    public void MoveLeft()
+    {
+        transform.position = new(transform.position.x - pixelSize, transform.position.y, transform.position.z);
+    }
+
+    public void MoveUp()
+    {
+        transform.position = new(transform.position.x, transform.position.y + pixelSize, transform.position.z);
+    }
+
+    public void MoveDown()
+    {
+        transform.position = new(transform.position.x, transform.position.y - pixelSize, transform.position.z);
+    }
+
+    public void Grab(Vector3 grabberPosition)
+    {
+        Debug.Log("xgrab previous transform position " + transform.position);
+        Debug.Log("xgrab previous transform local position " + transform.localPosition);
+
+        Debug.Log("xgrab " + grabberPosition);
+        grabbed = true;
+        Vector3 relativeToParentPosition = new(0f, 0f, 0f);
+        transform.localPosition = relativeToParentPosition;
+        // transform.position = new(grabberPosition.x, grabberPosition.y, grabberPosition.z);
+        Debug.Log("xgrab transform position " + transform.position);
+        Debug.Log("xgrab transform local position " + transform.localPosition);
+
+
+        // foreach (KernelPixel kp in kernelPixels)
+        // {
+        //     kp.GetTransform().localPosition = relativeToParentPosition;
+        // }
+    }
+
+    // private void SetPixelPosition(GameObject instance, Vector3 position)
+    // {
+
+
+    //     float xPosition = horizontalOffset + i * pixelSize;
+
+    //     float yPosition = verticalOffset + j * pixelSize;
+
+    //     instance.transform.position = new ()
+    //     // instance.tag = "Kernel";
+    //     TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
+    //     label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
+
+    //     kernelPixels.Add(instance.GetComponent<KernelPixel>());
+
+    // }
+
+    public bool IsGrabbed()
+    {
+        return grabbed;
+    }
+
+    public KernelPixel GetKernelCenter()
+    {
+        return center;
+    }
+
 }
