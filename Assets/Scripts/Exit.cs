@@ -56,7 +56,7 @@ public class Exit : MonoBehaviour
     {
         Debug.Log("UnlockExit");
 
-        UIHandler.Instance.DisplayDialogue("Wow! You really know everything about Land Cover and Land Use as expected from the GeoAI Machinist ;)");
+        UIHandler.Instance.DisplayMessage("Wow! You really know everything about Land Cover and Land Use as expected from the GeoAI Machinist ;)");
 
         isUnlocked = true;
         PlaySound(unlockClip);
@@ -74,7 +74,7 @@ public class Exit : MonoBehaviour
         {
             Debug.Log("Retrieveing object");
         }
-        cameraZoom.ChangeZoom(4f);
+        cameraZoom.ChangeZoomSmooth(4f);
     }
 
     public void AttemptExit()
@@ -86,7 +86,7 @@ public class Exit : MonoBehaviour
     {
         if (!HasCollectedAllCoins())
         {
-            UIHandler.Instance.DisplayDialogue("Oops! I see you didn't collect all Coins. They will be useful in the future!", 10);
+            UIHandler.Instance.DisplayMessage("Oops! I see you didn't collect all Coins. They will be useful in the future!", 10);
         }
         else if (IsPhaseOver())
         {
@@ -98,7 +98,7 @@ public class Exit : MonoBehaviour
         }
         else
         {
-            UIHandler.Instance.DisplayDialogue("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn.");
+            UIHandler.Instance.DisplayMessage("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn.");
         }
 
     }

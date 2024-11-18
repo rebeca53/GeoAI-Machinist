@@ -82,10 +82,10 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayDialogue(string content, float time = displayTime)
     {
-        // if (!displayingDialogue)
-        // {
-        StartCoroutine(CoroutineDisplay(content, time));
-        // }
+        if (!displayingDialogue)
+        {
+            StartCoroutine(CoroutineDisplay(content, time));
+        }
     }
 
     public void DisplayMessage(string content, float time = displayTime)
@@ -110,7 +110,7 @@ public class UIHandler : MonoBehaviour
             { "SeaLake", "Sea or lakes are large bodies of water, with seas being saline water connected to oceans and lakes generally freshwater, often enclosed by land." }
         };
 
-        Debug.Log("Message type: " + type + ", content: " + myDict[type]);
+        // Debug.Log("Message type: " + type + ", content: " + myDict[type]);
         StartCoroutine(CoroutineDisplay(myDict[type]));
     }
 
