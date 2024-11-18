@@ -56,16 +56,18 @@ public class OverviewBoardManager : MonoBehaviour
                 m_Tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
         }
-        Player.Spawn(this, GameManager.instance.playerPositionOverview);
 
         UIHandler.Instance.HideMessage();
 
-        NPC.Spawn(this, new Vector2Int(0, 1));
         if (firstLoad)
         {
+            GameManager.instance.playerPositionOverview = new(1, 8);
             NPC.DisplayIntroduction();
             firstLoad = false;
         }
+
+        Player.Spawn(this, GameManager.instance.playerPositionOverview);
+        NPC.Spawn(this, new Vector2Int(0, 8));
 
         LayoutCNNLayers();
         LayoutInputHolder();

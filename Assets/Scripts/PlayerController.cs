@@ -273,6 +273,14 @@ public class PlayerController : MonoBehaviour
         {
             CNNLayer layer = parent.GetComponent<CNNLayer>();
             Debug.Log("layer " + layer.type);
+
+            if (GameManager.instance.IsSolved(layer.type))
+            {
+                Debug.Log("Level already solved");
+                UIHandler.Instance.DisplayMessage("Layer already fixed.");
+                return;
+            }
+
             GameManager.instance.StartMiniGame(layer.type);
         }
         else

@@ -50,10 +50,10 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-        // boardScript.SetupScene();
+        boardScript.SetupScene();
         // StartOverviewScene();
         // StartMiniGame("Input");
-        StartMiniGame("Convolutional 1");
+        // StartMiniGame("Convolutional 1");
     }
 
     public void StartOverviewScene()
@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public bool IsSolved(string type)
+    {
+        return solvedMinigames[type];
     }
 
     public void GameOver()

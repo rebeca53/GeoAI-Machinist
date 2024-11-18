@@ -47,7 +47,10 @@ public class ConvolutionalMiniGameManager : BaseBoard
             }
         }
 
-        Player.moveSpeed = 1f;
+        // UIHandler.Instance.HideMessage();
+        NPC.DisplayIntroduction();
+
+        // Player.moveSpeed = 1f;
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
 
