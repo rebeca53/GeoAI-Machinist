@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -87,6 +85,10 @@ public class SampleSpectralBand : MonoBehaviour
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
             renderer.sprite = operation.Result;
+            if (GetBandType().Equals("swir"))
+            {
+                renderer.color = Color.yellow;
+            }
         }
         else
         {

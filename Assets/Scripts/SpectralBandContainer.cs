@@ -41,44 +41,9 @@ public class SpectralBandContainer : MonoBehaviour
     {
         type = bandType;
 
-        ChangeSquareColor(transform.Find("SquareResidential"));
-        ChangeSquareColor(transform.Find("SquareHighway"));
-        ChangeSquareColor(transform.Find("SquareRiver"));
-        ChangeSquareColor(transform.Find("SquareForest"));
-        ChangeSquareColor(transform.Find("SquareAnnualCrop"));
-
         TextMeshPro label = transform.Find("SpectralBandLabel").GetComponent<TextMeshPro>();
         label.text = typeToLabel[type];
     }
-
-    void ChangeSquareColor(Transform square)
-    {
-        SpriteRenderer renderer = square.GetComponent<SpriteRenderer>();
-        Color newColor = GetColor();
-        newColor.a = 0.3f;
-        renderer.color = newColor;
-    }
-
-    // TODO: better to have a dict???
-    Color GetColor()
-    {
-        switch (type)
-        {
-            case "red":
-                return Color.red;
-            case "green":
-                return new Color(0, 180, 0); // dark green
-            case "blue":
-                return Color.blue;
-            case "swir":
-                return new Color(150, 255, 0); // bright green
-            case "redEdge":
-                return Color.magenta;
-            default:
-                return Color.white;
-        }
-    }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -101,7 +66,7 @@ public class SpectralBandContainer : MonoBehaviour
     {
         Debug.Log("MatchSpectralBand");
 
-        Transform parentSquare = GetSquareParent(sampleSpectralBand);
+        Transform parentSquare = transform;
         if (parentSquare == null)
         {
             Debug.LogError("Failed to get parent based on sample spectral band class");
@@ -121,14 +86,6 @@ public class SpectralBandContainer : MonoBehaviour
         {
             OnFull?.Invoke(type);
         }
-    }
-
-    private Transform GetSquareParent(SampleSpectralBand sampleSpectralBand)
-    {
-        string squareName = "Square" + sampleSpectralBand.GetClass();
-        Debug.Log("Attempt to get square parent " + squareName);
-
-        return transform.Find(squareName);
     }
 
     public void DrawConnections(Vector3 inputPosition)
