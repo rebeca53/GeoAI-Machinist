@@ -88,7 +88,7 @@ public class OverviewBoardManager : MonoBehaviour
         {
             Debug.Log("Retrieveing object");
         }
-        cameraZoom.ChangeZoom(1f);
+        cameraZoom.ChangeZoomSmooth(1f);
     }
 
     // TODO: move to Abstract class 
@@ -172,7 +172,6 @@ public class OverviewBoardManager : MonoBehaviour
 
     void LayoutCNNLayers()
     {
-        Debug.Log("Layout CNN Layer");
         // // TODO: Read layers from actual CNN model
 
         List<string> layerNames = new List<string> {
@@ -202,7 +201,6 @@ public class OverviewBoardManager : MonoBehaviour
 
     void LayoutInputHolder()
     {
-        Debug.Log("Layout Input Holder");
         GameObject instance = Instantiate(inputHolder, new Vector3(1f, 9f, 0f), Quaternion.identity);
         InputHolder script = instance.GetComponent<InputHolder>();
         // script.Spawn(this, new Vector2Int(1, 9));

@@ -9,7 +9,6 @@ public class SampleSpectralBand : MonoBehaviour
     string address;
     private BoxCollider2D boxCollider;
 
-
     public string GetClass()
     {
         if (address.Contains("AnnualCrop"))

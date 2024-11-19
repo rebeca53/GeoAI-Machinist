@@ -90,6 +90,7 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayMessage(string content, float time = displayTime)
     {
+        Debug.Log("Display Message");
         StartCoroutine(CoroutineDisplay(content, time));
     }
 
@@ -116,6 +117,7 @@ public class UIHandler : MonoBehaviour
 
     public void HideMessage()
     {
+        Debug.Log("Hide Message");
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
     }
 

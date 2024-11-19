@@ -860,7 +860,7 @@ GameObject:
   - component: {fileID: 1503359399}
   m_Layer: 0
   m_Name: Virtual Camera
-  m_TagString: Untagged
+  m_TagString: VirtualCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -949,6 +949,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 1503359396}
+  MaxOrthoSize: 8
+  MinOrthoSize: 0.5
   sensitivity: 10
 --- !u!1001 &1740082963
 PrefabInstance:
@@ -1207,7 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6972b7332a79f4aab44385ea88485e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneIndex: 2
+  nextScene: 
 --- !u!4 &1917714774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2313873604942153408, guid: 72013fef11c50734db318fb83fc9454d, type: 3}

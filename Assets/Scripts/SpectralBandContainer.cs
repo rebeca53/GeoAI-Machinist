@@ -79,15 +79,16 @@ public class SpectralBandContainer : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        Debug.Log("On stay over band container display message: " + typeToMessage[type]);
-        DisplayMessage();
-    }
 
-    void DisplayMessage()
+    private void OnTriggerEnter2D(Collider2D other)
     {
         UIHandler.Instance.DisplayMessage(typeToMessage[type]);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Debug.Log("On trigger exit 2d: " + other.tag);
+        UIHandler.Instance.HideMessage();
     }
 
     public bool IsMatch(SampleSpectralBand sampleSpectralBand)
@@ -151,7 +152,7 @@ public class SpectralBandContainer : MonoBehaviour
 
         Vector3 startPoint = inputPosition;
         Vector3 endPoint = new(0.1f, -1f, 0f);
-        Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
+        // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(5f);
     }
@@ -170,7 +171,7 @@ public class SpectralBandContainer : MonoBehaviour
 
         Vector3 startPoint = new(0f, -1f, 0f);
         Vector3 endPoint = new(2f, -0.5f, 0f);
-        Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
+        // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(1f);
     }

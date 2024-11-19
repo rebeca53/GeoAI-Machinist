@@ -46,7 +46,7 @@ public class InputHolder : MonoBehaviour
         {
             Debug.LogError("Failed to retrieve LineRenderer");
         }
-        Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
+        // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine();
     }

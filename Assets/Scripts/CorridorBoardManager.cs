@@ -38,10 +38,7 @@ public class CorridorBoardManager : MonoBehaviour
                 // Draw Corridor
                 if (IsCorridor(x, y))
                 {
-                    Debug.Log("IsCorridor");
                     DrawCorridor(x, y);
-                    // tile = GetCorridorWallTile(x, y);
-                    // m_Wallsmap.SetTile(new Vector3Int(x, y, 1), tile);
                 }
             }
         }
@@ -59,8 +56,6 @@ public class CorridorBoardManager : MonoBehaviour
 
     private Tile GetCorridorWallTile(int x, int y)
     {
-        Debug.Log("Get corridor tile x " + x + ", y " + y);
-
         // Bottom
         if (y == startCorridor)
         {

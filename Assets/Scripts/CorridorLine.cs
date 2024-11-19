@@ -20,7 +20,6 @@ public class CorridorLine : MonoBehaviour
         float mid = 0.1f + (startCorridor + endCorridor) / 2f;
         Vector3 startPoint = new(0, mid, 0f);
         Vector3 endPoint = new(LengthCorridor, mid, 0f);
-        Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
     }
