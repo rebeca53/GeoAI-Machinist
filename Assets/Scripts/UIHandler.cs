@@ -8,12 +8,15 @@ public class UIHandler : MonoBehaviour
     public static UIHandler Instance { get; private set; }
     private Label moneyText;
 
-    public const float displayTime = 15.0f;
-    public float DefaultDisplayTime { get { return displayTime; } }
-
     private VisualElement m_NonPlayerDialogue;
     private Label message;
+
+
+    public const float displayTime = 15.0f;
+    public float DefaultDisplayTime { get { return displayTime; } }
     bool displayingDialogue = false;
+    private float timeout = 0f;
+
     private void Awake()
     {
         if (Instance == null)
@@ -42,8 +45,6 @@ public class UIHandler : MonoBehaviour
         m_NonPlayerDialogue = uiDocument.rootVisualElement.Q<VisualElement>("NPCDialogue");
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
         message = uiDocument.rootVisualElement.Q<Label>("DialogueMessage");
-
-        // StartCoroutine(MultiPageDisplayIntroduction());
     }
 
     public void SetMoneyValue(int amount)
@@ -72,16 +73,20 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator CoroutineDisplay(string content, float time = displayTime)
     {
+        Debug.Log("Start Coroutine Display");
         displayingDialogue = true;
         message.text = content;
         m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
         yield return new WaitForSeconds(time);
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
         displayingDialogue = false;
+        Debug.Log("End Coroutine Display");
     }
 
     public void DisplayDialogue(string content, float time = displayTime)
     {
+        Debug.Log("Display Dialogue");
+
         if (!displayingDialogue)
         {
             StartCoroutine(CoroutineDisplay(content, time));
@@ -90,8 +95,36 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayMessage(string content, float time = displayTime)
     {
-        Debug.Log("Display Message");
-        StartCoroutine(CoroutineDisplay(content, time));
+        // Debug.Log("Display Message during " + time + " seconds");
+        timeout = time;
+        displayingDialogue = true;
+        message.text = content;
+        m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
+    }
+
+    public void HideMessage()
+    {
+        // Debug.Log("Hide Message");
+        m_NonPlayerDialogue.style.display = DisplayStyle.None;
+        displayingDialogue = false;
+    }
+
+    void Update()
+    {
+        if (!displayingDialogue)
+        {
+            return;
+        }
+
+        if (timeout > 0f)
+        {
+            timeout -= Time.deltaTime;
+            // Debug.Log("new timeout " + timeout);
+        }
+        else
+        {
+            HideMessage();
+        }
     }
 
     // Land Use and Land Cover Classes Information
@@ -112,13 +145,7 @@ public class UIHandler : MonoBehaviour
         };
 
         // Debug.Log("Message type: " + type + ", content: " + myDict[type]);
-        StartCoroutine(CoroutineDisplay(myDict[type]));
-    }
-
-    public void HideMessage()
-    {
-        Debug.Log("Hide Message");
-        m_NonPlayerDialogue.style.display = DisplayStyle.None;
+        DisplayMessage(myDict[type]);
     }
 
     public void RegisterContainers()

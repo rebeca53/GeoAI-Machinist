@@ -17,7 +17,7 @@ public class CNNLayer : MonoBehaviour
     void Start()
     {
         label = gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
-        label.text = type;
+        label.text = type + "\nLayer";
 
         SetGameStatus();
     }

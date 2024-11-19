@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Cinemachine;
 using UnityEngine;
 
@@ -41,7 +40,7 @@ public class CameraZoom : MonoBehaviour
 
         if (IsZooming)
         {
-            Debug.Log($"IsZooming: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {targetSize}");
+            // Debug.Log($"IsZooming: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {targetSize}");
 
             if (IsApproximate(targetSize, virtualCamera.m_Lens.OrthographicSize))
             {
@@ -50,7 +49,7 @@ public class CameraZoom : MonoBehaviour
             else
             {
                 virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, targetSize, Time.deltaTime * zoomSpeed);
-                Debug.Log($"After: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {targetSize}");
+                // Debug.Log($"After: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {targetSize}");
             }
         }
     }
@@ -83,7 +82,7 @@ public class CameraZoom : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Before: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {orthoSize}");
+        // Debug.Log($"Before: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {orthoSize}");
         orthoSize = Mathf.Clamp(orthoSize, MinOrthoSize, MaxOrthoSize);
         targetSize = orthoSize;
         IsZooming = true;

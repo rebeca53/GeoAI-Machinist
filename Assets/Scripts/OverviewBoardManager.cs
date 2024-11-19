@@ -57,21 +57,18 @@ public class OverviewBoardManager : MonoBehaviour
             }
         }
 
-        UIHandler.Instance.HideMessage();
-
-        if (firstLoad)
-        {
-            GameManager.instance.playerPositionOverview = new(1, 8);
-            NPC.DisplayIntroduction();
-            firstLoad = false;
-        }
-
-        Player.Spawn(this, GameManager.instance.playerPositionOverview);
-        NPC.Spawn(this, new Vector2Int(0, 8));
-
         LayoutCNNLayers();
         LayoutInputHolder();
         ZoomIn();
+
+        NPC.Spawn(this, new Vector2Int(0, 8));
+        if (firstLoad)
+        {
+            GameManager.instance.playerPositionOverview = new(1, 8);
+            firstLoad = false;
+            NPC.DisplayIntroduction(60f);
+        }
+        Player.Spawn(this, GameManager.instance.playerPositionOverview);
     }
 
     public void ZoomIn()
