@@ -49,6 +49,11 @@ public class NonPlayerCharacter : MonoBehaviour
         audioSource.PlayOneShot(clip);
     }
 
+    public void Speak()
+    {
+        audioSource.Play();
+    }
+
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);

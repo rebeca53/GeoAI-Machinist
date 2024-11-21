@@ -73,6 +73,12 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("LastInputX", -1f);
     }
 
+    public void TurnRight()
+    {
+        Debug.Log("Turn right");
+        animator.SetFloat("LastInputX", 1f);
+    }
+
     public void ChangeMoney(int amount)
     {
         currentMoney += amount;
@@ -116,6 +122,11 @@ public class PlayerController : MonoBehaviour
     public void MoveManual(Vector3 newPosition)
     {
         rb.position = newPosition;
+    }
+
+    public void Walking(bool isWalking)
+    {
+        animator.SetBool("playerWalk", isWalking);
     }
 
     public void Move(InputAction.CallbackContext context)
