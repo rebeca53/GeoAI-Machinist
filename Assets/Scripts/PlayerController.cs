@@ -291,14 +291,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnSpaceAction()
     {
-        if (nearObject.CompareTag("Exit"))
+
+        if (nearObject && nearObject.CompareTag("Exit"))
         {
             Exit exit = nearObject.GetComponent<Exit>();
             exit.AttemptExit();
             return;
         }
 
-        if (nearObject.CompareTag("CNNLayer"))
+        if (nearObject && nearObject.CompareTag("CNNLayer"))
         {
             StartMiniGame();
             return;
@@ -308,15 +309,15 @@ public class PlayerController : MonoBehaviour
         if (grabbedObject)
         {
             Debug.Log("space action and BUT grabbed object");
-            if (nearObject.CompareTag("Container"))
+            if (nearObject && nearObject.CompareTag("Container"))
             {
                 AttemptToFillAContainer();
             }
-            else if (nearObject.CompareTag("InputHolder"))
+            else if (nearObject && nearObject.CompareTag("InputHolder"))
             {
                 FillInputHolder();
             }
-            else if (nearObject.CompareTag("SpectralBandContainer"))
+            else if (nearObject && nearObject.CompareTag("SpectralBandContainer"))
             {
                 AttemptToFillSpectralBandContainer();
             }
@@ -328,7 +329,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("space action and no grabbed object");
-            if (nearObject.CompareTag("SampleBox"))
+            if (nearObject && nearObject.CompareTag("SampleBox"))
             {
                 Scene currentScene = SceneManager.GetActiveScene();
                 // Retrieve the name of this scene.
@@ -342,15 +343,15 @@ public class PlayerController : MonoBehaviour
                     GrabSampleBox();
                 }
             }
-            else if (nearObject.CompareTag("SpectralBand"))
+            else if (nearObject && nearObject.CompareTag("SpectralBand"))
             {
                 GrabSampleBox();
             }
-            else if (nearObject.CompareTag("SelectorSwitch"))
+            else if (nearObject && nearObject.CompareTag("SelectorSwitch"))
             {
                 nearObject.GetComponent<SelectorSwitch>().Switch();
             }
-            else if (nearObject.transform.parent.CompareTag("Kernel"))
+            else if (nearObject && nearObject.transform.parent.CompareTag("Kernel"))
             {
                 GrabKernel();
             }

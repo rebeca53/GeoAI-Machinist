@@ -95,15 +95,22 @@ public class InputMiniGameManager : BaseBoard
             bool allCharacteristicSelected = true;
             foreach (string band in characteristicBands)
             {
-                allCharacteristicSelected = correct.Contains(band);
+                if (!correct.Contains(band))
+                {
+                    allCharacteristicSelected = false;
+                }
             }
-            Debug.Log("Is turn over? correct containes characteristic abnds? " + correct.Equals(characteristicBands));
-            Debug.Log("Is turn over? wrong Count " + wrong.Count);
-            bool over = allCharacteristicSelected && (wrong.Count == 0);
-            Debug.Log("Is turn over? " + over);
+
             Debug.Log("Is turn over? correct " + printList(correct));
             Debug.Log("Is turn over? wrong " + printList(wrong));
             Debug.Log("Is turn over? characteristicBands " + printList(characteristicBands));
+
+            Debug.Log("Is turn over? correct containes characteristic abnds? " + allCharacteristicSelected);
+
+            Debug.Log("Is turn over? wrong Count " + wrong.Count);
+
+            bool over = allCharacteristicSelected && (wrong.Count == 0);
+            Debug.Log("Is turn over? " + over);
             return over;
         }
 
@@ -172,6 +179,7 @@ public class InputMiniGameManager : BaseBoard
 
     private void LayoutSample()
     {
+        Debug.Log("Layout Sample");
         teleportationDevice.Blink();
 
         Turn current = turns[currentTurn];
@@ -402,6 +410,7 @@ public class InputMiniGameManager : BaseBoard
             // AnimateGameOver();
             return;
         }
+        Debug.Log("Increment turn");
         currentTurn++;
         fullSpectralBandsContainer = 0;
 
