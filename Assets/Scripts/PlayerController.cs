@@ -346,10 +346,15 @@ public class PlayerController : MonoBehaviour
             {
                 GrabSampleBox();
             }
+            else if (nearObject.CompareTag("SelectorSwitch"))
+            {
+                nearObject.GetComponent<SelectorSwitch>().Switch();
+            }
             else if (nearObject.transform.parent.CompareTag("Kernel"))
             {
                 GrabKernel();
             }
+
 
         }
     }

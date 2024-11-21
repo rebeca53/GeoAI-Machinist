@@ -24,6 +24,10 @@ public class SampleBox : MonoBehaviour
     public void BreakMultiband()
     {
         OnBreak?.Invoke(type, transform.position);
+    }
+
+    public void Reset()
+    {
         Destroy(gameObject);
     }
 

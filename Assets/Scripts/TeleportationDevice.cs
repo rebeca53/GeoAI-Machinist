@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TeleportationDevice : MonoBehaviour
+{
+    private float verticalOffset = 0.35f;
+    private float horizontalOffset = 0f;
+
+    private Animator animator;
+    private string instruction;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        animator = GetComponent<Animator>();
+    }
+
+    public void Load(SampleBox sampleBox, string instruction)
+    {
+        // Update sample box chracteactis
+        // Change scale
+        sampleBox.gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+
+        // change box parent
+        sampleBox.gameObject.transform.parent = gameObject.transform;
+        sampleBox.gameObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
+
+        this.instruction = instruction;
+    }
+
+    public void Blink()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetBool("blinking", true);
+    }
+
+    public void StopBlink()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetBool("blinking", false);
+    }
+
+    public float GetX()
+    {
+        return transform.position.x;
+    }
+
+    public float GetY()
+    {
+        return transform.position.y;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            UIHandler.Instance.DisplayMessage(instruction);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            UIHandler.Instance.HideMessage();
+        }
+    }
+}
+

@@ -10,7 +10,7 @@ public class NonPlayerCharacter : MonoBehaviour
     public AudioClip speakingClip;
 
 
-    Dictionary<string, string> sceneToInstruction = new Dictionary<string, string> {
+    public Dictionary<string, string> sceneToInstruction = new Dictionary<string, string> {
         {"SampleScene", "Hello, GeoAI Machinist! Your first mission is labeling all these images by placing them in the correct container. This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again."},
         {"OverviewScene", "The Big Machine is a Convolutional Neural Network (CNN) to identify land use and land cover. A CNN is a sequence of mathematical operations over 'matrices'. Each step in this sequence of operation is called a 'layer'. For us, matrices are just another name for images!\nTwo layers of the Big Machine are damaged. Enter the corresponding room to fix them."},
         {"InputMiniGame", "This is the first layer of the CNN. It breaks the image into spectral bands. Spectral bands are wavelenghts interval of light. Some bands are visible such as Red, Green, and Blue. But there are more things in heaven and Earth that humans can see. And there are invisible spectral bands to reveal them. Your mission here is to manipulate the input samples to feed each spectral band separately."},
@@ -64,5 +64,10 @@ public class NonPlayerCharacter : MonoBehaviour
     {
         transform.position = boardManager.CellToWorld(cell);
         DisplayIntroduction();
+    }
+
+    public void WalkTo(Vector3 position)
+    {
+        transform.position = position;
     }
 }

@@ -89,10 +89,16 @@ public class SampleSpectralBand : MonoBehaviour
             {
                 renderer.color = Color.yellow;
             }
+            gameObject.SetActive(true);
         }
         else
         {
             Debug.LogError($"Asset for {address} failed to load.");
         }
+    }
+
+    void Start()
+    {
+        gameObject.SetActive(false);
     }
 }

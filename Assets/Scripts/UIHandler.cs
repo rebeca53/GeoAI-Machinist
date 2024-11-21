@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,9 @@ public class UIHandler : MonoBehaviour
     private VisualElement m_NonPlayerDialogue;
     private Label message;
 
-
     public const float displayTime = 15.0f;
     public float DefaultDisplayTime { get { return displayTime; } }
-    bool displayingDialogue = false;
+    bool displayingMessage = false;
     private float timeout = 0f;
 
     private void Awake()
@@ -52,52 +52,17 @@ public class UIHandler : MonoBehaviour
         moneyText.text = amount.ToString();
     }
 
-    public void DisplayIntroduction()
+    public void DisplayDialogue(string content)
     {
-        DisplayDialogue("Your first mission is labeling all these images by placing them in the correct container." +
-    "This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again.");
-    }
-
-    public IEnumerator MultiPageDisplayIntroduction()
-    {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SetEnable(false);
-
-        yield return CoroutineDisplay("Hello, GeoAI Machinist! I'm your Robot Assistant, I'm here to help you, you slept for a while, but now we need you.", 8);
-        yield return CoroutineDisplay("As the GeoAI Machinist, your mission is to fix the Big Machine, a space station that surveys Earth and intervenes on emergency situations.", 8);
-        yield return CoroutineDisplay("The ancient knowledge needed to fix the malfunction is almost lost, only the GeoAI Machinist has been trained to hold this knowledge and can save humanity.", 10);
-        yield return CoroutineDisplay("Your first mission is labeling all these images by placing them in the correct container." +
-        "This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again.", 12);
-
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SetEnable(true);
-    }
-
-    IEnumerator CoroutineDisplay(string content, float time = displayTime)
-    {
-        Debug.Log("Start Coroutine Display");
-        displayingDialogue = true;
         message.text = content;
         m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
-        yield return new WaitForSeconds(time);
-        m_NonPlayerDialogue.style.display = DisplayStyle.None;
-        displayingDialogue = false;
-        Debug.Log("End Coroutine Display");
-    }
-
-    public void DisplayDialogue(string content, float time = displayTime)
-    {
-        Debug.Log("Display Dialogue");
-
-        if (!displayingDialogue)
-        {
-            StartCoroutine(CoroutineDisplay(content, time));
-        }
     }
 
     public void DisplayMessage(string content, float time = displayTime)
     {
         // Debug.Log("Display Message during " + time + " seconds");
         timeout = time;
-        displayingDialogue = true;
+        displayingMessage = true;
         message.text = content;
         m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
     }
@@ -106,12 +71,12 @@ public class UIHandler : MonoBehaviour
     {
         // Debug.Log("Hide Message");
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
-        displayingDialogue = false;
+        displayingMessage = false;
     }
 
     void Update()
     {
-        if (!displayingDialogue)
+        if (!displayingMessage)
         {
             return;
         }

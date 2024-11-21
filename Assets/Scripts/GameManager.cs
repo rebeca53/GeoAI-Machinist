@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
         {"Output", true}
     };
 
-    // TODO: have all the levels possibilities and have a state machine that defines the transition from one to another
-    private int currentLevel = 1;
-
     void Awake()
     {
         if (instance == null)

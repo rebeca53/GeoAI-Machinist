@@ -1,20 +1,132 @@
 using System.Collections.Generic;
 using UnityEngine;
-//Tells Random to use the Unity Engine random number generator.
-using Random = UnityEngine.Random;
 
-// TODO: Have an Abstract class for all Board Manager
 public class InputMiniGameManager : BaseBoard
 {
     public GameObject[] sampleTiles;
     public GameObject spectralBandTile;
     public GameObject spectralBandContainerTile;
-    private List<Vector3> samplePositions = new List<Vector3>();
-    private int regionsDelimiter = 10;
-    private int padding = 2;
+    public GameObject selectorSwitch;
+
+    public GameObject teleportationDeviceTile;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
     private int fullSpectralBandsContainer = 0;
+
+    Dictionary<string, SelectorSwitch> bandSelectors = new Dictionary<string, SelectorSwitch>();
+    TeleportationDevice teleportationDevice;
+    Dictionary<string, SpectralBandContainer> containers = new Dictionary<string, SpectralBandContainer>();
+    SampleBox sampleBox;
+
+    // Turn-related variables
+
+    class Turn
+    {
+        int id;
+        string sampleName;
+        List<string> characteristicBands;
+        List<string> correct = new List<string>();
+        List<string> wrong = new List<string>();
+
+        int amountActivated = 0;
+        public GameObject sample;
+        public Vector3 position = new(0.5f, 7f, 0f);
+        public string instruction;
+
+        public readonly string positiveMessage = "Good choice!";
+        public readonly string negativeMessage = "Try a different band";
+
+        public Turn(int id, string sampleName, List<string> bands, string instruction)
+        {
+            this.id = id;
+            this.sampleName = sampleName;
+            characteristicBands = bands;
+            this.instruction = instruction;
+        }
+
+        public void SetSample(GameObject gameObject)
+        {
+            sample = gameObject;
+        }
+
+        public string GetProgressMessage()
+        {
+            int remaining = characteristicBands.Count - correct.Count;
+            return "Still " + remaining + " to activate. And there are " + wrong.Count + " bands to deactivate.";
+        }
+
+        public bool IsCharacteristicBand(string bandName)
+        {
+            return characteristicBands.Contains(bandName);
+        }
+
+        public void Match(string bandName)
+        {
+            if (IsCharacteristicBand(bandName))
+            {
+                correct.Add(bandName);
+            }
+            else
+            {
+                Debug.Log("is wrong " + bandName);
+                wrong.Add(bandName);
+            }
+        }
+
+        public void Unmatch(string bandName)
+        {
+            if (IsCharacteristicBand(bandName))
+            {
+                correct.Remove(bandName);
+            }
+            else
+            {
+                wrong.Remove(bandName);
+            }
+        }
+
+        public bool AlreadyMatched(string bandName)
+        {
+            return correct.Contains(bandName) || wrong.Contains(bandName);
+        }
+
+        public bool IsOver()
+        {
+            bool allCharacteristicSelected = true;
+            foreach (string band in characteristicBands)
+            {
+                allCharacteristicSelected = correct.Contains(band);
+            }
+            Debug.Log("Is turn over? correct containes characteristic abnds? " + correct.Equals(characteristicBands));
+            Debug.Log("Is turn over? wrong Count " + wrong.Count);
+            bool over = allCharacteristicSelected && (wrong.Count == 0);
+            Debug.Log("Is turn over? " + over);
+            Debug.Log("Is turn over? correct " + printList(correct));
+            Debug.Log("Is turn over? wrong " + printList(wrong));
+            Debug.Log("Is turn over? characteristicBands " + printList(characteristicBands));
+            return over;
+        }
+
+        private string printList(List<string> list)
+        {
+            string message = "";
+            foreach (string value in list)
+            {
+                message += value + " ";
+            }
+            return message;
+        }
+
+    }
+
+    private List<Turn> turns = new List<Turn> {
+        new(0, "River", new List<string>{"blue", "green", "swir"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a River.\nA River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
+        new(1, "Highway", new List<string>{"red", "green"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a Highway.\nA Highway is a man-made feature, and it is necessary to tell it apart from vegetation and water."),
+        new(2, "Residential", new List<string>{"red", "blue"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a Residential area.\nA Residential area is a man-made feature, and it is necessary to tell it apart from vegetation."),
+    };
+
+    int currentTurn = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,63 +152,41 @@ public class InputMiniGameManager : BaseBoard
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
 
-        InitialiseList();
+        // Assign the sprite to each turn
+        turns[0].SetSample(sampleTiles[0]); //River
+        turns[1].SetSample(sampleTiles[1]); //Highway
+        turns[2].SetSample(sampleTiles[2]); //Residential
+
+        LayoutInputHolder();
         LayoutSample();
-        DrawBandContainers();
+        LayoutBandContainers();
+        LayoutBandSelector();
     }
 
-    //Clears our list gridPositions and prepares it to generate a new board.
-    void InitialiseList()
+    void LayoutInputHolder()
     {
-        //Clear our list gridPositions.
-        samplePositions.Clear();
-
-        //Loop through x axis (columns).
-        for (int x = 1; x < regionsDelimiter; x++)
-        {
-            //Within each column, loop through y axis (rows).
-            for (int y = padding; y < Height - padding; y++)
-            {
-                //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                samplePositions.Add(new Vector3(x, y, 0f));
-            }
-        }
-    }
-
-    // TODO: Move to Abstract class
-    //RandomPosition returns a random position from our list gridPositions.
-    Vector3 RandomPosition()
-    {
-        //Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-        int randomIndex = Random.Range(0, samplePositions.Count);
-        //Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
-        Vector3 randomPosition = samplePositions[randomIndex];
-
-        //Remove the entry at randomIndex from the list so that it can't be re-used.
-        samplePositions.RemoveAt(randomIndex);
-
-        //Return the randomly selected Vector3 position.
-        return randomPosition;
+        GameObject instance = Instantiate(teleportationDeviceTile, new Vector3(1f, 6.9f, 0f), Quaternion.identity);
+        instance.transform.localScale = new(2f, 2f, 1f);
+        teleportationDevice = instance.GetComponent<TeleportationDevice>();
     }
 
     private void LayoutSample()
     {
-        foreach (GameObject tileChoice in sampleTiles)
-        {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition();
+        teleportationDevice.Blink();
 
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            GameObject instance = Instantiate(tileChoice, randomPosition, Quaternion.identity);
-            SampleBox sampleBox = instance.GetComponent<SampleBox>();
-            sampleBox.OnBreak += LayoutGrayscaleBands;
-        }
-        // GameObject tileChoice = sampleTiles[0];
+        Turn current = turns[currentTurn];
+        GameObject instance = Instantiate(current.sample, current.position, Quaternion.identity);
+        sampleBox = instance.GetComponent<SampleBox>();
+        sampleBox.OnBreak += LayoutGrayscaleBands;
+
+        teleportationDevice.Load(sampleBox, current.instruction);
     }
 
     private void LayoutGrayscaleBands(string sampleBox, Vector3 position)
     {
-        Debug.Log("Break the box " + sampleBox);
+        teleportationDevice.StopBlink();
+
+        // Debug.Log("Break the box " + sampleBox);
         GameObject tileChoice = spectralBandTile;
 
         Vector3 upper = position;
@@ -133,11 +223,11 @@ public class InputMiniGameManager : BaseBoard
         scriptRedEdge.LoadSprite(sampleBox + "_RedEdge");
     }
 
-    private void DrawBandContainers()
+    private void LayoutBandContainers()
     {
         float verticalGap = 2f;
         float verticalOffset = 2f;
-        float xPosition = 10f;
+        float xPosition = 6f;
 
         for (int i = 0; i < 5; i++)
         {
@@ -146,29 +236,177 @@ public class InputMiniGameManager : BaseBoard
             GameObject instance = Instantiate(spectralBandContainerTile, position, Quaternion.identity);
             SpectralBandContainer spectralBandContainer = instance.GetComponent<SpectralBandContainer>();
             spectralBandContainer.SetType(bandTypes[i]);
-            spectralBandContainer.DrawConnections(inputPosition: new(-9.9f, (Height / 2) - yPosition, 0f));
-            spectralBandContainer.OnFull += CheckWinCondition;
+            spectralBandContainer.DrawConnections(inputPosition: new(-4.9f, (Height / 2) - yPosition, 0f));
+            spectralBandContainer.OnFull += CheckEnableSwitches;
+
+            containers[bandTypes[i]] = spectralBandContainer;
         }
     }
 
-    private void CheckWinCondition(string type)
+    private void LayoutBandSelector()
     {
+        float verticalGap = 2f;
+        float verticalOffset = 2.64f;
+        float xPosition = 8.86f;
+
+        for (int i = 0; i < 5; i++)
+        {
+            float yPosition = verticalOffset + i * verticalGap;
+            Vector3 position = new(xPosition, yPosition, 0f);
+            GameObject instance = Instantiate(selectorSwitch, position, Quaternion.identity);
+            SelectorSwitch bandSelector = instance.GetComponent<SelectorSwitch>();
+            bandSelector.SetType(bandTypes[i]);
+            // bandSelector.DrawConnections(inputPosition: new(-9.9f, (Height / 2) - yPosition, 0f));
+            bandSelector.OnSwitch += CheckTurnCondition;
+
+            bandSelectors.Add(bandTypes[i], bandSelector);
+        }
+    }
+
+    // Spectral Band selections
+    private void SelectWrongBand(Turn current, string type)
+    {
+        current.Match(type);
+        UIHandler.Instance.DisplayMessage(current.negativeMessage + "\n" + current.GetProgressMessage());
+        bandSelectors[type].UpdateState("wrong");
+    }
+
+    private void UnselectWrongBand(Turn current, string type)
+    {
+        current.Unmatch(type);
+        UIHandler.Instance.DisplayMessage(current.positiveMessage + "\n" + current.GetProgressMessage());
+        bandSelectors[type].UpdateState("inactive");
+    }
+
+    private void SelectCorrectBand(Turn current, string type)
+    {
+        current.Match(type);
+        UIHandler.Instance.DisplayMessage(current.positiveMessage + "\n" + current.GetProgressMessage());
+        bandSelectors[type].UpdateState("correct");
+    }
+
+    private void UnselectCorrectBand(Turn current, string type)
+    {
+        current.Unmatch(type);
+        UIHandler.Instance.DisplayMessage(current.negativeMessage);
+        bandSelectors[type].UpdateState("inactive");
+    }
+
+    private void CheckTurnCondition(string type)
+    {
+        Debug.Log("check turn condition");
+        Turn current = turns[currentTurn];
+        if (current.IsCharacteristicBand(type))
+        {
+            if (current.AlreadyMatched(type))
+            {
+                UnselectCorrectBand(current, type);
+            }
+            else
+            {
+                SelectCorrectBand(current, type);
+
+            }
+        }
+        else
+        {
+            if (bandSelectors[type].IsActive())
+            {
+                SelectWrongBand(current, type);
+            }
+            else
+            {
+                UnselectWrongBand(current, type);
+            }
+        }
+
+        if (current.IsOver())
+        {
+            TurnOver();
+        }
+    }
+    private void CheckEnableSwitches(string type)
+    {
+        Debug.Log("Check enable swtiches");
         fullSpectralBandsContainer++;
         int totalCount = bandTypes.Count;
         if (fullSpectralBandsContainer == totalCount)
         {
-            GameOver();
+            foreach (KeyValuePair<string, SelectorSwitch> selector in bandSelectors)
+            {
+                selector.Value.SetHasInput();
+            }
         }
-    }
-
-    private void ExitWithoutSolving()
-    {
-        GameManager.instance.StartOverviewScene();
     }
 
     protected override void GameOver()
     {
         GameManager.instance.solvedMinigames["Input"] = true;
         GameManager.instance.StartOverviewScene();
+    }
+
+    private void AnimateGameOver()
+    {
+        // Block Player
+        Player.Disable();
+
+        // Camera goes to NPC
+        Debug.Log("Zoom In");
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("Retrieveing object");
+        }
+        // cameraZoom.ChangeFollowTarget(NPC.transform);
+
+        // NPC walks until Player
+        NPC.WalkTo(Player.transform.position);
+        Player.Enable();
+        // cameraZoom.ChangeFollowTarget(Player.transform);
+
+        // Display Clickable Message
+        // UIHandler.Instance.DisplayDialogue("Game Over. Click at this dialogue balloon to proceed to finish the challenge in this layer.");
+        // UIHandler.Instance.OnClicked += GameOver;
+    }
+
+
+    private void ResetSelectors()
+    {
+        foreach (KeyValuePair<string, SelectorSwitch> selector in bandSelectors)
+        {
+            selector.Value.Reset();
+        }
+    }
+
+    private void ResetContainers()
+    {
+        foreach (KeyValuePair<string, SpectralBandContainer> container in containers)
+        {
+            container.Value.Reset();
+        }
+    }
+
+    void TurnOver()
+    {
+        ResetContainers();
+        ResetSelectors();
+        if (currentTurn == 2)
+        {
+            GameOver();
+            // AnimateGameOver();
+            return;
+        }
+        currentTurn++;
+        fullSpectralBandsContainer = 0;
+
+        sampleBox.Reset();
+        LayoutSample();
+        // TODO: Zoom in sample
     }
 }

@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40979dfbe617ab24fae5c32088ac80f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 16
+  Width: 14
   Height: 12
   GroundTiles:
   - {fileID: 11400000, guid: c4b20f161d65f814895410be13716df1, type: 2}
@@ -203,13 +203,15 @@ MonoBehaviour:
   Player: {fileID: 457495160}
   NPC: {fileID: 925519514}
   sampleTiles:
+  - {fileID: 4279266988055134235, guid: 27619ef6d4ff19e489f22feaea1d4f87, type: 3}
+  - {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
+  - {fileID: 865287147992422790, guid: 01800c2c7ec64fd4c970030be85f1801, type: 3}
   - {fileID: 6251051242839970032, guid: f459c631a6e49994b8b3ecf4eebcb191, type: 3}
   - {fileID: 7968378284765316319, guid: 5f9998f2950756b4c944cf98a47ece9b, type: 3}
-  - {fileID: 865287147992422790, guid: 01800c2c7ec64fd4c970030be85f1801, type: 3}
-  - {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
-  - {fileID: 4279266988055134235, guid: 27619ef6d4ff19e489f22feaea1d4f87, type: 3}
   spectralBandTile: {fileID: 1569074529029992454, guid: f15a5eb81e5083148a4dd11ee71cb6da, type: 3}
   spectralBandContainerTile: {fileID: 3192559152887246772, guid: 414c176359d6fcc4c8077bf169cad1c9, type: 3}
+  selectorSwitch: {fileID: 7975651227175653580, guid: 95b2bea181959f34590ba19ebe926f89, type: 3}
+  teleportationDeviceTile: {fileID: 5179490145842757990, guid: e96b224b63af8a940a83d1e6228be0ed, type: 3}
 --- !u!1001 &457495158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -484,7 +486,7 @@ GameObject:
   - component: {fileID: 1339554161}
   m_Layer: 0
   m_Name: Virtual Camera
-  m_TagString: Untagged
+  m_TagString: VirtualCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -557,6 +559,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 1339554159}
+  MaxOrthoSize: 8
+  MinOrthoSize: 0.5
   sensitivity: 1
 --- !u!1 &1501052645
 GameObject:

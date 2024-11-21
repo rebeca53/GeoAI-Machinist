@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 // Game Object - Prefab
 // positions pre-defined - a tiny label for each
@@ -15,6 +16,8 @@ using UnityEngine;
 public class SpectralBandContainer : MonoBehaviour
 {
     string type;
+
+    public Sprite sprite;
 
     // src: https://custom-scripts.sentinel-hub.com/sentinel-2/bands/
     Dictionary<string, string> typeToMessage = new Dictionary<string, string> {
@@ -35,7 +38,7 @@ public class SpectralBandContainer : MonoBehaviour
 
     public event Action<string> OnFull;
     private int countMatched = 0;
-    private const int totalMatched = 5;
+    private const int totalMatched = 1;
 
     public void SetType(string bandType)
     {
@@ -43,6 +46,11 @@ public class SpectralBandContainer : MonoBehaviour
 
         TextMeshPro label = transform.Find("SpectralBandLabel").GetComponent<TextMeshPro>();
         label.text = typeToLabel[type];
+
+        Transform square = transform.Find("Square");
+        SpriteRenderer spriteRenderer = square.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = sprite;
+        spriteRenderer.color = GetColor();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -72,19 +80,38 @@ public class SpectralBandContainer : MonoBehaviour
             Debug.LogError("Failed to get parent based on sample spectral band class");
         }
 
-        float verticalOffset = 0.2f;
+        // float verticalOffset = 0.2f;
         // Change scale
-        sampleSpectralBand.gameObject.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        sampleSpectralBand.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.6f);
 
         // change box parent
         sampleSpectralBand.gameObject.transform.parent = parentSquare;
-        sampleSpectralBand.gameObject.transform.position = new Vector3(parentSquare.position.x, parentSquare.position.y + verticalOffset);
+        sampleSpectralBand.gameObject.transform.position = new Vector3(parentSquare.position.x, parentSquare.position.y);
         sampleSpectralBand.FitInContainer();
 
         countMatched++;
         if (countMatched == totalMatched)
         {
             OnFull?.Invoke(type);
+        }
+    }
+
+    Color GetColor()
+    {
+        switch (type)
+        {
+            case "red":
+                return Color.red;
+            case "green":
+                return Color.green; // dark green
+            case "blue":
+                return Color.blue;
+            case "swir":
+                return Color.yellow; // bright green
+            case "redEdge":
+                return Color.magenta;
+            default:
+                return Color.white;
         }
     }
 
@@ -108,11 +135,12 @@ public class SpectralBandContainer : MonoBehaviour
         }
 
         Vector3 startPoint = inputPosition;
-        Vector3 endPoint = new(0.1f, -1f, 0f);
+        Vector3 endPoint = new(-0.5f, -1f, 0f);
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(5f);
     }
+
     void DrawOutputConnection()
     {
         Transform line = transform.Find("OutputLine");
@@ -131,6 +159,21 @@ public class SpectralBandContainer : MonoBehaviour
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(1f);
+    }
+
+    public void Reset()
+    {
+        Debug.Log("MatchSpectralBand");
+
+        countMatched = 0;
+
+        Transform child = transform.Find("SpectralBand(Clone)");
+        if (child == null)
+        {
+            Debug.LogError("Failed to SpectralBand(Clone)");
+        }
+        child.gameObject.SetActive(false);
+        child.parent = null;
     }
 
 }
