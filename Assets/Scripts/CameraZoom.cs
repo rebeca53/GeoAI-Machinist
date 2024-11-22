@@ -87,4 +87,15 @@ public class CameraZoom : MonoBehaviour
         targetSize = orthoSize;
         IsZooming = true;
     }
+
+    public void ChangeZoomTarget(GameObject target)
+    {
+        if (virtualCamera == null)
+        {
+            Debug.LogError("virtualCamera is not assigned!");
+            return;
+        }
+
+        virtualCamera.Follow = target.transform;
+    }
 }

@@ -54,18 +54,18 @@ public class TeleportationDevice : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            UIHandler.Instance.DisplayMessage(instruction);
-        }
+        // if (other.CompareTag("Player"))
+        // {
+        //     UIHandler.Instance.DisplayMessage(instruction);
+        // }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            UIHandler.Instance.HideMessage();
-        }
+        // if (other.CompareTag("Player"))
+        // {
+        //     UIHandler.Instance.HideMessage();
+        // }
     }
 }
 

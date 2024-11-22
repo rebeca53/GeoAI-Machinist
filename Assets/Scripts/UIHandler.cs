@@ -60,7 +60,7 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayMessage(string content, float time = displayTime)
     {
-        // Debug.Log("Display Message during " + time + " seconds");
+        Debug.Log("Display Message during " + time + " seconds");
         timeout = time;
         displayingMessage = true;
         message.text = content;
@@ -84,7 +84,7 @@ public class UIHandler : MonoBehaviour
         if (timeout > 0f)
         {
             timeout -= Time.deltaTime;
-            // Debug.Log("new timeout " + timeout);
+            Debug.Log("new timeout " + timeout);
         }
         else
         {

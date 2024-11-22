@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class NonPlayerCharacter : MonoBehaviour
 {
-
     // Audio
     AudioSource audioSource;
     public AudioClip speakingClip;
@@ -32,9 +31,16 @@ public class NonPlayerCharacter : MonoBehaviour
 
     public void DisplayIntroduction(float time = 30f)
     {
+        Debug.Log("DisplayIntroduction during " + time);
+
         Scene currentScene = SceneManager.GetActiveScene();
         // Retrieve the name of this scene.
         string sceneName = currentScene.name;
+        if (!sceneToInstruction.ContainsKey(sceneName))
+        {
+            Debug.LogError("There is no instruction for the scene " + sceneName);
+            return;
+        }
         UIHandler.Instance.DisplayMessage(sceneToInstruction[sceneName], time);
     }
 
@@ -67,6 +73,7 @@ public class NonPlayerCharacter : MonoBehaviour
 
     public void Spawn(BaseBoard boardManager, Vector2Int cell)
     {
+        Debug.Log("Spawn");
         transform.position = boardManager.CellToWorld(cell);
         DisplayIntroduction();
     }
