@@ -12,5 +12,9 @@ public class TransitionTrigger : MonoBehaviour
         {
             GameManager.instance.StartOverviewScene();
         }
+        else if (nextScene == "SampleScene")
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

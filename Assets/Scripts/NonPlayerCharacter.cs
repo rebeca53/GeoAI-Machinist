@@ -8,7 +8,6 @@ public class NonPlayerCharacter : MonoBehaviour
     AudioSource audioSource;
     public AudioClip speakingClip;
 
-
     public Dictionary<string, string> sceneToInstruction = new Dictionary<string, string> {
         {"SampleScene", "Hello, GeoAI Machinist! Your first mission is labeling all these images by placing them in the correct container. This way the Big Machine can learn from them. Press SPACE to interact with objects, and approach the Yellow Robot to see the instructions again."},
         {"OverviewScene", "The Big Machine is a Convolutional Neural Network (CNN) to identify land use and land cover. A CNN is a sequence of mathematical operations over 'matrices'. Each step in this sequence of operation is called a 'layer'. For us, matrices are just another name for images!\nTwo layers of the Big Machine are damaged. Enter the corresponding room to fix them."},
@@ -18,6 +17,7 @@ public class NonPlayerCharacter : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Start NPC");
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -38,7 +38,6 @@ public class NonPlayerCharacter : MonoBehaviour
         string sceneName = currentScene.name;
         if (!sceneToInstruction.ContainsKey(sceneName))
         {
-            Debug.LogError("There is no instruction for the scene " + sceneName);
             return;
         }
         UIHandler.Instance.DisplayMessage(sceneToInstruction[sceneName], time);
@@ -57,6 +56,7 @@ public class NonPlayerCharacter : MonoBehaviour
 
     public void Speak()
     {
+        audioSource = GetComponent<AudioSource>();
         audioSource.Play();
     }
 

@@ -15,7 +15,6 @@ public class DialogueBalloon : MonoBehaviour
     public float hintTimer = 0f;
 
     public GameObject speaker;
-    private Transform background;
     private Transform speech;
     private Transform hint;
     private TextMeshPro label;
@@ -24,7 +23,6 @@ public class DialogueBalloon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        background = transform.Find("BackgroundBalloon");
         speech = transform.Find("Speech");
         label = speech.GetComponent<TextMeshPro>();
         hint = transform.Find("Hint");

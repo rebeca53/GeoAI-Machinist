@@ -5,16 +5,20 @@ using UnityEngine.Playables;
 
 public class PlayableDirectorCallback : MonoBehaviour
 {
+    public PlayableDirector endAnimation;
     public PlayableDirector director;
     public PlayerController Player;
     public NonPlayerCharacter NPC;
 
     public DialogueBalloon dialogueBalloon;
+    public HintBalloon hintBalloon;
     List<(string, string)> screenplay = new List<(string, string)>();
     int currentLineIndex = -1;
+
     void OnEnable()
     {
         director.stopped += OnPlayableDirectorStopped;
+        endAnimation.stopped += OnEndAnimationStopped;
         InitializeScreenplay();
     }
 
@@ -33,7 +37,7 @@ public class PlayableDirectorCallback : MonoBehaviour
         screenplay.Add(new("NPC", "Diagnostics show extensive corruption in the main AI subsystems. You'll need to prepare data, and possibly reconstruct some modules."));
         screenplay.Add(new("NPC", "Now, let’s access the AI core. Are you ready?"));
         screenplay.Add(new("Player", "Yes, I'm ready to proceed."));
-        screenplay.Add(new("NPC", "Acknowledged. Releasing security locks now. Good luck, Machinist."));
+        screenplay.Add(new("NPC", "Acknowledged. Follow me, Machinist."));
     }
 
     void OnPlayableDirectorStopped(PlayableDirector aDirector)
@@ -72,7 +76,6 @@ public class PlayableDirectorCallback : MonoBehaviour
                 NPC.Speak();
                 FollowSpeaker(NPC.gameObject);
             }
-
         }
         else if (line.Item1.Equals("Player"))
         {
@@ -100,13 +103,22 @@ public class PlayableDirectorCallback : MonoBehaviour
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
+    private void OnEndAnimationStopped(PlayableDirector aDirector)
+    {
+        if (endAnimation == aDirector)
+        {
+            Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
+            hintBalloon.SetTarget(Player.gameObject);
+            hintBalloon.SetArrowRightKey();
+            hintBalloon.Show();
+        }
+    }
+
     private void End()
     {
         FollowSpeaker(Player.gameObject);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
 
-        // Start End timeline
-
+        endAnimation.Play();
     }
 
     public void ZoomIn()
