@@ -22,7 +22,7 @@ public class CameraZoom : MonoBehaviour
     {
         if (disableControlZoom == false)
         {
-            Debug.Log("Manual control of the camera zoom");
+            // Debug.Log("Manual control of the camera zoom");
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll != 0)
             {
