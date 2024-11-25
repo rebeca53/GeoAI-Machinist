@@ -1,36 +1,28 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueBalloon : MonoBehaviour
+public class TimedDialogueBalloon : MonoBehaviour
 {
     public Action OnDone;
     string relativePosition = "upperRight"; // can be upperLeft
 
     float xOffset = 0.85f;
     float yOffset = 0.55f;
-    public float hintTimeout = 5f;
-    public float hintTimer = 0f;
+    float timeout = 5f;
+    float timer = 0f;
 
     public GameObject speaker;
     private Transform speech;
-    private Transform hint;
     private TextMeshPro label;
-
 
     void Awake()
     {
         Debug.Log("Dialogue Ballon Awake");
         speech = transform.Find("Speech");
         label = speech.GetComponent<TextMeshPro>();
-        hint = transform.Find("Hint");
-        Debug.Log("Dialogue Ballon Awake Done");
 
-        // Hide();
-        // HideHint();
-        // Place();
+        Hide();
     }
 
     private void Place()
@@ -48,6 +40,10 @@ public class DialogueBalloon : MonoBehaviour
         else if (relativePosition == "upperLeft")
         {
             transform.position = new(speaker.transform.position.x - xOffset, speaker.transform.position.y + yOffset, speaker.transform.position.z);
+        }
+        else if (relativePosition == "upperCenter")
+        {
+            transform.position = new(speaker.transform.position.x, speaker.transform.position.y + yOffset, speaker.transform.position.z);
         }
     }
 
@@ -68,20 +64,22 @@ public class DialogueBalloon : MonoBehaviour
         Place();
     }
 
+    public void PlaceUpperCenter()
+    {
+        relativePosition = "upperCenter";
+        Place();
+    }
+
     public void SetMessage(string message)
     {
-        if (label == null)
-        {
-            Debug.Log("label is null");
-            speech = transform.Find("Speech");
-            label = speech.GetComponent<TextMeshPro>();
-        }
         label.text = message;
     }
 
-    public void Show()
+    public void Show(float durationSeconds = 30f)
     {
         gameObject.SetActive(true);
+        timeout = durationSeconds;
+        timer = 0;
     }
 
     public void Hide()
@@ -89,30 +87,13 @@ public class DialogueBalloon : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void ShowHint()
-    {
-        hint.gameObject.SetActive(true);
-    }
-
-    public void HideHint()
-    {
-        hint.gameObject.SetActive(false);
-    }
-
     // Update is called once per frame
     void Update()
     {
-        hintTimer += Time.deltaTime;
-        if (hintTimer > hintTimeout)
+        timer += Time.deltaTime;
+        if (timer > timeout)
         {
-            ShowHint();
-        }
-
-        if (Input.GetKeyDown("space"))
-        {
-            Debug.Log("SPACE pressed");
-            // Hide();
-            OnDone?.Invoke();
+            Hide();
         }
     }
 }

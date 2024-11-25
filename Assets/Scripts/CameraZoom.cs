@@ -15,18 +15,14 @@ public class CameraZoom : MonoBehaviour
     bool IsZooming = false;
 
     [SerializeField] float sensitivity = 0.5f;
-    bool blocked = false;
-
-    void Start()
-    {
-        targetSize = virtualCamera.m_Lens.OrthographicSize;
-    }
+    bool disableControlZoom = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (blocked == false)
+        if (disableControlZoom == false)
         {
+            Debug.Log("Manual control of the camera zoom");
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll != 0)
             {
@@ -56,16 +52,18 @@ public class CameraZoom : MonoBehaviour
 
     public void Block()
     {
-        blocked = true;
+        disableControlZoom = true;
     }
 
     public void Release()
     {
-        blocked = false;
+        disableControlZoom = false;
     }
 
     public void ChangeZoom(float orthoSize)
     {
+        Debug.Log("change zoom suddenly to " + orthoSize);
+
         virtualCamera.m_Lens.OrthographicSize = orthoSize;
     }
 
@@ -76,15 +74,9 @@ public class CameraZoom : MonoBehaviour
 
     public void ChangeZoomSmooth(float orthoSize)
     {
-        if (virtualCamera == null)
-        {
-            Debug.LogError("virtualCamera is not assigned!");
-            return;
-        }
-
+        // Debug.Log("change zoom smooth to " + orthoSize);
         // Debug.Log($"Before: OrthographicSize = {virtualCamera.m_Lens.OrthographicSize}, Target = {orthoSize}");
-        orthoSize = Mathf.Clamp(orthoSize, MinOrthoSize, MaxOrthoSize);
-        targetSize = orthoSize;
+        targetSize = Mathf.Clamp(orthoSize, MinOrthoSize, MaxOrthoSize);
         IsZooming = true;
     }
 

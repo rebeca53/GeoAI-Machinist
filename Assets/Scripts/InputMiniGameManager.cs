@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class InputMiniGameManager : BaseBoard
 {
@@ -7,8 +8,11 @@ public class InputMiniGameManager : BaseBoard
     public GameObject spectralBandTile;
     public GameObject spectralBandContainerTile;
     public GameObject selectorSwitch;
-
     public GameObject teleportationDeviceTile;
+
+    public DialogueBalloon dialogueBalloon;
+    public HintBalloon hintBalloon;
+    public PlayableDirector firstTurnAnimation;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
     private int fullSpectralBandsContainer = 0;
@@ -19,120 +23,17 @@ public class InputMiniGameManager : BaseBoard
     SampleBox sampleBox;
 
     // Turn-related variables
-
-    class Turn
-    {
-        int id;
-        string sampleName;
-        List<string> characteristicBands;
-        List<string> correct = new List<string>();
-        List<string> wrong = new List<string>();
-
-        int amountActivated = 0;
-        public GameObject sample;
-        public Vector3 position = new(0.5f, 7f, 0f);
-        public string instruction;
-
-        public readonly string positiveMessage = "Good choice!";
-        public readonly string negativeMessage = "Try a different band";
-
-        public Turn(int id, string sampleName, List<string> bands, string instruction)
-        {
-            this.id = id;
-            this.sampleName = sampleName;
-            characteristicBands = bands;
-            this.instruction = instruction;
-        }
-
-        public void SetSample(GameObject gameObject)
-        {
-            sample = gameObject;
-        }
-
-        public string GetProgressMessage()
-        {
-            int remaining = characteristicBands.Count - correct.Count;
-            return "Still " + remaining + " to activate. And there are " + wrong.Count + " bands to deactivate.";
-        }
-
-        public bool IsCharacteristicBand(string bandName)
-        {
-            return characteristicBands.Contains(bandName);
-        }
-
-        public void Match(string bandName)
-        {
-            if (IsCharacteristicBand(bandName))
-            {
-                correct.Add(bandName);
-            }
-            else
-            {
-                Debug.Log("is wrong " + bandName);
-                wrong.Add(bandName);
-            }
-        }
-
-        public void Unmatch(string bandName)
-        {
-            if (IsCharacteristicBand(bandName))
-            {
-                correct.Remove(bandName);
-            }
-            else
-            {
-                wrong.Remove(bandName);
-            }
-        }
-
-        public bool AlreadyMatched(string bandName)
-        {
-            return correct.Contains(bandName) || wrong.Contains(bandName);
-        }
-
-        public bool IsOver()
-        {
-            bool allCharacteristicSelected = true;
-            foreach (string band in characteristicBands)
-            {
-                if (!correct.Contains(band))
-                {
-                    allCharacteristicSelected = false;
-                }
-            }
-
-            Debug.Log("Is turn over? correct " + printList(correct));
-            Debug.Log("Is turn over? wrong " + printList(wrong));
-            Debug.Log("Is turn over? characteristicBands " + printList(characteristicBands));
-
-            Debug.Log("Is turn over? correct containes characteristic abnds? " + allCharacteristicSelected);
-
-            Debug.Log("Is turn over? wrong Count " + wrong.Count);
-
-            bool over = allCharacteristicSelected && (wrong.Count == 0);
-            Debug.Log("Is turn over? " + over);
-            return over;
-        }
-
-        private string printList(List<string> list)
-        {
-            string message = "";
-            foreach (string value in list)
-            {
-                message += value + " ";
-            }
-            return message;
-        }
-
-    }
-
     private List<Turn> turns = new List<Turn> {
-        new(0, "River", new List<string>{"blue", "green", "swir"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a River.\nA River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
+        new(0, "River", new List<string>{"blue", "green", "swir"}, "Place the spectral bands in their containers, then activate the switches of the best bands to reveal characteristics of a River.\nA River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
         new(1, "Highway", new List<string>{"red", "green"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a Highway.\nA Highway is a man-made feature, and it is necessary to tell it apart from vegetation and water."),
         new(2, "Residential", new List<string>{"red", "blue"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a Residential area.\nA Residential area is a man-made feature, and it is necessary to tell it apart from vegetation."),
     };
 
     int currentTurn = 0;
+
+    List<(string, string)> screenplay = new List<(string, string)>();
+    int currentLineIndex = 0;
+    bool waitForAnimation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -168,6 +69,153 @@ public class InputMiniGameManager : BaseBoard
         LayoutSample();
         LayoutBandContainers();
         LayoutBandSelector();
+
+        firstTurnAnimation.stopped += EndOfFirstTurn;
+        AnimateFirstTurn();
+    }
+
+
+    private void AnimateFirstTurn()
+    {
+        Player.Disable();
+        DisableManualZoom();
+        ZoomIn();
+
+        screenplay = new List<(string, string)>() {
+        new("NPC", "This room is the Input Layer of the CNN. It breaks the image into spectral bands, which are wavelenghts interval of light."),
+        new("NPC", "Follow me. Interact with the input sample to see its spectral bands."),
+        new("NPC", "Activate the switches of the bands more likely to reveal relevant characteristics of a River."),
+        new("NPC", "A River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
+        };
+
+        dialogueBalloon.OnDone += NextStep;
+
+        DisplayLine(screenplay[currentLineIndex].Item1, screenplay[currentLineIndex].Item2);
+
+        // Timeline: NPC and Player walks to the input holder
+    }
+
+    void DisplayLine(string speaker, string message)
+    {
+        if (speaker.Equals("NPC"))
+        {
+            dialogueBalloon.SetSpeaker(NPC.gameObject);
+            dialogueBalloon.PlaceUpperRight();
+            dialogueBalloon.SetMessage(message);
+            dialogueBalloon.Show();
+
+            // if (HasSpeakerChanged())
+            // {
+            //     Debug.Log("speaker has changed");
+            //     NPC.Speak();
+            //     FollowSpeaker(NPC.gameObject);
+            // }
+        }
+        else if (speaker.Equals("Player"))
+        {
+            dialogueBalloon.SetSpeaker(Player.gameObject);
+            dialogueBalloon.PlaceUpperLeft();
+            dialogueBalloon.SetMessage(message);
+            dialogueBalloon.Show();
+
+            // if (HasSpeakerChanged())
+            // {
+            //     Debug.Log("speaker has changed");
+            //     FollowSpeaker(Player.gameObject);
+            // }
+        }
+    }
+
+    void NextStep()
+    {
+        dialogueBalloon.Hide();
+        if (waitForAnimation)
+        {
+            Debug.Log("waiting for animation");
+            return;
+        }
+        currentLineIndex++;
+
+        // Animate on "Follow me."
+        if (currentLineIndex == 1)
+        {
+            Debug.Log("Animate on 'Follow me'");
+            DisplayLine(screenplay[currentLineIndex].Item1, screenplay[currentLineIndex].Item2);
+            firstTurnAnimation.Play();
+            waitForAnimation = true;
+            return;
+        }
+
+        if (currentLineIndex < screenplay.Count)
+        {
+            var line = screenplay[currentLineIndex];
+            DisplayLine(line.Item1, line.Item2);
+        }
+        else
+        {
+            // After all hint the teleportation device interaction
+            teleportationDevice.Hint();
+        }
+    }
+
+    void EndOfFirstTurn(PlayableDirector aDirector)
+    {
+        if (firstTurnAnimation == aDirector)
+        {
+            Player.Enable();
+            EnableManualZoom();
+            waitForAnimation = false;
+            NextStep();
+        }
+    }
+
+    private void DisableManualZoom()
+    {
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+        }
+        cameraZoom.Block();
+    }
+
+    private void EnableManualZoom()
+    {
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+        }
+        cameraZoom.Release();
+    }
+
+    public void ZoomIn()
+    {
+        Debug.Log("InputMiniGameManager Zoom In");
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+        }
+        cameraZoom.ChangeZoomSmooth(1.2f);
     }
 
     void LayoutInputHolder()
@@ -181,6 +229,7 @@ public class InputMiniGameManager : BaseBoard
     {
         Debug.Log("Layout Sample");
         teleportationDevice.Blink();
+        teleportationDevice.Hint();
 
         Turn current = turns[currentTurn];
         GameObject instance = Instantiate(current.sample, current.position, Quaternion.identity);

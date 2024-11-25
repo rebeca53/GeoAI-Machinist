@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     public void Disable()
     {
+        Debug.Log("Disable Player");
         isEnabled = false;
     }
 

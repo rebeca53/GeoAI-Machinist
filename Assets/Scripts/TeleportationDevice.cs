@@ -6,15 +6,17 @@ public class TeleportationDevice : MonoBehaviour
 {
     private float verticalOffset = 0.35f;
     private float horizontalOffset = 0f;
-
     private Animator animator;
     private string instruction;
+
+    public TimedDialogueBalloon timedDialogueBalloon;
+    public HintBalloon hintBalloon;
 
     // Start is called before the first frame update
     void Start()
     {
-
         animator = GetComponent<Animator>();
+        hintBalloon.Hide();
     }
 
     public void Load(SampleBox sampleBox, string instruction)
@@ -28,6 +30,15 @@ public class TeleportationDevice : MonoBehaviour
         sampleBox.gameObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
 
         this.instruction = instruction;
+        timedDialogueBalloon.SetMessage(instruction);
+    }
+
+    public void Hint()
+    {
+        hintBalloon.SetTarget(gameObject);
+        hintBalloon.Place();
+        hintBalloon.SetSpaceKey();
+        hintBalloon.Show();
     }
 
     public void Blink()
@@ -54,18 +65,20 @@ public class TeleportationDevice : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.CompareTag("Player"))
-        // {
-        //     UIHandler.Instance.DisplayMessage(instruction);
-        // }
+        if (other.CompareTag("Player"))
+        {
+            // UIHandler.Instance.DisplayMessage(instruction);
+            // timedDialogueBalloon.Show();
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // if (other.CompareTag("Player"))
-        // {
-        //     UIHandler.Instance.HideMessage();
-        // }
+        if (other.CompareTag("Player"))
+        {
+            // timedDialogueBalloon.Hide();
+            // UIHandler.Instance.HideMessage();
+        }
     }
 }
 
