@@ -72,11 +72,18 @@ public class TimedDialogueBalloon : MonoBehaviour
 
     public void SetMessage(string message)
     {
+        if (label == null)
+        {
+            Debug.Log("label is null");
+            speech = transform.Find("Speech");
+            label = speech.GetComponent<TextMeshPro>();
+        }
         label.text = message;
     }
 
     public void Show(float durationSeconds = 30f)
     {
+        Debug.Log("Set game object as active");
         gameObject.SetActive(true);
         timeout = durationSeconds;
         timer = 0;
@@ -90,6 +97,8 @@ public class TimedDialogueBalloon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Place();
+
         timer += Time.deltaTime;
         if (timer > timeout)
         {

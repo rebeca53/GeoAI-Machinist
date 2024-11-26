@@ -320,7 +320,16 @@ public class PlayerController : MonoBehaviour
         // TODO: improve the context of an action
         if (grabbedObject)
         {
-            Debug.Log("space action and BUT grabbed object");
+            Debug.Log("space action and BUT grabbed object " + grabbedObject.tag);
+            if (nearObject == null)
+            {
+                Debug.LogError("No nearObject to drop on");
+            }
+            else
+            {
+                Debug.Log("nearObject is " + nearObject.tag);
+            }
+
             if (nearObject && nearObject.CompareTag("Container"))
             {
                 AttemptToFillAContainer();
@@ -341,7 +350,13 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("space action and no grabbed object");
-            if (nearObject && nearObject.CompareTag("SampleBox"))
+            if (nearObject == null)
+            {
+                Debug.LogError("No nearObject to grab");
+                return;
+            }
+
+            if (nearObject.CompareTag("SampleBox"))
             {
                 Scene currentScene = SceneManager.GetActiveScene();
                 // Retrieve the name of this scene.
@@ -355,19 +370,18 @@ public class PlayerController : MonoBehaviour
                     GrabSampleBox();
                 }
             }
-            else if (nearObject && nearObject.CompareTag("SpectralBand"))
+            else if (nearObject.CompareTag("SpectralBand"))
             {
                 GrabSampleBox();
             }
-            else if (nearObject && nearObject.CompareTag("SelectorSwitch"))
+            else if (nearObject.CompareTag("SelectorSwitch"))
             {
                 nearObject.GetComponent<SelectorSwitch>().Switch();
             }
-            else if (nearObject && nearObject.transform.parent.CompareTag("Kernel"))
+            else if (nearObject.transform.parent.CompareTag("Kernel"))
             {
                 GrabKernel();
             }
-
 
         }
     }

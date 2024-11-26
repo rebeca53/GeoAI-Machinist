@@ -9,7 +9,8 @@ public class DataLabelingMiniGameManager : BaseBoard
     public GameObject[] sampleTiles;
     public GameObject containerTile;
 
-    public DialogueBalloon dialogueBalloon;
+    public TimedDialogueBalloon timedDialogueBalloon;
+    public TimedDialogueBalloon NPCDialogueBalloon;
 
     public const int coinCount = 4;
     static List<string> classNames = new List<string> { "AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", "Industrial", "Pasture", "PermanentCrop", "Residential", "River", "SeaLake" };
@@ -54,7 +55,7 @@ public class DataLabelingMiniGameManager : BaseBoard
         // //Instantiate the ten Sample tiles
         LayoutSampleAtRandom();
 
-        UIHandler.Instance.RegisterContainers();
+        // UIHandler.Instance.RegisterContainers();
     }
 
     protected new bool IsExit(int x, int y)
@@ -70,6 +71,8 @@ public class DataLabelingMiniGameManager : BaseBoard
         Instantiate(invisibleWall, new Vector3(exitXPosition + 0.5f, Height + 0.5f, 0f), Quaternion.identity);
 
         exitScript = instance.GetComponent<Exit>();
+        exitScript.OnExitWithoutCoins += DisplayNoCoinsMessage;
+        exitScript.OnExitWithoutLabels += DisplayNoLabelsMessage;
     }
 
     //Clears our list gridPositions and prepares it to generate a new board.
@@ -160,7 +163,11 @@ public class DataLabelingMiniGameManager : BaseBoard
             gridPositions.Remove(position);
 
             //Instantiate tileChoice at the position
-            Instantiate(tileChoice, position, Quaternion.identity);
+            GameObject instance = Instantiate(tileChoice, position, Quaternion.identity);
+            Container containerScript = instance.GetComponent<Container>();
+            containerScript.OnMatchDisplay += DisplayClassInfo;
+            containerScript.OnHover += DisplayClassInfo;
+            containerScript.OnUnhover += HideClassInfo;
         }
 
         // Registers to containers to check when to unlock Exit
@@ -185,5 +192,48 @@ public class DataLabelingMiniGameManager : BaseBoard
     protected override void GameOver()
     {
         GameManager.instance.StartOverviewScene();
+    }
+
+    void DisplayClassInfo(string type)
+    {
+        var myDict = new Dictionary<string, string>
+        {
+            { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons and typically only one. These include crops like wheat, which are planted and harvested within a single year." },
+            { "Forest", "Forests are large areas covered chiefly with trees and undergrowth, providing habitat for wildlife and playing a role in carbon sequestration and oxygen production." },
+            { "HerbaceousVegetation", "Herbaceous vegetation consists of non-woody plants, such as grasses." },
+            { "Highway", "Highways are major public roads, often connecting cities and towns, designed for high-speed traffic and usually characterized by multiple lanes." },
+            { "Industrial", "Industrial areas are zones designated for manufacturing, warehousing, and other commercial enterprises involved in the production of goods and services." },
+            { "Pasture", "Pastures are grasslands or other vegetative areas managed primarily for the grazing of livestock, such as cattle, sheep, and goats." },
+            { "PermanentCrop", "Permanent crops (e.g., fruit trees and vines) last for more than two growing seasons, either dying back after each season or growing continuously." },
+            { "Residential", "Residential areas are zones primarily designated for housing, where people live and where infrastructure like schools, parks, and other community facilities are often located." },
+            { "River", "Rivers are natural flowing watercourses, usually freshwater, that flow towards a larger body of water such as an ocean, sea, lake, or another river." },
+            { "SeaLake", "Sea or lakes are large bodies of water, with seas being saline water connected to oceans and lakes generally freshwater, often enclosed by land." }
+        };
+
+        timedDialogueBalloon.SetSpeaker(Player.gameObject);
+        timedDialogueBalloon.SetMessage(myDict[type]);
+        timedDialogueBalloon.PlaceUpperLeft();
+        timedDialogueBalloon.Show();
+    }
+
+    void HideClassInfo(string type)
+    {
+        timedDialogueBalloon.Hide();
+    }
+
+    void DisplayNoCoinsMessage()
+    {
+        NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
+        NPCDialogueBalloon.SetMessage("Oops! I see you didn't collect all Coins. They will be useful in the future!");
+        NPCDialogueBalloon.PlaceUpperRight();
+        NPCDialogueBalloon.Show();
+    }
+
+    void DisplayNoLabelsMessage()
+    {
+        NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
+        NPCDialogueBalloon.SetMessage("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn");
+        NPCDialogueBalloon.PlaceUpperRight();
+        NPCDialogueBalloon.Show();
     }
 }
