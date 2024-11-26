@@ -77,8 +77,10 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
                 dialogueBalloon.PlaceUpperRight();
                 if (HasSpeakerChanged())
                 {
-                    Debug.Log("speaker has changed");
-                    NPC.Speak();
+                    if (currentLineIndex == 0)
+                    {
+                        NPC.Speak();
+                    }
                     cameraZoom.ChangeZoomTarget(NPC.gameObject);
                 }
                 dialogueBalloon.SetMessage(line.Item2);

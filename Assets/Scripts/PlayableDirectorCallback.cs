@@ -73,7 +73,10 @@ public class PlayableDirectorCallback : MonoBehaviour
             if (HasSpeakerChanged())
             {
                 Debug.Log("speaker has changed");
-                NPC.Speak();
+                if (currentLineIndex == 0)
+                {
+                    NPC.Speak();
+                }
                 FollowSpeaker(NPC.gameObject);
             }
         }
