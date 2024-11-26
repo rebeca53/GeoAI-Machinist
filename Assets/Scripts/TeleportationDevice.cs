@@ -9,14 +9,10 @@ public class TeleportationDevice : MonoBehaviour
     private Animator animator;
     private string instruction;
 
-    public TimedDialogueBalloon timedDialogueBalloon;
-    public HintBalloon hintBalloon;
-
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        hintBalloon.Hide();
     }
 
     public void Load(SampleBox sampleBox, string instruction)
@@ -30,15 +26,6 @@ public class TeleportationDevice : MonoBehaviour
         sampleBox.gameObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
 
         this.instruction = instruction;
-        timedDialogueBalloon.SetMessage(instruction);
-    }
-
-    public void Hint()
-    {
-        hintBalloon.SetTarget(gameObject);
-        hintBalloon.PlaceOver();
-        hintBalloon.SetSpaceKey();
-        hintBalloon.Show();
     }
 
     public void Blink()

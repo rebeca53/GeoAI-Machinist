@@ -103,6 +103,8 @@ public class HintBalloon : MonoBehaviour
                 {
                     Debug.Log("nearObject tag: " + nearObject.tag);
                 }
+                Hide();
+                OnDone?.Invoke();
             }
         }
     }

@@ -10,9 +10,10 @@ public class InputMiniGameManager : BaseBoard
     public GameObject selectorSwitch;
     public GameObject teleportationDeviceTile;
 
-    public DialogueBalloon dialogueBalloon;
-    public HintBalloon hintBalloon;
-    public PlayableDirector firstTurnAnimation;
+    // public DialogueBalloon dialogueBalloon;
+    // public HintBalloon hintBalloon;
+    // public PlayableDirector firstTurnAnimation;
+    public TimedDialogueBalloon timedDialogueBalloon;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
     private int fullSpectralBandsContainer = 0;
@@ -31,9 +32,9 @@ public class InputMiniGameManager : BaseBoard
 
     int currentTurn = 0;
 
-    List<(string, string)> screenplay = new List<(string, string)>();
-    int currentLineIndex = 0;
-    bool waitForAnimation = false;
+    // List<(string, string)> screenplay = new List<(string, string)>();
+    // int currentLineIndex = 0;
+    // bool waitForAnimation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -70,103 +71,7 @@ public class InputMiniGameManager : BaseBoard
         LayoutBandContainers();
         LayoutBandSelector();
 
-        firstTurnAnimation.stopped += EndOfFirstTurn;
-        AnimateFirstTurn();
-    }
-
-
-    private void AnimateFirstTurn()
-    {
-        Player.Disable();
-        DisableManualZoom();
-        ZoomIn();
-
-        screenplay = new List<(string, string)>() {
-        new("NPC", "This room is the Input Layer of the CNN. It breaks the image into spectral bands, which are wavelenghts interval of light."),
-        new("NPC", "Follow me. Interact with the input sample to see its spectral bands."),
-        new("NPC", "Activate the switches of the bands more likely to reveal relevant characteristics of a River."),
-        new("NPC", "A River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
-        };
-
-        dialogueBalloon.OnDone += NextStep;
-
-        DisplayLine(screenplay[currentLineIndex].Item1, screenplay[currentLineIndex].Item2);
-
-        // Timeline: NPC and Player walks to the input holder
-    }
-
-    void DisplayLine(string speaker, string message)
-    {
-        if (speaker.Equals("NPC"))
-        {
-            dialogueBalloon.SetSpeaker(NPC.gameObject);
-            dialogueBalloon.PlaceUpperRight();
-            dialogueBalloon.SetMessage(message);
-            dialogueBalloon.Show();
-
-            // if (HasSpeakerChanged())
-            // {
-            //     Debug.Log("speaker has changed");
-            //     NPC.Speak();
-            //     FollowSpeaker(NPC.gameObject);
-            // }
-        }
-        else if (speaker.Equals("Player"))
-        {
-            dialogueBalloon.SetSpeaker(Player.gameObject);
-            dialogueBalloon.PlaceUpperLeft();
-            dialogueBalloon.SetMessage(message);
-            dialogueBalloon.Show();
-
-            // if (HasSpeakerChanged())
-            // {
-            //     Debug.Log("speaker has changed");
-            //     FollowSpeaker(Player.gameObject);
-            // }
-        }
-    }
-
-    void NextStep()
-    {
-        dialogueBalloon.Hide();
-        if (waitForAnimation)
-        {
-            Debug.Log("waiting for animation");
-            return;
-        }
-        currentLineIndex++;
-
-        // Animate on "Follow me."
-        if (currentLineIndex == 1)
-        {
-            Debug.Log("Animate on 'Follow me'");
-            DisplayLine(screenplay[currentLineIndex].Item1, screenplay[currentLineIndex].Item2);
-            firstTurnAnimation.Play();
-            waitForAnimation = true;
-            return;
-        }
-
-        if (currentLineIndex < screenplay.Count)
-        {
-            var line = screenplay[currentLineIndex];
-            DisplayLine(line.Item1, line.Item2);
-        }
-        else
-        {
-            // After all hint the teleportation device interaction
-            teleportationDevice.Hint();
-        }
-    }
-
-    void EndOfFirstTurn(PlayableDirector aDirector)
-    {
-        if (firstTurnAnimation == aDirector)
-        {
-            Player.Enable();
-            EnableManualZoom();
-            waitForAnimation = false;
-            NextStep();
-        }
+        // firstTurnAnimation.stopped += EndOfFirstTurn;
     }
 
     private void DisableManualZoom()
@@ -229,7 +134,6 @@ public class InputMiniGameManager : BaseBoard
     {
         Debug.Log("Layout Sample");
         teleportationDevice.Blink();
-        teleportationDevice.Hint();
 
         Turn current = turns[currentTurn];
         GameObject instance = Instantiate(current.sample, current.position, Quaternion.identity);
