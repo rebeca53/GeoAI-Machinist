@@ -9,12 +9,7 @@ public class DataLabelingMiniGameManager : BaseBoard
     public GameObject[] sampleTiles;
     public GameObject containerTile;
 
-
     public DialogueBalloon dialogueBalloon;
-    public HintBalloon hintBalloon;
-    List<(string, string)> screenplay = new List<(string, string)>();
-    int currentLineIndex = 0;
-
 
     public const int coinCount = 4;
     static List<string> classNames = new List<string> { "AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", "Industrial", "Pasture", "PermanentCrop", "Residential", "River", "SeaLake" };
@@ -101,12 +96,21 @@ public class DataLabelingMiniGameManager : BaseBoard
         for (int i = 0; i < sampleTiles.Length; i++)
         {
             GameObject tileChoice = sampleTiles[i];
+            Vector3 position = new Vector3();
 
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition();
+            if (tileChoice.name.Contains("Residential"))
+            {
+                position = this.CellToWorld(new Vector2Int(3, 1));
+                gridPositions.Remove(position);
+            }
+            else
+            {
+                //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+                position = RandomPosition();
+            }
 
             //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            Instantiate(tileChoice, position, Quaternion.identity);
         }
     }
 
@@ -133,7 +137,6 @@ public class DataLabelingMiniGameManager : BaseBoard
         float horizontalGap = 1.5f;
         float xPosition = 1f;
         float yPosition = 1f;
-        // Two rows
 
         //Instantiate objects until the randomly chosen limit objectCount is reached
         for (int i = 0; i < containerCount; i++)
@@ -141,6 +144,7 @@ public class DataLabelingMiniGameManager : BaseBoard
             Container container = tileChoice.GetComponent<Container>();
             container.type = classNames[i];
 
+            // Two rows
             if (i < containerCount / 2)
             {
                 yPosition = 3f;
@@ -176,12 +180,6 @@ public class DataLabelingMiniGameManager : BaseBoard
             //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
             Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     protected override void GameOver()

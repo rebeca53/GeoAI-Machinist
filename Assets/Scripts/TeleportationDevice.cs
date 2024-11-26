@@ -36,7 +36,7 @@ public class TeleportationDevice : MonoBehaviour
     public void Hint()
     {
         hintBalloon.SetTarget(gameObject);
-        hintBalloon.Place();
+        hintBalloon.PlaceOver();
         hintBalloon.SetSpaceKey();
         hintBalloon.Show();
     }

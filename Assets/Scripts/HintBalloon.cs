@@ -31,7 +31,7 @@ public class HintBalloon : MonoBehaviour
         target = newTarget;
     }
 
-    public void Place()
+    public void PlaceUpper()
     {
         if (target == null)
         {
@@ -40,6 +40,17 @@ public class HintBalloon : MonoBehaviour
         }
 
         transform.position = new(target.transform.position.x, target.transform.position.y + yOffset, target.transform.position.z);
+    }
+
+    public void PlaceOver()
+    {
+        if (target == null)
+        {
+            Debug.LogError("No Target to use as position reference");
+            return;
+        }
+
+        transform.position = new(target.transform.position.x, target.transform.position.y, target.transform.position.z);
     }
 
     public void SetSpaceKey()
@@ -78,7 +89,7 @@ public class HintBalloon : MonoBehaviour
 
         if (Input.GetKeyDown(hintedKey))
         {
-            if (nearObject.CompareTag("Player"))
+            if (nearObject && nearObject.CompareTag("Player"))
             {
                 Debug.Log("hinted key: " + hintedKey);
                 Debug.Log("key pressed");
@@ -87,9 +98,12 @@ public class HintBalloon : MonoBehaviour
             }
             else
             {
-                Debug.Log("key pressed but Player was not over me");
+                Debug.Log("key pressed but Player was not over me.");
+                if (nearObject)
+                {
+                    Debug.Log("nearObject tag: " + nearObject.tag);
+                }
             }
-
         }
     }
 

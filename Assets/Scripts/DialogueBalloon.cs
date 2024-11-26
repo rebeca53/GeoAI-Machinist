@@ -7,6 +7,7 @@ using UnityEngine;
 public class DialogueBalloon : MonoBehaviour
 {
     public Action OnDone;
+    bool waitingKey = false;
     string relativePosition = "upperRight"; // can be upperLeft
 
     float xOffset = 0.85f;
@@ -29,7 +30,7 @@ public class DialogueBalloon : MonoBehaviour
         Debug.Log("Dialogue Ballon Awake Done");
 
         // Hide();
-        // HideHint();
+        HideHint();
         // Place();
     }
 
@@ -82,11 +83,13 @@ public class DialogueBalloon : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        waitingKey = true;
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
+        waitingKey = false;
     }
 
     public void ShowHint()
@@ -96,6 +99,7 @@ public class DialogueBalloon : MonoBehaviour
 
     public void HideHint()
     {
+        hintTimer = hintTimeout;
         hint.gameObject.SetActive(false);
     }
 
@@ -103,15 +107,16 @@ public class DialogueBalloon : MonoBehaviour
     void Update()
     {
         hintTimer += Time.deltaTime;
-        if (hintTimer > hintTimeout)
+        if (hintTimer >= hintTimeout)
         {
             ShowHint();
         }
 
-        if (Input.GetKeyDown("space"))
+        if (waitingKey && Input.GetKeyDown("space"))
         {
             Debug.Log("SPACE pressed");
-            // Hide();
+            waitingKey = false;
+            HideHint();
             OnDone?.Invoke();
         }
     }

@@ -18,7 +18,7 @@ public class CameraZoom : MonoBehaviour
     bool disableControlZoom = false;
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (disableControlZoom == false)
         {
