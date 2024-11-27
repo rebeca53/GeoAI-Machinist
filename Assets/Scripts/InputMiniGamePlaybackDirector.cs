@@ -36,8 +36,9 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         new("action", "action1"), // Robot Walk
         new("action", "action2"), // Hint Teleportation Device
         new("NPC", "Interact with the input sample to see its spectral bands."),
-        new("NPC", "Choose ONE spectral bands to reveal relevant characteristics of a River."),
-        new("NPC", "A River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
+        new("NPC", "Choose ONE spectral band to reveal characteristics of a River and place it in the correct container."),
+        // new("NPC", "Choose ONE spectral bands to reveal relevant characteristics of a River and place it in the correct container."),
+        // new("NPC", "A River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
         };
     }
 
@@ -155,7 +156,7 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
 
     void ZoomOut()
     {
-        cameraZoom.ChangeZoomSmooth(4.5f);
+        cameraZoom.ChangeZoomSmooth(5f);
     }
 
     void ZoomIn()

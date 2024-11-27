@@ -22,7 +22,7 @@ public class TimedDialogueBalloon : MonoBehaviour
         speech = transform.Find("Speech");
         label = speech.GetComponent<TextMeshPro>();
 
-        Hide();
+        // Hide();
     }
 
     private void Place()
@@ -74,7 +74,7 @@ public class TimedDialogueBalloon : MonoBehaviour
     {
         if (label == null)
         {
-            Debug.Log("label is null");
+            // Debug.Log("label is null");
             speech = transform.Find("Speech");
             label = speech.GetComponent<TextMeshPro>();
         }
@@ -83,7 +83,7 @@ public class TimedDialogueBalloon : MonoBehaviour
 
     public void Show(float durationSeconds = 30f)
     {
-        Debug.Log("Set game object as active");
+        // Debug.Log("Set game object as active");
         gameObject.SetActive(true);
         timeout = durationSeconds;
         timer = 0;
@@ -103,6 +103,7 @@ public class TimedDialogueBalloon : MonoBehaviour
         if (timer > timeout)
         {
             Hide();
+            OnDone?.Invoke();
         }
     }
 }

@@ -15,9 +15,21 @@ using UnityEngine.Tilemaps;
 // void MatchSpectralBand() -> place the different bands of the same Sample aligned (same position)
 public class SpectralBandContainer : MonoBehaviour
 {
+    public event Action<string> OnHover;
+    public event Action<string> OnUnhover;
     string type;
 
     public Sprite sprite;
+
+    string lineState = "inactive"; // inactive, wrong, correct
+
+    LineRenderer outputLineRenderer;
+    readonly float inactiveWidth = 0.05f;
+    private Color workingStartColor;
+    private Color workingEndColor;
+    private Color wrongColor = Color.red;
+    private Color inactiveColor = Color.gray;
+
 
     // src: https://custom-scripts.sentinel-hub.com/sentinel-2/bands/
     Dictionary<string, string> typeToMessage = new Dictionary<string, string> {
@@ -36,7 +48,7 @@ public class SpectralBandContainer : MonoBehaviour
         {"redEdge", "Red Edge (B5)"}
     };
 
-    public event Action<string> OnFull;
+    public event Action<string> OnFilled;
     private int countMatched = 0;
     private const int totalMatched = 1;
 
@@ -51,17 +63,6 @@ public class SpectralBandContainer : MonoBehaviour
         SpriteRenderer spriteRenderer = square.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
         spriteRenderer.color = GetColor();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        UIHandler.Instance.DisplayMessage(typeToMessage[type]);
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        // Debug.Log("On trigger exit 2d: " + other.tag);
-        UIHandler.Instance.HideMessage();
     }
 
     public bool IsMatch(SampleSpectralBand sampleSpectralBand)
@@ -92,7 +93,7 @@ public class SpectralBandContainer : MonoBehaviour
         countMatched++;
         if (countMatched == totalMatched)
         {
-            OnFull?.Invoke(type);
+            OnFilled?.Invoke(type);
         }
     }
 
@@ -154,11 +155,16 @@ public class SpectralBandContainer : MonoBehaviour
             Debug.LogError("Failed to retrieve LineRenderer");
         }
 
+        workingStartColor = lineRenderer.startColor;
+        workingEndColor = lineRenderer.endColor;
+
         Vector3 startPoint = new(0f, -1f, 0f);
-        Vector3 endPoint = new(2f, -0.5f, 0f);
+        Vector3 endPoint = new(4f, -1f, 0f);
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
-        conn.DrawLine(1f);
+        conn.DrawStraightLine();
+
+        outputLineRenderer = conn.lineRenderer;
     }
 
     public void Reset()
@@ -167,13 +173,94 @@ public class SpectralBandContainer : MonoBehaviour
 
         countMatched = 0;
 
+        UpdateState("inactive");
         Transform child = transform.Find("SpectralBand(Clone)");
         if (child == null)
         {
-            Debug.LogError("Failed to SpectralBand(Clone)");
+            // Debug.LogError("Failed to SpectralBand(Clone)");
+            return;
         }
         child.gameObject.SetActive(false);
         child.parent = null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (countMatched > 0)
+        {
+            OnHover?.Invoke(type);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (countMatched > 0)
+        {
+            OnHover?.Invoke(type);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (countMatched > 0)
+        {
+            OnUnhover?.Invoke(type);
+        }
+    }
+
+    public void UpdateState(string newLineState)
+    {
+        Debug.Log("Update state: " + newLineState);
+        lineState = newLineState;
+        switch (lineState)
+        {
+            case "correct":
+                outputLineRenderer.startColor = workingStartColor;
+                outputLineRenderer.endColor = workingEndColor;
+                break;
+            case "wrong":
+                outputLineRenderer.material.color = Color.white;
+                outputLineRenderer.startColor = Color.white;
+                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+            case "inactive":
+            default:
+                outputLineRenderer.material.color = inactiveColor;
+                outputLineRenderer.startColor = inactiveColor;
+                outputLineRenderer.endColor = inactiveColor;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+        }
+    }
+
+    void Update()
+    {
+        switch (lineState)
+        {
+            case "correct":
+                outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 1));
+                outputLineRenderer.startWidth = inactiveWidth * 2;
+                outputLineRenderer.endWidth = inactiveWidth * 2;
+                break;
+            case "wrong":
+                outputLineRenderer.material.color = Color.white;
+                outputLineRenderer.startColor = Color.white;
+                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+            case "inactive":
+            default:
+                outputLineRenderer.material.color = inactiveColor;
+                outputLineRenderer.startColor = inactiveColor;
+                outputLineRenderer.endColor = inactiveColor;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+        }
     }
 
 }
