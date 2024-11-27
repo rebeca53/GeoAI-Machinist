@@ -12,16 +12,11 @@ public class InputMiniGameManager : BaseBoard
     public GameObject selectorSwitch;
     public GameObject teleportationDeviceTile;
 
-    // public DialogueBalloon dialogueBalloon;
-    // public HintBalloon hintBalloon;
-    // public PlayableDirector firstTurnAnimation;
     public TimedDialogueBalloon timedDialogueBalloon;
     public DialogueBalloon dialogueBalloon;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "redEdge" };
-    private int fullSpectralBandsContainer = 0;
 
-    // Dictionary<string, SelectorSwitch> bandSelectors = new Dictionary<string, SelectorSwitch>();
     TeleportationDevice teleportationDevice;
     Dictionary<string, SpectralBandContainer> containers = new Dictionary<string, SpectralBandContainer>();
     SampleBox sampleBox;
@@ -34,10 +29,6 @@ public class InputMiniGameManager : BaseBoard
     };
 
     int currentTurn = 0;
-
-    // List<(string, string)> screenplay = new List<(string, string)>();
-    // int currentLineIndex = 0;
-    // bool waitForAnimation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -72,9 +63,6 @@ public class InputMiniGameManager : BaseBoard
         LayoutInputHolder();
         LayoutSample();
         LayoutBandContainers();
-        // LayoutBandSelector();
-
-        // firstTurnAnimation.stopped += EndOfFirstTurn;
     }
 
     private void DisableManualZoom()
@@ -167,7 +155,6 @@ public class InputMiniGameManager : BaseBoard
     {
         teleportationDevice.StopBlink();
 
-        // Debug.Log("Break the box " + sampleBox);
         GameObject tileChoice = spectralBandTile;
 
         Vector3 upper = position;
@@ -176,12 +163,6 @@ public class InputMiniGameManager : BaseBoard
         GameObject blue = Instantiate(tileChoice, upper, Quaternion.identity);
         SampleSpectralBand scriptBlue = blue.GetComponent<SampleSpectralBand>();
         scriptBlue.LoadSprite(sampleBox + "_Blue");
-
-        // Vector3 down = position;
-        // down.y--;
-        // GameObject green = Instantiate(tileChoice, down, Quaternion.identity);
-        // SampleSpectralBand script = green.GetComponent<SampleSpectralBand>();
-        // script.LoadSprite(sampleBox + "_Green");
 
         Vector3 upperRight = position;
         upperRight.y++;
@@ -226,89 +207,6 @@ public class InputMiniGameManager : BaseBoard
         }
     }
 
-    // private void LayoutBandSelector()
-    // {
-    //     float verticalGap = 2f;
-    //     float verticalOffset = 2.64f;
-    //     float xPosition = 8.86f;
-
-    //     for (int i = 0; i < bandTypes.Count; i++)
-    //     {
-    //         float yPosition = verticalOffset + i * verticalGap;
-    //         Vector3 position = new(xPosition, yPosition, 0f);
-    //         GameObject instance = Instantiate(selectorSwitch, position, Quaternion.identity);
-    //         SelectorSwitch bandSelector = instance.GetComponent<SelectorSwitch>();
-    //         bandSelector.SetType(bandTypes[i]);
-    //         bandSelector.OnSwitch += CheckTurnCondition;
-
-    //         // bandSelectors.Add(bandTypes[i], bandSelector);
-    //     }
-    // }
-
-    // // Spectral Band selections
-    // private void SelectWrongBand(Turn current, string type)
-    // {
-    //     current.Match(type);
-    //     UIHandler.Instance.DisplayMessage(current.negativeMessage + "\n" + current.GetProgressMessage());
-    //     bandSelectors[type].UpdateState("wrong");
-    // }
-
-    // private void UnselectWrongBand(Turn current, string type)
-    // {
-    //     current.Unmatch(type);
-    //     UIHandler.Instance.DisplayMessage(current.positiveMessage + "\n" + current.GetProgressMessage());
-    //     bandSelectors[type].UpdateState("inactive");
-    // }
-
-    // private void SelectCorrectBand(Turn current, string type)
-    // {
-    //     current.Match(type);
-    //     UIHandler.Instance.DisplayMessage(current.positiveMessage + "\n" + current.GetProgressMessage());
-    //     bandSelectors[type].UpdateState("correct");
-    // }
-
-    // private void UnselectCorrectBand(Turn current, string type)
-    // {
-    //     current.Unmatch(type);
-    //     UIHandler.Instance.DisplayMessage(current.negativeMessage);
-    //     bandSelectors[type].UpdateState("inactive");
-    // }
-
-    // private void CheckTurnCondition(string type)
-    // {
-    //     Debug.Log("check turn condition");
-    //     return;
-
-    //     Turn current = turns[currentTurn];
-    //     if (current.IsCharacteristicBand(type))
-    //     {
-    //         if (current.AlreadyMatched(type))
-    //         {
-    //             UnselectCorrectBand(current, type);
-    //         }
-    //         else
-    //         {
-    //             SelectCorrectBand(current, type);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (bandSelectors[type].IsActive())
-    //         {
-    //             SelectWrongBand(current, type);
-    //         }
-    //         else
-    //         {
-    //             UnselectWrongBand(current, type);
-    //         }
-    //     }
-
-    //     if (current.IsOver())
-    //     {
-    //         TurnOver();
-    //     }
-    // }
-
     private void CheckWinTurn(string type)
     {
         Debug.Log("Check Win Turn");
@@ -318,20 +216,15 @@ public class InputMiniGameManager : BaseBoard
 
         if (current.IsCharacteristicBand(type))
         {
-            // TODO: Color connection
             containers[type].UpdateState("correct");
-            // bandSelectors[type].UpdateState("correct");
         }
         else
         {
-            // TODO: Gray connection
             containers[type].UpdateState("wrong");
-            // bandSelectors[type].UpdateState("wrong");
         }
 
         if (current.AllCharacteristicSelected())
         {
-            Debug.Log("TODO: animate turn over");
             TurnOver();
         }
     }
@@ -362,7 +255,6 @@ public class InputMiniGameManager : BaseBoard
     private void DisplayInitTurnMessage()
     {
         Turn current = turns[currentTurn];
-        // Player thinks message
         string message = current.instruction;
         Debug.Log("init turn message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
@@ -412,19 +304,15 @@ public class InputMiniGameManager : BaseBoard
         Debug.Log("Change turn");
         dialogueBalloon.OnDone -= InitNewTurn;
 
-        ResetContainers();
-        // ResetSelectors();
-
         if (currentTurn == 2)
         {
             GameOver();
-            // AnimateGameOver();
             return;
         }
 
-        Debug.Log("Increment turn");
-        fullSpectralBandsContainer = 0;
+        ResetContainers();
 
+        Debug.Log("Increment turn");
         currentTurn++;
         sampleBox.Reset();
         LayoutSample();
