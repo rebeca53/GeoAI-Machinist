@@ -20,6 +20,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
     GameObject instanceOutput;
     KernelPixel kernelCenter;
     List<KernelMatrix> kernelMatrix = new List<KernelMatrix>();
+    InputMatrix inputMatrix;
 
     public TextAsset convDataText;
     ConvData data;
@@ -49,7 +50,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
     // UI constants
     public static float pixelSize = 0.01f;
     static public float verticalOffsetImages = 5f;
-    readonly int KernelAmount = 3;
+    readonly int KernelAmount = 1;
 
     // Movement
     private readonly float step = pixelSize;
@@ -92,6 +93,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         // LayoutInputMatrix();
 
         // LayoutOutputMatrix();
+        Convolute();
     }
 
     private void LayoutKernel()
@@ -192,7 +194,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
         instanceInput.transform.parent = parent.transform;
         instanceInput.transform.localPosition = new(3f, 0f, 0f);
 
-        instanceInput.GetComponent<InputMatrix>().SetMatrix(UnflatMatrix(data.inputMatrix, 64));
+        inputMatrix = instanceInput.GetComponent<InputMatrix>();
+        inputMatrix.SetMatrix(UnflatMatrix(data.inputMatrix, 64));
     }
 
     void LoadMatrix()
@@ -262,18 +265,139 @@ public class ConvolutionalMiniGameManager : BaseBoard
         instanceInput.transform.position = new Vector3(parentPosition.x + xOffset, parentPosition.y + yOffset, parentPosition.z);
     }
 
+    bool IsStride(int i, int j, int stride = 1, int matrixSize = 64)
+    {
+        if (i + 1 <= stride)
+        {
+            return true;
+        }
+        if (j + 1 <= stride)
+        {
+            return true;
+        }
+
+        if (matrixSize - i <= stride)
+        {
+            return true;
+        }
+
+        if (matrixSize - j <= stride)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    float interval = 1f;
+    float timer = 0f;
+    int iConv = 1;
+    int jConv = 1;
+
+    bool convolutionDone = false;
+    void Update()
+    {
+        timer += Time.deltaTime;
+        // Debug.Log("Convolution step 0.");
+        if (timer >= interval)
+        {
+            timer = 0f;
+            Debug.Log("Convolution step 1 . (" + iConv + ", " + jConv + ")");
+            if (convolutionDone)
+            {
+                Debug.Log("Convolution done.");
+            }
+            else if (IsStride(iConv, jConv))
+            {
+                // skip the stride
+                Debug.Log("Convolution step. stride");
+            }
+            else
+            {
+                // Debug.Log("Convolution step.");
+
+                // move the kernel center over it
+                GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
+                kernelMatrix[0].PlaceAt(inputPixel.transform.position);
+                // inputMatrix.HighlightNeighboors(inputPixel.transform.position);
+
+                // retrieve the pixels from input matrix
+                // retriver the pixels of the kernel
+                // convolute
+                double convResult = MultiplyMatrices(data.kernelMatrix, inputMatrix.GetNeighboors(iConv, jConv));
+
+                // retrieve the pixel from the output matrix
+                // change its value and color
+            }
+
+            jConv++;
+            if (jConv >= 64)
+            {
+                iConv++;
+            }
+            if (iConv >= 64)
+            {
+                convolutionDone = true;
+            }
+        }
+    }
+
+    void Convolute()
+    {
+        Debug.Log("Convolute");
+        // Initial position = Move kernel to align with input matrix
+        kernelMatrix[0].PlaceAt(inputObject.transform.position);
+        kernelMatrix[0].transform.localScale = new(0.04f, 0.04f, 1f);
+        kernelMatrix[0].UpdatePixelsConvoluting();
+
+        // for each pixel in the input matrix 
+        // for (int i = 0; i < 64; i++)
+        // {
+        //     for (int j = 0; j < 64; j++)
+        //     {
+        //         if (IsStride(i, j))
+        //         {
+        //             // skip the stride
+        //             continue;
+        //         }
+
+        //         // move the kernel center over it
+        //         GameObject inputPixel = inputMatrix.GetPixelObject(i, j);
+        //         kernelMatrix[0].PlaceAt(inputPixel.)
+
+        //     }
+        // }
+
+        // retrieve the pixels from input matrix
+        // retriver the pixels of the kernel
+        // convolute
+
+        // retrieve the pixel from the output matrix
+        // change its value and color
+
+        // Start moving
+        // kernelMatrix[0].MoveTo(new(2f, 8f, 0f));
+    }
+
     // TODO: Move Convolution mechanics to this BoardManager
     private void RegisterToKernelPixel(int idx)
     {
         kernelCenter = kernelMatrix[idx].GetKernelCenter();
-        kernelCenter.OnHoverPixel += MultiplyMatrices;
+        // kernelCenter.OnHoverPixel += MultiplyMatrices;
         // kernelPixel.OnExitPixel += MultiplyMatrices;
     }
 
-    private void MultiplyMatrices(Vector3 position)
+    private double MultiplyMatrices(List<double> matrixA, List<double> matrixB)
     {
-        Debug.Log("Multiply Matrices on Hover Pixel");
-        instanceOutput.GetComponent<InputMatrix>().HighlightNeighboors(position);
+        double result = 0f;
+        for (int i = 0; i < matrixA.Count; i++)
+        {
+            double temp = matrixA[i] * matrixB[i];
+            // Debug.Log(matrixA[i] + " x " + matrixB[i] + " = " + temp);
+            result += temp;
+        }
+        // Debug.Log("multiplication result: " + result);
+        return result;
     }
 
     protected override void GameOver()

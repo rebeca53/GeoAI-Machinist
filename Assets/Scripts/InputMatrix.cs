@@ -11,6 +11,8 @@ public class InputMatrix : MonoBehaviour
     int matrixSize = 64;
 
     [SerializeField] public Dictionary<Vector3, GameObject> positions = new Dictionary<Vector3, GameObject>();
+    [SerializeField] public Dictionary<(int, int), GameObject> pixelPositions = new Dictionary<(int, int), GameObject>();
+
     private List<Vector3> samplePositions = new List<Vector3>();
 
     string address = "convData";
@@ -45,6 +47,7 @@ public class InputMatrix : MonoBehaviour
                 pixelScript.Initialize(GetPixelValue(i, j), position);
 
                 positions.Add(instance.transform.position, instance);
+                pixelPositions.Add((i, j), instance);
             }
         }
     }
@@ -78,6 +81,22 @@ public class InputMatrix : MonoBehaviour
             GameObject nbObject = positions[position];
             nbObject.GetComponent<InputMatrixPixel>().Highlight();
         }
+    }
+
+    public List<double> GetNeighboors(int i, int j)
+    {
+        List<double> result = new List<double>();
+        result.Add(GetPixelValue(i - 1, j - 1));
+        result.Add(GetPixelValue(i - 1, j));
+        result.Add(GetPixelValue(i - 1, j + 1));
+        result.Add(GetPixelValue(i, j - 1));
+        result.Add(GetPixelValue(i, j));
+        result.Add(GetPixelValue(i, j + 1));
+        result.Add(GetPixelValue(i + 1, j - 1));
+        result.Add(GetPixelValue(i + 1, j));
+        result.Add(GetPixelValue(i + 1, j + 1));
+
+        return result;
     }
 
     public void UnhighlightNeighboors(Vector3 pixelPosition)
@@ -121,4 +140,10 @@ public class InputMatrix : MonoBehaviour
     {
         return inputMatrix[i, j];
     }
+
+    public GameObject GetPixelObject(int i, int j)
+    {
+        return pixelPositions[(i, j)];
+    }
+
 }

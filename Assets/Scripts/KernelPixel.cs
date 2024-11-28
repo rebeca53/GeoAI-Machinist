@@ -43,6 +43,21 @@ public class KernelPixel : MonoBehaviour
         }
     }
 
+    public void SetConvoluting()
+    {
+        Debug.Log("change the color of a kernel pixel");
+        Color newColor = Color.red;
+        newColor.a = 0.5f;
+        GetComponent<SpriteRenderer>().color = newColor;
+    }
+
+    public void SetDefault()
+    {
+        Color newColor = Color.black;
+        newColor.a = 0.7f;
+        GetComponent<SpriteRenderer>().color = newColor;
+    }
+
     private bool IsAligned(Vector3 positionA, Vector3 positionB, float delta = 0.002f)
     {
         Debug.Log("distance is " + (positionA - positionB).sqrMagnitude);
