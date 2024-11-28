@@ -47,8 +47,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
     }
 
     // UI constants
-    static public readonly float pixelSize = 0.2f;
-    static public readonly float verticalOffsetImages = 5f;
+    public static float pixelSize = 0.01f;
+    static public float verticalOffsetImages = 5f;
     readonly int KernelAmount = 3;
 
     // Movement
@@ -181,23 +181,18 @@ public class ConvolutionalMiniGameManager : BaseBoard
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(1f);
 
-        // LayoutInputMatrix(instance);
-        LoadMatrix();
+        LayoutInputMatrix(instance);
     }
 
     private void LayoutInputMatrix(GameObject parent)
     {
-        float verticalOffset = verticalOffsetImages;
-        float horizontalOffset = 5f;
-        Vector3 position = new(horizontalOffset, verticalOffset, 0f);
+        Vector3 position = new Vector3(0f, 0f, 0f);
         instanceInput = Instantiate(inputObject, position, Quaternion.identity);
 
-        float yOffset = 0f;
-        float xOffset = 0.3f;
         instanceInput.transform.parent = parent.transform;
-        Vector3 parentPosition = parent.transform.position;
-        // instanceInput.transform.localScale = new(0.1f, 0.2f, 0f);
-        instanceInput.transform.position = new Vector3(parentPosition.x + xOffset, parentPosition.y + yOffset, parentPosition.z);
+        instanceInput.transform.localPosition = new(3f, 0f, 0f);
+
+        instanceInput.GetComponent<InputMatrix>().SetMatrix(UnflatMatrix(data.inputMatrix, 64));
     }
 
     void LoadMatrix()
@@ -250,7 +245,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
         Vector3 endPoint = new(4f, -0.5f, 0f);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
-        // LayoutOutputMatrix(instance);
     }
 
     private void LayoutOutputMatrix(GameObject parent)

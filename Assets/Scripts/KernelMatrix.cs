@@ -15,23 +15,6 @@ public class KernelMatrix : MonoBehaviour
     // private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
     // Data
     double[,] kernel;
-    // double[,] kernel = {
-    // new double[] {
-    //     -0.16016709804534912,
-    //     0.1730394810438156,
-    //     0.11803445965051651
-    // },
-    // new double[] {
-    //     -0.06034918874502182,
-    //     0.08442366123199463,
-    //     -0.003968948498368263
-    // },
-    // new double[] {
-    //     -0.06272831559181213,
-    //     0.16043928265571594,
-    //     -0.21291641891002655
-    // }
-    // };
 
     public void SetMatrix(double[,] newKernel)
     {
