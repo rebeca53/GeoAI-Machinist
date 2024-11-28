@@ -41,8 +41,8 @@ public class InputMatrix : MonoBehaviour
 
                 GameObject instance = Instantiate(inputPixel, position, Quaternion.identity);
                 instance.transform.parent = transform;
-
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
+
                 InputMatrixPixel pixelScript = instance.GetComponent<InputMatrixPixel>();
                 pixelScript.Initialize(GetPixelValue(i, j), position);
 

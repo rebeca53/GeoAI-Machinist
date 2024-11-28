@@ -21,6 +21,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
     KernelPixel kernelCenter;
     List<KernelMatrix> kernelMatrix = new List<KernelMatrix>();
     InputMatrix inputMatrix;
+    OutputMatrix outputMatrix;
 
     public TextAsset convDataText;
     ConvData data;
@@ -248,21 +249,19 @@ public class ConvolutionalMiniGameManager : BaseBoard
         Vector3 endPoint = new(4f, -0.5f, 0f);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
+
+        LayoutOutputMatrix(instance);
     }
 
     private void LayoutOutputMatrix(GameObject parent)
     {
-        float verticalOffset = verticalOffsetImages;
-        float horizontalOffset = OutputMatrix.horizontalOffset;
-        Vector3 position = new(horizontalOffset, verticalOffset, 0f);
+        Vector3 position = new(0f, 0f, 0f);
         instanceOutput = Instantiate(outputObject, position, Quaternion.identity);
 
-        float yOffset = 0f;
-        float xOffset = 0.3f;
-        instanceInput.transform.parent = parent.transform;
-        Vector3 parentPosition = parent.transform.position;
-        // instanceInput.transform.localScale = new(0.1f, 0.2f, 0f);
-        instanceInput.transform.position = new Vector3(parentPosition.x + xOffset, parentPosition.y + yOffset, parentPosition.z);
+        instanceOutput.transform.parent = parent.transform;
+        instanceOutput.transform.localPosition = new(3f, 0f, 0f);
+
+        outputMatrix = instanceOutput.GetComponent<OutputMatrix>();
     }
 
     bool IsStride(int i, int j, int stride = 1, int matrixSize = 64)
@@ -289,21 +288,24 @@ public class ConvolutionalMiniGameManager : BaseBoard
         return false;
     }
 
-    float interval = 1f;
+    float intervalSeconds = 0.005f; // 0.01 is good, but slow
     float timer = 0f;
-    int iConv = 1;
-    int jConv = 1;
+    int iConv = 1; // strid
+    int jConv = 1; //stride
 
-    bool convolutionDone = false;
+    int counter = 0;
+
+    bool isConvoluting = false;
     void Update()
     {
+        // around 4000 thousands iterations
         timer += Time.deltaTime;
         // Debug.Log("Convolution step 0.");
-        if (timer >= interval)
+        if (timer >= intervalSeconds)
         {
             timer = 0f;
             Debug.Log("Convolution step 1 . (" + iConv + ", " + jConv + ")");
-            if (convolutionDone)
+            if (!isConvoluting)
             {
                 Debug.Log("Convolution done.");
             }
@@ -314,7 +316,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
             }
             else
             {
-                // Debug.Log("Convolution step.");
+                counter++;
+                Debug.Log("Convolution step " + counter);
 
                 // move the kernel center over it
                 GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
@@ -328,16 +331,18 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
                 // retrieve the pixel from the output matrix
                 // change its value and color
+                outputMatrix.SetPixel(iConv - 1, jConv - 1, convResult);
             }
 
             jConv++;
             if (jConv >= 64)
             {
                 iConv++;
+                jConv = 1; // stride
             }
             if (iConv >= 64)
             {
-                convolutionDone = true;
+                isConvoluting = false;
             }
         }
     }
@@ -350,33 +355,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         kernelMatrix[0].transform.localScale = new(0.04f, 0.04f, 1f);
         kernelMatrix[0].UpdatePixelsConvoluting();
 
-        // for each pixel in the input matrix 
-        // for (int i = 0; i < 64; i++)
-        // {
-        //     for (int j = 0; j < 64; j++)
-        //     {
-        //         if (IsStride(i, j))
-        //         {
-        //             // skip the stride
-        //             continue;
-        //         }
-
-        //         // move the kernel center over it
-        //         GameObject inputPixel = inputMatrix.GetPixelObject(i, j);
-        //         kernelMatrix[0].PlaceAt(inputPixel.)
-
-        //     }
-        // }
-
-        // retrieve the pixels from input matrix
-        // retriver the pixels of the kernel
-        // convolute
-
-        // retrieve the pixel from the output matrix
-        // change its value and color
-
-        // Start moving
-        // kernelMatrix[0].MoveTo(new(2f, 8f, 0f));
+        isConvoluting = true;
     }
 
     // TODO: Move Convolution mechanics to this BoardManager

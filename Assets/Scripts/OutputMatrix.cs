@@ -3,11 +3,11 @@ using UnityEngine;
 public class OutputMatrix : MonoBehaviour
 {
     public GameObject outputPixel;
-    public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
+    float pixelSize = 0.04f;
     public static float MinimumPixelValue = -1f;
     public static float MaximumPixelValue = +1f;
 
-    public static float horizontalOffset = 16f;
+    // public static float horizontalOffset = 16f;
     int matrixSize = 62;
 
     OutputPixel[,] outputPixels = new OutputPixel[62, 62];
@@ -20,7 +20,8 @@ public class OutputMatrix : MonoBehaviour
 
     void Draw()
     {
-        float verticalOffset = ConvolutionalMiniGameManager.verticalOffsetImages;
+        float verticalOffset = ConvolutionalMiniGameManager.verticalOffsetImages - 0.2f;
+        float horizontalOffset = 8.27f;
 
         for (int i = 0; i < matrixSize; i++)
         {
@@ -32,8 +33,8 @@ public class OutputMatrix : MonoBehaviour
 
                 GameObject instance = Instantiate(outputPixel, position, Quaternion.identity);
                 instance.transform.parent = transform;
-
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
+
                 OutputPixel pixelScript = instance.GetComponent<OutputPixel>();
                 outputPixels[i, j] = pixelScript;
             }
@@ -48,7 +49,7 @@ public class OutputMatrix : MonoBehaviour
         }
     }
 
-    public void SetPixel(int i, int j, float value)
+    public void SetPixel(int i, int j, double value)
     {
         outputPixels[i, j].Initialize(value);
     }
