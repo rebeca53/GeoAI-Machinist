@@ -6,6 +6,8 @@ public class OutputPixel : MonoBehaviour
 {
     private double pixelValue;
     private TextMeshPro label;
+
+    private Color offColor = Color.black;
     public void Initialize(double pixelValue)
     {
         this.pixelValue = pixelValue;
@@ -30,5 +32,11 @@ public class OutputPixel : MonoBehaviour
     {
         double rounded = Math.Round(pixelValue, 2);
         return rounded.ToString("N2");
+    }
+
+    public void Reset()
+    {
+        transform.GetComponent<SpriteRenderer>().color = offColor;
+        label.text = "";
     }
 }

@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ConvolutionalMiniGameManager : BaseBoard
 {
@@ -14,13 +18,38 @@ public class ConvolutionalMiniGameManager : BaseBoard
     // Instances
     GameObject instanceInput;
     GameObject instanceOutput;
-    List<KernelMatrix> kernelMatrix = new List<KernelMatrix>();
     KernelPixel kernelCenter;
+    List<KernelMatrix> kernelMatrix = new List<KernelMatrix>();
+
+    public TextAsset convDataText;
+    ConvData data;
+    [System.Serializable]
+
+    class ConvData
+    {
+        public List<double> inputMatrix = new List<double>();
+        public List<double> kernelMatrix = new List<double>();
+    }
+
+    double[,] UnflatMatrix(List<double> flatten, int size)
+    {
+        double[,] unflatten = new double[size, size];
+        for (int k = 0; k < flatten.Count; k++)
+        {
+            double value = flatten[k];
+            int i = k / size;
+            int j = k - i * size;
+            // Debug.Log("flatenning: k " + k + ", value " + value + ", i " + i + ", j" + j);
+            unflatten[i, j] = value;
+        }
+
+        return unflatten;
+    }
 
     // UI constants
     static public readonly float pixelSize = 0.2f;
     static public readonly float verticalOffsetImages = 5f;
-    readonly int KernelAmount = 4;
+    readonly int KernelAmount = 3;
 
     // Movement
     private readonly float step = pixelSize;
@@ -52,6 +81,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
+        LoadMatrix();
 
         LayoutKernel();
         LayoutLockers();
@@ -75,7 +105,36 @@ public class ConvolutionalMiniGameManager : BaseBoard
             float xPosition = horizontalOffset + i * horizontalGap;
             Vector3 position = new(xPosition, yPosition, 0f);
             GameObject instanceKernel = Instantiate(kernelObject, position, Quaternion.identity);
-            kernelMatrix.Add(instanceKernel.GetComponent<KernelMatrix>());
+            KernelMatrix script = instanceKernel.GetComponent<KernelMatrix>();
+            kernelMatrix.Add(script);
+
+            //https://www.researchgate.net/figure/Vertical-and-horizontal-edge-detector-kernel_fig3_343947492
+            switch (i)
+            {
+                case 0:
+                    double[,] verticalEdgeDetection = {
+                        {1, 0, -1},
+                        {1, 0, -1},
+                        {1, 0, -1},
+                    };
+                    script.SetMatrix(verticalEdgeDetection);
+                    break;
+                case 1:
+                    double[,] horizontalEdgeDetection = {
+                        {1, 1, 1},
+                        {0,0,0},
+                        {-1,-1,-1},
+                    };
+                    script.SetMatrix(horizontalEdgeDetection);
+                    break;
+                case 2:
+                    script.SetMatrix(UnflatMatrix(data.kernelMatrix, 3));
+                    break;
+                default:
+                    double[,] zeroes = new double[3, 3];
+                    script.SetMatrix(zeroes);
+                    break;
+            }
         }
     }
 
@@ -123,6 +182,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         conn.DrawLine(1f);
 
         // LayoutInputMatrix(instance);
+        LoadMatrix();
     }
 
     private void LayoutInputMatrix(GameObject parent)
@@ -138,6 +198,37 @@ public class ConvolutionalMiniGameManager : BaseBoard
         Vector3 parentPosition = parent.transform.position;
         // instanceInput.transform.localScale = new(0.1f, 0.2f, 0f);
         instanceInput.transform.position = new Vector3(parentPosition.x + xOffset, parentPosition.y + yOffset, parentPosition.z);
+    }
+
+    void LoadMatrix()
+    {
+        Debug.Log(convDataText.text);
+        data = JsonUtility.FromJson<ConvData>(convDataText.text);
+
+        if (data == null)
+        {
+            Debug.Log("Failed to retrieve from JSON");
+        }
+        else
+        {
+            if (data.kernelMatrix == null)
+            {
+                Debug.Log("Kernel is none");
+            }
+            Debug.Log("kernel lenght " + data.kernelMatrix.Count);
+            Debug.Log("kernel [0] " + data.kernelMatrix[0]);
+            Debug.Log("kernel [1] " + data.kernelMatrix[1]);
+            Debug.Log("kernel [2] " + data.kernelMatrix[2]);
+
+            Debug.Log("kernel [0][0] " + UnflatMatrix(data.kernelMatrix, 3)[0, 0]);
+
+            Debug.Log("input Matrix [0]" + data.inputMatrix[0]);
+            Debug.Log("input Matrix [1]" + data.inputMatrix[1]);
+            Debug.Log("input Matrix [2]" + data.inputMatrix[2]);
+
+            Debug.Log("input Matrix [0,0]" + UnflatMatrix(data.inputMatrix, 64)[0, 0]);
+
+        }
     }
 
     private void LayoutOutputScreen()

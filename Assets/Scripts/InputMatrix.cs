@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class InputMatrix : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class InputMatrix : MonoBehaviour
     [SerializeField] public Dictionary<Vector3, GameObject> positions = new Dictionary<Vector3, GameObject>();
     private List<Vector3> samplePositions = new List<Vector3>();
 
+    string address = "convData";
     // Data
     double[][] inputImage = {
         new double[] {
@@ -4242,8 +4245,14 @@ public class InputMatrix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Draw();
+        // Draw();
         // RegisterToKernelCenter();
+    }
+
+    public void SetMatrix(double[][] matrix)
+    {
+        inputImage = matrix;
+        Draw();
     }
 
     void Draw()

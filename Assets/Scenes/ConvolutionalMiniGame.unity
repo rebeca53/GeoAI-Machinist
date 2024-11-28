@@ -589,6 +589,7 @@ MonoBehaviour:
   lockerObject: {fileID: 6259574459368349270, guid: 6a6b23aa29b79814092c21ee034516ee, type: 3}
   kernelHolderObject: {fileID: 8700647280722168030, guid: 04c406387d8836f4b8a8f0aa53fc8b63, type: 3}
   screenObject: {fileID: 4159964671385374413, guid: e72611c0621a9ab458775288ad35f643, type: 3}
+  convDataText: {fileID: 4900000, guid: 7c1887d80ff71724f9a37d3142f13aaf, type: 3}
 --- !u!156049354 &745591845
 Grid:
   m_ObjectHideFlags: 0
