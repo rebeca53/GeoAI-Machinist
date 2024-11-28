@@ -1,20 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class KernelMatrix : MonoBehaviour
 {
-    public GameObject kernelPixel;
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
 
     static readonly int kernelSize = 3;
 
     private bool grabbed = false;
     private KernelPixel center;
-    private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
-    float verticalOffset;
-    float horizontalOffset;
+    // private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
     // Data
     double[][] kernel = {
     new double[] {
@@ -37,32 +35,18 @@ public class KernelMatrix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        verticalOffset = transform.position.x;
-        horizontalOffset = transform.position.y;
+        KernelPixel[] kernelPixels = GetComponentsInChildren<KernelPixel>();
+        center = kernelPixels[4];
+        center.SetKernelCenter();
 
-        for (int i = 0; i < kernelSize; i++)
+        for (int k = 0; k < kernelPixels.Count(); k++)
         {
-            float xPosition = horizontalOffset + i * pixelSize;
-            for (int j = 0; j < kernelSize; j++)
-            {
-                float yPosition = verticalOffset + j * pixelSize;
-                Vector3 position = new(xPosition, yPosition, 0f);
+            KernelPixel pixel = kernelPixels[k];
 
-                GameObject instance = Instantiate(kernelPixel, position, Quaternion.identity);
-                instance.transform.parent = transform;
-
-                instance.transform.localScale = new(pixelSize, pixelSize, 0f);
-                if (IsKernelCenter(i, j))
-                {
-                    center = instance.GetComponent<KernelPixel>();
-                    center.SetKernelCenter();
-                }
-                // instance.tag = "Kernel";
-                TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
-                label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
-
-                kernelPixels.Add(instance.GetComponent<KernelPixel>());
-            }
+            TextMeshPro label = pixel.transform.Find("Label").GetComponent<TextMeshPro>();
+            int i = k / 3;
+            int j = k - i * 3;
+            label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
         }
     }
 
@@ -114,30 +98,7 @@ public class KernelMatrix : MonoBehaviour
         // transform.position = new(grabberPosition.x, grabberPosition.y, grabberPosition.z);
         Debug.Log("xgrab transform position " + transform.position);
         Debug.Log("xgrab transform local position " + transform.localPosition);
-
-
-        // foreach (KernelPixel kp in kernelPixels)
-        // {
-        //     kp.GetTransform().localPosition = relativeToParentPosition;
-        // }
     }
-
-    // private void SetPixelPosition(GameObject instance, Vector3 position)
-    // {
-
-
-    //     float xPosition = horizontalOffset + i * pixelSize;
-
-    //     float yPosition = verticalOffset + j * pixelSize;
-
-    //     instance.transform.position = new ()
-    //     // instance.tag = "Kernel";
-    //     TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
-    //     label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
-
-    //     kernelPixels.Add(instance.GetComponent<KernelPixel>());
-
-    // }
 
     public bool IsGrabbed()
     {

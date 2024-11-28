@@ -270,10 +270,19 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("drop object onto container");
 
         InputHolder inputHolder = nearObject.GetComponent<InputHolder>();
-        SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
 
-        inputHolder.FeedInputSample(sampleBox);
+        inputHolder.AddInputObject(grabbedObject);
+        // SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
 
+        // inputHolder.FeedInputSample(sampleBox);
+
+        grabbedObject = null;
+    }
+
+    private void FillLocker()
+    {
+        Locker locker = nearObject.GetComponent<Locker>();
+        locker.AddKernel(grabbedObject);
         grabbedObject = null;
     }
 
@@ -341,6 +350,10 @@ public class PlayerController : MonoBehaviour
             else if (nearObject && nearObject.CompareTag("SpectralBandContainer"))
             {
                 AttemptToFillSpectralBandContainer();
+            }
+            else if (nearObject && nearObject.CompareTag("Locker"))
+            {
+                FillLocker();
             }
             else
             {

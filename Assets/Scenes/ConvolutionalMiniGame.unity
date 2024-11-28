@@ -562,8 +562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f56669d381f0f8468a1a1ba934c0bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 30
-  Height: 20
+  Width: 15
+  Height: 10
   GroundTiles:
   - {fileID: 11400000, guid: 967b4f843c995844d8c50dcb48352747, type: 2}
   - {fileID: 11400000, guid: 951eb6ee6b4d23a48b8f63f76adf46d6, type: 2}
@@ -586,6 +586,9 @@ MonoBehaviour:
   inputObject: {fileID: 5193837272101232164, guid: 6dd078792b36bf842965d71a93c5066f, type: 3}
   kernelObject: {fileID: 3229884844357770729, guid: 3c128c2d6db34e740b342a58d7045c63, type: 3}
   outputObject: {fileID: 2149784717832624218, guid: 68f79933ed8ad034e91ccbb2cfda7232, type: 3}
+  lockerObject: {fileID: 6259574459368349270, guid: 6a6b23aa29b79814092c21ee034516ee, type: 3}
+  kernelHolderObject: {fileID: 8700647280722168030, guid: 04c406387d8836f4b8a8f0aa53fc8b63, type: 3}
+  screenObject: {fileID: 4159964671385374413, guid: e72611c0621a9ab458775288ad35f643, type: 3}
 --- !u!156049354 &745591845
 Grid:
   m_ObjectHideFlags: 0

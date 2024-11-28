@@ -18,6 +18,7 @@ TagManager:
   - KernelCenter
   - InputPixel
   - SelectorSwitch
+  - Locker
   layers:
   - Default
   - TransparentFX

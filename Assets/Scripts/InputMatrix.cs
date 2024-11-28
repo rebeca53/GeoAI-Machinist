@@ -4243,7 +4243,7 @@ public class InputMatrix : MonoBehaviour
     void Start()
     {
         Draw();
-        RegisterToKernelCenter();
+        // RegisterToKernelCenter();
     }
 
     void Draw()
@@ -4338,6 +4338,7 @@ public class InputMatrix : MonoBehaviour
         kernelCenter.OnHoverPixel += HighlightNeighboors;
         kernelCenter.OnExitPixel += UnhighlightNeighboors;
     }
+
     private double GetPixelValue(int i, int j)
     {
         return inputImage[i][j];
