@@ -22,8 +22,6 @@ public class ConvolutionalView : MonoBehaviour
 
     // Convolution
     int stride = 1;
-    float intervalSeconds = 0.005f; // 0.01 is good, but slow
-    float timer = 0f;
     int iConv = 1; // strid
     int jConv = 1; //stride
 
@@ -108,7 +106,6 @@ public class ConvolutionalView : MonoBehaviour
         iConv = stride;
         jConv = stride;
         isConvoluting = false;
-        timer = 0f;
     }
 
     public void InitKernel(List<double> flatKernel, double[,] kernel)
@@ -204,49 +201,42 @@ public class ConvolutionalView : MonoBehaviour
     void Update()
     {
         // around 4000 thousands iterations
-        timer += Time.deltaTime;
-
-        if (timer >= intervalSeconds)
+        if (!isConvoluting)
         {
-            timer = 0f;
+            // Debug.Log("Convolution done.");
+            return;
+        }
+        else if (IsStride(iConv, jConv))
+        {
+            // skip the stride
+            // Debug.Log("Convolution step. stride");
+        }
+        else
+        {
+            // move the kernel center over it
+            GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
+            kernelMatrix.PlaceAt(inputPixel.transform.position);
+            // inputMatrix.HighlightNeighboors(inputPixel.transform.position);
 
-            if (!isConvoluting)
-            {
-                // Debug.Log("Convolution done.");
-                return;
-            }
-            else if (IsStride(iConv, jConv))
-            {
-                // skip the stride
-                // Debug.Log("Convolution step. stride");
-            }
-            else
-            {
-                // move the kernel center over it
-                GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
-                kernelMatrix.PlaceAt(inputPixel.transform.position);
-                // inputMatrix.HighlightNeighboors(inputPixel.transform.position);
+            // retrieve the pixels from input matrix
+            // retrieve the pixels of the kernel
+            // convolute
+            double convResult = MultiplyMatrices(kernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
 
-                // retrieve the pixels from input matrix
-                // retrieve the pixels of the kernel
-                // convolute
-                double convResult = MultiplyMatrices(kernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
+            // retrieve the pixel from the output matrix
+            // change its value and color
+            outputMatrix.SetPixel(iConv - 1, jConv - 1, convResult);
+        }
 
-                // retrieve the pixel from the output matrix
-                // change its value and color
-                outputMatrix.SetPixel(iConv - 1, jConv - 1, convResult);
-            }
-
-            jConv++;
-            if (jConv >= 64)
-            {
-                iConv++;
-                jConv = 1; // stride
-            }
-            if (iConv >= 64)
-            {
-                StopConvolution();
-            }
+        jConv++;
+        if (jConv >= 64)
+        {
+            iConv++;
+            jConv = 1; // stride
+        }
+        if (iConv >= 64)
+        {
+            StopConvolution();
         }
     }
 }
