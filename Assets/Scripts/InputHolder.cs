@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InputHolder : MonoBehaviour
 {
-    public Action<GameObject> OnAddedObject;
+    public Action OnAddedObject;
     private float verticalOffset = 0.7f;
     private float horizontalOffset = 0.013f;
 
@@ -28,7 +28,7 @@ public class InputHolder : MonoBehaviour
 
     public void AddInputObject(GameObject inputObject)
     {
-        // Update sample box chracteactis
+
         // Change scale
         inputObject.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
 
@@ -37,7 +37,7 @@ public class InputHolder : MonoBehaviour
         inputObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
 
         Debug.Log("Objecct added to the input holder");
-        OnAddedObject?.Invoke(inputObject);
+        OnAddedObject?.Invoke();
     }
 
     public void RemoveInputSample(SampleBox sampleBox)

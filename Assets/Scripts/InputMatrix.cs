@@ -17,19 +17,28 @@ public class InputMatrix : MonoBehaviour
 
     string address = "convData";
     // Data
+    int id;
     double[,] inputMatrix;
 
-    public void SetMatrix(double[,] matrix)
+    public void SetMatrix(int id, double[,] matrix)
     {
+        this.id = id;
         inputMatrix = matrix;
+        // Debug.Log("Before: Position of input matrix [" + id + "]:" + transform.position);
+        // transform.position = transform.parent.position; //new(1.5f, -2f, 0f);
+        Debug.Log("Position of input matrix [" + id + "]:" + transform.position);
+
         Draw();
     }
 
     void Draw()
     {
         Debug.Log("pixel size " + pixelSize);
-        float verticalOffset = ConvolutionalMiniGameManager.verticalOffsetImages - 0.2f;
-        float horizontalOffset = 3.27f;
+        float verticalOffset = transform.position.y;
+        float horizontalOffset = transform.position.x;
+
+        verticalOffset = verticalOffset + 0.8f;
+        horizontalOffset = horizontalOffset - 0.75f;
 
         for (int i = 0; i < matrixSize; i++)
         {

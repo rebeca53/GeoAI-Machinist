@@ -20,8 +20,11 @@ public class OutputMatrix : MonoBehaviour
 
     void Draw()
     {
-        float verticalOffset = ConvolutionalMiniGameManager.verticalOffsetImages - 0.2f;
-        float horizontalOffset = 8.27f;
+        float verticalOffset = transform.position.y;
+        float horizontalOffset = transform.position.x;
+
+        verticalOffset = verticalOffset + 0.8f;
+        horizontalOffset = horizontalOffset - 0.75f;
 
         for (int i = 0; i < matrixSize; i++)
         {
