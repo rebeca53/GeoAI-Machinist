@@ -26,12 +26,13 @@ public class OutputMatrix : MonoBehaviour
         verticalOffset = verticalOffset + 0.8f;
         horizontalOffset = horizontalOffset - 0.75f;
 
-        for (int i = 0; i < matrixSize; i++)
+        float maxYPosition = verticalOffset + matrixSize * pixelSize;
+        for (int j = 0; j < matrixSize; j++)
         {
-            float xPosition = horizontalOffset + i * pixelSize;
-            for (int j = 0; j < matrixSize; j++)
+            float xPosition = horizontalOffset + j * pixelSize;
+            for (int i = 0; i < matrixSize; i++)
             {
-                float yPosition = verticalOffset + j * pixelSize;
+                float yPosition = maxYPosition - i * pixelSize;
                 Vector3 position = new(xPosition, yPosition, 0f);
 
                 GameObject instance = Instantiate(outputPixel, position, Quaternion.identity);

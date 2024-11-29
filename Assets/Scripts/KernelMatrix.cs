@@ -44,11 +44,11 @@ public class KernelMatrix : MonoBehaviour
         for (int k = 0; k < kernelPixels.Count(); k++)
         {
             KernelPixel pixel = kernelPixels[k];
-
             TextMeshPro label = pixel.transform.Find("Label").GetComponent<TextMeshPro>();
             int i = k / 3;
             int j = k - i * 3;
             label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
+            Debug.Log("kernel pixel [" + k + "](" + i + "," + j + ") position: " + pixel.transform.position + " value: " + GetKernelPixel(i, j));
 
             pixel.SetDefault();
         }
