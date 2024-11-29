@@ -117,6 +117,7 @@ public class ConvolutionalView : MonoBehaviour
         locker.AddKernel(kernelMatrix.gameObject);
 
         kernelCopy = Instantiate(kernelMatrix.gameObject, kernelMatrix.transform.position, Quaternion.identity);
+        kernelCopy.tag = "Untagged";
         kernelCopy.SetActive(false);
     }
 
@@ -146,9 +147,11 @@ public class ConvolutionalView : MonoBehaviour
         // Initial position = Move kernel to align with input matrix
 
         // Copy Object
+        kernelCopy.transform.position = kernelMatrix.transform.position;
+        kernelCopy.transform.localScale = new(0.1f, 0.1f, 0f);
         kernelCopy.SetActive(true);
 
-        kernelMatrix.PlaceAt(inputMatrix.transform.position);
+        // kernelMatrix.PlaceAt(inputMatrix.transform.position);
         kernelMatrix.transform.localScale = new(0.04f, 0.04f, 1f);
         kernelMatrix.UpdatePixelsConvoluting();
 
@@ -185,8 +188,14 @@ public class ConvolutionalView : MonoBehaviour
     void StopConvolution()
     {
         Debug.Log("Stop Convolution");
-        kernelCopy.SetActive(false);
-        kernelHolder.AddInputObject(kernelMatrix.gameObject);
+
+        // kernelMatrix.transform.localScale = new(1f, 1f, 1f);
+        // kernelMatrix.transform.position = kernelCopy.transform.position;
+        // kernelMatrix.UpdatePixelsDefault();
+        // kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
+
+        kernelMatrix.gameObject.SetActive(false);
+
         isConvoluting = false;
     }
 

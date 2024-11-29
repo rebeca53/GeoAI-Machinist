@@ -123,6 +123,15 @@ public class KernelMatrix : MonoBehaviour
         }
     }
 
+    public void UpdatePixelsDefault()
+    {
+        foreach (KernelPixel pixel in kernelPixels)
+        {
+            Debug.Log("change the color of a kernel pixel");
+            pixel.SetDefault();
+        }
+    }
+
     public void MoveTo(Vector3 targetPosition)
     {
         transform.parent = null;
