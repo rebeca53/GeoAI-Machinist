@@ -36,7 +36,13 @@ public class OutputPixel : MonoBehaviour
 
     public void Reset()
     {
-        transform.GetComponent<SpriteRenderer>().color = offColor;
-        label.text = "";
+        if (transform.GetComponent<SpriteRenderer>())
+        {
+            transform.GetComponent<SpriteRenderer>().color = offColor;
+        }
+        if (label)
+        {
+            label.text = "";
+        }
     }
 }

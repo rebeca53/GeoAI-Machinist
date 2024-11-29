@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
     bool spaceAction = false;
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
+
+    public Action OnKernelGrabbed;
+
 
     // Money system
     public int CurrentMoney { get { return currentMoney; } }
@@ -263,6 +267,8 @@ public class PlayerController : MonoBehaviour
         grabbeableObject.position = playerObj.transform.position;
 
         grabbedObject = grabbeableObject.gameObject;
+
+        OnKernelGrabbed?.Invoke();
     }
 
     private void FillInputHolder()

@@ -26,10 +26,12 @@ public class KernelMatrix : MonoBehaviour
     // private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
     // Data
     double[,] kernel;
+    public List<double> flatKernel;
 
-    public void SetMatrix(double[,] newKernel)
+    public void SetMatrix(List<double> newFlatKernel, double[,] newKernel)
     {
         kernel = newKernel;
+        flatKernel = newFlatKernel;
         Draw();
     }
 
@@ -52,7 +54,7 @@ public class KernelMatrix : MonoBehaviour
         }
     }
 
-    private double GetKernelPixel(int i, int j)
+    public double GetKernelPixel(int i, int j)
     {
         return kernel[i, j];
     }

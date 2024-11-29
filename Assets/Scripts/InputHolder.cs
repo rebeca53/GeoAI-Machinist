@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHolder : MonoBehaviour
 {
+    public Action<GameObject> OnAddedObject;
     private float verticalOffset = 0.7f;
     private float horizontalOffset = 0.013f;
 
@@ -33,6 +35,9 @@ public class InputHolder : MonoBehaviour
         // change box parent
         inputObject.transform.parent = gameObject.transform;
         inputObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
+
+        Debug.Log("Objecct added to the input holder");
+        OnAddedObject?.Invoke(inputObject);
     }
 
     public void RemoveInputSample(SampleBox sampleBox)
