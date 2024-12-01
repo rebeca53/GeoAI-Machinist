@@ -21,6 +21,7 @@ public class OverviewBoardManager : MonoBehaviour
     public PlayerController Player;
     public NonPlayerCharacter NPC;
 
+    public TimedDialogueBalloon NPCDialogueBalloon;
 
     public GameObject cnnLayerRoom;
 
@@ -62,13 +63,23 @@ public class OverviewBoardManager : MonoBehaviour
         ZoomIn();
 
         NPC.Spawn(this, new Vector2Int(0, 8));
+        NPC.OnHover += DisplayIntroduction;
         if (firstLoad)
         {
             GameManager.instance.playerPositionOverview = new(1, 8);
             firstLoad = false;
-            NPC.DisplayIntroduction(60f);
+            DisplayIntroduction();
+            // NPC.DisplayIntroduction(60f);
         }
         Player.Spawn(this, GameManager.instance.playerPositionOverview);
+    }
+
+    public void DisplayIntroduction()
+    {
+        NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
+        NPCDialogueBalloon.SetMessage("This room has a Convolutional Neural Network (CNN) to classify land use and cover. CNNs processes matrices through layers of mathematical operations. For us, images are matrices.\nTwo layers are damaged—enter their room to fix them!");
+        NPCDialogueBalloon.PlaceUpperRight();
+        NPCDialogueBalloon.Show();
     }
 
     public void ZoomIn()
@@ -85,7 +96,7 @@ public class OverviewBoardManager : MonoBehaviour
         {
             Debug.Log("Retrieveing object");
         }
-        cameraZoom.ChangeZoomSmooth(1f);
+        cameraZoom.ChangeZoomSmooth(0.8f);
     }
 
     // TODO: move to Abstract class 

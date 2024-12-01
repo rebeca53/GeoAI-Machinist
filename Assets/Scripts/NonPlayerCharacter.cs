@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NonPlayerCharacter : MonoBehaviour
 {
+    public Action OnHover;
+    public Action OnUnhover;
+
     // Audio
     AudioSource audioSource;
     public AudioClip speakingClip;
@@ -25,6 +29,16 @@ public class NonPlayerCharacter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            OnHover?.Invoke();
+            // DisplayIntroduction();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            OnUnhover?.Invoke();
             // DisplayIntroduction();
         }
     }
