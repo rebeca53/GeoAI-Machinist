@@ -50,7 +50,7 @@ public class OutputMatrix : MonoBehaviour
         Debug.Log("Reset output matrix");
         foreach (OutputPixel pixel in outputPixels)
         {
-            pixel.Reset();
+            pixel?.Reset();
         }
     }
 

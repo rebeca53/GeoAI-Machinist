@@ -7,7 +7,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
     public GameObject convolutionalViewObject;
 
     // Instances
-
     List<ConvolutionalView> convolutionalViews = new List<ConvolutionalView>();
 
     public TextAsset convDataText;
@@ -74,9 +73,9 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     private void LayoutConvolutionalViews()
     {
-        float verticalGap = 4f;
+        float verticalGap = 4.5f;
         float xPosition = 2f;
-        float verticalOffset = 3f;
+        float verticalOffset = 2.5f;
 
         for (int i = 0; i < KernelAmount; i++)
         {
@@ -86,6 +85,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
             ConvolutionalView script = instanceView.GetComponent<ConvolutionalView>();
             script.InitKernel(GetFlatKernelMatrix(i), UnflatMatrix(GetFlatKernelMatrix(i), 3));
             script.InitInput(UnflatMatrix(data.inputMatrix, 64));
+            script.OnConvolutionStopped += CheckWinCondition;
             convolutionalViews.Add(script);
         }
     }
@@ -160,10 +160,38 @@ public class ConvolutionalMiniGameManager : BaseBoard
             Debug.Log("input Matrix [0,0]" + UnflatMatrix(data.inputMatrix, 64)[0, 0]);
         }
     }
+
+    void CheckWinCondition()
+    {
+        if (IsGameOver())
+        {
+            Debug.Log("Game is over");
+            GameOver();
+        }
+
+        // TODO: Animate Explanation?
+        /**
+         * Horizontal Edge Detection highlights the 
+         */
+        // TODO: Zoom In NPC, "
+        // NPC tells user to leave the room
+
+        // Loading page
+    }
+
+    bool IsGameOver()
+    {
+        bool horizontalEdgeDetection = convolutionalViews[0].HasKernel();
+        bool verticalEdgeDetection = convolutionalViews[1].HasKernel();
+        bool trainedKernel = convolutionalViews[2].HasKernel();
+
+        return trainedKernel && !verticalEdgeDetection && !horizontalEdgeDetection;
+    }
+
     protected override void GameOver()
     {
         GameManager.instance.solvedMinigames["Convolutional 1"] = true;
-        GameManager.instance.StartOverviewScene();
+        // GameManager.instance.StartOverviewScene();
     }
 
 }

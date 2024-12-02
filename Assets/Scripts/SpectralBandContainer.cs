@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 // Game Object - Prefab
 // positions pre-defined - a tiny label for each
@@ -21,8 +20,8 @@ public class SpectralBandContainer : MonoBehaviour
 
     public Sprite sprite;
 
+    // TODO: abstract OutputLine
     string lineState = "inactive"; // inactive, wrong, correct
-
     LineRenderer outputLineRenderer;
     readonly float inactiveWidth = 0.05f;
     private Color workingStartColor;

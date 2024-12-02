@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,15 +17,28 @@ public class ConvolutionalView : MonoBehaviour
     public KernelMatrix kernelMatrix;
     public InputMatrix inputMatrix;
     public OutputMatrix outputMatrix;
-    int id;
+    public int id;
     static int viewCounter = 0;
 
     // Convolution
     int stride = 1;
-    int iConv = 1; // strid
+    int iConv = 1; // stride
     int jConv = 1; //stride
 
     bool isConvoluting = false;
+    bool hasKernel = false;
+
+    public Action OnConvolutionStopped;
+
+    // TODO: abstract OutputLine
+    string outputState = "inactive"; // inactice, wrong, correct
+    LineRenderer outputLineRenderer;
+    readonly float inactiveWidth = 0.05f;
+    private Color workingStartColor;
+    private Color workingEndColor;
+    private Color wrongColor = Color.red;
+    private Color inactiveColor = Color.gray;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +57,7 @@ public class ConvolutionalView : MonoBehaviour
 
     private void LayoutKernelHolder()
     {
+        kernelHolder.name = "KernelHolder" + id;
         kernelHolder.DrawConnection();
         kernelHolder.OnAddedObject += StartConvolution;
     }
@@ -85,11 +99,12 @@ public class ConvolutionalView : MonoBehaviour
         {
             Debug.LogError("Failed to retrieve LineRenderer");
         }
-
         Vector3 startPoint = new(0f, -0.5f, 0f);
         Vector3 endPoint = new(2.5f, -0.5f, 0f);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
+        outputLineRenderer = conn.lineRenderer;
+        UpdateOutputState("inactive");
 
         LayoutOutputMatrix(outputScreen);
     }
@@ -108,6 +123,73 @@ public class ConvolutionalView : MonoBehaviour
         isConvoluting = false;
     }
 
+    public void UpdateOutputState(string newLineState)
+    {
+        Debug.Log("Update state: " + newLineState);
+        outputState = newLineState;
+        switch (outputState)
+        {
+            case "correct":
+                outputLineRenderer.startColor = workingStartColor;
+                outputLineRenderer.endColor = workingEndColor;
+                break;
+            case "wrong":
+                outputLineRenderer.material.color = Color.white;
+                outputLineRenderer.startColor = Color.white;
+                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+            case "inactive":
+            default:
+                outputLineRenderer.material.color = inactiveColor;
+                outputLineRenderer.startColor = inactiveColor;
+                outputLineRenderer.endColor = inactiveColor;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+        }
+    }
+
+    public void AnimateOutputState(string newLineState)
+    {
+        Debug.Log("Update state: " + newLineState);
+        outputState = newLineState;
+
+        if (!outputLineRenderer)
+        {
+            return;
+        }
+
+        switch (outputState)
+        {
+            case "correct":
+                outputLineRenderer.startColor = workingStartColor;
+                outputLineRenderer.endColor = workingEndColor;
+                break;
+            case "wrong":
+                outputLineRenderer.material.color = Color.white;
+                outputLineRenderer.startColor = Color.white;
+                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+            case "inactive":
+            default:
+                outputLineRenderer.material.color = inactiveColor;
+                outputLineRenderer.startColor = inactiveColor;
+                outputLineRenderer.endColor = inactiveColor;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+        }
+    }
+
+    public bool HasKernel()
+    {
+        return hasKernel;
+    }
+
     public void InitKernel(List<double> flatKernel, double[,] kernel)
     {
         kernelMatrix.SetMatrix(flatKernel, kernel);
@@ -116,6 +198,16 @@ public class ConvolutionalView : MonoBehaviour
         kernelCopy = Instantiate(kernelMatrix.gameObject, kernelMatrix.transform.position, Quaternion.identity);
         kernelCopy.tag = "Untagged";
         kernelCopy.SetActive(false);
+
+        hasKernel = true;
+    }
+
+    public void RemoveKernel()
+    {
+        hasKernel = false;
+        StopConvolution();
+        ResetConvolution();
+        outputMatrix.Reset();
     }
 
     public void InitInput(double[,] input)
@@ -158,47 +250,7 @@ public class ConvolutionalView : MonoBehaviour
         isConvoluting = true;
     }
 
-    bool IsStride(int i, int j, int stride = 1, int matrixSize = 64)
-    {
-        if (i + 1 <= stride)
-        {
-            return true;
-        }
-        if (j + 1 <= stride)
-        {
-            return true;
-        }
-
-        if (matrixSize - i <= stride)
-        {
-            return true;
-        }
-
-        if (matrixSize - j <= stride)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    void StopConvolution()
-    {
-        // Debug.Log("Stop Convolution");
-
-        // kernelMatrix.transform.localScale = new(1f, 1f, 1f);
-        // kernelMatrix.transform.position = kernelCopy.transform.position;
-        // kernelMatrix.UpdatePixelsDefault();
-        // kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
-
-        kernelMatrix.gameObject.SetActive(false);
-
-        isConvoluting = false;
-    }
-
-
-    // Update is called once per frame
-    void Update()
+    void Convolute()
     {
         // around 4000 thousands iterations
         if (!isConvoluting)
@@ -238,5 +290,53 @@ public class ConvolutionalView : MonoBehaviour
         {
             StopConvolution();
         }
+    }
+
+    bool IsStride(int i, int j, int stride = 1, int matrixSize = 64)
+    {
+        if (i + 1 <= stride)
+        {
+            return true;
+        }
+        if (j + 1 <= stride)
+        {
+            return true;
+        }
+
+        if (matrixSize - i <= stride)
+        {
+            return true;
+        }
+
+        if (matrixSize - j <= stride)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void StopConvolution()
+    {
+        // Debug.Log("Stop Convolution");
+
+        // kernelMatrix.transform.localScale = new(1f, 1f, 1f);
+        // kernelMatrix.transform.position = kernelCopy.transform.position;
+        // kernelMatrix.UpdatePixelsDefault();
+        // kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
+
+        kernelMatrix.gameObject.SetActive(false);
+
+        isConvoluting = false;
+
+        OnConvolutionStopped?.Invoke();
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        Convolute();
+        AnimateOutputState(outputState);
     }
 }
