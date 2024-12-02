@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Hello");
+        Debug.Log("Hello Player");
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         TurnLeft();
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
+        // Debug.Log("Player spawn at " + transform.position);
     }
 
     public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
@@ -318,6 +319,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnSpaceAction()
     {
+        if (!isEnabled)
+        {
+            return;
+        }
 
         if (nearObject && nearObject.CompareTag("Exit"))
         {

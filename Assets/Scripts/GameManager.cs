@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Wake Game Manger");
     }
 
+    public void StartDataLabeling()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    }
+
     public void StartOverviewScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);

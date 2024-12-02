@@ -8,6 +8,5 @@ public class HomeScene : MonoBehaviour
         // 2 - Overview Scene
         // 7 - Introduction CutsCene
         UnityEngine.SceneManagement.SceneManager.LoadScene(7);
-        // GameManager.instance.StartOverviewScene();
     }
 }

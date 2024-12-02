@@ -31,6 +31,8 @@ public class CameraZoom : MonoBehaviour
                 targetSize = Mathf.Clamp(targetSize, MinOrthoSize, MaxOrthoSize);
 
                 virtualCamera.m_Lens.OrthographicSize = targetSize;
+                // Debug.Log("virtual camera follow " + virtualCamera.Follow.tag);
+                // Debug.Log("virtual camera follow to position " + virtualCamera.Follow.transform.position);
             }
         }
 
@@ -40,6 +42,9 @@ public class CameraZoom : MonoBehaviour
 
             if (IsApproximate(targetSize, virtualCamera.m_Lens.OrthographicSize))
             {
+                // Debug.Log("virtual camera follow " + virtualCamera.Follow.tag);
+                // Debug.Log("virtual camera follow to position " + virtualCamera.Follow.transform.position);
+
                 IsZooming = false;
             }
             else

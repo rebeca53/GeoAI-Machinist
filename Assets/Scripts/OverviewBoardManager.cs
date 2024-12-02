@@ -4,22 +4,10 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 // TODO: Have an Abstract class for all Board Manager
-public class OverviewBoardManager : MonoBehaviour
+public class OverviewBoardManager : BaseBoard
 {
-    private Tilemap m_Tilemap;
-    private Tilemap m_Wallsmap;
-    private Grid m_Grid;
-
-    public int Width;
-    public int Height;
     float startCorridor;
     float endCorridor;
-    public Tile[] GroundTiles;
-
-    public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
-
-    public PlayerController Player;
-    public NonPlayerCharacter NPC;
 
     public TimedDialogueBalloon NPCDialogueBalloon;
 
@@ -27,6 +15,8 @@ public class OverviewBoardManager : MonoBehaviour
 
     public GameObject inputHolder;
     public GameObject sampleTile;
+
+    public CameraZoom cameraZoom;
 
     static bool firstLoad = true;
 
@@ -60,7 +50,6 @@ public class OverviewBoardManager : MonoBehaviour
 
         LayoutCNNLayers();
         LayoutInputHolder();
-        ZoomIn();
 
         NPC.Spawn(this, new Vector2Int(0, 8));
         NPC.OnHover += DisplayIntroduction;
@@ -72,6 +61,8 @@ public class OverviewBoardManager : MonoBehaviour
             // NPC.DisplayIntroduction(60f);
         }
         Player.Spawn(this, GameManager.instance.playerPositionOverview);
+        // FollowPlayer();
+        ZoomIn();
     }
 
     public void DisplayIntroduction()
@@ -82,17 +73,18 @@ public class OverviewBoardManager : MonoBehaviour
         NPCDialogueBalloon.Show();
     }
 
+    public void FollowPlayer()
+    {
+        Debug.Log("FollowSpeaker");
+        {
+            Debug.Log("Retrieveing object");
+        }
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
+    }
+
     public void ZoomIn()
     {
         Debug.Log("Zoom In");
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("Unable to retrieve camera");
-        }
-        else
         {
             Debug.Log("Retrieveing object");
         }
@@ -100,7 +92,7 @@ public class OverviewBoardManager : MonoBehaviour
     }
 
     // TODO: move to Abstract class 
-    private bool IsBorder(int x, int y)
+    protected new bool IsBorder(int x, int y)
     {
         return x == 0 || y == 0 || x == Width - 1 || y == Height - 1;
     }
@@ -116,7 +108,7 @@ public class OverviewBoardManager : MonoBehaviour
         return isRight && isWithinRange;
     }
 
-    private Tile GetWallTile(int x, int y)
+    protected new Tile GetWallTile(int x, int y)
     {
         // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
         if (x == 0 && y == Height - 1) // TopLeft
@@ -173,11 +165,6 @@ public class OverviewBoardManager : MonoBehaviour
         return WallTiles[1];
     }
 
-    public Vector3 CellToWorld(Vector2Int cellIndex)
-    {
-        return m_Grid.GetCellCenterWorld((Vector3Int)cellIndex);
-    }
-
     void LayoutCNNLayers()
     {
         // // TODO: Read layers from actual CNN model
@@ -222,5 +209,10 @@ public class OverviewBoardManager : MonoBehaviour
         GameObject instance = Instantiate(sampleTile, new Vector3(1f, 10f, 0f), Quaternion.identity);
         SampleBox sampleBox = instance.GetComponent<SampleBox>();
         inputHolder.FeedInputSample(sampleBox);
+    }
+
+    protected override void GameOver()
+    {
+        // Not needed
     }
 }

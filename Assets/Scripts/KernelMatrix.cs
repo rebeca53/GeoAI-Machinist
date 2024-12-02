@@ -8,20 +8,11 @@ public class KernelMatrix : MonoBehaviour
 {
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
 
-    static readonly int kernelSize = 3;
-
     private bool grabbed = false;
     private KernelPixel center;
     KernelPixel[] kernelPixels;
-    private float step = 0.04f;
-
-    private float speed = 2f;
-
-    float passedTime;
-    Vector3 startPosition;
     Vector3 target;
     Vector3 currentPosition;
-    float timeToReachTarget;
 
     // private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
     // Data
@@ -151,17 +142,6 @@ public class KernelMatrix : MonoBehaviour
         transform.parent = null;
         transform.position = newPosition;
         target = transform.position;
-    }
-
-    void Update()
-    {
-        // currentPosition = transform.position;
-
-        // Vector3 stepRight = new(currentPosition.x + step, currentPosition.y, currentPosition.z);
-        // transform.position = Vector3.Lerp(currentPosition, stepRight, Time.deltaTime * speed);
-
-        // passedTime += Time.deltaTime / timeToReachTarget;
-        // transform.position = Vector3.Lerp(startPosition, target, passedTime);
     }
 
 }

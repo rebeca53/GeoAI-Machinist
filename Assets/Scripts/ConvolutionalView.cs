@@ -139,7 +139,7 @@ public class ConvolutionalView : MonoBehaviour
 
     void StartConvolution()
     {
-        Debug.Log("Convolute");
+        // Debug.Log("Convolute");
         // Debug.Log("Kernel [0][1]: " + kernelMatrix.GetKernelPixel(0, 1));
         // Initial position = Move kernel to align with input matrix
 
@@ -184,7 +184,7 @@ public class ConvolutionalView : MonoBehaviour
 
     void StopConvolution()
     {
-        Debug.Log("Stop Convolution");
+        // Debug.Log("Stop Convolution");
 
         // kernelMatrix.transform.localScale = new(1f, 1f, 1f);
         // kernelMatrix.transform.position = kernelCopy.transform.position;

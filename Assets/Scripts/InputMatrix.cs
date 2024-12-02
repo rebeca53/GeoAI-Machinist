@@ -26,14 +26,14 @@ public class InputMatrix : MonoBehaviour
         inputMatrix = matrix;
         // Debug.Log("Before: Position of input matrix [" + id + "]:" + transform.position);
         // transform.position = transform.parent.position; //new(1.5f, -2f, 0f);
-        Debug.Log("Position of input matrix [" + id + "]:" + transform.position);
+        // Debug.Log("Position of input matrix [" + id + "]:" + transform.position);
 
         Draw();
     }
 
     void Draw()
     {
-        Debug.Log("pixel size " + pixelSize);
+        // Debug.Log("pixel size " + pixelSize);
         float verticalOffset = transform.position.y;
         float horizontalOffset = transform.position.x;
 
@@ -60,7 +60,7 @@ public class InputMatrix : MonoBehaviour
                 positions.Add(instance.transform.position, instance);
                 pixelPositions.Add((i, j), instance);
 
-                Debug.Log("input pixel [" + k + "](" + i + "," + j + ") position: " + position + " value: " + GetPixelValue(i, j));
+                // Debug.Log("input pixel [" + k + "](" + i + "," + j + ") position: " + position + " value: " + GetPixelValue(i, j));
 
                 k++;
             }
@@ -83,14 +83,14 @@ public class InputMatrix : MonoBehaviour
             new(x+pixelSize, y-pixelSize, 0f)
         };
 
-        Debug.Log("For the pixel: " + pixelPosition);
+        // Debug.Log("For the pixel: " + pixelPosition);
 
         foreach (Vector3 position in nbPositions)
         {
             Debug.Log(position);
             if (!positions.ContainsKey(position))
             {
-                Debug.Log("NOT valid neighboor " + position);
+                // Debug.Log("NOT valid neighboor " + position);
                 continue;
             }
             GameObject nbObject = positions[position];
@@ -135,7 +135,7 @@ public class InputMatrix : MonoBehaviour
         {
             if (!positions.ContainsKey(position))
             {
-                Debug.Log("NOT valid neighboor " + position);
+                // Debug.Log("NOT valid neighboor " + position);
                 continue;
             }
             GameObject nbObject = positions[position];
