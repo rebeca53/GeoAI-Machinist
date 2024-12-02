@@ -130,6 +130,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
                 break;
             case "action4":
                 NPCWalkToExit();
+                HintExit();
                 break;
         }
     }
@@ -191,6 +192,19 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         dialogueBalloon.Hide();
         ZoomOut();
         director.Play(); // on stopped, it calls NextLine
+    }
+
+    void HintExit()
+    {
+        GameObject exit = GameObject.FindGameObjectWithTag("Exit");
+        if (exit == null)
+        {
+            Debug.Log("Not able to find exit");
+        }
+        hintBalloon.SetSpaceKey();
+        hintBalloon.SetTarget(exit);
+        hintBalloon.PlaceOver();
+        hintBalloon.Show();
     }
 
     private GameObject FindResidentialContainer()
