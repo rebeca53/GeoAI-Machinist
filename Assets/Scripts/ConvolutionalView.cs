@@ -121,68 +121,6 @@ public class ConvolutionalView : MonoBehaviour
         isConvoluting = false;
     }
 
-    public void UpdateOutputState(string newLineState)
-    {
-        Debug.Log("Update state: " + newLineState);
-        outputState = newLineState;
-        switch (outputState)
-        {
-            case "correct":
-                outputLineRenderer.startColor = workingStartColor;
-                outputLineRenderer.endColor = workingEndColor;
-                break;
-            case "wrong":
-                outputLineRenderer.material.color = Color.white;
-                outputLineRenderer.startColor = Color.white;
-                outputLineRenderer.endColor = Color.white;
-                outputLineRenderer.startWidth = inactiveWidth;
-                outputLineRenderer.endWidth = inactiveWidth;
-                break;
-            case "inactive":
-            default:
-                outputLineRenderer.material.color = inactiveColor;
-                outputLineRenderer.startColor = inactiveColor;
-                outputLineRenderer.endColor = inactiveColor;
-                outputLineRenderer.startWidth = inactiveWidth;
-                outputLineRenderer.endWidth = inactiveWidth;
-                break;
-        }
-    }
-
-    public void AnimateOutputState(string newLineState)
-    {
-        Debug.Log("Update state: " + newLineState);
-        outputState = newLineState;
-
-        if (!outputLineRenderer)
-        {
-            return;
-        }
-
-        switch (outputState)
-        {
-            case "correct":
-                outputLineRenderer.startColor = workingStartColor;
-                outputLineRenderer.endColor = workingEndColor;
-                break;
-            case "wrong":
-                outputLineRenderer.material.color = Color.white;
-                outputLineRenderer.startColor = Color.white;
-                outputLineRenderer.endColor = Color.white;
-                outputLineRenderer.startWidth = inactiveWidth;
-                outputLineRenderer.endWidth = inactiveWidth;
-                break;
-            case "inactive":
-            default:
-                outputLineRenderer.material.color = inactiveColor;
-                outputLineRenderer.startColor = inactiveColor;
-                outputLineRenderer.endColor = inactiveColor;
-                outputLineRenderer.startWidth = inactiveWidth;
-                outputLineRenderer.endWidth = inactiveWidth;
-                break;
-        }
-    }
-
     public bool HasKernel()
     {
         return hasKernel;
@@ -235,7 +173,7 @@ public class ConvolutionalView : MonoBehaviour
     {
         Debug.Log("Start Convolution");
         kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
-        kernelMatrix.OnGrabbed += StopConvolution;
+        kernelMatrix.OnGrabbed += RemoveKernel;
 
         GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
         movingKernelMatrix.PlaceAt(inputPixel.transform.position);
@@ -331,4 +269,68 @@ public class ConvolutionalView : MonoBehaviour
         Convolute();
         // AnimateOutputState(outputState);
     }
+
+    // TODO: abstract OutputLine
+    public void UpdateOutputState(string newLineState)
+    {
+        Debug.Log("Update state: " + newLineState);
+        outputState = newLineState;
+        switch (outputState)
+        {
+            case "correct":
+                outputLineRenderer.startColor = workingStartColor;
+                outputLineRenderer.endColor = workingEndColor;
+                break;
+            case "wrong":
+                outputLineRenderer.material.color = Color.white;
+                outputLineRenderer.startColor = Color.white;
+                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+            case "inactive":
+            default:
+                outputLineRenderer.material.color = inactiveColor;
+                outputLineRenderer.startColor = inactiveColor;
+                outputLineRenderer.endColor = inactiveColor;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+        }
+    }
+
+    public void AnimateOutputState(string newLineState)
+    {
+        Debug.Log("Update state: " + newLineState);
+        outputState = newLineState;
+
+        if (!outputLineRenderer)
+        {
+            return;
+        }
+
+        switch (outputState)
+        {
+            case "correct":
+                outputLineRenderer.startColor = workingStartColor;
+                outputLineRenderer.endColor = workingEndColor;
+                break;
+            case "wrong":
+                outputLineRenderer.material.color = Color.white;
+                outputLineRenderer.startColor = Color.white;
+                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+            case "inactive":
+            default:
+                outputLineRenderer.material.color = inactiveColor;
+                outputLineRenderer.startColor = inactiveColor;
+                outputLineRenderer.endColor = inactiveColor;
+                outputLineRenderer.startWidth = inactiveWidth;
+                outputLineRenderer.endWidth = inactiveWidth;
+                break;
+        }
+    }
+
 }
