@@ -25,8 +25,8 @@ public class ConvolutionalView : MonoBehaviour
 
     bool isConvoluting = false;
     bool hasKernel = false;
-
     public Action<int> OnConvolutionStopped;
+    int convolutionAnimationStep = 2;
 
     // TODO: abstract OutputLine
     string outputState = "inactive"; // inactice, wrong, correct
@@ -194,7 +194,13 @@ public class ConvolutionalView : MonoBehaviour
                 {
                     continue;
                 }
+                // retrieve the pixels from input matrix
+                // retrieve the pixels of the kernel
+                // convolute
                 double convResult = MultiplyMatrices(movingKernelMatrix.flatKernel, inputMatrix.GetNeighboors(i, j));
+
+                // retrieve the pixel from the output matrix
+                // change its value and color
                 outputMatrix.SetPixel(i - 1, j - 1, convResult);
                 outputMatrix.HidePixel(i - 1, j - 1);
             }
@@ -219,19 +225,24 @@ public class ConvolutionalView : MonoBehaviour
             // move the kernel center over it
             GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
             movingKernelMatrix.PlaceAt(inputPixel.transform.position);
+            // outputMatrix.ShowPixel(iConv - 1, jConv - 1);
 
-            // retrieve the pixels from input matrix
-            // retrieve the pixels of the kernel
-            // convolute
-            // double convResult = MultiplyMatrices(movingKernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
-
-            // retrieve the pixel from the output matrix
-            // change its value and color
-            // outputMatrix.SetPixel(iConv - 1, jConv - 1, convResult);
-            outputMatrix.ShowPixel(iConv - 1, jConv - 1);
+            int jConvNext = jConv;
+            int iConvNext = iConv;
+            do
+            {
+                outputMatrix.ShowPixel(iConvNext - 1, jConvNext - 1);
+                jConvNext++;
+                if (jConv >= 64)
+                {
+                    iConvNext = iConv + 1;
+                    jConvNext = 1; // stride
+                }
+            }
+            while (jConvNext < jConv + convolutionAnimationStep && iConvNext < 64);
         }
 
-        jConv++;
+        jConv += convolutionAnimationStep;
         if (jConv >= 64)
         {
             iConv++;
