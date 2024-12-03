@@ -7,14 +7,12 @@ public class ConvolutionalView : MonoBehaviour
     // Scene objects
     public InputHolder kernelHolder;
     public Locker locker;
-
     public GameObject inputScreen;
     public GameObject outputScreen;
 
-    private GameObject kernelCopy;
-
     // Matrices
     public KernelMatrix kernelMatrix;
+    KernelMatrix movingKernelMatrix;
     public InputMatrix inputMatrix;
     public OutputMatrix outputMatrix;
     public int id;
@@ -192,18 +190,22 @@ public class ConvolutionalView : MonoBehaviour
 
     public void InitKernel(List<double> flatKernel, double[,] kernel)
     {
+        Debug.Log("Init Kernel");
+
         kernelMatrix.SetMatrix(flatKernel, kernel);
         locker.AddKernel(kernelMatrix.gameObject);
 
-        kernelCopy = Instantiate(kernelMatrix.gameObject, kernelMatrix.transform.position, Quaternion.identity);
-        kernelCopy.SetActive(false);
-        kernelCopy.GetComponent<KernelMatrix>().OnGrabbed += StopConvolution;
+        GameObject instance = Instantiate(kernelMatrix.gameObject, kernelMatrix.transform.position, Quaternion.identity);
+        movingKernelMatrix = instance.GetComponent<KernelMatrix>();
+        movingKernelMatrix.gameObject.SetActive(false);
+        movingKernelMatrix.SetMatrix(flatKernel, kernel);
 
         hasKernel = true;
     }
 
     public void RemoveKernel()
     {
+        Debug.Log("Remove Kernel");
         hasKernel = false;
         StopConvolution();
         ResetConvolution();
@@ -231,18 +233,15 @@ public class ConvolutionalView : MonoBehaviour
 
     void StartConvolution()
     {
-        // Debug.Log("Convolute");
-        // Debug.Log("Kernel [0][1]: " + kernelMatrix.GetKernelPixel(0, 1));
-        // Initial position = Move kernel to align with input matrix
+        Debug.Log("Start Convolution");
+        kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
+        kernelMatrix.OnGrabbed += StopConvolution;
 
-        // Copy Object
-        kernelCopy.transform.position = kernelMatrix.transform.position;
-        kernelCopy.transform.localScale = new(0.1f, 0.1f, 0f);
-        kernelCopy.SetActive(true);
-
-        // kernelMatrix.PlaceAt(inputMatrix.transform.position);
-        kernelMatrix.transform.localScale = new(0.04f, 0.04f, 1f);
-        kernelMatrix.UpdatePixelsConvoluting();
+        GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
+        movingKernelMatrix.PlaceAt(inputPixel.transform.position);
+        movingKernelMatrix.transform.localScale = new(0.04f, 0.04f, 1f);
+        movingKernelMatrix.UpdatePixelsConvoluting();
+        movingKernelMatrix.gameObject.SetActive(true);
 
         outputMatrix.Reset();
         iConv = 0;
@@ -267,13 +266,12 @@ public class ConvolutionalView : MonoBehaviour
         {
             // move the kernel center over it
             GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
-            kernelMatrix.PlaceAt(inputPixel.transform.position);
-            // inputMatrix.HighlightNeighboors(inputPixel.transform.position);
+            movingKernelMatrix.PlaceAt(inputPixel.transform.position);
 
             // retrieve the pixels from input matrix
             // retrieve the pixels of the kernel
             // convolute
-            double convResult = MultiplyMatrices(kernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
+            double convResult = MultiplyMatrices(movingKernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
 
             // retrieve the pixel from the output matrix
             // change its value and color
@@ -318,17 +316,11 @@ public class ConvolutionalView : MonoBehaviour
 
     void StopConvolution()
     {
-        // Debug.Log("Stop Convolution");
-
-        // kernelMatrix.transform.localScale = new(1f, 1f, 1f);
-        // kernelMatrix.transform.position = kernelCopy.transform.position;
-        // kernelMatrix.UpdatePixelsDefault();
-        // kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
-
-        kernelMatrix.gameObject.SetActive(false);
+        Debug.Log("Stop Convolution");
+        kernelMatrix.OnGrabbed -= StopConvolution;
+        movingKernelMatrix.gameObject.SetActive(false);
 
         isConvoluting = false;
-
         OnConvolutionStopped?.Invoke(id);
     }
 
