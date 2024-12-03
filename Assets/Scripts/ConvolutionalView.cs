@@ -26,7 +26,7 @@ public class ConvolutionalView : MonoBehaviour
     bool isConvoluting = false;
     bool hasKernel = false;
     public Action<int> OnConvolutionStopped;
-    int convolutionAnimationStep = 2;
+    int convolutionAnimationStep = 8; // step = 4 ==> 10 seconds, step = 8 ==> 3 seconds
 
     // TODO: abstract OutputLine
     string outputState = "inactive"; // inactice, wrong, correct
@@ -229,17 +229,22 @@ public class ConvolutionalView : MonoBehaviour
 
             int jConvNext = jConv;
             int iConvNext = iConv;
-            do
+            int stepDone = 0;
+            // Debug.Log("start loop iConvNext " + iConvNext + ", jConvNext " + jConvNext);
+            while ((stepDone < convolutionAnimationStep) && (jConvNext < 64) && (iConvNext < 64))
             {
+                // Debug.Log("iConvNext " + iConvNext + " limit " + 64);
+                // Debug.Log("jConvNext " + jConvNext + " limit " + (jConv + convolutionAnimationStep));
                 outputMatrix.ShowPixel(iConvNext - 1, jConvNext - 1);
                 jConvNext++;
-                if (jConv >= 64)
+                if (jConvNext >= 64)
                 {
-                    iConvNext = iConv + 1;
+                    iConvNext++;
                     jConvNext = 1; // stride
                 }
+                stepDone++;
             }
-            while (jConvNext < jConv + convolutionAnimationStep && iConvNext < 64);
+            // Debug.Log("end loop iConvNext " + iConvNext + ", jConvNext " + jConvNext);
         }
 
         jConv += convolutionAnimationStep;

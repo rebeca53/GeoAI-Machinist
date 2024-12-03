@@ -51,6 +51,7 @@ public class OutputMatrix : MonoBehaviour
         foreach (OutputPixel pixel in outputPixels)
         {
             pixel.Reset();
+            pixel.gameObject.SetActive(false);
         }
     }
 
@@ -66,6 +67,12 @@ public class OutputMatrix : MonoBehaviour
 
     public void ShowPixel(int i, int j)
     {
+        // Debug.Log("show pixel (" + i + ", " + j + ")");
+        if (i >= matrixSize || j >= matrixSize)
+        {
+            // Debug.Log("Invalid pixel. Out of bounds.");
+            return;
+        }
         outputPixels[i, j].gameObject.SetActive(true);
     }
 }
