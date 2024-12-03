@@ -185,6 +185,20 @@ public class ConvolutionalView : MonoBehaviour
         iConv = 0;
         jConv = 0;
         isConvoluting = true;
+
+        for (int i = 1; i < 64; i++)
+        {
+            for (int j = 1; j < 64; j++)
+            {
+                if (IsStride(i, j))
+                {
+                    continue;
+                }
+                double convResult = MultiplyMatrices(movingKernelMatrix.flatKernel, inputMatrix.GetNeighboors(i, j));
+                outputMatrix.SetPixel(i - 1, j - 1, convResult);
+                outputMatrix.HidePixel(i - 1, j - 1);
+            }
+        }
     }
 
     void Convolute()
@@ -209,11 +223,12 @@ public class ConvolutionalView : MonoBehaviour
             // retrieve the pixels from input matrix
             // retrieve the pixels of the kernel
             // convolute
-            double convResult = MultiplyMatrices(movingKernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
+            // double convResult = MultiplyMatrices(movingKernelMatrix.flatKernel, inputMatrix.GetNeighboors(iConv, jConv));
 
             // retrieve the pixel from the output matrix
             // change its value and color
-            outputMatrix.SetPixel(iConv - 1, jConv - 1, convResult);
+            // outputMatrix.SetPixel(iConv - 1, jConv - 1, convResult);
+            outputMatrix.ShowPixel(iConv - 1, jConv - 1);
         }
 
         jConv++;

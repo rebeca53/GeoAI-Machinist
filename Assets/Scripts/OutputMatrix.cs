@@ -58,4 +58,14 @@ public class OutputMatrix : MonoBehaviour
     {
         outputPixels[i, j].Initialize(value);
     }
+
+    public void HidePixel(int i, int j)
+    {
+        outputPixels[i, j].gameObject.SetActive(false);
+    }
+
+    public void ShowPixel(int i, int j)
+    {
+        outputPixels[i, j].gameObject.SetActive(true);
+    }
 }
