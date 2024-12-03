@@ -85,10 +85,6 @@ public class SampleSpectralBand : MonoBehaviour
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
             renderer.sprite = operation.Result;
-            if (GetBandType().Equals("swir"))
-            {
-                renderer.color = Color.yellow;
-            }
             gameObject.SetActive(true);
         }
         else

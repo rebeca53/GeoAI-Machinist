@@ -94,3 +94,5 @@ MonoBehaviour:
   containerTile: {fileID: 113377864810306097, guid: 45f1156f560c7f14288d371403d0a880, type: 3}
   NPC: {fileID: 3433668287301722486, guid: 5ca2353d8589a5b459bec930122380bd, type: 3}
   player: {fileID: 1559715277681379453, guid: 72013fef11c50734db318fb83fc9454d, type: 3}
+  dialogueBalloon: {fileID: 8556432485000496560, guid: c699f919abad9a642a1b6c526f8f160d, type: 3}
+  hintBalloon: {fileID: 2053681811361941413, guid: 8cd729ca88895ef4fbbfac65e041e7a5, type: 3}

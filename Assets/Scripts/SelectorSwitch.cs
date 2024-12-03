@@ -14,6 +14,8 @@ public class SelectorSwitch : MonoBehaviour
     private Color workingEndColor;
     private Color wrongColor = Color.red;
     private Color inactiveColor = Color.gray;
+
+    private float startingWidth;
     LineRenderer lineRenderer;
 
     string lineState = "inactive"; // inactive, wrong, correct
@@ -33,7 +35,7 @@ public class SelectorSwitch : MonoBehaviour
         {
             Debug.LogError("Failed to retrieve LineRenderer");
         }
-
+        startingWidth = lineRenderer.startWidth;
         DrawOutputConnection();
         UpdateState("inactive");
     }
@@ -124,5 +126,31 @@ public class SelectorSwitch : MonoBehaviour
         TurnOff();
         emptyInput = true;
         UpdateState("inactive");
+    }
+
+    void Update()
+    {
+        switch (lineState)
+        {
+            case "correct":
+                // lineRenderer.startColor = workingStartColor;
+                // lineRenderer.endColor = workingEndColor;
+                lineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 1));
+                lineRenderer.startWidth = startingWidth * 2;
+                lineRenderer.endWidth = startingWidth * 2;
+                // lineRenderer.widthCurve = AnimationCurve.Linear(0, .5f, 1, .5f);
+                break;
+            case "wrong":
+                lineRenderer.startColor = Color.white;
+                lineRenderer.endColor = Color.white;
+                lineRenderer.startWidth = startingWidth;
+                lineRenderer.endWidth = startingWidth;
+                break;
+            case "inactive":
+            default:
+                lineRenderer.startColor = inactiveColor;
+                lineRenderer.endColor = inactiveColor;
+                break;
+        }
     }
 }

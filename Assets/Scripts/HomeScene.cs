@@ -4,6 +4,9 @@ public class HomeScene : MonoBehaviour
 {
     public void LoadGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        // 1 - Sample Scene
+        // 2 - Overview Scene
+        // 7 - Introduction CutsCene
+        UnityEngine.SceneManagement.SceneManager.LoadScene(7);
     }
 }

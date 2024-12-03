@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &11802776
 Transform:
   m_ObjectHideFlags: 0
@@ -607,7 +607,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 404794558553244256, guid: e96b224b63af8a940a83d1e6228be0ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e96b224b63af8a940a83d1e6228be0ed, type: 3}
 --- !u!1 &314620749
 GameObject:
@@ -2121,7 +2124,7 @@ Transform:
   m_GameObject: {fileID: 911182672}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 0.29, z: 0}
+  m_LocalPosition: {x: 0.548, y: 0.261, z: 0}
   m_LocalScale: {x: 0.3066877, y: 0.3322895, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3705,7 +3708,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Hello, GeoAI Machinist.\n\nFeeling well?\nAre you prepared for your mission?\r"
+  m_text: 'Hello, GeoAI Machinist.
+
+    Feeling well?
+
+    Are you prepared for your
+    mission?
+
+    (Press SPACE)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7eb7071b292fa4c4fa1cf633f69c74c8, type: 2}
   m_sharedMaterial: {fileID: 5964903227906382640, guid: 7eb7071b292fa4c4fa1cf633f69c74c8, type: 2}

@@ -15,6 +15,9 @@ public class InputMatrixPixel : MonoBehaviour
         transform.GetComponent<SpriteRenderer>().color = GetPixelColor();
         label = transform.Find("Label").GetComponent<TextMeshPro>();
         label.text = GetPixelValue();
+
+        // For now, do not show the pixel value
+        transform.Find("Label").gameObject.SetActive(false);
     }
 
     private Color GetPixelColor()
@@ -52,23 +55,23 @@ public class InputMatrixPixel : MonoBehaviour
         Unhighlight();
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        Debug.Log("stay over pixel. tag: " + other.tag);
-        // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
-        if (other.CompareTag("KernelCenter"))
-        {
-            Highlight();
-        }
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //     Debug.Log("stay over pixel. tag: " + other.tag);
+    //     // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
+    //     if (other.CompareTag("KernelCenter"))
+    //     {
+    //         Highlight();
+    //     }
 
-    }
+    // }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("out of pixel");
-        if (other.CompareTag("KernelCenter"))
-        {
-            Unhighlight();
-        }
-    }
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     Debug.Log("out of pixel");
+    //     if (other.CompareTag("KernelCenter"))
+    //     {
+    //         Unhighlight();
+    //     }
+    // }
 }

@@ -6,6 +6,10 @@ public class Container : MonoBehaviour
 {
     public event Action OnMatch;
     public event Action<string> OnMatchDisplay;
+    public event Action<string> OnHover;
+    public event Action<string> OnUnhover;
+    bool matched = false;
+
     public string type;
     private Animator animator;
     private TextMeshPro label;
@@ -51,6 +55,7 @@ public class Container : MonoBehaviour
 
         OnMatch?.Invoke();
         OnMatchDisplay?.Invoke(type);
+        matched = true;
     }
 
     public bool IsMatch(SampleBox sampleBox)
@@ -68,5 +73,29 @@ public class Container : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (matched)
+        {
+            OnHover?.Invoke(type);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (matched)
+        {
+            OnHover?.Invoke(type);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (matched)
+        {
+            OnUnhover?.Invoke(type);
+        }
     }
 }

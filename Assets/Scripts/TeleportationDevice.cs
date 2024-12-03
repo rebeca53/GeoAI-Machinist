@@ -6,14 +6,12 @@ public class TeleportationDevice : MonoBehaviour
 {
     private float verticalOffset = 0.35f;
     private float horizontalOffset = 0f;
-
     private Animator animator;
     private string instruction;
 
     // Start is called before the first frame update
     void Start()
     {
-
         animator = GetComponent<Animator>();
     }
 
@@ -54,18 +52,20 @@ public class TeleportationDevice : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.CompareTag("Player"))
-        // {
-        //     UIHandler.Instance.DisplayMessage(instruction);
-        // }
+        if (other.CompareTag("Player"))
+        {
+            // UIHandler.Instance.DisplayMessage(instruction);
+            // timedDialogueBalloon.Show();
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // if (other.CompareTag("Player"))
-        // {
-        //     UIHandler.Instance.HideMessage();
-        // }
+        if (other.CompareTag("Player"))
+        {
+            // timedDialogueBalloon.Hide();
+            // UIHandler.Instance.HideMessage();
+        }
     }
 }
 

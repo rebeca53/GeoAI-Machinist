@@ -1,135 +1,31 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class InputMiniGameManager : BaseBoard
 {
+    public Action OnTurnOver;
     public GameObject[] sampleTiles;
     public GameObject spectralBandTile;
     public GameObject spectralBandContainerTile;
     public GameObject selectorSwitch;
-
     public GameObject teleportationDeviceTile;
 
-    private List<string> bandTypes = new List<string> { "red", "green", "blue", "swir", "redEdge" };
-    private int fullSpectralBandsContainer = 0;
+    public TimedDialogueBalloon timedDialogueBalloon;
+    public DialogueBalloon dialogueBalloon;
 
-    Dictionary<string, SelectorSwitch> bandSelectors = new Dictionary<string, SelectorSwitch>();
+    private List<string> bandTypes = new List<string> { "red", "green", "blue", "redEdge" };
+
     TeleportationDevice teleportationDevice;
     Dictionary<string, SpectralBandContainer> containers = new Dictionary<string, SpectralBandContainer>();
     SampleBox sampleBox;
 
     // Turn-related variables
-
-    class Turn
-    {
-        int id;
-        string sampleName;
-        List<string> characteristicBands;
-        List<string> correct = new List<string>();
-        List<string> wrong = new List<string>();
-
-        int amountActivated = 0;
-        public GameObject sample;
-        public Vector3 position = new(0.5f, 7f, 0f);
-        public string instruction;
-
-        public readonly string positiveMessage = "Good choice!";
-        public readonly string negativeMessage = "Try a different band";
-
-        public Turn(int id, string sampleName, List<string> bands, string instruction)
-        {
-            this.id = id;
-            this.sampleName = sampleName;
-            characteristicBands = bands;
-            this.instruction = instruction;
-        }
-
-        public void SetSample(GameObject gameObject)
-        {
-            sample = gameObject;
-        }
-
-        public string GetProgressMessage()
-        {
-            int remaining = characteristicBands.Count - correct.Count;
-            return "Still " + remaining + " to activate. And there are " + wrong.Count + " bands to deactivate.";
-        }
-
-        public bool IsCharacteristicBand(string bandName)
-        {
-            return characteristicBands.Contains(bandName);
-        }
-
-        public void Match(string bandName)
-        {
-            if (IsCharacteristicBand(bandName))
-            {
-                correct.Add(bandName);
-            }
-            else
-            {
-                Debug.Log("is wrong " + bandName);
-                wrong.Add(bandName);
-            }
-        }
-
-        public void Unmatch(string bandName)
-        {
-            if (IsCharacteristicBand(bandName))
-            {
-                correct.Remove(bandName);
-            }
-            else
-            {
-                wrong.Remove(bandName);
-            }
-        }
-
-        public bool AlreadyMatched(string bandName)
-        {
-            return correct.Contains(bandName) || wrong.Contains(bandName);
-        }
-
-        public bool IsOver()
-        {
-            bool allCharacteristicSelected = true;
-            foreach (string band in characteristicBands)
-            {
-                if (!correct.Contains(band))
-                {
-                    allCharacteristicSelected = false;
-                }
-            }
-
-            Debug.Log("Is turn over? correct " + printList(correct));
-            Debug.Log("Is turn over? wrong " + printList(wrong));
-            Debug.Log("Is turn over? characteristicBands " + printList(characteristicBands));
-
-            Debug.Log("Is turn over? correct containes characteristic abnds? " + allCharacteristicSelected);
-
-            Debug.Log("Is turn over? wrong Count " + wrong.Count);
-
-            bool over = allCharacteristicSelected && (wrong.Count == 0);
-            Debug.Log("Is turn over? " + over);
-            return over;
-        }
-
-        private string printList(List<string> list)
-        {
-            string message = "";
-            foreach (string value in list)
-            {
-                message += value + " ";
-            }
-            return message;
-        }
-
-    }
-
     private List<Turn> turns = new List<Turn> {
-        new(0, "River", new List<string>{"blue", "green", "swir"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a River.\nA River is characterize by the water, moisture, and it is necessary to tell it apart from vegetation."),
-        new(1, "Highway", new List<string>{"red", "green"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a Highway.\nA Highway is a man-made feature, and it is necessary to tell it apart from vegetation and water."),
-        new(2, "Residential", new List<string>{"red", "blue"}, "Activate the switches of the bands more likely to reveal relevant characteristics of a Residential area.\nA Residential area is a man-made feature, and it is necessary to tell it apart from vegetation."),
+        new(0, "River", new List<string>{"redEdge"}, "Choose ONE spectral band to reveal characteristics of a River and place it in the correct container."),
+        new(1, "Highway", new List<string>{"red"}, "Choose ONE spectral band to analyze a Highway. A Highway is a man-made feature, that can be surrounded by vegetation and water."),
+        new(2, "Residential", new List<string>{"red", "blue", "redEdge"}, "We need a band combination with THREE spectral bands to analyze a Residential area. It includes man-made features, that can be surrounded by vegetation."),
     };
 
     int currentTurn = 0;
@@ -156,8 +52,8 @@ public class InputMiniGameManager : BaseBoard
             }
         }
 
-        Player.Spawn(this, new Vector2Int(2, 1));
-        NPC.Spawn(this, new Vector2Int(1, 1));
+        Player.Spawn(this, new Vector2Int(2, 2));
+        NPC.Spawn(this, new Vector2Int(1, 2));
 
         // Assign the sprite to each turn
         turns[0].SetSample(sampleTiles[0]); //River
@@ -167,7 +63,72 @@ public class InputMiniGameManager : BaseBoard
         LayoutInputHolder();
         LayoutSample();
         LayoutBandContainers();
-        LayoutBandSelector();
+    }
+
+    private void DisableManualZoom()
+    {
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+        }
+        cameraZoom.Block();
+    }
+
+    private void EnableManualZoom()
+    {
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+        }
+        cameraZoom.Release();
+    }
+
+    public void ZoomIn()
+    {
+        Debug.Log("InputMiniGameManager Zoom In");
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+        }
+        cameraZoom.ChangeZoomSmooth(1.2f);
+    }
+
+    public void ZoomOut(float zoom = 5f)
+    {
+        Debug.Log("InputMiniGameManager Zoom Out");
+        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
+        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
+
+        if (cameraZoom == null)
+        {
+            Debug.LogError("InputMiniGameManager Zoom Out Unable to retrieve camera");
+        }
+        else
+        {
+            Debug.Log("InputMiniGameManager Zoom Out Retrieveing object");
+        }
+        cameraZoom.ChangeZoomSmooth(zoom);
     }
 
     void LayoutInputHolder()
@@ -194,7 +155,6 @@ public class InputMiniGameManager : BaseBoard
     {
         teleportationDevice.StopBlink();
 
-        // Debug.Log("Break the box " + sampleBox);
         GameObject tileChoice = spectralBandTile;
 
         Vector3 upper = position;
@@ -203,12 +163,6 @@ public class InputMiniGameManager : BaseBoard
         GameObject blue = Instantiate(tileChoice, upper, Quaternion.identity);
         SampleSpectralBand scriptBlue = blue.GetComponent<SampleSpectralBand>();
         scriptBlue.LoadSprite(sampleBox + "_Blue");
-
-        Vector3 down = position;
-        down.y--;
-        GameObject green = Instantiate(tileChoice, down, Quaternion.identity);
-        SampleSpectralBand script = green.GetComponent<SampleSpectralBand>();
-        script.LoadSprite(sampleBox + "_Green");
 
         Vector3 upperRight = position;
         upperRight.y++;
@@ -219,9 +173,9 @@ public class InputMiniGameManager : BaseBoard
 
         Vector3 right = position;
         right.x++;
-        GameObject swir = Instantiate(tileChoice, right, Quaternion.identity);
-        SampleSpectralBand scriptSWIR = swir.GetComponent<SampleSpectralBand>();
-        scriptSWIR.LoadSprite(sampleBox + "_SWIR");
+        GameObject green = Instantiate(tileChoice, right, Quaternion.identity);
+        SampleSpectralBand script = green.GetComponent<SampleSpectralBand>();
+        script.LoadSprite(sampleBox + "_Green");
 
         Vector3 downRight = position;
         downRight.y--;
@@ -237,7 +191,7 @@ public class InputMiniGameManager : BaseBoard
         float verticalOffset = 2f;
         float xPosition = 6f;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < bandTypes.Count; i++)
         {
             float yPosition = verticalOffset + i * verticalGap;
             Vector3 position = new(xPosition, yPosition, 0f);
@@ -245,151 +199,80 @@ public class InputMiniGameManager : BaseBoard
             SpectralBandContainer spectralBandContainer = instance.GetComponent<SpectralBandContainer>();
             spectralBandContainer.SetType(bandTypes[i]);
             spectralBandContainer.DrawConnections(inputPosition: new(-4.9f, (Height / 2) - yPosition, 0f));
-            spectralBandContainer.OnFull += CheckEnableSwitches;
+            spectralBandContainer.OnFilled += CheckWinTurn;
+            spectralBandContainer.OnHover += DisplayMessage;
+            spectralBandContainer.OnUnhover += HideMessage;
 
             containers[bandTypes[i]] = spectralBandContainer;
         }
     }
 
-    private void LayoutBandSelector()
+    private void CheckWinTurn(string type)
     {
-        float verticalGap = 2f;
-        float verticalOffset = 2.64f;
-        float xPosition = 8.86f;
+        Debug.Log("Check Win Turn");
 
-        for (int i = 0; i < 5; i++)
-        {
-            float yPosition = verticalOffset + i * verticalGap;
-            Vector3 position = new(xPosition, yPosition, 0f);
-            GameObject instance = Instantiate(selectorSwitch, position, Quaternion.identity);
-            SelectorSwitch bandSelector = instance.GetComponent<SelectorSwitch>();
-            bandSelector.SetType(bandTypes[i]);
-            // bandSelector.DrawConnections(inputPosition: new(-9.9f, (Height / 2) - yPosition, 0f));
-            bandSelector.OnSwitch += CheckTurnCondition;
-
-            bandSelectors.Add(bandTypes[i], bandSelector);
-        }
-    }
-
-    // Spectral Band selections
-    private void SelectWrongBand(Turn current, string type)
-    {
-        current.Match(type);
-        UIHandler.Instance.DisplayMessage(current.negativeMessage + "\n" + current.GetProgressMessage());
-        bandSelectors[type].UpdateState("wrong");
-    }
-
-    private void UnselectWrongBand(Turn current, string type)
-    {
-        current.Unmatch(type);
-        UIHandler.Instance.DisplayMessage(current.positiveMessage + "\n" + current.GetProgressMessage());
-        bandSelectors[type].UpdateState("inactive");
-    }
-
-    private void SelectCorrectBand(Turn current, string type)
-    {
-        current.Match(type);
-        UIHandler.Instance.DisplayMessage(current.positiveMessage + "\n" + current.GetProgressMessage());
-        bandSelectors[type].UpdateState("correct");
-    }
-
-    private void UnselectCorrectBand(Turn current, string type)
-    {
-        current.Unmatch(type);
-        UIHandler.Instance.DisplayMessage(current.negativeMessage);
-        bandSelectors[type].UpdateState("inactive");
-    }
-
-    private void CheckTurnCondition(string type)
-    {
-        Debug.Log("check turn condition");
         Turn current = turns[currentTurn];
+        current.Match(type);
+
         if (current.IsCharacteristicBand(type))
         {
-            if (current.AlreadyMatched(type))
-            {
-                UnselectCorrectBand(current, type);
-            }
-            else
-            {
-                SelectCorrectBand(current, type);
-
-            }
+            containers[type].UpdateState("correct");
         }
         else
         {
-            if (bandSelectors[type].IsActive())
-            {
-                SelectWrongBand(current, type);
-            }
-            else
-            {
-                UnselectWrongBand(current, type);
-            }
+            containers[type].UpdateState("wrong");
         }
 
-        if (current.IsOver())
+        if (current.AllCharacteristicSelected())
         {
             TurnOver();
         }
     }
-    private void CheckEnableSwitches(string type)
+
+    private void DisplayMessage(string bandName)
     {
-        Debug.Log("Check enable swtiches");
-        fullSpectralBandsContainer++;
-        int totalCount = bandTypes.Count;
-        if (fullSpectralBandsContainer == totalCount)
-        {
-            foreach (KeyValuePair<string, SelectorSwitch> selector in bandSelectors)
-            {
-                selector.Value.SetHasInput();
-            }
-        }
+        Turn current = turns[currentTurn];
+        // Player thinks message
+        string message = current.GetMessage(bandName);
+        timedDialogueBalloon.SetSpeaker(Player.gameObject);
+        timedDialogueBalloon.SetMessage(message);
+        timedDialogueBalloon.PlaceUpperLeft();
+        timedDialogueBalloon.Show();
+    }
+
+    private void DisplayTurnOverMessage()
+    {
+        Turn current = turns[currentTurn];
+        // Player thinks message
+        string message = current.GetTurnOverMessage();
+        Debug.Log("turnover message " + message);
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+    }
+
+    private void DisplayInitTurnMessage()
+    {
+        Turn current = turns[currentTurn];
+        string message = current.instruction;
+        Debug.Log("init turn message " + message);
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
+    }
+
+    private void HideMessage(string bandName)
+    {
+        timedDialogueBalloon.Hide();
     }
 
     protected override void GameOver()
     {
         GameManager.instance.solvedMinigames["Input"] = true;
         GameManager.instance.StartOverviewScene();
-    }
-
-    private void AnimateGameOver()
-    {
-        // Block Player
-        Player.Disable();
-
-        // Camera goes to NPC
-        Debug.Log("Zoom In");
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("Unable to retrieve camera");
-        }
-        else
-        {
-            Debug.Log("Retrieveing object");
-        }
-        // cameraZoom.ChangeFollowTarget(NPC.transform);
-
-        // NPC walks until Player
-        NPC.WalkTo(Player.transform.position);
-        Player.Enable();
-        // cameraZoom.ChangeFollowTarget(Player.transform);
-
-        // Display Clickable Message
-        // UIHandler.Instance.DisplayDialogue("Game Over. Click at this dialogue balloon to proceed to finish the challenge in this layer.");
-        // UIHandler.Instance.OnClicked += GameOver;
-    }
-
-
-    private void ResetSelectors()
-    {
-        foreach (KeyValuePair<string, SelectorSwitch> selector in bandSelectors)
-        {
-            selector.Value.Reset();
-        }
     }
 
     private void ResetContainers()
@@ -400,22 +283,48 @@ public class InputMiniGameManager : BaseBoard
         }
     }
 
-    void TurnOver()
+    private void CleanUnusedBands()
     {
-        ResetContainers();
-        ResetSelectors();
+        GameObject[] spectralBands = GameObject.FindGameObjectsWithTag("SpectralBand");
+        Turn current = turns[currentTurn];
+
+        foreach (GameObject gameObject in spectralBands)
+        {
+            SampleSpectralBand sampleSpectralBand = gameObject.GetComponent<SampleSpectralBand>();
+            if (!current.IsCharacteristicBand(sampleSpectralBand.GetBandType()))
+            {
+                gameObject.SetActive(false);
+                gameObject.transform.parent = null;
+            }
+        }
+    }
+
+    void InitNewTurn()
+    {
+        Debug.Log("Change turn");
+        dialogueBalloon.OnDone -= InitNewTurn;
+
         if (currentTurn == 2)
         {
             GameOver();
-            // AnimateGameOver();
             return;
         }
+
+        ResetContainers();
+
         Debug.Log("Increment turn");
         currentTurn++;
-        fullSpectralBandsContainer = 0;
-
         sampleBox.Reset();
         LayoutSample();
-        // TODO: Zoom in sample
+        DisplayInitTurnMessage();
+    }
+
+    void TurnOver()
+    {
+        Debug.Log("Turn Over");
+        CleanUnusedBands();
+        DisplayTurnOverMessage();
+        dialogueBalloon.OnDone += InitNewTurn;
+        ZoomOut(3f);
     }
 }

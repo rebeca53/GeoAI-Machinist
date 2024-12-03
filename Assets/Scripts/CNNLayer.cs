@@ -12,6 +12,8 @@ public class CNNLayer : MonoBehaviour
     public Sprite statusBad;
     public Sprite statusGood;
 
+    public GameObject wormholeAnimation;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +32,12 @@ public class CNNLayer : MonoBehaviour
         if (solved)
         {
             spriteRenderer.sprite = statusGood;
+            wormholeAnimation.SetActive(false);
         }
         else
         {
             spriteRenderer.sprite = statusBad;
+            wormholeAnimation.SetActive(true);
         }
     }
 

@@ -24,8 +24,8 @@ public class PlayableDirectorCallback : MonoBehaviour
 
     void InitializeScreenplay()
     {
-        screenplay.Add(new("NPC", "Hello, GeoAI Machinist.\n\nFeeling well?\nAre you prepared for your mission?"));
-        screenplay.Add(new("Player", "Who are you? What is going on?"));
+        screenplay.Add(new("NPC", "Hello, GeoAI Machinist.\nFeeling well?\nAre you prepared for your mission?\n(Press SPACE)"));
+        screenplay.Add(new("Player", "Who are you? What is going on?\n(Press SPACE)"));
         screenplay.Add(new("NPC", "I'm your Robot Assistant, here to guide you. I'll provide all mission details shortly."));
         screenplay.Add(new("NPC", "As the GeoAI Machinist, your mission is to maintain the Big Machine—a space station designed to survey Earth and respond to emergency situations."));
         screenplay.Add(new("NPC", "Records indicate that Earth has entered another Heat Season, and the delicate balance necessary for the last humans to survive is in danger."));
@@ -73,7 +73,10 @@ public class PlayableDirectorCallback : MonoBehaviour
             if (HasSpeakerChanged())
             {
                 Debug.Log("speaker has changed");
-                NPC.Speak();
+                if (currentLineIndex == 0)
+                {
+                    NPC.Speak();
+                }
                 FollowSpeaker(NPC.gameObject);
             }
         }

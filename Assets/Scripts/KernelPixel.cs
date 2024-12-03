@@ -25,22 +25,19 @@ public class KernelPixel : MonoBehaviour
         return CompareTag("KernelCenter");
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    public void SetConvoluting()
     {
-        Debug.Log("stay over pixel. tag: " + other.tag);
-        // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
-        if (IsKernelCenter() && other.CompareTag("InputPixel"))
-        {
-            // Debug.Log("kernel center position: " + transform.position + "\ncurrent pixel position: " + other.transform.position);
-            // ;
-            if (currentCollision)
-            {
-                currentCollision.Unhighlight();
-            }
-            currentCollision = other.transform.GetComponent<InputMatrixPixel>();
-            currentCollision.Highlight();
-            OnHoverPixel?.Invoke(currentCollision.GetPosition());
-        }
+        Debug.Log("change the color of a kernel pixel");
+        Color newColor = Color.red;
+        newColor.a = 0.5f;
+        GetComponent<SpriteRenderer>().color = newColor;
+    }
+
+    public void SetDefault()
+    {
+        Color newColor = Color.black;
+        newColor.a = 0.7f;
+        GetComponent<SpriteRenderer>().color = newColor;
     }
 
     private bool IsAligned(Vector3 positionA, Vector3 positionB, float delta = 0.002f)
@@ -58,18 +55,5 @@ public class KernelPixel : MonoBehaviour
 
         // always return most recent
         return currentCollisions.Last();
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("out of pixel");
-        if (IsKernelCenter() && other.CompareTag("InputPixel"))
-        {
-            // currentCollisions.Remove(other);
-            currentCollision = null;
-            InputMatrixPixel inputPixel = other.transform.GetComponent<InputMatrixPixel>();
-            inputPixel.Unhighlight();
-            OnExitPixel?.Invoke(inputPixel.GetPosition());
-        }
     }
 }

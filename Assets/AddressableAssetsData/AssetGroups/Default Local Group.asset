@@ -62,6 +62,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42e401f38991826429d9abfbdd66187a
+    m_Address: Residential_SWIR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4d9594ed895794344b02d8a207a63fff
     m_Address: HerbaceousVegetation_RedEdge
     m_ReadOnly: 0
@@ -82,18 +87,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6009f922ed88d03499be3c48ecb55e9d
-    m_Address: Highway_SWIR
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 60d772f3a017c8443b8062d9393c109b
     m_Address: Residential_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66c7a5744ee453540bd9df58820f7780
+    m_Address: River_SWIR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a4c1032c70b39a47a8afbded7eb9793
     m_Address: AnnualCrop_Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c1887d80ff71724f9a37d3142f13aaf
+    m_Address: convData
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -127,8 +137,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cda87bdac92e3894f980ff5497853bfb
-    m_Address: River_SWIR
+  - m_GUID: c5dc2f70a22877d48bca3537e2c116cd
+    m_Address: Highway_SWIR
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -144,11 +154,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e55c3c911df3f4a4d8592e49ff6859c2
     m_Address: HerbaceousVegetation_Green
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e598dd785df01be409fb3da3cf9ac265
-    m_Address: Residential_SWIR
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

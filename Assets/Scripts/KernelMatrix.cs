@@ -1,105 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class KernelMatrix : MonoBehaviour
 {
-    public GameObject kernelPixel;
+    public Action OnGrabbed;
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
-
-    static readonly int kernelSize = 3;
 
     private bool grabbed = false;
     private KernelPixel center;
-    private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
-    float verticalOffset;
-    float horizontalOffset;
+    KernelPixel[] kernelPixels;
+    Vector3 target;
+    Vector3 currentPosition;
+
     // Data
-    double[][] kernel = {
-    new double[] {
-        -0.16016709804534912,
-        0.1730394810438156,
-        0.11803445965051651
-    },
-    new double[] {
-        -0.06034918874502182,
-        0.08442366123199463,
-        -0.003968948498368263
-    },
-    new double[] {
-        -0.06272831559181213,
-        0.16043928265571594,
-        -0.21291641891002655
-    }
-    };
+    double[,] kernel;
+    public List<double> flatKernel;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetMatrix(List<double> newFlatKernel, double[,] newKernel)
     {
-        verticalOffset = transform.position.x;
-        horizontalOffset = transform.position.y;
+        kernel = newKernel;
+        flatKernel = newFlatKernel;
+        Draw();
+    }
 
-        for (int i = 0; i < kernelSize; i++)
+    void Draw()
+    {
+        kernelPixels = GetComponentsInChildren<KernelPixel>();
+        center = kernelPixels[4];
+        center.SetKernelCenter();
+
+        for (int k = 0; k < kernelPixels.Count(); k++)
         {
-            float xPosition = horizontalOffset + i * pixelSize;
-            for (int j = 0; j < kernelSize; j++)
-            {
-                float yPosition = verticalOffset + j * pixelSize;
-                Vector3 position = new(xPosition, yPosition, 0f);
+            KernelPixel pixel = kernelPixels[k];
+            TextMeshPro label = pixel.transform.Find("Label").GetComponent<TextMeshPro>();
+            int i = k / 3;
+            int j = k - i * 3;
+            label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
+            Debug.Log("kernel pixel [" + k + "](" + i + "," + j + ") position: " + pixel.transform.position + " value: " + GetKernelPixel(i, j));
 
-                GameObject instance = Instantiate(kernelPixel, position, Quaternion.identity);
-                instance.transform.parent = transform;
-
-                instance.transform.localScale = new(pixelSize, pixelSize, 0f);
-                if (IsKernelCenter(i, j))
-                {
-                    center = instance.GetComponent<KernelPixel>();
-                    center.SetKernelCenter();
-                }
-                // instance.tag = "Kernel";
-                TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
-                label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
-
-                kernelPixels.Add(instance.GetComponent<KernelPixel>());
-            }
+            pixel.SetDefault();
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public double GetKernelPixel(int i, int j)
     {
-
-    }
-
-    private double GetKernelPixel(int i, int j)
-    {
-        return kernel[i][j];
-    }
-
-    private bool IsKernelCenter(int i, int j)
-    {
-        return (i == 1) && (j == 1);
-    }
-
-    public void MoveRight()
-    {
-        transform.position = new(transform.position.x + pixelSize, transform.position.y, transform.position.z);
-    }
-
-    public void MoveLeft()
-    {
-        transform.position = new(transform.position.x - pixelSize, transform.position.y, transform.position.z);
-    }
-
-    public void MoveUp()
-    {
-        transform.position = new(transform.position.x, transform.position.y + pixelSize, transform.position.z);
-    }
-
-    public void MoveDown()
-    {
-        transform.position = new(transform.position.x, transform.position.y - pixelSize, transform.position.z);
+        return kernel[i, j];
     }
 
     public void Grab(Vector3 grabberPosition)
@@ -115,38 +63,56 @@ public class KernelMatrix : MonoBehaviour
         Debug.Log("xgrab transform position " + transform.position);
         Debug.Log("xgrab transform local position " + transform.localPosition);
 
-
-        // foreach (KernelPixel kp in kernelPixels)
-        // {
-        //     kp.GetTransform().localPosition = relativeToParentPosition;
-        // }
+        OnGrabbed?.Invoke();
     }
-
-    // private void SetPixelPosition(GameObject instance, Vector3 position)
-    // {
-
-
-    //     float xPosition = horizontalOffset + i * pixelSize;
-
-    //     float yPosition = verticalOffset + j * pixelSize;
-
-    //     instance.transform.position = new ()
-    //     // instance.tag = "Kernel";
-    //     TextMeshPro label = instance.transform.Find("Label").GetComponent<TextMeshPro>();
-    //     label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
-
-    //     kernelPixels.Add(instance.GetComponent<KernelPixel>());
-
-    // }
 
     public bool IsGrabbed()
     {
         return grabbed;
     }
 
-    public KernelPixel GetKernelCenter()
+    void Start()
     {
-        return center;
+        target = transform.position;
+    }
+
+    public void UpdatePixelsConvoluting()
+    {
+        foreach (KernelPixel pixel in kernelPixels)
+        {
+            Debug.Log("change the color of a kernel pixel");
+            pixel.SetConvoluting();
+        }
+    }
+
+    public void UpdatePixelsDefault()
+    {
+        foreach (KernelPixel pixel in kernelPixels)
+        {
+            Debug.Log("change the color of a kernel pixel");
+            pixel.SetDefault();
+        }
+    }
+
+    public void MoveTo(Vector3 targetPosition)
+    {
+        transform.parent = null;
+        target = targetPosition;
+        Debug.Log("currentPosition " + currentPosition);
+        Debug.Log("target " + target);
+    }
+
+    public void MoveRight(float x)
+    {
+        transform.parent = null;
+        target = new(transform.position.x + x, transform.position.y, transform.position.z);
+    }
+
+    public void PlaceAt(Vector3 newPosition)
+    {
+        transform.parent = null;
+        transform.position = newPosition;
+        target = transform.position;
     }
 
 }

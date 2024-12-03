@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
 
+    public Action OnKernelGrabbed;
+
+
     // Money system
     public int CurrentMoney { get { return currentMoney; } }
     private int currentMoney;
@@ -28,7 +32,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Hello");
+        Debug.Log("Hello Player");
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         TurnLeft();
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     public void Disable()
     {
+        Debug.Log("Disable Player");
         isEnabled = false;
     }
 
@@ -55,6 +60,7 @@ public class PlayerController : MonoBehaviour
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
+        // Debug.Log("Player spawn at " + transform.position);
     }
 
     public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
@@ -262,6 +268,8 @@ public class PlayerController : MonoBehaviour
         grabbeableObject.position = playerObj.transform.position;
 
         grabbedObject = grabbeableObject.gameObject;
+
+        OnKernelGrabbed?.Invoke();
     }
 
     private void FillInputHolder()
@@ -269,10 +277,19 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("drop object onto container");
 
         InputHolder inputHolder = nearObject.GetComponent<InputHolder>();
-        SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
 
-        inputHolder.FeedInputSample(sampleBox);
+        inputHolder.AddInputObject(grabbedObject);
+        // SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
 
+        // inputHolder.FeedInputSample(sampleBox);
+
+        grabbedObject = null;
+    }
+
+    private void FillLocker()
+    {
+        Locker locker = nearObject.GetComponent<Locker>();
+        locker.AddKernel(grabbedObject);
         grabbedObject = null;
     }
 
@@ -302,6 +319,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnSpaceAction()
     {
+        if (!isEnabled)
+        {
+            return;
+        }
 
         if (nearObject && nearObject.CompareTag("Exit"))
         {
@@ -319,7 +340,16 @@ public class PlayerController : MonoBehaviour
         // TODO: improve the context of an action
         if (grabbedObject)
         {
-            Debug.Log("space action and BUT grabbed object");
+            Debug.Log("space action and BUT grabbed object " + grabbedObject.tag);
+            if (nearObject == null)
+            {
+                Debug.Log("No nearObject to drop on");
+            }
+            else
+            {
+                Debug.Log("nearObject is " + nearObject.tag);
+            }
+
             if (nearObject && nearObject.CompareTag("Container"))
             {
                 AttemptToFillAContainer();
@@ -332,6 +362,10 @@ public class PlayerController : MonoBehaviour
             {
                 AttemptToFillSpectralBandContainer();
             }
+            else if (nearObject && nearObject.CompareTag("Locker"))
+            {
+                FillLocker();
+            }
             else
             {
                 DropObject();
@@ -340,7 +374,13 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("space action and no grabbed object");
-            if (nearObject && nearObject.CompareTag("SampleBox"))
+            if (nearObject == null)
+            {
+                Debug.Log("No nearObject to grab");
+                return;
+            }
+
+            if (nearObject.CompareTag("SampleBox"))
             {
                 Scene currentScene = SceneManager.GetActiveScene();
                 // Retrieve the name of this scene.
@@ -354,19 +394,18 @@ public class PlayerController : MonoBehaviour
                     GrabSampleBox();
                 }
             }
-            else if (nearObject && nearObject.CompareTag("SpectralBand"))
+            else if (nearObject.CompareTag("SpectralBand"))
             {
                 GrabSampleBox();
             }
-            else if (nearObject && nearObject.CompareTag("SelectorSwitch"))
+            else if (nearObject.CompareTag("SelectorSwitch"))
             {
                 nearObject.GetComponent<SelectorSwitch>().Switch();
             }
-            else if (nearObject && nearObject.transform.parent.CompareTag("Kernel"))
+            else if (nearObject.transform.parent.CompareTag("Kernel"))
             {
                 GrabKernel();
             }
-
 
         }
     }
@@ -388,17 +427,33 @@ public class PlayerController : MonoBehaviour
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Debug.Log("On trigger enter 2d " + other.tag);
+        if (other.CompareTag("Untagged"))
+        {
+            // Ignore
+            return;
+        }
         nearObject = other.gameObject;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (other.CompareTag("Untagged"))
+        {
+            // Ignore
+            return;
+        }
         // Debug.Log("On trigger stay 2d " + other.tag);
         nearObject = other.gameObject;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (other.CompareTag("Untagged"))
+        {
+            // Ignore
+            return;
+        }
         // Debug.Log("on trigger exit 2d " + other.tag);
         nearObject = null;
     }

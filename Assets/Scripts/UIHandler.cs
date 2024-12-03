@@ -84,7 +84,7 @@ public class UIHandler : MonoBehaviour
         if (timeout > 0f)
         {
             timeout -= Time.deltaTime;
-            Debug.Log("new timeout " + timeout);
+            // Debug.Log("new timeout " + timeout);
         }
         else
         {

@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     // GameManager is a Singleton
     public static GameManager instance = null;
-    public BoardManager boardScript;
 
     public Vector2Int playerPositionOverview = new(1, 1);
 
@@ -40,17 +39,12 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        boardScript = GetComponent<BoardManager>();
-        InitGame();
         Debug.Log("Wake Game Manger");
     }
 
-    void InitGame()
+    public void StartDataLabeling()
     {
-        boardScript.SetupScene();
-        // StartOverviewScene();
-        // StartMiniGame("Input");
-        // StartMiniGame("Convolutional 1");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     public void StartOverviewScene()

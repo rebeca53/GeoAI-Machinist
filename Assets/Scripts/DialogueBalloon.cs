@@ -7,6 +7,7 @@ using UnityEngine;
 public class DialogueBalloon : MonoBehaviour
 {
     public Action OnDone;
+    bool waitingKey = false;
     string relativePosition = "upperRight"; // can be upperLeft
 
     float xOffset = 0.85f;
@@ -20,16 +21,17 @@ public class DialogueBalloon : MonoBehaviour
     private TextMeshPro label;
 
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Debug.Log("Dialogue Ballon Awake");
         speech = transform.Find("Speech");
         label = speech.GetComponent<TextMeshPro>();
         hint = transform.Find("Hint");
+        Debug.Log("Dialogue Ballon Awake Done");
 
-        Hide();
+        // Hide();
         HideHint();
-        Place();
+        // Place();
     }
 
     private void Place()
@@ -69,17 +71,25 @@ public class DialogueBalloon : MonoBehaviour
 
     public void SetMessage(string message)
     {
+        if (label == null)
+        {
+            Debug.Log("label is null");
+            speech = transform.Find("Speech");
+            label = speech.GetComponent<TextMeshPro>();
+        }
         label.text = message;
     }
 
     public void Show()
     {
         gameObject.SetActive(true);
+        waitingKey = true;
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
+        waitingKey = false;
     }
 
     public void ShowHint()
@@ -89,6 +99,7 @@ public class DialogueBalloon : MonoBehaviour
 
     public void HideHint()
     {
+        hintTimer = hintTimeout;
         hint.gameObject.SetActive(false);
     }
 
@@ -96,15 +107,16 @@ public class DialogueBalloon : MonoBehaviour
     void Update()
     {
         hintTimer += Time.deltaTime;
-        if (hintTimer > hintTimeout)
+        if (hintTimer >= hintTimeout)
         {
             ShowHint();
         }
 
-        if (Input.GetKeyDown("space"))
+        if (waitingKey && Input.GetKeyDown("space"))
         {
             Debug.Log("SPACE pressed");
-            // Hide();
+            waitingKey = false;
+            HideHint();
             OnDone?.Invoke();
         }
     }
