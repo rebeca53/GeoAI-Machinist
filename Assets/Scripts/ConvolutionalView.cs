@@ -337,6 +337,6 @@ public class ConvolutionalView : MonoBehaviour
     void Update()
     {
         Convolute();
-        AnimateOutputState(outputState);
+        // AnimateOutputState(outputState);
     }
 }

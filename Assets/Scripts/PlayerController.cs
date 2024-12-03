@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("space action and BUT grabbed object " + grabbedObject.tag);
             if (nearObject == null)
             {
-                Debug.LogError("No nearObject to drop on");
+                Debug.Log("No nearObject to drop on");
             }
             else
             {
@@ -376,7 +376,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("space action and no grabbed object");
             if (nearObject == null)
             {
-                Debug.LogError("No nearObject to grab");
+                Debug.Log("No nearObject to grab");
                 return;
             }
 
