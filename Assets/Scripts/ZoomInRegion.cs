@@ -6,12 +6,14 @@ public class ZoomInRegion : MonoBehaviour
 {
     public CameraZoom cameraZoom;
 
+    public float zoom = 2f;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player entered Zoom In Region");
-            cameraZoom.ChangeZoomSmooth(2f);
+            cameraZoom.ChangeZoomSmooth(zoom);
         }
     }
 

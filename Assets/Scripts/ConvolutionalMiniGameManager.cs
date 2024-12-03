@@ -39,9 +39,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
     static public float verticalOffsetImages = 5f;
     readonly int KernelAmount = 3;
 
-    // Movement
-    private readonly float step = pixelSize;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -97,33 +94,29 @@ public class ConvolutionalMiniGameManager : BaseBoard
         switch (i)
         {
             case 0:
-                double[,] verticalEdgeDetection = {
-                        {1, 0, -1},
-                        {1, 0, -1},
-                        {1, 0, -1},
-                    };
-                List<double> flat = new List<double> { 1, 0, -1, 1, 0, -1, 1, 0, -1 };
-                // script.SetMatrix(flat, verticalEdgeDetection);
-                flatKernel = flat;
+                // double[,] verticalEdgeDetection = {
+                //         {1, 0, -1},
+                //         {1, 0, -1},
+                //         {1, 0, -1},
+                //     };
+                List<double> flatVerticalEdgeDetection = new List<double> { 1, 0, -1, 1, 0, -1, 1, 0, -1 };
+                flatKernel = flatVerticalEdgeDetection;
                 break;
             case 1:
-                double[,] horizontalEdgeDetection = {
-                        {1, 1, 1},
-                        {0,0,0},
-                        {-1,-1,-1},
-                    };
+                // double[,] horizontalEdgeDetection = {
+                //         {1, 1, 1},
+                //         {0,0,0},
+                //         {-1,-1,-1},
+                //     };
                 List<double> flatHorizontalEdgeDetection = new List<double> { 1, 1, 1, 0, 0, 0, -1, -1, -1 };
-                // script.SetMatrix(flatHorizontalEdgeDetection, horizontalEdgeDetection);
                 flatKernel = flatHorizontalEdgeDetection;
                 break;
             case 2:
                 flatKernel = data.kernelMatrix;
-                // script.SetMatrix(data.kernelMatrix, UnflatMatrix(data.kernelMatrix, 3));
                 break;
             default:
                 double[,] zeroes = new double[3, 3];
                 List<double> flatZeroes = new List<double> { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                // script.SetMatrix(flatZeroes, zeroes);
                 flatKernel = flatZeroes;
                 break;
         }
@@ -161,8 +154,9 @@ public class ConvolutionalMiniGameManager : BaseBoard
         }
     }
 
-    void CheckWinCondition()
+    void CheckWinCondition(int id)
     {
+        
         if (IsGameOver())
         {
             Debug.Log("Game is over");

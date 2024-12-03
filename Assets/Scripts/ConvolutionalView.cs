@@ -28,7 +28,7 @@ public class ConvolutionalView : MonoBehaviour
     bool isConvoluting = false;
     bool hasKernel = false;
 
-    public Action OnConvolutionStopped;
+    public Action<int> OnConvolutionStopped;
 
     // TODO: abstract OutputLine
     string outputState = "inactive"; // inactice, wrong, correct
@@ -196,8 +196,8 @@ public class ConvolutionalView : MonoBehaviour
         locker.AddKernel(kernelMatrix.gameObject);
 
         kernelCopy = Instantiate(kernelMatrix.gameObject, kernelMatrix.transform.position, Quaternion.identity);
-        kernelCopy.tag = "Untagged";
         kernelCopy.SetActive(false);
+        kernelCopy.GetComponent<KernelMatrix>().OnGrabbed += StopConvolution;
 
         hasKernel = true;
     }
@@ -329,7 +329,7 @@ public class ConvolutionalView : MonoBehaviour
 
         isConvoluting = false;
 
-        OnConvolutionStopped?.Invoke();
+        OnConvolutionStopped?.Invoke(id);
     }
 
 

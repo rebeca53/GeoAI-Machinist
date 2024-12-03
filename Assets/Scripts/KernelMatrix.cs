@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class KernelMatrix : MonoBehaviour
 {
+    public Action OnGrabbed;
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
 
     private bool grabbed = false;
@@ -14,7 +15,6 @@ public class KernelMatrix : MonoBehaviour
     Vector3 target;
     Vector3 currentPosition;
 
-    // private HashSet<KernelPixel> kernelPixels = new HashSet<KernelPixel>();
     // Data
     double[,] kernel;
     public List<double> flatKernel;
@@ -50,31 +50,6 @@ public class KernelMatrix : MonoBehaviour
         return kernel[i, j];
     }
 
-    private bool IsKernelCenter(int i, int j)
-    {
-        return (i == 1) && (j == 1);
-    }
-
-    public void MoveRight()
-    {
-        transform.position = new(transform.position.x + pixelSize, transform.position.y, transform.position.z);
-    }
-
-    public void MoveLeft()
-    {
-        transform.position = new(transform.position.x - pixelSize, transform.position.y, transform.position.z);
-    }
-
-    public void MoveUp()
-    {
-        transform.position = new(transform.position.x, transform.position.y + pixelSize, transform.position.z);
-    }
-
-    public void MoveDown()
-    {
-        transform.position = new(transform.position.x, transform.position.y - pixelSize, transform.position.z);
-    }
-
     public void Grab(Vector3 grabberPosition)
     {
         Debug.Log("xgrab previous transform position " + transform.position);
@@ -87,6 +62,8 @@ public class KernelMatrix : MonoBehaviour
         // transform.position = new(grabberPosition.x, grabberPosition.y, grabberPosition.z);
         Debug.Log("xgrab transform position " + transform.position);
         Debug.Log("xgrab transform local position " + transform.localPosition);
+
+        OnGrabbed?.Invoke();
     }
 
     public bool IsGrabbed()
@@ -94,15 +71,9 @@ public class KernelMatrix : MonoBehaviour
         return grabbed;
     }
 
-    public KernelPixel GetKernelCenter()
-    {
-        return center;
-    }
-
     void Start()
     {
         target = transform.position;
-        // startPosition = target = transform.position;
     }
 
     public void UpdatePixelsConvoluting()
