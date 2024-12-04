@@ -25,16 +25,16 @@ public class PlayableDirectorCallback : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay.Add(new("NPC", "Hello, GeoAI Machinist.\nFeeling well?\nAre you prepared for your mission?\n(Press SPACE)"));
-        screenplay.Add(new("Player", "Who are you? What is going on?\n(Press SPACE)"));
-        screenplay.Add(new("NPC", "I'm your Robot Assistant, here to guide you. I'll provide all mission details shortly."));
+        screenplay.Add(new("Player", "What is going on?\n(Press SPACE)"));
+        // screenplay.Add(new("NPC", "I'm your Robot Assistant, here to guide you. I'll provide all mission details shortly."));
         screenplay.Add(new("NPC", "As the GeoAI Machinist, your mission is to maintain the Big Machine—a space station designed to survey Earth and respond to emergency situations."));
-        screenplay.Add(new("NPC", "Records indicate that Earth has entered another Heat Season, and the delicate balance necessary for the last humans to survive is in danger."));
+        // screenplay.Add(new("NPC", "Records indicate that Earth has entered another Heat Season, and the delicate balance necessary for the last humans to survive is in danger."));
         screenplay.Add(new("NPC", "A critical malfunction was detected in the Big Machine. The Artificial Intelligence, our core operational system... has gone offline. You must repair it."));
         screenplay.Add(new("NPC", "Without the AI functioning, the Big Machine cannot deploy the Help Pods, which are essential for Earth's survival."));
-        screenplay.Add(new("Player", "What are Help Pods?"));
-        screenplay.Add(new("NPC", "These pods are loaded with critical resources: food, water, medical supplies, emergency cooling units—everything needed to counter the deadly heat."));
-        screenplay.Add(new("Player", "How severe is the AI damage?"));
-        screenplay.Add(new("NPC", "Diagnostics show extensive corruption in the main AI subsystems. You'll need to prepare data, and possibly reconstruct some modules."));
+        // screenplay.Add(new("Player", "What are Help Pods?"));
+        // screenplay.Add(new("NPC", "These pods are loaded with critical resources: food, water, medical supplies, emergency cooling units—everything needed to counter the deadly heat."));
+        // screenplay.Add(new("Player", "How severe is the AI damage?"));
+        // screenplay.Add(new("NPC", "Diagnostics show extensive corruption in the main AI subsystems. You'll need to prepare data, and possibly reconstruct some modules."));
         screenplay.Add(new("NPC", "Now, let’s access the AI core. Are you ready?"));
         screenplay.Add(new("Player", "Yes, I'm ready to proceed."));
         screenplay.Add(new("NPC", "Acknowledged. Follow me, Machinist."));

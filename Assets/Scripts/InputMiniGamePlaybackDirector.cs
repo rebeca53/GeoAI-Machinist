@@ -74,10 +74,6 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
                 dialogueBalloon.PlaceUpperRight();
                 if (HasSpeakerChanged())
                 {
-                    if (currentLineIndex == 0)
-                    {
-                        NPC.Speak();
-                    }
                     cameraZoom.ChangeZoomTarget(NPC.gameObject);
                 }
                 dialogueBalloon.SetMessage(line.Item2);
