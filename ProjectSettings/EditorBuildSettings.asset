@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IntroductionCutscene.unity
     guid: 20e331af50fc5634cb9fc378ac7435a5
+  - enabled: 1
+    path: Assets/Scenes/ActivationMiniGame.unity
+    guid: 1505deda70f626043ba19e5447b4b756
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 83dbd2ba43be65f45905b2308a6f497d, type: 2}
