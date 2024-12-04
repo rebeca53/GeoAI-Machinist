@@ -147,6 +147,7 @@ public class ConvolutionalView : MonoBehaviour
     {
         Debug.Log("Remove Kernel");
         kernelAtInputHolder = false;
+        OnUnhover?.Invoke(id);
         StopConvolution();
         ResetConvolution();
         outputMatrix.Reset();

@@ -13,6 +13,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     public DialogueBalloon dialogueBalloon;
 
+    public CameraZoom cameraZoom;
+
     public TextAsset convDataText;
     ConvData data;
     [System.Serializable]
@@ -86,9 +88,32 @@ public class ConvolutionalMiniGameManager : BaseBoard
             script.InitKernel(GetFlatKernelMatrix(i), UnflatMatrix(GetFlatKernelMatrix(i), 3));
             script.InitInput(UnflatMatrix(data.inputMatrix, 64));
             script.OnConvolutionStopped += OnConvolutionStopped;
+            convolutionalViews.Add(script);
+        }
+
+        RegisterConvolutionalViewsMessages();
+    }
+
+    private void UnregisterConvolutionalViewsMessages()
+    {
+        Debug.Log("Unregister convolutional views");
+        for (int i = 0; i < KernelAmount; i++)
+        {
+            ConvolutionalView script = convolutionalViews[i];
+            script.OnHover -= DisplayKernelMessage;
+            script.OnUnhover -= HideKernelMessage;
+        }
+    }
+
+    private void RegisterConvolutionalViewsMessages()
+    {
+        Debug.Log("Register convolutional views");
+
+        for (int i = 0; i < KernelAmount; i++)
+        {
+            ConvolutionalView script = convolutionalViews[i];
             script.OnHover += DisplayKernelMessage;
             script.OnUnhover += HideKernelMessage;
-            convolutionalViews.Add(script);
         }
     }
 
@@ -188,6 +213,10 @@ public class ConvolutionalMiniGameManager : BaseBoard
             DisplayGameOverMessage();
             // GameOver();
         }
+        else if (NeedRemoveWrongKernel())
+        {
+            DisplayWrongKernelMessage();
+        }
     }
 
     private void DisplayKernelMessage(int id)
@@ -218,15 +247,18 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     private void DisplayGameOverMessage()
     {
+        Player.Disable();
+        cameraZoom.ChangeZoomTarget(NPC.gameObject);
+        ZoomIn();
         // NPC speaks message
-        string message = "Good job picking the kernel that enhances human-made features to analyze a residential area.";
+        string message = "Good job picking the kernel that enhances human-made features to analyze a residential area. Let's go back for the CNN Room.";
         // string message = "Human-made features often present geometric patterns such as transport networks. Good job picking the kernel that enhances human-made features to analyze a residential area.";
         Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
-        dialogueBalloon.OnDone -= GameOver;
+        dialogueBalloon.OnDone += GameOver;
     }
 
     bool IsGameOver()
@@ -236,6 +268,32 @@ public class ConvolutionalMiniGameManager : BaseBoard
         bool trainedKernel = convolutionalViews[2].HasKernel() && !convolutionalViews[2].IsConvoluting();
 
         return trainedKernel && !verticalEdgeDetection && !horizontalEdgeDetection;
+    }
+
+    bool NeedRemoveWrongKernel()
+    {
+        bool verticalEdgeDetection = convolutionalViews[0].HasKernel();
+        bool horizontalEdgeDetection = convolutionalViews[1].HasKernel();
+        bool trainedKernel = convolutionalViews[2].HasKernel() && !convolutionalViews[2].IsConvoluting();
+
+        return trainedKernel && (verticalEdgeDetection || horizontalEdgeDetection);
+    }
+
+    private void DisplayWrongKernelMessage()
+    {
+        UnregisterConvolutionalViewsMessages();
+        string message = "Oops, I need to disconnect the non-optimal kernels.";
+        timedDialogueBalloon.SetSpeaker(Player.gameObject);
+        timedDialogueBalloon.SetMessage(message);
+        timedDialogueBalloon.PlaceUpperLeft();
+        timedDialogueBalloon.Show(10f);
+        timedDialogueBalloon.OnDone += RegisterConvolutionalViewsMessages;
+        ZoomIn();
+    }
+
+    void ZoomIn()
+    {
+        cameraZoom.ChangeZoomSmooth(1.4f);
     }
 
     protected override void GameOver()

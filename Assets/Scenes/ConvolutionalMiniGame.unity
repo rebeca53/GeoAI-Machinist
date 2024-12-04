@@ -1418,6 +1418,7 @@ MonoBehaviour:
   convolutionalViewObject: {fileID: 7518655730801962041, guid: 29048571367c6fe4881a57feae95cb15, type: 3}
   timedDialogueBalloon: {fileID: 646067}
   dialogueBalloon: {fileID: 713801965}
+  cameraZoom: {fileID: 580216160}
   convDataText: {fileID: 4900000, guid: 7c1887d80ff71724f9a37d3142f13aaf, type: 3}
 --- !u!156049354 &745591845
 Grid:

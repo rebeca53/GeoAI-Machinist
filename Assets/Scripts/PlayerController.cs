@@ -215,7 +215,10 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("drop object");
         // Change scale
         grabbedObject.transform.localScale = new Vector3(1f, 1f, 1f);
-
+        if (grabbedObject.CompareTag("Kernel"))
+        {
+            grabbedObject.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
+        }
         // change box parent
         grabbedObject.transform.parent = null;
         grabbedObject = null;
