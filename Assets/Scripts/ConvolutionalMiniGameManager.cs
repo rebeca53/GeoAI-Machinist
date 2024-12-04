@@ -9,10 +9,13 @@ public class ConvolutionalMiniGameManager : BaseBoard
     // Instances
     List<ConvolutionalView> convolutionalViews = new List<ConvolutionalView>();
 
+    public TimedDialogueBalloon timedDialogueBalloon;
+
+    public DialogueBalloon dialogueBalloon;
+
     public TextAsset convDataText;
     ConvData data;
     [System.Serializable]
-
     class ConvData
     {
         public List<double> inputMatrix = new List<double>();
@@ -83,6 +86,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
             script.InitKernel(GetFlatKernelMatrix(i), UnflatMatrix(GetFlatKernelMatrix(i), 3));
             script.InitInput(UnflatMatrix(data.inputMatrix, 64));
             script.OnConvolutionStopped += OnConvolutionStopped;
+            script.OnHover += DisplayKernelMessage;
+            script.OnUnhover += HideKernelMessage;
             convolutionalViews.Add(script);
         }
     }
@@ -180,29 +185,55 @@ public class ConvolutionalMiniGameManager : BaseBoard
         if (IsGameOver())
         {
             Debug.Log("Game is over");
-            GameOver();
+            DisplayGameOverMessage();
+            // GameOver();
         }
+    }
 
-        // TODO: Animate Explanation?
-        /**
-         * Horizontal Edge Detection highlights the 
-         */
-        // TODO: Zoom In NPC, "
-        // NPC tells user to leave the room
+    private void DisplayKernelMessage(int id)
+    {
+        string message = "";
+        switch (id)
+        {
+            case 1:
+                message = "This is a vertical edge detection kernel.";
+                break;
+            case 2:
+                message = "This is a horizontal edge detection kernel.";
+                break;
+            case 3:
+                message = "This kernel highlights the features I'm aiming for.";
+                break;
+        }
+        timedDialogueBalloon.SetSpeaker(Player.gameObject);
+        timedDialogueBalloon.SetMessage(message);
+        timedDialogueBalloon.PlaceUpperLeft();
+        timedDialogueBalloon.Show();
+    }
 
-        // Loading page
+    private void HideKernelMessage(int id)
+    {
+        timedDialogueBalloon.Hide();
+    }
+
+    private void DisplayGameOverMessage()
+    {
+        // NPC speaks message
+        string message = "Good job picking the kernel that enhances human-made features to analyze a residential area.";
+        // string message = "Human-made features often present geometric patterns such as transport networks. Good job picking the kernel that enhances human-made features to analyze a residential area.";
+        Debug.Log("turnover message " + message);
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone -= GameOver;
     }
 
     bool IsGameOver()
     {
-        bool horizontalEdgeDetection = convolutionalViews[0].HasKernel();
-        bool verticalEdgeDetection = convolutionalViews[1].HasKernel();
+        bool verticalEdgeDetection = convolutionalViews[0].HasKernel();
+        bool horizontalEdgeDetection = convolutionalViews[1].HasKernel();
         bool trainedKernel = convolutionalViews[2].HasKernel() && !convolutionalViews[2].IsConvoluting();
-
-        Debug.Log("horizontal edge detection view has no kernel?" + horizontalEdgeDetection);
-        Debug.Log("vertical edge detection view has no kernel?" + verticalEdgeDetection);
-        Debug.Log("trained kernel view has kernel?" + convolutionalViews[2].HasKernel());
-        Debug.Log("trained kernel view is done convolution?" + !convolutionalViews[2].IsConvoluting());
 
         return trainedKernel && !verticalEdgeDetection && !horizontalEdgeDetection;
     }
@@ -210,7 +241,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
     protected override void GameOver()
     {
         GameManager.instance.solvedMinigames["Convolutional 1"] = true;
-        // GameManager.instance.StartOverviewScene();
+        GameManager.instance.StartOverviewScene();
     }
 
 }

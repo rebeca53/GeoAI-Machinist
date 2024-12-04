@@ -34,7 +34,6 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         new("NPC", "This room is a Convolutional Layer of the CNN. It multiplies a kernel matrix by an image."),
         new("NPC", "A kernel is a matrix with pre-determined values to enhance features in an image. Follow me to see how a kernel looks like."),
         // new("action", "action1"), // Robot Walk
-        new("NPC", "Human-made features often present geometric patterns such as transport networks."),
         new("NPC", "Choose the best kernel that enhances the streets' footprint in the image."),
         new("NPC", "Place the kernel in the input holder to start a convolution."),
         // new("action", "action2"), // Hint Kernel and the Input Holder

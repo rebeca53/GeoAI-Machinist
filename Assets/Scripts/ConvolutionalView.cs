@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ConvolutionalView : MonoBehaviour
 {
+    public event Action<int> OnHover;
+    public event Action<int> OnUnhover;
+    public Action<int> OnConvolutionStopped;
+
     // Scene objects
     public InputHolder kernelHolder;
     public Locker locker;
@@ -25,7 +29,6 @@ public class ConvolutionalView : MonoBehaviour
 
     bool isConvoluting = false;
     bool kernelAtInputHolder = false;
-    public Action<int> OnConvolutionStopped;
     int convolutionAnimationStep = 8; // step = 4 ==> 10 seconds, step = 8 ==> 3 seconds
 
     // TODO: abstract OutputLine
@@ -343,6 +346,30 @@ public class ConvolutionalView : MonoBehaviour
             outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
             outputLineRenderer.startWidth = inactiveWidth * 2;
             outputLineRenderer.endWidth = inactiveWidth * 2;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (HasKernel())
+        {
+            OnHover?.Invoke(id);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (HasKernel())
+        {
+            OnHover?.Invoke(id);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (HasKernel())
+        {
+            OnUnhover?.Invoke(id);
         }
     }
 
