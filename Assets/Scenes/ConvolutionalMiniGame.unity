@@ -1663,6 +1663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraZoom: {fileID: 580216160}
+  zoom: 2
 --- !u!4 &1483213759
 Transform:
   m_ObjectHideFlags: 0

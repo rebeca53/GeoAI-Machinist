@@ -62,6 +62,7 @@ public class ConvolutionalView : MonoBehaviour
 
     private void LayoutInputScreen()
     {
+        // Draw line
         Transform line = inputScreen.transform.Find("OutputLine");
         if (line == null)
         {
@@ -77,12 +78,10 @@ public class ConvolutionalView : MonoBehaviour
         Vector3 endPoint = new(2f, -0.5f, 0f);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(1f);
-    }
 
-    private void LayoutInputMatrix(GameObject parent)
-    {
-        // inputMatrix.transform.parent = parent.transform;
-        // inputMatrix.transform.localPosition = new(-18.9f, -9f, 0f);
+        // Enable Label
+        Transform label = inputScreen.transform.Find("Label");
+        label.gameObject.SetActive(true);
     }
 
     private void LayoutOutputScreen()
@@ -103,14 +102,6 @@ public class ConvolutionalView : MonoBehaviour
         conn.DrawStraightLine();
         outputLineRenderer = conn.lineRenderer;
         UpdateOutputState("inactive");
-
-        LayoutOutputMatrix(outputScreen);
-    }
-
-    private void LayoutOutputMatrix(GameObject parent)
-    {
-        // outputMatrix.transform.parent = parent.transform;
-        // outputMatrix.transform.localPosition = new(-22.15f, 9.48f, 0f);
     }
 
     /* Convolution methods */
@@ -153,7 +144,6 @@ public class ConvolutionalView : MonoBehaviour
     public void InitInput(double[,] input)
     {
         inputMatrix.SetMatrix(id, input);
-        LayoutInputMatrix(inputScreen);
     }
 
     private double MultiplyMatrices(List<double> matrixA, List<double> matrixB)
@@ -225,7 +215,6 @@ public class ConvolutionalView : MonoBehaviour
             // move the kernel center over it
             GameObject inputPixel = inputMatrix.GetPixelObject(iConv, jConv);
             movingKernelMatrix.PlaceAt(inputPixel.transform.position);
-            // outputMatrix.ShowPixel(iConv - 1, jConv - 1);
 
             int jConvNext = jConv;
             int iConvNext = iConv;
