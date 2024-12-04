@@ -82,7 +82,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
             ConvolutionalView script = instanceView.GetComponent<ConvolutionalView>();
             script.InitKernel(GetFlatKernelMatrix(i), UnflatMatrix(GetFlatKernelMatrix(i), 3));
             script.InitInput(UnflatMatrix(data.inputMatrix, 64));
-            script.OnConvolutionStopped += CheckWinCondition;
+            script.OnConvolutionStopped += OnConvolutionStopped;
             convolutionalViews.Add(script);
         }
     }
@@ -154,9 +154,29 @@ public class ConvolutionalMiniGameManager : BaseBoard
         }
     }
 
-    void CheckWinCondition(int id)
+    void OnConvolutionStopped(int id)
     {
-        
+        // Update outputline
+        if (convolutionalViews[id - 1].HasKernel())
+        {
+            switch (id)
+            {
+                case 1:
+                    convolutionalViews[0].UpdateOutputState("wrong");
+                    break;
+                case 2:
+                    convolutionalViews[1].UpdateOutputState("wrong");
+                    break;
+                case 3:
+                    convolutionalViews[2].UpdateOutputState("correct");
+                    break;
+            }
+        }
+        else
+        {
+            convolutionalViews[id - 1].UpdateOutputState("inactive");
+        }
+
         if (IsGameOver())
         {
             Debug.Log("Game is over");
@@ -177,7 +197,12 @@ public class ConvolutionalMiniGameManager : BaseBoard
     {
         bool horizontalEdgeDetection = convolutionalViews[0].HasKernel();
         bool verticalEdgeDetection = convolutionalViews[1].HasKernel();
-        bool trainedKernel = convolutionalViews[2].HasKernel();
+        bool trainedKernel = convolutionalViews[2].HasKernel() && !convolutionalViews[2].IsConvoluting();
+
+        Debug.Log("horizontal edge detection view has no kernel?" + horizontalEdgeDetection);
+        Debug.Log("vertical edge detection view has no kernel?" + verticalEdgeDetection);
+        Debug.Log("trained kernel view has kernel?" + convolutionalViews[2].HasKernel());
+        Debug.Log("trained kernel view is done convolution?" + !convolutionalViews[2].IsConvoluting());
 
         return trainedKernel && !verticalEdgeDetection && !horizontalEdgeDetection;
     }

@@ -24,7 +24,7 @@ public class ConvolutionalView : MonoBehaviour
     int jConv = 1; //stride
 
     bool isConvoluting = false;
-    bool hasKernel = false;
+    bool kernelAtInputHolder = false;
     public Action<int> OnConvolutionStopped;
     int convolutionAnimationStep = 8; // step = 4 ==> 10 seconds, step = 8 ==> 3 seconds
 
@@ -96,10 +96,15 @@ public class ConvolutionalView : MonoBehaviour
         {
             Debug.LogError("Failed to retrieve LineRenderer");
         }
+
+        workingStartColor = lineRenderer.startColor;
+        workingEndColor = lineRenderer.endColor;
+
         Vector3 startPoint = new(0f, -0.5f, 0f);
         Vector3 endPoint = new(2.5f, -0.5f, 0f);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
+
         outputLineRenderer = conn.lineRenderer;
         UpdateOutputState("inactive");
     }
@@ -112,9 +117,14 @@ public class ConvolutionalView : MonoBehaviour
         isConvoluting = false;
     }
 
+    public bool IsConvoluting()
+    {
+        return isConvoluting;
+    }
+
     public bool HasKernel()
     {
-        return hasKernel;
+        return kernelAtInputHolder;
     }
 
     public void InitKernel(List<double> flatKernel, double[,] kernel)
@@ -128,14 +138,12 @@ public class ConvolutionalView : MonoBehaviour
         movingKernelMatrix = instance.GetComponent<KernelMatrix>();
         movingKernelMatrix.gameObject.SetActive(false);
         movingKernelMatrix.SetMatrix(flatKernel, kernel);
-
-        hasKernel = true;
     }
 
     public void RemoveKernel()
     {
         Debug.Log("Remove Kernel");
-        hasKernel = false;
+        kernelAtInputHolder = false;
         StopConvolution();
         ResetConvolution();
         outputMatrix.Reset();
@@ -162,6 +170,7 @@ public class ConvolutionalView : MonoBehaviour
     void StartConvolution()
     {
         Debug.Log("Start Convolution");
+        kernelAtInputHolder = true;
         kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
         kernelMatrix.OnGrabbed += RemoveKernel;
 
@@ -287,7 +296,7 @@ public class ConvolutionalView : MonoBehaviour
     void Update()
     {
         Convolute();
-        // AnimateOutputState(outputState);
+        AnimateOutputState();
     }
 
     // TODO: abstract OutputLine
@@ -302,9 +311,9 @@ public class ConvolutionalView : MonoBehaviour
                 outputLineRenderer.endColor = workingEndColor;
                 break;
             case "wrong":
-                outputLineRenderer.material.color = Color.white;
-                outputLineRenderer.startColor = Color.white;
-                outputLineRenderer.endColor = Color.white;
+                outputLineRenderer.material.color = wrongColor;
+                outputLineRenderer.startColor = wrongColor;
+                outputLineRenderer.endColor = wrongColor;
                 outputLineRenderer.startWidth = inactiveWidth;
                 outputLineRenderer.endWidth = inactiveWidth;
                 break;
@@ -319,37 +328,21 @@ public class ConvolutionalView : MonoBehaviour
         }
     }
 
-    public void AnimateOutputState(string newLineState)
+    public void AnimateOutputState()
     {
-        Debug.Log("Update state: " + newLineState);
-        outputState = newLineState;
-
         if (!outputLineRenderer)
         {
+            // Debug.Log("Could not find output line render");
             return;
         }
 
-        switch (outputState)
+        // Debug.Log("id[" + id + "] animate output state: " + outputState);
+        if (outputState.Equals("correct"))
         {
-            case "correct":
-                outputLineRenderer.startColor = workingStartColor;
-                outputLineRenderer.endColor = workingEndColor;
-                break;
-            case "wrong":
-                outputLineRenderer.material.color = Color.white;
-                outputLineRenderer.startColor = Color.white;
-                outputLineRenderer.endColor = Color.white;
-                outputLineRenderer.startWidth = inactiveWidth;
-                outputLineRenderer.endWidth = inactiveWidth;
-                break;
-            case "inactive":
-            default:
-                outputLineRenderer.material.color = inactiveColor;
-                outputLineRenderer.startColor = inactiveColor;
-                outputLineRenderer.endColor = inactiveColor;
-                outputLineRenderer.startWidth = inactiveWidth;
-                outputLineRenderer.endWidth = inactiveWidth;
-                break;
+            // Debug.Log("using Lerp because it is correct.");
+            outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
+            outputLineRenderer.startWidth = inactiveWidth * 2;
+            outputLineRenderer.endWidth = inactiveWidth * 2;
         }
     }
 

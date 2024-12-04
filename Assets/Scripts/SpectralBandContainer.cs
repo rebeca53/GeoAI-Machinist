@@ -240,7 +240,7 @@ public class SpectralBandContainer : MonoBehaviour
         switch (lineState)
         {
             case "correct":
-                outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 1));
+                outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
                 outputLineRenderer.startWidth = inactiveWidth * 2;
                 outputLineRenderer.endWidth = inactiveWidth * 2;
                 break;
