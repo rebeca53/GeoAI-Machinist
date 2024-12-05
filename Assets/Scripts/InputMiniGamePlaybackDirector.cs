@@ -31,7 +31,7 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay = new List<(string, string)>() {
-        new("NPC", "This room is the Input Layer of the CNN. It breaks the image into spectral bands, which are wavelenghts interval of light."),
+        new("NPC", "This room is the Input Layer of the CNN. It breaks the image into spectral bands, which are wavelength intervals of light."),
         new("NPC", "Follow me to interact with the input sample to see its spectral bands."),
         new("action", "action1"), // Robot Walk
         new("action", "action2"), // Hint Teleportation Device

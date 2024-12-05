@@ -2205,7 +2205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Width: 15
-  Height: 15
+  Height: 16
   GroundTiles:
   - {fileID: 11400000, guid: 967b4f843c995844d8c50dcb48352747, type: 2}
   - {fileID: 11400000, guid: 951eb6ee6b4d23a48b8f63f76adf46d6, type: 2}
@@ -2225,9 +2225,11 @@ MonoBehaviour:
   exitObject: {fileID: 8191159248190923328, guid: 661c4f25c008ea444b93bd019c7b17f3, type: 3}
   Player: {fileID: 276642492}
   NPC: {fileID: 771225086}
+  activationViewObject: {fileID: 358335291270236066, guid: b6025cfa414c5b74b904a4319f17277d, type: 3}
   timedDialogueBalloon: {fileID: 335870350}
   dialogueBalloon: {fileID: 152472178}
   cameraZoom: {fileID: 1181587345}
+  dataText: {fileID: 4900000, guid: c01a63c13e13de747a857098c5c6299f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2237,7 +2239,7 @@ SceneRoots:
   - {fileID: 771225085}
   - {fileID: 2077828866}
   - {fileID: 1181587344}
+  - {fileID: 1194614952}
   - {fileID: 152472179}
   - {fileID: 335870351}
   - {fileID: 855134452}
-  - {fileID: 1194614952}

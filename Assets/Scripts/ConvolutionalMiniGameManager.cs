@@ -6,6 +6,11 @@ public class ConvolutionalMiniGameManager : BaseBoard
     // Pre-fabs
     public GameObject convolutionalViewObject;
 
+    // UI constants
+    public static float pixelSize = 0.01f;
+    static public float verticalOffsetImages = 5f;
+    readonly int KernelAmount = 3;
+
     // Instances
     List<ConvolutionalView> convolutionalViews = new List<ConvolutionalView>();
 
@@ -38,11 +43,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         return unflatten;
     }
-
-    // UI constants
-    public static float pixelSize = 0.01f;
-    static public float verticalOffsetImages = 5f;
-    readonly int KernelAmount = 3;
 
     // Start is called before the first frame update
     void Start()

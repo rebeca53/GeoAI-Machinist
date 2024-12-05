@@ -19,6 +19,7 @@ TagManager:
   - InputPixel
   - SelectorSwitch
   - Locker
+  - ActivationBox
   layers:
   - Default
   - TransparentFX

@@ -21,9 +21,9 @@ public class OutputPixel : MonoBehaviour
         float threshold = 0.87f;
         if (pixelValue >= threshold)
         {
-            return Color.white;
+            return Color.blue;
         }
-        Color newColor = Color.Lerp(Color.red, Color.white, (float)pixelValue - (1 - threshold));
+        Color newColor = Color.Lerp(Color.white, Color.blue, (float)pixelValue - (1 - threshold));
         return newColor;
     }
 

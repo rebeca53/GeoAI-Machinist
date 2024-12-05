@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     private GameObject nearObject = null;
     public GameObject grabbedObject = null;
 
+    // TODO: refactor to have a OnObjectGrabbed<tag>
     public Action OnKernelGrabbed;
-
 
     // Money system
     public int CurrentMoney { get { return currentMoney; } }
@@ -219,6 +219,10 @@ public class PlayerController : MonoBehaviour
         {
             grabbedObject.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
         }
+        else if (grabbedObject.CompareTag("ActivationBox"))
+        {
+            grabbedObject.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+        }
         // change box parent
         grabbedObject.transform.parent = null;
         grabbedObject = null;
@@ -275,6 +279,25 @@ public class PlayerController : MonoBehaviour
         OnKernelGrabbed?.Invoke();
     }
 
+    private void GrabActivationBox()
+    {
+        Transform grabbeableObject = nearObject.transform;
+        animator.SetTrigger("playerGrab");
+
+        nearObject.GetComponent<ActivationBox>().Grab(transform.position);
+
+        // Debug.Log("grab object");
+        // Change scale
+        // change box parent
+        GameObject playerObj = GameObject.Find("Player");
+        grabbeableObject.parent = playerObj.transform;
+        // get player position and Change box position
+        grabbeableObject.position = playerObj.transform.position;
+
+        grabbedObject = grabbeableObject.gameObject;
+    }
+
+
     private void FillInputHolder()
     {
         // Debug.Log("drop object onto container");
@@ -292,7 +315,15 @@ public class PlayerController : MonoBehaviour
     private void FillLocker()
     {
         Locker locker = nearObject.GetComponent<Locker>();
-        locker.AddKernel(grabbedObject);
+        switch (grabbedObject.tag)
+        {
+            case "Kernel":
+                locker.AddKernel(grabbedObject);
+                break;
+            case "ActivationBox":
+                locker.AddActivationBox(grabbedObject);
+                break;
+        }
         grabbedObject = null;
     }
 
@@ -408,6 +439,10 @@ public class PlayerController : MonoBehaviour
             else if (nearObject.transform.parent.CompareTag("Kernel"))
             {
                 GrabKernel();
+            }
+            else if (nearObject.CompareTag("ActivationBox"))
+            {
+                GrabActivationBox();
             }
 
         }

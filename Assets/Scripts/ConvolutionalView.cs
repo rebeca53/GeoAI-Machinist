@@ -155,7 +155,7 @@ public class ConvolutionalView : MonoBehaviour
 
     public void InitInput(double[,] input)
     {
-        inputMatrix.SetMatrix(id, input);
+        inputMatrix.SetMatrix(input);
     }
 
     private double MultiplyMatrices(List<double> matrixA, List<double> matrixB)

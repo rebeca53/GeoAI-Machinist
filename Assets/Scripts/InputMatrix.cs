@@ -17,13 +17,19 @@ public class InputMatrix : MonoBehaviour
 
     string address = "convData";
     // Data
-    int id;
     double[,] inputMatrix;
+    string colorMap = "grayscale"; // grayscale, bluered
 
-    public void SetMatrix(int id, double[,] matrix)
+    public void SetColor(string newColorMap)
     {
-        this.id = id;
+        colorMap = newColorMap;
+        Debug.Log("InputMatrix Set Color to " + colorMap);
+    }
+
+    public void SetMatrix(double[,] matrix, int size = 64)
+    {
         inputMatrix = matrix;
+        matrixSize = size;
         // Debug.Log("Before: Position of input matrix [" + id + "]:" + transform.position);
         // transform.position = transform.parent.position; //new(1.5f, -2f, 0f);
         // Debug.Log("Position of input matrix [" + id + "]:" + transform.position);
@@ -55,7 +61,7 @@ public class InputMatrix : MonoBehaviour
                 instance.transform.localScale = new(pixelSize, pixelSize, 0f);
 
                 InputMatrixPixel pixelScript = instance.GetComponent<InputMatrixPixel>();
-                pixelScript.Initialize(GetPixelValue(i, j), position);
+                pixelScript.Initialize(GetPixelValue(i, j), position, colorMap);
 
                 positions.Add(instance.transform.position, instance);
                 pixelPositions.Add((i, j), instance);
@@ -151,7 +157,7 @@ public class InputMatrix : MonoBehaviour
         kernelCenter.OnExitPixel += UnhighlightNeighboors;
     }
 
-    private double GetPixelValue(int i, int j)
+    public double GetPixelValue(int i, int j)
     {
         return inputMatrix[i, j];
     }

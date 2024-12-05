@@ -8,10 +8,13 @@ public class InputMatrixPixel : MonoBehaviour
     private double pixelValue;
     private TextMeshPro label;
 
-    public void Initialize(double pixelValue, Vector3 pixelPosition)
+    string colorMap = "grayscale"; // grayscale, bluered
+
+    public void Initialize(double pixelValue, Vector3 pixelPosition, string color = "grayscale")
     {
         this.pixelValue = pixelValue;
         position = pixelPosition;
+        colorMap = color;
         transform.GetComponent<SpriteRenderer>().color = GetPixelColor();
         label = transform.Find("Label").GetComponent<TextMeshPro>();
         label.text = GetPixelValue();
@@ -22,9 +25,22 @@ public class InputMatrixPixel : MonoBehaviour
 
     private Color GetPixelColor()
     {
+        Debug.Log("colorMap " + colorMap);
         float colorValue = (float)pixelValue;
-        Color newColor = new(colorValue, colorValue, colorValue);
-        return newColor;
+        if (colorMap.Equals("grayscale"))
+        {
+            Color newColor = new(colorValue, colorValue, colorValue);
+            return newColor;
+        }
+        else
+        {
+            if (pixelValue <= 0)
+            {
+                return Color.Lerp(Color.white, Color.red, (float)(-10 * pixelValue));
+            }
+            Color newColor = Color.Lerp(Color.white, Color.blue, (float)pixelValue);
+            return newColor;
+        }
     }
 
     private string GetPixelValue()
