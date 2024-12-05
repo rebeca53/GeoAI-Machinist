@@ -180,7 +180,7 @@ public class ActivationView : MonoBehaviour
 
                 // retrieve the pixel from the output matrix
                 // change its value and color
-                outputMatrix.SetPixel(i, j, activationResult);
+                outputMatrix.SetPixel(i, j, activationResult, isActivationResult: true);
                 outputMatrix.HidePixel(i, j);
             }
         }

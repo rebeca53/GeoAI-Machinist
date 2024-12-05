@@ -188,7 +188,7 @@ public class ActivationMiniGameManager : BaseBoard
         switch (type)
         {
             case "Linear":
-                message = "The linear function is f(x) = x. It is simply repeating value.";
+                message = "The linear function is f(x) = x. It resembles a straight line and restricts the CNN to find results that are linear combinations of the input.";
                 break;
             case "ReLu":
                 message = "The ReLu function is f(x) = max(0,x). It is simple and non-linear. As a consequence, it allows the CNN to find more complex solutions.";

@@ -31,9 +31,9 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
     {
         screenplay = new List<(string, string)>() {
         new("NPC", "This room is an Activation Layer of the CNN. It applies an activation function to the result of a convolution."),
-        new("NPC", "The activation function is a non-linear functions that enables a CNN to solve non-linear problems."),
+        new("NPC", "The activation function is a non-linear function that enables a CNN to solve non-linear problems."),
         new("NPC", "Place the activation function in the input holder to apply it."),
-        new("NPC", "Choose the best activation function that enhances the streets' footprint in the image."),
+        new("NPC", "Choose the best activation function that enhances the features in the image."),
         // new("action", "action1"), // Robot Walk
         };
     }
