@@ -66,6 +66,7 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
                 ExecuteAction(line.Item2);
                 break;
             case "NPC":
+                Debug.Log("NPC position " + NPC.transform.position);
                 dialogueBalloon.SetSpeaker(NPC.gameObject);
                 dialogueBalloon.PlaceUpperRight();
                 if (HasSpeakerChanged())

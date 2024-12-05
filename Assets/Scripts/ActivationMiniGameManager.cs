@@ -41,7 +41,7 @@ public class ActivationMiniGameManager : BaseBoard
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         InitializeTilemap();
 
@@ -64,6 +64,7 @@ public class ActivationMiniGameManager : BaseBoard
 
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
+        Debug.Log("SPAWN NPC position " + NPC.transform.position);
 
         LoadMatrix();
 
