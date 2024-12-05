@@ -135,7 +135,7 @@ public class ActivationView : MonoBehaviour
     public void InitActivationBox(string type)
     {
         Debug.Log("Init Activation Box");
-
+        this.type = type;
         activationBox.SetFunction(type);
         locker.AddActivationBox(activationBox.gameObject);
 
