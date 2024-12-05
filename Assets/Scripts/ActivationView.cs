@@ -294,4 +294,30 @@ public class ActivationView : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Debug.Log("on trigger enter activation view");
+        if (HasActivationBox())
+        {
+            OnHover?.Invoke(type);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (HasActivationBox())
+        {
+            OnHover?.Invoke(type);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Debug.Log("on trigger exit activation view");
+        if (HasActivationBox())
+        {
+            OnUnhover?.Invoke(type);
+        }
+    }
+
 }

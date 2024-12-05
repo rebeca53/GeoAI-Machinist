@@ -8,7 +8,7 @@ public class ActivationMiniGameManager : BaseBoard
     public GameObject activationViewObject;
 
     // Constants
-    readonly int ActivationFunctionAmonut = 3;
+    readonly int ActivationFunctionAmount = 3;
 
     // Instances
     Dictionary<string, ActivationView> activationViews = new Dictionary<string, ActivationView>();
@@ -76,7 +76,7 @@ public class ActivationMiniGameManager : BaseBoard
         float xPosition = 2f;
         float verticalOffset = 2.5f;
 
-        for (int i = 0; i < ActivationFunctionAmonut; i++)
+        for (int i = 0; i < ActivationFunctionAmount; i++)
         {
             float yPosition = verticalOffset + i * verticalGap;
             Vector3 position = new(xPosition, yPosition, 0f);
@@ -86,6 +86,28 @@ public class ActivationMiniGameManager : BaseBoard
             script.InitInput(UnflatMatrix(data.inputMatrix, 62));
             script.OnActivationStopped += OnActivationStopped;
             activationViews.Add(GetActivationType(i), script);
+        }
+
+        RegisterActivationViewsMessages();
+    }
+
+    private void UnregisterActivationViewsMessages()
+    {
+        Debug.Log("Unregister activation views");
+        foreach (KeyValuePair<string, ActivationView> entry in activationViews)
+        {
+            entry.Value.OnHover -= DisplayActivationFunctionMessage;
+            entry.Value.OnUnhover -= HideActivationFunctionMessage;
+        }
+    }
+
+    private void RegisterActivationViewsMessages()
+    {
+        Debug.Log("Register activation views");
+        foreach (KeyValuePair<string, ActivationView> entry in activationViews)
+        {
+            entry.Value.OnHover += DisplayActivationFunctionMessage;
+            entry.Value.OnUnhover += HideActivationFunctionMessage;
         }
     }
 
@@ -159,13 +181,40 @@ public class ActivationMiniGameManager : BaseBoard
         }
     }
 
+    private void DisplayActivationFunctionMessage(string type)
+    {
+        // Debug.Log("DisplayActivationFunctionMessage");
+        string message = "";
+        switch (type)
+        {
+            case "Linear":
+                message = "The linear function is f(x) = x. It is simply repeating value.";
+                break;
+            case "ReLu":
+                message = "The ReLu function is f(x) = max(0,x). It is simple and non-linear. As a consequence, it allows the CNN to find more complex solutions.";
+                break;
+            case "Sigmoid":
+                message = "The sigmoid is f(x) = 1 / (1 + exp(-x)). It is non-linear and allows the CNN to find more complex solutions, but it costs the complex computation of an exponent.";
+                break;
+        }
+        timedDialogueBalloon.SetSpeaker(Player.gameObject);
+        timedDialogueBalloon.SetMessage(message);
+        timedDialogueBalloon.PlaceUpperLeft();
+        timedDialogueBalloon.Show();
+    }
+
+    private void HideActivationFunctionMessage(string type)
+    {
+        timedDialogueBalloon.Hide();
+    }
+
     private void DisplayGameOverMessage()
     {
         Player.Disable();
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
         // NPC speaks message
-        string message = "Good job picking the best activation function. Let's go back for the CNN Room.";
+        string message = "Good job picking the best activation function for this scenario. Let's go back for the CNN Room.";
         // Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
