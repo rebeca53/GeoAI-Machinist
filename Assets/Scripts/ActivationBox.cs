@@ -63,6 +63,8 @@ public class ActivationBox : MonoBehaviour
                 return Sigmoid(pixelValue);
             case "tanh":
                 return HyperbolicTangent(pixelValue);
+            case "Linear":
+                return Linear(pixelValue);
 
         }
         return pixelValue;
@@ -90,5 +92,9 @@ public class ActivationBox : MonoBehaviour
         else return Math.Tanh(x);
     }
 
+    double Linear(double x)
+    {
+        return x;
+    }
 
 }

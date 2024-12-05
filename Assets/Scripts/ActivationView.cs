@@ -26,7 +26,7 @@ public class ActivationView : MonoBehaviour
     // Activation
     bool isApplying = false;
     bool activationBoxAtInputHolder = false;
-    int animationStep = 1;
+    int animationStep = 8;
     int iActivation = 0;
     int jActivation = 0;
     int matrixSize = 62;

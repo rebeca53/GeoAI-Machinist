@@ -94,11 +94,11 @@ public class ActivationMiniGameManager : BaseBoard
         switch (idx)
         {
             case 0:
-                return "ReLu";
+                return "Linear";
             case 1:
-                return "Sigmoid";
+                return "ReLu";
             case 2:
-                return "tanh";
+                return "Sigmoid";
         }
         return "";
     }
@@ -129,6 +129,7 @@ public class ActivationMiniGameManager : BaseBoard
 
     void OnActivationStopped(string type)
     {
+        Debug.Log(type);
         // Update outputline
         if (activationViews[type].HasActivationBox())
         {
@@ -164,9 +165,8 @@ public class ActivationMiniGameManager : BaseBoard
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
         // NPC speaks message
-        string message = "Good job picking the kernel that enhances human-made features to analyze a residential area. Let's go back for the CNN Room.";
-        // string message = "Human-made features often present geometric patterns such as transport networks. Good job picking the kernel that enhances human-made features to analyze a residential area.";
-        Debug.Log("turnover message " + message);
+        string message = "Good job picking the best activation function. Let's go back for the CNN Room.";
+        // Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
@@ -206,7 +206,7 @@ public class ActivationMiniGameManager : BaseBoard
 
     bool NeedRemoveWrongActivation()
     {
-        return IsReLuDone() && (AreOtherActivationsConnected());
+        return IsReLuDone() && AreOtherActivationsConnected();
     }
 
     void ZoomIn()
