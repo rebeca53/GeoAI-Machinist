@@ -132,7 +132,7 @@ public class ConvolutionalView : MonoBehaviour
 
     public void InitKernel(List<double> flatKernel, double[,] kernel)
     {
-        Debug.Log("Init Kernel");
+        // Debug.Log("Init Kernel");
 
         kernelMatrix.SetMatrix(flatKernel, kernel);
         locker.AddKernel(kernelMatrix.gameObject);
@@ -306,7 +306,7 @@ public class ConvolutionalView : MonoBehaviour
     // TODO: abstract OutputLine
     public void UpdateOutputState(string newLineState)
     {
-        Debug.Log("Update state: " + newLineState);
+        // Debug.Log("Update state: " + newLineState);
         outputState = newLineState;
         switch (outputState)
         {

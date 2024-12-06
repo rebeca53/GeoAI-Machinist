@@ -25,7 +25,7 @@ public class InputMatrixPixel : MonoBehaviour
 
     private Color GetPixelColor()
     {
-        Debug.Log("colorMap " + colorMap);
+        // Debug.Log("colorMap " + colorMap);
         float colorValue = (float)pixelValue;
         if (colorMap.Equals("grayscale"))
         {

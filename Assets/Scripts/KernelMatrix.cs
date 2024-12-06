@@ -39,7 +39,7 @@ public class KernelMatrix : MonoBehaviour
             int i = k / 3;
             int j = k - i * 3;
             label.text = Math.Round(GetKernelPixel(i, j), 2).ToString("N2");
-            Debug.Log("kernel pixel [" + k + "](" + i + "," + j + ") position: " + pixel.transform.position + " value: " + GetKernelPixel(i, j));
+            // Debug.Log("kernel pixel [" + k + "](" + i + "," + j + ") position: " + pixel.transform.position + " value: " + GetKernelPixel(i, j));
 
             pixel.SetDefault();
         }
@@ -52,16 +52,16 @@ public class KernelMatrix : MonoBehaviour
 
     public void Grab(Vector3 grabberPosition)
     {
-        Debug.Log("xgrab previous transform position " + transform.position);
-        Debug.Log("xgrab previous transform local position " + transform.localPosition);
+        // Debug.Log("xgrab previous transform position " + transform.position);
+        // Debug.Log("xgrab previous transform local position " + transform.localPosition);
 
-        Debug.Log("xgrab " + grabberPosition);
+        // Debug.Log("xgrab " + grabberPosition);
         grabbed = true;
         Vector3 relativeToParentPosition = new(0f, 0f, 0f);
         transform.localPosition = relativeToParentPosition;
         // transform.position = new(grabberPosition.x, grabberPosition.y, grabberPosition.z);
-        Debug.Log("xgrab transform position " + transform.position);
-        Debug.Log("xgrab transform local position " + transform.localPosition);
+        // Debug.Log("xgrab transform position " + transform.position);
+        // Debug.Log("xgrab transform local position " + transform.localPosition);
 
         OnGrabbed?.Invoke();
     }
