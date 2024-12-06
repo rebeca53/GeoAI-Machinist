@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActivationMiniGameManager : BaseBoard
 {
     // Pre-fabs
     public GameObject activationViewObject;
+    public GameObject loadingScreen;
+
 
     // Constants
     readonly int ActivationFunctionAmount = 3;
 
     // Instances
+    public ActivationMiniGamePlaybackDirector playbackDirector;
     Dictionary<string, ActivationView> activationViews = new Dictionary<string, ActivationView>();
     public TimedDialogueBalloon timedDialogueBalloon;
     public DialogueBalloon dialogueBalloon;
@@ -41,7 +45,29 @@ public class ActivationMiniGameManager : BaseBoard
     }
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
+    {
+        UpdateProgress(0f);
+        StartCoroutine(LayoutAll());
+    }
+
+    void UpdateProgress(float progress)
+    {
+        // Debug.Log("Update progress " + progress);
+        Image bar = GameObject.Find("ProgressBar").GetComponent<Image>();
+        bar.fillAmount = progress;
+    }
+
+    void IncrementProgress(float progress)
+    {
+        // Debug.Log("IncrementProgress by " + progress);
+        Image bar = GameObject.Find("ProgressBar").GetComponent<Image>();
+        bar.fillAmount += progress;
+    }
+
+
+    // Start is called before the first frame update
+    IEnumerator LayoutAll()
     {
         InitializeTilemap();
 
@@ -60,6 +86,8 @@ public class ActivationMiniGameManager : BaseBoard
                     DrawExit(x, y);
                 }
             }
+            IncrementProgress(0.01f);
+            yield return null;
         }
 
         Player.Spawn(this, new Vector2Int(2, 1));
@@ -68,10 +96,11 @@ public class ActivationMiniGameManager : BaseBoard
 
         LoadMatrix();
 
-        LayoutActivationViews();
+        StartCoroutine(LayoutActivationViews());
     }
 
-    private void LayoutActivationViews()
+
+    IEnumerator LayoutActivationViews()
     {
         float verticalGap = 4.5f;
         float xPosition = 2f;
@@ -87,9 +116,13 @@ public class ActivationMiniGameManager : BaseBoard
             script.InitInput(UnflatMatrix(data.inputMatrix, 62));
             script.OnActivationStopped += OnActivationStopped;
             activationViews.Add(GetActivationType(i), script);
+            UpdateProgress((float)(i + 1) / ActivationFunctionAmount);
+            yield return null;
         }
 
         RegisterActivationViewsMessages();
+        loadingScreen.SetActive(false);
+        playbackDirector.StartAnimation();
     }
 
     private void UnregisterActivationViewsMessages()

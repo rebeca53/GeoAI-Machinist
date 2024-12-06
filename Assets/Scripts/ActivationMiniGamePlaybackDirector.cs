@@ -18,6 +18,12 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
     void Start()
     {
         // introductionAnimation.stopped += OnPlayableDirectorStopped;
+        // InitializeScreenplay();
+        // Init();
+    }
+
+    public void StartAnimation()
+    {
         InitializeScreenplay();
         Init();
     }
