@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         {"Convolutional 4", true},
         {"Activation 4", true},
         {"Pooling 2", true},
-        {"Output", true}
+        {"Output", false}
     };
 
     void Awake()
@@ -69,6 +69,10 @@ public class GameManager : MonoBehaviour
             case "Activation 1":
                 UnityEngine.SceneManagement.SceneManager.LoadScene(8);
                 playerPositionOverview = new Vector2Int(9, 8);
+                break;
+            case "Output":
+                UnityEngine.SceneManagement.SceneManager.LoadScene(9);
+                playerPositionOverview = new Vector2Int(12, 2);
                 break;
             default:
                 break;
