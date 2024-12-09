@@ -55,9 +55,9 @@ public class OutputMatrix : MonoBehaviour
         }
     }
 
-    public void SetPixel(int i, int j, double value)
+    public void SetPixel(int i, int j, double value, bool isActivationResult = false)
     {
-        outputPixels[i, j].Initialize(value);
+        outputPixels[i, j].Initialize(value, isActivationResult);
     }
 
     public void HidePixel(int i, int j)

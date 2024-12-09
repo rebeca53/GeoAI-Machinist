@@ -18,6 +18,12 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
     void Start()
     {
         // introductionAnimation.stopped += OnPlayableDirectorStopped;
+        // InitializeScreenplay();
+        // Init();
+    }
+
+    public void StartAnimation()
+    {
         InitializeScreenplay();
         Init();
     }
@@ -30,7 +36,10 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay = new List<(string, string)>() {
-        new("NPC", "This room is an Activation Layer of the CNN."),
+        new("NPC", "This room is an Activation Layer of the CNN. It applies an activation function to the result of a convolution."),
+        new("NPC", "The activation function is a non-linear function that enables a CNN to solve non-linear problems."),
+        new("NPC", "Place the activation function in the input holder to apply it."),
+        new("NPC", "Choose the best activation function that enhances the features in the image."),
         // new("action", "action1"), // Robot Walk
         };
     }
@@ -63,6 +72,7 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
                 ExecuteAction(line.Item2);
                 break;
             case "NPC":
+                Debug.Log("NPC position " + NPC.transform.position);
                 dialogueBalloon.SetSpeaker(NPC.gameObject);
                 dialogueBalloon.PlaceUpperRight();
                 if (HasSpeakerChanged())

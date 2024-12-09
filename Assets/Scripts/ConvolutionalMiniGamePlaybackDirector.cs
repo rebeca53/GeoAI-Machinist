@@ -15,8 +15,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
     List<(string, string)> screenplay = new List<(string, string)>();
     int currentLineIndex = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartAnimation()
     {
         introductionAnimation.stopped += OnPlayableDirectorStopped;
         InitializeScreenplay();
@@ -85,11 +84,11 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        Debug.Log("idx " + currentLineIndex);
+        // Debug.Log("idx " + currentLineIndex);
 
         if (currentLineIndex < 1) return true;
-        Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        Debug.Log("current " + screenplay[currentLineIndex].Item1);
+        // Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
+        // Debug.Log("current " + screenplay[currentLineIndex].Item1);
 
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
@@ -135,7 +134,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
     void End()
     {
-        Debug.Log("End");
+        // Debug.Log("End");
         dialogueBalloon.Hide();
         ClearCallbacks();
 

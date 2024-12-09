@@ -14,4 +14,12 @@ public class Locker : MonoBehaviour
         kernel.transform.localScale = new(0.1f, 0.2f, 0f);
         kernel.transform.position = new Vector3(position.x + xOffset, position.y + yOffset, position.z);
     }
+
+    public void AddActivationBox(GameObject activationBox)
+    {
+        Vector3 position = gameObject.transform.position;
+        activationBox.transform.parent = gameObject.transform;
+        activationBox.transform.localScale = new(0.3f, 0.6f, 0f);
+        activationBox.transform.position = new Vector3(position.x + xOffset, position.y + yOffset, position.z);
+    }
 }

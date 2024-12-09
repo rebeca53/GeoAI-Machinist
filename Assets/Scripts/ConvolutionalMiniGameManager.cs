@@ -1,14 +1,23 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ConvolutionalMiniGameManager : BaseBoard
 {
     // Pre-fabs
     public GameObject convolutionalViewObject;
+    public GameObject loadingScreen;
+
+    // UI constants
+    public static float pixelSize = 0.01f;
+    static public float verticalOffsetImages = 5f;
+    readonly int KernelAmount = 3;
 
     // Instances
     List<ConvolutionalView> convolutionalViews = new List<ConvolutionalView>();
-
+    public ConvolutionalMiniGamePlaybackDirector playbackDirector;
     public TimedDialogueBalloon timedDialogueBalloon;
 
     public DialogueBalloon dialogueBalloon;
@@ -39,13 +48,28 @@ public class ConvolutionalMiniGameManager : BaseBoard
         return unflatten;
     }
 
-    // UI constants
-    public static float pixelSize = 0.01f;
-    static public float verticalOffsetImages = 5f;
-    readonly int KernelAmount = 3;
-
     // Start is called before the first frame update
     void Start()
+    {
+        UpdateProgress(0f);
+        StartCoroutine(LayoutAll());
+    }
+
+    void UpdateProgress(float progress)
+    {
+        // Debug.Log("Update progress " + progress);
+        Image bar = GameObject.Find("ProgressBar").GetComponent<Image>();
+        bar.fillAmount = progress;
+    }
+
+    void IncrementProgress(float progress)
+    {
+        // Debug.Log("IncrementProgress by " + progress);
+        Image bar = GameObject.Find("ProgressBar").GetComponent<Image>();
+        bar.fillAmount += progress;
+    }
+
+    IEnumerator LayoutAll()
     {
         InitializeTilemap();
 
@@ -64,16 +88,18 @@ public class ConvolutionalMiniGameManager : BaseBoard
                     DrawExit(x, y);
                 }
             }
+            IncrementProgress(0.01f);
+            yield return null;
         }
 
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
         LoadMatrix();
 
-        LayoutConvolutionalViews();
+        StartCoroutine(LayoutConvolutionalViews());
     }
 
-    private void LayoutConvolutionalViews()
+    IEnumerator LayoutConvolutionalViews()
     {
         float verticalGap = 4.5f;
         float xPosition = 2f;
@@ -86,17 +112,22 @@ public class ConvolutionalMiniGameManager : BaseBoard
             GameObject instanceView = Instantiate(convolutionalViewObject, position, Quaternion.identity);
             ConvolutionalView script = instanceView.GetComponent<ConvolutionalView>();
             script.InitKernel(GetFlatKernelMatrix(i), UnflatMatrix(GetFlatKernelMatrix(i), 3));
+            yield return null;
             script.InitInput(UnflatMatrix(data.inputMatrix, 64));
             script.OnConvolutionStopped += OnConvolutionStopped;
             convolutionalViews.Add(script);
+            UpdateProgress((float)(i + 1) / KernelAmount);
+            yield return null;
         }
 
         RegisterConvolutionalViewsMessages();
+        loadingScreen.SetActive(false);
+        playbackDirector.StartAnimation();
     }
 
     private void UnregisterConvolutionalViewsMessages()
     {
-        Debug.Log("Unregister convolutional views");
+        // Debug.Log("Unregister convolutional views");
         for (int i = 0; i < KernelAmount; i++)
         {
             ConvolutionalView script = convolutionalViews[i];
@@ -107,8 +138,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     private void RegisterConvolutionalViewsMessages()
     {
-        Debug.Log("Register convolutional views");
-
+        // Debug.Log("Register convolutional views");
         for (int i = 0; i < KernelAmount; i++)
         {
             ConvolutionalView script = convolutionalViews[i];
