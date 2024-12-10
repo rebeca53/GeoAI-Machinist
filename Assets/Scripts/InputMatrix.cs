@@ -26,6 +26,11 @@ public class InputMatrix : MonoBehaviour
         Debug.Log("InputMatrix Set Color to " + colorMap);
     }
 
+    public void SetPixelSize(float newPixelSize)
+    {
+        pixelSize = newPixelSize;
+    }
+
     public void SetMatrix(double[,] matrix, int size = 64)
     {
         inputMatrix = matrix;

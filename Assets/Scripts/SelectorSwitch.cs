@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SelectorSwitch : MonoBehaviour
 {
-    public event Action<string> OnSwitch;
+    // public event Action<string> OnSwitch;
+    public event Action OnSwitch;
 
     private bool active = false;
     bool emptyInput = true;
@@ -62,7 +63,7 @@ public class SelectorSwitch : MonoBehaviour
         workingEndColor = lineRenderer.endColor;
 
         Vector3 startPoint = new(0f, -0.1f, 0f);
-        Vector3 endPoint = new(5f, -0.1f, 0f);
+        Vector3 endPoint = new(0.75f, -0.1f, 0f);
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
@@ -75,14 +76,9 @@ public class SelectorSwitch : MonoBehaviour
 
     public void Switch()
     {
-        if (emptyInput)
-        {
-            UIHandler.Instance.DisplayMessage("This switch only works after you feed the container with the corresponding spectral band");
-            return;
-        }
         active = !active;
         animator.SetTrigger("switch");
-        OnSwitch?.Invoke(type);
+        OnSwitch?.Invoke();
     }
 
     public void SetHasInput()
@@ -136,8 +132,8 @@ public class SelectorSwitch : MonoBehaviour
                 // lineRenderer.startColor = workingStartColor;
                 // lineRenderer.endColor = workingEndColor;
                 lineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 1));
-                lineRenderer.startWidth = startingWidth * 2;
-                lineRenderer.endWidth = startingWidth * 2;
+                // lineRenderer.startWidth = startingWidth * 2;
+                // lineRenderer.endWidth = startingWidth * 2;
                 // lineRenderer.widthCurve = AnimationCurve.Linear(0, .5f, 1, .5f);
                 break;
             case "wrong":

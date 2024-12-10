@@ -75,11 +75,6 @@ public class ActivationView : MonoBehaviour
         Vector3 endPoint = new(2f, -0.5f, 0f);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLine(1f);
-
-        // Enable Label
-        Transform label = inputScreen.transform.Find("Label");
-        label.GetComponent<TextMeshPro>().text = "Node 10th";
-        label.gameObject.SetActive(true);
     }
 
     private void LayoutOutputScreen()
