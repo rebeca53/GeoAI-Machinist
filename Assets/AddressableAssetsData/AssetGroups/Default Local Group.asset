@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 297075b15985fbf479ca62eb6bc1f577
+    m_Address: pastureOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2fca6a55d58369e4683a4437d99b5879
     m_Address: Highway_Green
     m_ReadOnly: 0

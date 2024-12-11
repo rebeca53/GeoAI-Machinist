@@ -109,12 +109,14 @@ public class DenseView : MonoBehaviour
 
     void LayoutWeightLines()
     {
-        float verticalOffset = transform.position.y - 0.7f;
+        float verticalOffset = 4.3f;
         float horizontalOffset = 1f;
         float gap = lineWidth / 3;
 
-        float maxYPosition = verticalOffset + data.weights.Count * lineWidth;
-
+        float maxYPosition = verticalOffset + data.weights.Count * lineWidth - transform.position.y;
+        Debug.Log("maxYPosition " + maxYPosition);
+        Debug.Log("data.weights.Count * lineWidth " + data.weights.Count * lineWidth);
+        Debug.Log("transform.position.y " + transform.position.y);
         for (int i = 0; i < data.weights.Count; i++)
         {
             GameObject instance = Instantiate(lineObject, new(0f, 0f, 0f), Quaternion.identity);
