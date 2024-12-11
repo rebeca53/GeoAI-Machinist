@@ -172,13 +172,13 @@ public class DenseView : MonoBehaviour
         return logitNode;
     }
 
-    void ShowWeights()
+    public void ShowWeights()
     {
         Debug.Log("On hover logit node show weights");
         weightsRoot.gameObject.SetActive(true);
     }
 
-    void HideWeights()
+    public void HideWeights()
     {
         Debug.Log("On unhover logit node hide weights");
         weightsRoot.gameObject.SetActive(false);

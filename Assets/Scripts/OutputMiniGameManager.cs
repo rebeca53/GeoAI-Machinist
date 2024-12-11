@@ -15,9 +15,9 @@ public class OutputMiniGameManager : BaseBoard
     public CameraZoom cameraZoom;
 
     // Instances
-    List<LogitNode> logitNodes;
+    List<DenseView> denseViews = new List<DenseView>();
+    List<LogitNode> logitNodes = new List<LogitNode>();
     OutputLayer outputLayer;
-
 
     // Properties
     int DenseViewAmount = 10;
@@ -34,6 +34,7 @@ public class OutputMiniGameManager : BaseBoard
         "residential",
         "pasture",
     };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +66,7 @@ public class OutputMiniGameManager : BaseBoard
         // LayoutFlatenningGear();
         // LayoutFlatHolder();
         // LayoutDenseView(); // weights, bias, class, OnHoverClassLabel
+        playbackDirector.StartAnimation();
     }
 
 
@@ -81,9 +83,24 @@ public class OutputMiniGameManager : BaseBoard
             GameObject instanceView = Instantiate(denseViewObject, position, Quaternion.identity);
             DenseView script = instanceView.GetComponent<DenseView>();
             script.SetType(labels[i]);
-
-            // logitNodes.Add(script.GetLogitNode());
+            script.gameObject.SetActive(false);
+            denseViews.Add(script);
         }
+    }
+
+    IEnumerator AnimateDenseView()
+    {
+        Player.Disable();
+        foreach (DenseView denseView in denseViews)
+        {
+            cameraZoom.ChangeZoomTarget(denseView.gameObject);
+            denseView.gameObject.SetActive(true);
+            denseView.ShowWeights();
+            yield return new WaitForSeconds(1);
+            denseView.HideWeights();
+        }
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
+        Player.Enable();
     }
 
     void LayoutSoftmaxView()

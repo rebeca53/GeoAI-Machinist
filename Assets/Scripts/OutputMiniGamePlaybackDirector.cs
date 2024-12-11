@@ -27,11 +27,19 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay = new List<(string, string)>() {
-        new("NPC", "This room is the Output Layer of the CNN. It flattens a matrix and calculates the probabilities of it belonging to a class label."),
-        // new("NPC", "The activation function is a non-linear function that enables a CNN to solve non-linear problems."),
-        // new("NPC", "Place the activation function in the input holder to apply it."),
-        // new("NPC", "Choose the best activation function that enhances the features in the image."),
+        new("NPC", "This room is the Output Layer of the CNN. At this point, each layer has extracted and highlighted features in the image."),
+        new("NPC", "Follow me to see how the image looks now."),
         // new("action", "action1"), // Robot Walk
+        new("NPC", "The CNN may have extracted features, but we can't tell which class this image belongs to. We need more steps."),
+        new("NPC", "Each pixel will have a weight in the classification result. Find and activate the Flatenning Pull Lever to flat the matrix."),
+        // new("action", "action1"), // Wait player
+        // new("action", "action1"), // Animate each node class appearing
+        new("NPC", "The connection between a pixel and a class node displays the weight of the pixel. Approach a class node to highlight the weights."),
+        // new("action", "action1"), // Wait player interaction
+        new("NPC", "Ok, some class nodes are brighter than others. But we can not tell yet which class to choose."),
+        new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class"),
+        // new("action", "action1"), // Wait player interaction
+        new("NPC", "Good job flatenning the image and applying softmax to calculate probabilities."),
         };
     }
 
