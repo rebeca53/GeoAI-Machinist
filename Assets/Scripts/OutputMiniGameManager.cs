@@ -5,7 +5,7 @@ using UnityEngine;
 public class OutputMiniGameManager : BaseBoard
 {
     // Pre-fabs
-    // public GameObject denseViewObject;
+    public GameObject denseViewObject;
 
     // Instances
     public OutputMiniGamePlaybackDirector playbackDirector;
@@ -13,33 +13,21 @@ public class OutputMiniGameManager : BaseBoard
     public DialogueBalloon dialogueBalloon;
     public CameraZoom cameraZoom;
 
-    // Data
-    public TextAsset dataText;
-    OutputData data;
+    // Properties
+    int DenseViewAmount = 10;
 
-    [System.Serializable]
-    class OutputData
-    {
-        public List<double> inputMatrix = new List<double>();
-        public List<double> weights = new List<double>();
-        public double bias;
-    }
-
-    double[,] UnflatMatrix(List<double> flatten, int size)
-    {
-        double[,] unflatten = new double[size, size];
-        for (int k = 0; k < flatten.Count; k++)
-        {
-            double value = flatten[k];
-            int i = k / size;
-            int j = k - i * size;
-            // Debug.Log("flatenning: k " + k + ", value " + value + ", i " + i + ", j" + j);
-            unflatten[i, j] = value;
-        }
-
-        return unflatten;
-    }
-
+    List<string> labels = new List<string>{
+        "highway",
+        "forest",
+        "river",
+        "permanentcrop",
+        "industrial",
+        "annualcrop",
+        "sealake",
+        "herbaceous",
+        "residential",
+        "pasture",
+    };
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +53,7 @@ public class OutputMiniGameManager : BaseBoard
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
 
+        LayoutDenseView();
         // LoadMatrix();
         // LayoutInputHolder();
         // LayoutFlatenningGear();
@@ -72,22 +61,22 @@ public class OutputMiniGameManager : BaseBoard
         // LayoutDenseView(); // weights, bias, class, OnHoverClassLabel
     }
 
-    void LoadMatrix()
-    {
-        Debug.Log(dataText.text);
-        data = JsonUtility.FromJson<OutputData>(dataText.text);
 
-        if (data == null)
+    void LayoutDenseView()
+    {
+        float verticalGap = 1f;
+        float xPosition = 6f;
+        float verticalOffset = 0f;
+
+        for (int i = 0; i < DenseViewAmount; i++)
         {
-            Debug.Log("Failed to retrieve from JSON");
+            float yPosition = verticalOffset + i * verticalGap;
+            Vector3 position = new(xPosition, yPosition, 0f);
+            GameObject instanceView = Instantiate(denseViewObject, position, Quaternion.identity);
+            DenseView script = instanceView.GetComponent<DenseView>();
+            script.SetType(labels[i]);
         }
-        else
-        {
-            if (data.inputMatrix == null)
-            {
-                Debug.Log("Input is none");
-            }
-        }
+
     }
 
     void OnHoverClassLabel(string type)

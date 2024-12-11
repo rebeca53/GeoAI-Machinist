@@ -131,9 +131,4 @@ public abstract class BaseBoard : MonoBehaviour
     }
 
     protected abstract void GameOver();
-
-    void OnDisable()
-    {
-        UIHandler.Instance.HideMessage();
-    }
 }

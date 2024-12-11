@@ -72,8 +72,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51af4df5c44bddf4b8d26e3b36b2908c
+    m_Address: permanentcropOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52e5943722bad4c448b8e3d70c9c945a
+    m_Address: herbaceousOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56266b0ebceda404fa00d75e0df07621
+    m_Address: residentialOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5627c9ef3067430478878e3470efcead
     m_Address: River_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57225dee930be5a43bb07f4c01014fac
+    m_Address: sealakeOutputData
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -112,6 +132,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83cc06bafb292a345ab118470301eb98
+    m_Address: riverOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91e03230b85e9494dac179060b6a6e1b
+    m_Address: annualcropOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 926d3bb3fbb4a4c4e93355a9018045f4
     m_Address: AnnualCrop_SWIR
     m_ReadOnly: 0
@@ -122,6 +152,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1ec33a79693a114d932f9cff2e337b2
+    m_Address: highwayOutputData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b6b4a2b08c1e0874a8f0ada257078047
     m_Address: Forest_SWIR
     m_ReadOnly: 0
@@ -129,6 +164,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1baae699e305b34390f8e1fd2012379
     m_Address: Forest_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3659086a679dca42b1e1f934df62418
+    m_Address: industrialOutputData
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -164,6 +204,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eaed95ec234c7d94282a81b8137f3f5b
     m_Address: AnnualCrop_RedEdge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f609f4f05ca3aa248914a825fb0a254d
+    m_Address: forestOutputData
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
