@@ -6,12 +6,18 @@ public class OutputMiniGameManager : BaseBoard
 {
     // Pre-fabs
     public GameObject denseViewObject;
+    public GameObject outputLayerObject;
 
-    // Instances
+    // UI-related Instances
     public OutputMiniGamePlaybackDirector playbackDirector;
     public TimedDialogueBalloon timedDialogueBalloon;
     public DialogueBalloon dialogueBalloon;
     public CameraZoom cameraZoom;
+
+    // Instances
+    List<LogitNode> logitNodes;
+    OutputLayer outputLayer;
+
 
     // Properties
     int DenseViewAmount = 10;
@@ -54,7 +60,7 @@ public class OutputMiniGameManager : BaseBoard
         NPC.Spawn(this, new Vector2Int(1, 1));
 
         LayoutDenseView();
-        // LoadMatrix();
+        // LayoutSoftmaxView();
         // LayoutInputHolder();
         // LayoutFlatenningGear();
         // LayoutFlatHolder();
@@ -64,7 +70,7 @@ public class OutputMiniGameManager : BaseBoard
 
     void LayoutDenseView()
     {
-        float verticalGap = 1f;
+        float verticalGap = 0.9f;
         float xPosition = 6f;
         float verticalOffset = 0f;
 
@@ -75,19 +81,14 @@ public class OutputMiniGameManager : BaseBoard
             GameObject instanceView = Instantiate(denseViewObject, position, Quaternion.identity);
             DenseView script = instanceView.GetComponent<DenseView>();
             script.SetType(labels[i]);
+
+            // logitNodes.Add(script.GetLogitNode());
         }
-
     }
 
-    void OnHoverClassLabel(string type)
+    void LayoutSoftmaxView()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        // outputLayer.SetLogitNodes(logitNodes);
     }
 
     protected override void GameOver()

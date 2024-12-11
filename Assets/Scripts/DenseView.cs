@@ -9,16 +9,18 @@ public class DenseView : MonoBehaviour
 {
     public event Action<string> OnHover;
     public event Action<string> OnUnhover;
+
     // Prefab
     public GameObject lineObject;
     public GameObject logitObject;
     Transform weightsRoot;
+    LogitNode logitNode;
 
     // Properties
     string label = "";
     string address = "";
 
-    Vector3 logitPosition = new(5f, 5f, 0f);
+    Vector3 logitPosition = new(5f, 4.7f, 0f);
     readonly float MinWeight = -0.15f;
     readonly float MaxWeight = 0.15f;
     readonly float MinLogit = -26f;
@@ -156,20 +158,18 @@ public class DenseView : MonoBehaviour
     {
         // GameObject instance = Instantiate(logitObject, logitPosition, Quaternion.identity);
         logitObject.transform.localPosition = logitPosition;
-        logitObject.transform.localScale = new(0.8f, 0.8f, 0f);
-        SpriteRenderer spriteRenderer = logitObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.color = GetLogitColor(data.logit);
+        logitObject.transform.localScale = new(0.6f, 0.6f, 0f);
 
-        LogitNode logitNode = logitObject.GetComponent<LogitNode>();
+        logitNode = logitObject.GetComponent<LogitNode>();
+        logitNode.SetLogitMode(data.logit);
+        logitNode.SetLabel(label);
         logitNode.OnHover += ShowWeights;
         logitNode.OnUnhover += HideWeights;
     }
 
-    Color GetLogitColor(double logit)
+    public LogitNode GetLogitNode()
     {
-        // minmax normalization
-        double normalized = (logit - MinLogit) / (MaxLogit - MinLogit);
-        return Color.Lerp(Color.white, Color.green, (float)normalized);
+        return logitNode;
     }
 
     void ShowWeights()

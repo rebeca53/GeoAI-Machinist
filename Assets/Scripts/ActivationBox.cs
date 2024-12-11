@@ -53,6 +53,11 @@ public class ActivationBox : MonoBehaviour
         transform.position = newPosition;
     }
 
+    public void Block()
+    {
+        transform.tag = "Untagged"; // Player cannot grab Untagged objects
+    }
+
     public double ApplyFunction(double pixelValue)
     {
         switch (type)
@@ -65,7 +70,6 @@ public class ActivationBox : MonoBehaviour
                 return HyperbolicTangent(pixelValue);
             case "Linear":
                 return Linear(pixelValue);
-
         }
         return pixelValue;
     }
