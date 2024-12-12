@@ -151,7 +151,6 @@ public class OutputMiniGameManager : BaseBoard
         Player.Enable();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
 
-        // GameManager.instance.solvedMinigames["Output"] = true;
-        // GameManager.instance.StartOverviewScene();
+        GameManager.instance.solvedMinigames["Output"] = true;
     }
 }
