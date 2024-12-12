@@ -69,6 +69,11 @@ public class SelectorSwitch : MonoBehaviour
         conn.DrawStraightLine();
     }
 
+    public void Disable()
+    {
+        transform.tag = "Untagged";
+    }
+
     public void SetType(string newType)
     {
         type = newType;

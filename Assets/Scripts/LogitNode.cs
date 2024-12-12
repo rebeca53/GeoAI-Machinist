@@ -45,7 +45,7 @@ public class LogitNode : MonoBehaviour
         // TODO: Update Sprite to represent the correspoding function
         Transform label = transform.Find("Label");
         label.GetComponent<TextMeshPro>().text = classLabel;
-        label.localPosition = new(0, -0.6f, 0);
+        label.localPosition = new(0, -0.9f, 0);
     }
 
     public void SetLogitMode(double value)

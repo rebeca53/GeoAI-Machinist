@@ -256,10 +256,4 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         hintBalloon.OnDone -= NextLine;
         hintBalloon.OnDone -= ZoomIn;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -15,9 +15,11 @@ public class OutputMiniGameManager : BaseBoard
     public CameraZoom cameraZoom;
 
     // Instances
+    public FlattenLayer flattenLayer;
     List<DenseView> denseViews = new List<DenseView>();
     List<LogitNode> logitNodes = new List<LogitNode>();
-    OutputLayer outputLayer;
+    public OutputLayer outputLayer;
+
 
     // Properties
     int DenseViewAmount = 10;
@@ -67,8 +69,9 @@ public class OutputMiniGameManager : BaseBoard
         // LayoutFlatHolder();
         // LayoutDenseView(); // weights, bias, class, OnHoverClassLabel
         playbackDirector.StartAnimation();
+        flattenLayer.OnFlatten += StartAnimationDenseView;
+        outputLayer.OnDone += GameOver;
     }
-
 
     void LayoutDenseView()
     {
@@ -88,12 +91,18 @@ public class OutputMiniGameManager : BaseBoard
         }
     }
 
+    void StartAnimationDenseView()
+    {
+        flattenLayer.OnFlatten -= StartAnimationDenseView;
+        StartCoroutine(AnimateDenseView());
+    }
+
     IEnumerator AnimateDenseView()
     {
         Player.Disable();
         foreach (DenseView denseView in denseViews)
         {
-            cameraZoom.ChangeZoomTarget(denseView.gameObject);
+            cameraZoom.ChangeZoomTarget(denseView.GetLogitNode().gameObject);
             denseView.gameObject.SetActive(true);
             denseView.ShowWeights();
             yield return new WaitForSeconds(1);
@@ -101,16 +110,34 @@ public class OutputMiniGameManager : BaseBoard
         }
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         Player.Enable();
+        playbackDirector.NextLine();
     }
 
-    void LayoutSoftmaxView()
+    private void DisplayGameOverMessage()
     {
-        // outputLayer.SetLogitNodes(logitNodes);
+        Player.Disable();
+        cameraZoom.ChangeZoomTarget(NPC.gameObject);
+        ZoomIn();
+        // NPC speaks message
+        string message = "Good job flatenning the image and applying softmax to calculate probabilities. Explore this room a bit more if you will, then go back to the CNN room.";
+        // Debug.Log("turnover message " + message);
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += GameOver;
+    }
+
+    void ZoomIn()
+    {
+        cameraZoom.ChangeZoomSmooth(1.4f);
     }
 
     protected override void GameOver()
     {
-        GameManager.instance.solvedMinigames["Output"] = true;
-        GameManager.instance.StartOverviewScene();
+        DisplayGameOverMessage();
+
+        // GameManager.instance.solvedMinigames["Output"] = true;
+        // GameManager.instance.StartOverviewScene();
     }
 }

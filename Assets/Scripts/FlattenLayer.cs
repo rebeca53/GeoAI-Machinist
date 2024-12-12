@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FlattenLayer : MonoBehaviour
 {
+    public Action OnFlatten;
+
     // Scene objects
     public SelectorSwitch selectorSwitch;
 
@@ -163,6 +166,8 @@ public class FlattenLayer : MonoBehaviour
         Debug.Log("Stop Flatenning");
 
         isFlattening = false;
+        selectorSwitch.Disable();
+        OnFlatten?.Invoke();
     }
 
     // Update is called once per frame

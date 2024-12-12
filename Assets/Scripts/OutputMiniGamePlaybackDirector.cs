@@ -5,8 +5,11 @@ using UnityEngine.Playables;
 
 public class OutputMiniGamePlaybackDirector : MonoBehaviour
 {
+    public PlayableDirector playbackRobotWalk;
     public PlayerController Player;
     public NonPlayerCharacter NPC;
+
+    public GameObject inputScreen;
     public DialogueBalloon dialogueBalloon;
     public HintBalloon hintBalloon;
     public CameraZoom cameraZoom;
@@ -29,17 +32,17 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         screenplay = new List<(string, string)>() {
         new("NPC", "This room is the Output Layer of the CNN. At this point, each layer has extracted and highlighted features in the image."),
         new("NPC", "Follow me to see how the image looks now."),
-        // new("action", "action1"), // Robot Walk
-        new("NPC", "The CNN may have extracted features, but we can't tell which class this image belongs to. We need more steps."),
-        new("NPC", "Each pixel will have a weight in the classification result. Find and activate the Flatenning Pull Lever to flat the matrix."),
-        // new("action", "action1"), // Wait player
-        // new("action", "action1"), // Animate each node class appearing
-        new("NPC", "The connection between a pixel and a class node displays the weight of the pixel. Approach a class node to highlight the weights."),
-        // new("action", "action1"), // Wait player interaction
+        new("action", "action1"), // Robot Walk
+        new("action", "action2"), // Wait Player
+        new("NPC", "The CNN extracted features, but we can't tell which class this image belongs to. We need more steps."),
+        new("NPC", "Find and activate the Flatenning Pull Lever to flat the matrix."),
+        new("action", "action3"), // Wait player flatten
+        // new("action", "action4"), // Layer flattened, class nodes animation done
+        new("NPC", "Each pixel will have a weight in the classification result."),
+        new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."),
+        // new("NPC", "Approach a class node to highlight the weights."),
         new("NPC", "Ok, some class nodes are brighter than others. But we can not tell yet which class to choose."),
         new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class"),
-        // new("action", "action1"), // Wait player interaction
-        new("NPC", "Good job flatenning the image and applying softmax to calculate probabilities."),
         };
     }
 
@@ -53,7 +56,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         NextLine();
     }
 
-    void NextLine()
+    public void NextLine()
     {
         ClearCallbacks();
 
@@ -64,7 +67,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         }
 
         var line = screenplay[currentLineIndex];
-        Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
+        // Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
         switch (line.Item1)
         {
             case "action":
@@ -103,15 +106,59 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         switch (actionId)
         {
             case "action1":
+                WalkToSample();
                 break;
             case "action2":
+                WaitPlayer();
+                break;
+            case "action3":
+                WaitPlayerFlatten();
+                break;
+            case "action4":
+                OnClassNodesRendered();
+                break;
+            default:
+                // Do nothing
                 break;
         }
+    }
+
+    void WalkToSample()
+    {
+        playbackRobotWalk.Play();
+        playbackRobotWalk.stopped += OnPlayableDirectorStopped;
+        dialogueBalloon.Hide();
+    }
+
+    void WaitPlayer()
+    {
+        Player.Enable();
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
+        NPC.OnHover += NextLine;
+    }
+
+    void WaitPlayerFlatten()
+    {
+        cameraZoom.Release();
+        // ZoomOut();
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
+    }
+
+    void OnClassNodesRendered()
+    {
+        Debug.Log("On Flattened");
+        // TODO: NPC walks to the player
+        // NextLine();
     }
 
     void ZoomIn()
     {
         cameraZoom.ChangeZoomSmooth(1.4f);
+    }
+
+    void ZoomOut()
+    {
+        cameraZoom.ChangeZoomSmooth(4f);
     }
 
     void End()
@@ -133,6 +180,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         hintBalloon.OnDone -= Player.Disable;
         hintBalloon.OnDone -= NextLine;
         hintBalloon.OnDone -= ZoomIn;
+        NPC.OnHover -= NextLine;
     }
 
     void OnDisable()

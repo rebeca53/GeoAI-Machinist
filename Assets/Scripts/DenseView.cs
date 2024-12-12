@@ -162,7 +162,21 @@ public class DenseView : MonoBehaviour
 
         logitNode = logitObject.GetComponent<LogitNode>();
         logitNode.SetLogitMode(data.logit);
-        logitNode.SetLabel(label);
+
+        Dictionary<string, string> labels = new Dictionary<string, string>{
+            {"highway", "Highway"},
+            {"forest", "Forest"},
+            {"river", "River"},
+            {"permanentcrop", "Permanent Crop"},
+            {"industrial", "Industrial"},
+            {"annualcrop", "Annual Crop"},
+            {"sealake", "Sea or Lake"},
+            {"herbaceous", "Herbaceous Vegetation"},
+            {"residential", "Residential"},
+            {"pasture", "Pasture"},
+        };
+
+        logitNode.SetLabel(labels[label]);
         logitNode.OnHover += ShowWeights;
         logitNode.OnUnhover += HideWeights;
     }

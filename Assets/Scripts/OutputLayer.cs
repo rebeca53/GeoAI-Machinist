@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class OutputLayer : MonoBehaviour
 {
+    public Action OnDone;
     // Pre-fabs
     public GameObject lineObject;
     Transform linesRoot;
@@ -128,7 +129,6 @@ public class OutputLayer : MonoBehaviour
     void Awake()
     {
         linesRoot = transform.Find("OutputLinesRoot");
-
     }
     // Start is called before the first frame update
     void Start()
@@ -171,6 +171,8 @@ public class OutputLayer : MonoBehaviour
 
             // TODO: on hover line display softmax calculation
         }
+
+        OnDone?.Invoke();
 
     }
 
