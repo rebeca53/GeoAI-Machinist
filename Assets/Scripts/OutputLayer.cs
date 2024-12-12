@@ -135,11 +135,14 @@ public class OutputLayer : MonoBehaviour
     {
         softmaxBox.SetFunction("Softmax");
         softmaxHolder.OnAddedObject += OnSoftmaxAdded;
+        locker.AddActivationBox(softmaxBox.gameObject);
+
+        softmaxHolder.DrawConnection(new(0, -1f, 0), new(1.5f, 1.5f, 0));
     }
 
     void OnSoftmaxAdded()
     {
-        softmaxBox.Block();
+        // softmaxBox.Block();
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("LogitNode");
         Debug.Log("We found numerb od nodes: " + nodes.Length);
@@ -165,6 +168,9 @@ public class OutputLayer : MonoBehaviour
             LogitNode node = nodes[i].GetComponent<LogitNode>();
             double softmax = ApplySoftmax(node);
             node.SetSoftmaxMode(ApplySoftmax(node));
+
+            // Add percentage value
+            Debug.Log("percentage softmax = " + Math.Round(100 * softmax, 2));
 
             // update outputlines
             outputLines[i].UpdateLine(node.GetSoftmaxColor(), (float)softmax);

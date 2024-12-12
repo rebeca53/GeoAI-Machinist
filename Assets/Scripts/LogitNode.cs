@@ -18,11 +18,15 @@ public class LogitNode : MonoBehaviour
     string classLabel = "";
 
     SpriteRenderer spriteRenderer;
+    Transform softmaxLabel;
+
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        softmaxLabel = transform.Find("SoftmaxLabel");
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Debug.Log("on trigger enter activation view");
@@ -52,10 +56,12 @@ public class LogitNode : MonoBehaviour
     {
         logitValue = value;
         spriteRenderer.color = GetLogitColor(logitValue);
+        softmaxLabel.gameObject.SetActive(false);
     }
     public void SetLogitMode()
     {
         spriteRenderer.color = GetLogitColor(logitValue);
+        softmaxLabel.gameObject.SetActive(false);
     }
 
     public double GetLogit()
@@ -66,12 +72,15 @@ public class LogitNode : MonoBehaviour
     public void SetSoftmaxMode(double value)
     {
         softmaxValue = value;
-        spriteRenderer.color = GetSoftmaxColor(softmaxValue);
+        spriteRenderer.color = GetSoftmaxColor();
+        softmaxLabel.GetComponent<TextMeshPro>().text = Math.Round(value * 100, 2) + "%";
+        softmaxLabel.gameObject.SetActive(true);
     }
 
     public void SetSoftmaxMode()
     {
-        spriteRenderer.color = GetSoftmaxColor(softmaxValue);
+        spriteRenderer.color = GetSoftmaxColor();
+        softmaxLabel.gameObject.SetActive(true);
     }
 
     Color GetLogitColor(double logit)
@@ -81,13 +90,8 @@ public class LogitNode : MonoBehaviour
         return Color.Lerp(Color.white, Color.green, (float)normalized);
     }
 
-    Color GetSoftmaxColor(double softmax)
-    {
-        return Color.Lerp(Color.black, Color.white, (float)softmax);
-    }
-
     public Color GetSoftmaxColor()
     {
-        return Color.Lerp(Color.black, Color.white, (float)softmaxValue);
+        return Color.Lerp(Color.grey, Color.white, (float)softmaxValue);
     }
 }
