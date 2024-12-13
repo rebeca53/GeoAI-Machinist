@@ -20,7 +20,6 @@ public class OutputMiniGameManager : BaseBoard
     List<LogitNode> logitNodes = new List<LogitNode>();
     public OutputLayer outputLayer;
 
-
     // Properties
     int DenseViewAmount = 10;
 

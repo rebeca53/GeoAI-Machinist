@@ -21,11 +21,8 @@ public class SelectorSwitch : MonoBehaviour
 
     string lineState = "inactive"; // inactive, wrong, correct
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        animator = GetComponent<Animator>();
-
         Transform line = transform.Find("OutputLine");
         if (line == null)
         {
@@ -36,6 +33,12 @@ public class SelectorSwitch : MonoBehaviour
         {
             Debug.LogError("Failed to retrieve LineRenderer");
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
         startingWidth = lineRenderer.startWidth;
         DrawOutputConnection();
         UpdateState("inactive");
@@ -120,6 +123,8 @@ public class SelectorSwitch : MonoBehaviour
                 lineRenderer.endColor = inactiveColor;
                 break;
         }
+        Debug.Log("Update state done: " + newLineState);
+
     }
 
     public void Reset()
