@@ -9,4 +9,12 @@ public class HomeScene : MonoBehaviour
         // 7 - Introduction CutsCene
         UnityEngine.SceneManagement.SceneManager.LoadScene(7);
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LoadGame();
+        }
+    }
 }
