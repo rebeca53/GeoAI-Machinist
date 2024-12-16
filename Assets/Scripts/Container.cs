@@ -77,31 +77,19 @@ public class Container : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(" container on trigger enter 2d " + other.tag);
-
-        if (matched)
-        {
-            OnHover?.Invoke(type);
-        }
+        // Debug.Log(" container on trigger enter 2d " + other.tag);
+        OnHover?.Invoke(type);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log(" container on trigger stay 2d " + other.tag);
-
-        if (matched)
-        {
-            OnHover?.Invoke(type);
-        }
+        // Debug.Log(" container on trigger stay 2d " + other.tag);
+        OnHover?.Invoke(type);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log(" container on trigger exit 2d " + other.tag);
-
-        if (matched)
-        {
-            OnUnhover?.Invoke(type);
-        }
+        // Debug.Log(" container on trigger exit 2d " + other.tag);
+        OnUnhover?.Invoke(type);
     }
 }
