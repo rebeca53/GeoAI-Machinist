@@ -85,10 +85,11 @@ public class DataLabelingMiniGameManager : BaseBoard
         for (int x = 1; x < Width - 1; x++)
         {
             //Within each column, loop through y axis (rows).
-            for (int y = 1; y < Height - 1; y++)
+            for (int y = 2; y < Height - 1; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
                 gridPositions.Add(new Vector3(x, y, 0f));
+                Debug.Log("Possible grid position " + new Vector3(x, y, 0f));
             }
         }
     }
@@ -133,7 +134,6 @@ public class DataLabelingMiniGameManager : BaseBoard
 
     void LayoutContainerFixed()
     {
-
         GameObject tileChoice = containerTile;
 
         float horizontalOffset = 1.5f;
@@ -161,8 +161,12 @@ public class DataLabelingMiniGameManager : BaseBoard
 
             Vector3 position = new(xPosition, yPosition, 0f);
             gridPositions.Remove(position);
+            // Workaround to avoid placing SampleBox over Container
+            gridPositions.Remove(new(xPosition + 0.5f, yPosition, 0f));
+            gridPositions.Remove(new(xPosition - 0.5f, yPosition, 0f));
 
             //Instantiate tileChoice at the position
+            Debug.Log("Container " + container.type + " position " + position);
             GameObject instance = Instantiate(tileChoice, position, Quaternion.identity);
             Container containerScript = instance.GetComponent<Container>();
             containerScript.OnMatchDisplay += DisplayClassInfo;
