@@ -137,11 +137,6 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (!isEnabled)
-        {
-            return;
-        }
-
         animator.SetBool("playerWalk", true);
 
         if (context.canceled)
@@ -156,6 +151,10 @@ public class PlayerController : MonoBehaviour
         }
 
         moveInput = context.ReadValue<Vector2>();
+        if (!isEnabled)
+        {
+            moveInput = new(0f, 0f);
+        }
 
         if (!Mathf.Approximately(moveInput.x, 0.0f))
         {
@@ -465,7 +464,7 @@ public class PlayerController : MonoBehaviour
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Debug.Log("On trigger enter 2d " + other.tag);
+        Debug.Log("On trigger enter 2d " + other.tag);
         if (other.CompareTag("Untagged"))
         {
             // Ignore
@@ -481,7 +480,7 @@ public class PlayerController : MonoBehaviour
             // Ignore
             return;
         }
-        // Debug.Log("On trigger stay 2d " + other.tag);
+        Debug.Log("On trigger stay 2d " + other.tag);
         nearObject = other.gameObject;
     }
 
@@ -492,7 +491,7 @@ public class PlayerController : MonoBehaviour
             // Ignore
             return;
         }
-        // Debug.Log("on trigger exit 2d " + other.tag);
+        Debug.Log("on trigger exit 2d " + other.tag);
         nearObject = null;
     }
 }
