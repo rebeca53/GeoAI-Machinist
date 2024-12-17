@@ -33,6 +33,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         new("NPC", "This room is a Convolutional Layer of the CNN. It multiplies a kernel matrix by an image."),
         new("NPC", "A kernel is a matrix with pre-determined values to enhance features in an image. Follow me to see how a kernel looks like."),
         new("action", "action1"), // Robot Walk
+        // new("action", "action2"), // Hint Kernel
         new("NPC", "Place the kernel in the input holder to start a convolution."),
         new("NPC", "Choose the best kernel that enhances the streets' footprint in the image."),
         // new("action", "action2"), // Hint Kernel and the Input Holder
@@ -101,7 +102,8 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
                 NPCWalkToKernel();
                 break;
             case "action2":
-                HintInputHolder();
+                // HintKernel();
+                // HintInputHolder();
                 // PlayerWalk();
                 break;
         }
@@ -110,7 +112,15 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
     void NPCWalkToKernel()
     {
         dialogueBalloon.Hide();
+        HintKernel();
         introductionAnimation.Play(); // on stopped, it calls NextLine
+    }
+
+    void HintKernel()
+    {
+        GameObject kernelObject = GameObject.Find("Kernel0");
+        KernelMatrix kernelMatrix = kernelObject.GetComponent<KernelMatrix>();
+        kernelMatrix.Blink();
     }
 
     void HintInputHolder()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ public class KernelMatrix : MonoBehaviour
     KernelPixel[] kernelPixels;
     Vector3 target;
     Vector3 currentPosition;
+
+    // Blink
+    public GameObject kernelOutline;
+    bool outlineBlinking = false;
+    float blinkPeriodSeconds = 1;
+    float timer = 0f;
 
     // Data
     double[,] kernel;
@@ -64,6 +71,7 @@ public class KernelMatrix : MonoBehaviour
         // Debug.Log("xgrab transform local position " + transform.localPosition);
 
         OnGrabbed?.Invoke();
+        StopBlink();
     }
 
     public bool IsGrabbed()
@@ -115,4 +123,32 @@ public class KernelMatrix : MonoBehaviour
         target = transform.position;
     }
 
+    public void Blink()
+    {
+        outlineBlinking = true;
+    }
+
+    public void StopBlink()
+    {
+        outlineBlinking = false;
+        kernelOutline.SetActive(false);
+    }
+
+    private void ToggleKernelOutline()
+    {
+        kernelOutline.SetActive(!kernelOutline.activeSelf);
+    }
+
+    void Update()
+    {
+        if (outlineBlinking)
+        {
+            timer += Time.deltaTime;
+            if (timer >= blinkPeriodSeconds)
+            {
+                ToggleKernelOutline();
+                timer = 0f;
+            }
+        }
+    }
 }

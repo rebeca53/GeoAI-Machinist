@@ -133,7 +133,7 @@ public class ConvolutionalView : MonoBehaviour
     public void InitKernel(List<double> flatKernel, double[,] kernel)
     {
         // Debug.Log("Init Kernel");
-
+        kernelMatrix.name = "Kernel" + id;
         kernelMatrix.SetMatrix(flatKernel, kernel);
         locker.AddKernel(kernelMatrix.gameObject);
 
