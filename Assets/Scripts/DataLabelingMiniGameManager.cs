@@ -202,16 +202,16 @@ public class DataLabelingMiniGameManager : BaseBoard
     {
         var myDict = new Dictionary<string, string>
         {
-            { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons and typically only one. These include crops like wheat, which are planted and harvested within a single year." },
-            { "Forest", "Forests are large areas covered chiefly with trees and undergrowth, providing habitat for wildlife and playing a role in carbon sequestration and oxygen production." },
+            { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons. These include crops like wheat, rice, and potatoes." },
+            { "Forest", "Forests are lands with tree crown cover. The trees should be able to reach a minimum height of 5 meters at maturity in situ." },
             { "HerbaceousVegetation", "Herbaceous vegetation consists of non-woody plants, such as grasses." },
-            { "Highway", "Highways are major public roads, often connecting cities and towns, designed for high-speed traffic and usually characterized by multiple lanes." },
-            { "Industrial", "Industrial areas are zones designated for manufacturing, warehousing, and other commercial enterprises involved in the production of goods and services." },
-            { "Pasture", "Pastures are grasslands or other vegetative areas managed primarily for the grazing of livestock, such as cattle, sheep, and goats." },
-            { "PermanentCrop", "Permanent crops (e.g., fruit trees and vines) last for more than two growing seasons, either dying back after each season or growing continuously." },
-            { "Residential", "Residential areas are zones primarily designated for housing, where people live and where infrastructure like schools, parks, and other community facilities are often located." },
-            { "River", "Rivers are natural flowing watercourses, usually freshwater, that flow towards a larger body of water such as an ocean, sea, lake, or another river." },
-            { "SeaLake", "Sea or lakes are large bodies of water, with seas being saline water connected to oceans and lakes generally freshwater, often enclosed by land." }
+            { "Highway", "Highways are major public roads, often connecting cities and towns, designed for high-speed traffic." },
+            { "Industrial", "Industrial areas are zones for manufacturing, and other commercial enterprises involved in the production of goods and services." },
+            { "Pasture", "Pastures are grasslands or other vegetative areas for the grazing of livestock, such as cattle, sheep, and goats." },
+            { "PermanentCrop", "Permanent crops (e.g., fruit trees and vines) last for more than two growing seasons." },
+            { "Residential", "Residential areas are zones for housing and infrastructure like schools, parks, and other community facilities." },
+            { "River", "Rivers are natural inland waterways, that flow towards a larger body of water such as an ocean, sea, lake, or another river." },
+            { "SeaLake", "Sea and lakes are large waterbodies, with seas being saline water connected to oceans and lakes being often enclosed by land." }
         };
 
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
