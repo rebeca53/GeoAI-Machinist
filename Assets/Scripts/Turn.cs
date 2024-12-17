@@ -34,7 +34,21 @@ class Turn
     public string GetProgressMessage()
     {
         int remaining = characteristicBands.Count - correct.Count;
-        return "Still " + remaining + " to activate. And there are " + wrong.Count + " bands to deactivate.";
+        if (remaining == 0)
+        {
+            return "";
+        }
+
+        string message = "Still need to activate " + remaining;
+        if (remaining > 1)
+        {
+            message += " bands.";
+        }
+        else
+        {
+            message += " band.";
+        }
+        return message;
     }
 
     public string GetMessage(string bandName)
@@ -46,14 +60,14 @@ class Turn
                 case "River":
                     return "The Red Edge spectral band is the perfect choice. It has high reflectance on vegetation and low reflectance on water bodies.";
                 case "Highway":
-                    return "The Red band is strongly reflected by dead foliage and is useful for identifying vegetation types, soils and urban (city and town) areas.";
+                    return "The Blue band is useful for identifying man-made features and soil and vegetation discrimination.";
                 case "Residential":
                     switch (bandName)
                     {
                         case "red":
-                            return "The Red band is useful for identifying vegetation types, soils and urban (city and town) areas.";
+                            return "The Red band is useful for identifying urban (city and town) areas, vegetation types, and soils.";
                         case "blue":
-                            return "The blue band is useful for soil and vegetation discrimination, forest type mapping and identifying man-made features.";
+                            return "The Blue band is useful for identifying man-made features and soil and vegetation discrimination.";
                         case "redEdge":
                             // https://www.sciencedirect.com/science/article/pii/S1470160X24011026
                             return "The Red Edge spectral band is the perfect choice. It has high reflectance on vegetation and low reflectance on buildings.";
@@ -72,9 +86,9 @@ class Turn
         {
             case "River":
             case "Highway":
-                return "In this scenario, only one spectral band is enough to feed information for the neural network";
+                return "In this scenario, one spectral band is enough to extract features.";
             case "Residential":
-                return "For this sample, multiple bands combined will provide better features.";
+                return "For this sample, multiple bands combined provide better features. Good job, now the room is fixed!";
             default:
                 return "";
         }

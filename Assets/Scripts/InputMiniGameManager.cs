@@ -24,8 +24,8 @@ public class InputMiniGameManager : BaseBoard
     // Turn-related variables
     private List<Turn> turns = new List<Turn> {
         new(0, "River", new List<string>{"redEdge"}, "Choose ONE spectral band to reveal characteristics of a River and place it in the correct container."),
-        new(1, "Highway", new List<string>{"red"}, "Choose ONE spectral band to analyze a Highway. A Highway is a man-made feature, that can be surrounded by vegetation and water."),
-        new(2, "Residential", new List<string>{"red", "blue", "redEdge"}, "We need a band combination with THREE spectral bands to analyze a Residential area. It includes man-made features, that can be surrounded by vegetation."),
+        new(1, "Highway", new List<string>{"blue"}, "Choose ONE spectral band to analyze a Highway, which is a man-made feature surrounded by vegetation or water."),
+        new(2, "Residential", new List<string>{"red", "blue", "redEdge"}, "We need a band combination with THREE spectral bands to analyze a Residential area."),
     };
 
     int currentTurn = 0;
@@ -233,17 +233,18 @@ public class InputMiniGameManager : BaseBoard
     {
         Turn current = turns[currentTurn];
         // Player thinks message
-        string message = current.GetMessage(bandName);
+        string message = current.GetMessage(bandName) + " " + current.GetProgressMessage();
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
         timedDialogueBalloon.Show();
+        ZoomIn();
     }
 
     private void DisplayTurnOverMessage()
     {
         Turn current = turns[currentTurn];
-        // Player thinks message
+        // NPC displays message
         string message = current.GetTurnOverMessage();
         Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
