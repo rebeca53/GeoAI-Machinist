@@ -464,24 +464,37 @@ public class PlayerController : MonoBehaviour
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("On trigger enter 2d " + other.tag);
-        if (other.CompareTag("Untagged"))
+        if (IsValidNearObject(other))
         {
-            // Ignore
-            return;
+            Debug.Log("On trigger enter 2d " + other.tag);
+            nearObject = other.gameObject;
         }
-        nearObject = other.gameObject;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (IsValidNearObject(other))
+        {
+            nearObject = other.gameObject;
+            Debug.Log("On trigger stay 2d " + other.tag);
+        }
+    }
+
+    private bool IsValidNearObject(Collider2D other)
+    {
         if (other.CompareTag("Untagged"))
         {
             // Ignore
-            return;
+            return false;
         }
-        Debug.Log("On trigger stay 2d " + other.tag);
-        nearObject = other.gameObject;
+
+        if (grabbedObject && grabbedObject.CompareTag(other.tag))
+        {
+            Debug.Log("Ignore grabbed object which is same tag as near object:" + other.tag);
+            return false;
+        }
+
+        return true;
     }
 
     private void OnTriggerExit2D(Collider2D other)

@@ -621,6 +621,8 @@ MonoBehaviour:
   containerTile: {fileID: 113377864810306097, guid: 45f1156f560c7f14288d371403d0a880, type: 3}
   timedDialogueBalloon: {fileID: 1277974170}
   NPCDialogueBalloon: {fileID: 61996301}
+  hintBalloon: {fileID: 972727761}
+  cameraZoom: {fileID: 1063811079}
   containerCount: 10
   sampleCount: 10
 --- !u!1 &346498422
@@ -1336,7 +1338,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0020405, y: 0.18958999, z: -10}
+  m_LocalPosition: {x: 1.0035425, y: 0.18959999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

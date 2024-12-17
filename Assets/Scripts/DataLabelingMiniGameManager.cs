@@ -12,6 +12,9 @@ public class DataLabelingMiniGameManager : BaseBoard
     public TimedDialogueBalloon timedDialogueBalloon;
     public TimedDialogueBalloon NPCDialogueBalloon;
 
+    public HintBalloon hintBalloon;
+    public CameraZoom cameraZoom;
+
     public const int coinCount = 4;
     static List<string> classNames = new List<string> { "AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", "Industrial", "Pasture", "PermanentCrop", "Residential", "River", "SeaLake" };
     public int containerCount = classNames.Count;
@@ -73,6 +76,7 @@ public class DataLabelingMiniGameManager : BaseBoard
         exitScript = instance.GetComponent<Exit>();
         exitScript.OnExitWithoutCoins += DisplayNoCoinsMessage;
         exitScript.OnExitWithoutLabels += DisplayNoLabelsMessage;
+        exitScript.OnUnlockExit += HintExit;
     }
 
     //Clears our list gridPositions and prepares it to generate a new board.
@@ -218,7 +222,14 @@ public class DataLabelingMiniGameManager : BaseBoard
         timedDialogueBalloon.SetMessage(myDict[type]);
         timedDialogueBalloon.PlaceUpperLeft();
         timedDialogueBalloon.Show();
+        ZoomIn();
     }
+
+    void ZoomIn()
+    {
+        cameraZoom.ChangeZoomSmooth(1.2f);
+    }
+
 
     void HideClassInfo(string type)
     {
@@ -239,5 +250,13 @@ public class DataLabelingMiniGameManager : BaseBoard
         NPCDialogueBalloon.SetMessage("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn");
         NPCDialogueBalloon.PlaceUpperRight();
         NPCDialogueBalloon.Show();
+    }
+
+    void HintExit()
+    {
+        hintBalloon.SetSpaceKey();
+        hintBalloon.SetTarget(exitScript.gameObject);
+        hintBalloon.PlaceOver();
+        hintBalloon.Show();
     }
 }

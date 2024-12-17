@@ -7,6 +7,7 @@ public class Exit : MonoBehaviour
 {
     public Action OnExitWithoutCoins;
     public Action OnExitWithoutLabels;
+    public Action OnUnlockExit;
 
     //Delay time in seconds to restart level.
     public float changeLevelDelay = 2f;
@@ -79,6 +80,8 @@ public class Exit : MonoBehaviour
             Debug.Log("Retrieveing object");
         }
         cameraZoom.ChangeZoomSmooth(4f);
+
+        OnUnlockExit?.Invoke();
     }
 
     public void AttemptExit()
