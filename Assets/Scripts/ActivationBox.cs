@@ -10,6 +10,12 @@ public class ActivationBox : MonoBehaviour
     public Action OnGrabbed;
     private bool grabbed = false;
 
+    // Blink
+    public GameObject outline;
+    bool outlineBlinking = false;
+    float blinkPeriodSeconds = 1;
+    float timer = 0f;
+
     // Data
     string type;
 
@@ -40,6 +46,7 @@ public class ActivationBox : MonoBehaviour
         Debug.Log("xgrab transform local position " + transform.localPosition);
 
         OnGrabbed?.Invoke();
+        StopBlink();
     }
 
     public bool IsGrabbed()
@@ -99,6 +106,35 @@ public class ActivationBox : MonoBehaviour
     double Linear(double x)
     {
         return x;
+    }
+
+    public void Blink()
+    {
+        outlineBlinking = true;
+    }
+
+    public void StopBlink()
+    {
+        outlineBlinking = false;
+        outline.SetActive(false);
+    }
+
+    private void ToggleKernelOutline()
+    {
+        outline.SetActive(!outline.activeSelf);
+    }
+
+    void Update()
+    {
+        if (outlineBlinking)
+        {
+            timer += Time.deltaTime;
+            if (timer >= blinkPeriodSeconds)
+            {
+                ToggleKernelOutline();
+                timer = 0f;
+            }
+        }
     }
 
 }

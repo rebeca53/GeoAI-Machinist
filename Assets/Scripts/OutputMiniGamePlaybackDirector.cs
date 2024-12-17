@@ -151,6 +151,13 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         // NextLine();
     }
 
+    void HintSoftmax()
+    {
+        GameObject softmaxObject = GameObject.Find("ActivationBox");
+        ActivationBox activationBox = softmaxObject.GetComponent<ActivationBox>();
+        activationBox.Blink();
+    }
+
     void ZoomIn()
     {
         cameraZoom.ChangeZoomSmooth(1.4f);
@@ -172,6 +179,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         ZoomIn();
 
         Player.Enable();
+        HintSoftmax();
     }
 
     void ClearCallbacks()

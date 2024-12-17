@@ -99,6 +99,7 @@ public class OutputMiniGameManager : BaseBoard
     IEnumerator AnimateDenseView()
     {
         Player.Disable();
+        ZoomOut();
         foreach (DenseView denseView in denseViews)
         {
             cameraZoom.ChangeZoomTarget(denseView.GetLogitNode().gameObject);
@@ -109,6 +110,7 @@ public class OutputMiniGameManager : BaseBoard
         }
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         Player.Enable();
+        ZoomIn();
         playbackDirector.NextLine();
     }
 

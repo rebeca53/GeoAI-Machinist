@@ -134,6 +134,7 @@ public class OutputLayer : MonoBehaviour
     void Start()
     {
         softmaxBox.SetFunction("Softmax");
+
         softmaxHolder.OnAddedObject += OnSoftmaxAdded;
         locker.AddActivationBox(softmaxBox.gameObject);
 
