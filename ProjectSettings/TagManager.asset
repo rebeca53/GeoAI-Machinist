@@ -21,6 +21,7 @@ TagManager:
   - Locker
   - ActivationBox
   - LogitNode
+  - CommandCenter
   layers:
   - Default
   - TransparentFX

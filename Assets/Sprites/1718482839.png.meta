@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a6ad433a2e3c4eb42a20a9c39b0a989e
+guid: 5d25e09ffdcfa3341952698dc970c706
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixel planet dry_0
+      name: 1718482839_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34d66224c01adb94c865ab62d0369ac2
-      internalID: 750604298
+      spriteID: f132ede3a122cdc4db7c4cc476ba5cb6
+      internalID: 2116526031
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_1
+      name: 1718482839_1
       rect:
         serializedVersion: 2
         x: 100
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 154d384b9938e604dbdf9b588a4d02ab
-      internalID: 1495013853
+      spriteID: 078dd272347520746bdd18538abecd25
+      internalID: -1784462651
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_2
+      name: 1718482839_2
       rect:
         serializedVersion: 2
         x: 200
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cea897646a0c20c47a74bc1d5a9c090c
-      internalID: 1312599700
+      spriteID: eb841f132c8415d4e84c8e283bc94ae0
+      internalID: 315992929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_3
+      name: 1718482839_3
       rect:
         serializedVersion: 2
         x: 300
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8c0482370b68174a8321012bc2b5409
-      internalID: 845092672
+      spriteID: 339329d5ca48abc4b8353c97c9adb7e7
+      internalID: 1530287992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_4
+      name: 1718482839_4
       rect:
         serializedVersion: 2
         x: 400
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7933ce2635338548ae3f57176a05679
-      internalID: 966878783
+      spriteID: 486a3c6f8ee4b6f4f9a7f3551388ae81
+      internalID: 1696808742
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_5
+      name: 1718482839_5
       rect:
         serializedVersion: 2
         x: 500
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0c47dbfda69378489c812be21f6894a
-      internalID: -1487050579
+      spriteID: eb313c5f347cf5042bd8225fe0d70a36
+      internalID: 1474725625
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_6
+      name: 1718482839_6
       rect:
         serializedVersion: 2
         x: 600
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a846ed39a258d204abda178b75edae90
-      internalID: -1660375459
+      spriteID: 7bedc958fde3a714fb31f4fd875eb7a6
+      internalID: -1057526905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_7
+      name: 1718482839_7
       rect:
         serializedVersion: 2
         x: 700
@@ -271,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 737ccfa325f7c894e9d34341d6309dd3
-      internalID: -286567822
+      spriteID: fbe2056dd2940d840b1e3b514c0c01fe
+      internalID: -1976382598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_8
+      name: 1718482839_8
       rect:
         serializedVersion: 2
         x: 800
@@ -292,14 +292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5f08fdff6ab9cd4092dcbf4a3583ae5
-      internalID: -327245236
+      spriteID: 077d75a2d02d2aa48831366e9ab8beac
+      internalID: -2054336652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_9
+      name: 1718482839_9
       rect:
         serializedVersion: 2
         x: 900
@@ -313,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5410b0157ade1f04cb5b71c2b0986456
-      internalID: 524568993
+      spriteID: 6f55a8543e1f0ca438713a6f9619541a
+      internalID: 1305285083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_10
+      name: 1718482839_10
       rect:
         serializedVersion: 2
         x: 1000
@@ -334,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25cab1e7f8819e6438d0ebed2e78d346
-      internalID: -982949608
+      spriteID: 1aecafb5f363ffd48bb782fee631447b
+      internalID: -988405052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_11
+      name: 1718482839_11
       rect:
         serializedVersion: 2
         x: 1100
@@ -355,14 +355,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09e83f87011958d408712f9219cb0cde
-      internalID: 504993105
+      spriteID: c534fa7156351c949b90a38b6fc398cc
+      internalID: 1584493162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_12
+      name: 1718482839_12
       rect:
         serializedVersion: 2
         x: 1200
@@ -376,14 +376,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 134a5783e071b1b4c84295b2d283f7ea
-      internalID: 1294481714
+      spriteID: 21b6b8f70a5c15d45a02931cc452692b
+      internalID: 1704351223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_13
+      name: 1718482839_13
       rect:
         serializedVersion: 2
         x: 1300
@@ -397,14 +397,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db2200a34ae108344b113a8dccb7061b
-      internalID: 190900357
+      spriteID: 77c46d1075597974f9ff56f54c819092
+      internalID: 683873875
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_14
+      name: 1718482839_14
       rect:
         serializedVersion: 2
         x: 1400
@@ -418,14 +418,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f8fabeccc9a2ec469af982f721f9d33
-      internalID: 1150538335
+      spriteID: 629c19f4096bc3041810d0dbec624e9a
+      internalID: 405290485
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_15
+      name: 1718482839_15
       rect:
         serializedVersion: 2
         x: 1500
@@ -439,14 +439,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe23e4300060cd141ba9195703ecc5e9
-      internalID: 1908839630
+      spriteID: 5254b403561ab534a81b184137aad685
+      internalID: 865616085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_16
+      name: 1718482839_16
       rect:
         serializedVersion: 2
         x: 1600
@@ -460,14 +460,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e0a09ca513ba5543833499d34cce877
-      internalID: 1253737845
+      spriteID: 74bb785e031151f43af3ba99eec18b2f
+      internalID: 979473266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_17
+      name: 1718482839_17
       rect:
         serializedVersion: 2
         x: 1700
@@ -481,14 +481,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be559495cb5ef9044a03e289f2d55013
-      internalID: -407995432
+      spriteID: 218a306bb44e4314f9d443e5effb0704
+      internalID: -1757876876
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_18
+      name: 1718482839_18
       rect:
         serializedVersion: 2
         x: 1800
@@ -502,14 +502,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f5612615a1051e4195909a858361cd3
-      internalID: 1142783657
+      spriteID: 24ac477bd0064614f91f1713600fbe48
+      internalID: 1692268258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_19
+      name: 1718482839_19
       rect:
         serializedVersion: 2
         x: 1900
@@ -523,14 +523,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6160b1c4ea5cd6459398a31e8547962
-      internalID: 921024568
+      spriteID: 4425e8b92e193b04d98594a013cdf910
+      internalID: 99961494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_20
+      name: 1718482839_20
       rect:
         serializedVersion: 2
         x: 2000
@@ -544,14 +544,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e1b7d8752a56624c8ae20fad8dbe149
-      internalID: 1212025904
+      spriteID: 910c7a4c4c7838143ae03ffc6b47d5b2
+      internalID: 953308128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_21
+      name: 1718482839_21
       rect:
         serializedVersion: 2
         x: 2100
@@ -565,14 +565,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85fd98aa070e06e4f9f5a88b1c609d28
-      internalID: -2111846966
+      spriteID: feb3141bd9faff645b2d289099a347e7
+      internalID: -206471826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_22
+      name: 1718482839_22
       rect:
         serializedVersion: 2
         x: 2200
@@ -586,14 +586,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bcbf183ac3b3ef44a51b77e78d93fa6
-      internalID: -1751661171
+      spriteID: 3436e23cb29534f47bd2c0c010a7f729
+      internalID: 1022162030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_23
+      name: 1718482839_23
       rect:
         serializedVersion: 2
         x: 2300
@@ -607,14 +607,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9b2608054d32124e938316e413620bc
-      internalID: 119995825
+      spriteID: a00c65cb7a15ba9448397d799e3ebcd9
+      internalID: -1586365240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_24
+      name: 1718482839_24
       rect:
         serializedVersion: 2
         x: 2400
@@ -628,14 +628,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca4fd1dfa3f666348b1337c5b4fb05ed
-      internalID: 1886126261
+      spriteID: 7ba25b83723d9f649b6824ce6e4f6b31
+      internalID: 1206966503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_25
+      name: 1718482839_25
       rect:
         serializedVersion: 2
         x: 2500
@@ -649,14 +649,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db96154ecc852884abcdadab66f9f634
-      internalID: -1756726519
+      spriteID: 946d46957a4a6e84ab6e7155b3473168
+      internalID: 441088427
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_26
+      name: 1718482839_26
       rect:
         serializedVersion: 2
         x: 2600
@@ -670,14 +670,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb7ba3bd13674b44bb86f7981cdf7bb4
-      internalID: 443700625
+      spriteID: cf212cd83eb112e49abc7d4e46a5a77f
+      internalID: -230398810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_27
+      name: 1718482839_27
       rect:
         serializedVersion: 2
         x: 2700
@@ -691,14 +691,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 348a9000738d2f944977649a1bb2114d
-      internalID: -1394895995
+      spriteID: 2928b877e26af3a4091691707a454572
+      internalID: 591062835
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_28
+      name: 1718482839_28
       rect:
         serializedVersion: 2
         x: 2800
@@ -712,14 +712,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b818400e773b9a40a4e4e003e69d58c
-      internalID: 496013719
+      spriteID: b709dc4adaa3b6d4eb65f9d165559561
+      internalID: 1319338514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_29
+      name: 1718482839_29
       rect:
         serializedVersion: 2
         x: 2900
@@ -733,14 +733,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f166098af5537f74f867164259d173ca
-      internalID: -1163299038
+      spriteID: c82df929496cc41429538a3e570a60bb
+      internalID: -449852601
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_30
+      name: 1718482839_30
       rect:
         serializedVersion: 2
         x: 3000
@@ -754,14 +754,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d184d1af4a6df274e9d5f8b7e4ec437f
-      internalID: -328612939
+      spriteID: b52ff9c05fd39ae439e2f7a45a1adbbf
+      internalID: -204928872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_31
+      name: 1718482839_31
       rect:
         serializedVersion: 2
         x: 3100
@@ -775,14 +775,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e9dd3fca7217874292dfe9f8406173e
-      internalID: 210487292
+      spriteID: 9d4d03c1296a93e4f80290b1137a5609
+      internalID: -1074018331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_32
+      name: 1718482839_32
       rect:
         serializedVersion: 2
         x: 3200
@@ -796,14 +796,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46afa3e656254444f800ea570b210295
-      internalID: -166593350
+      spriteID: b91e9e08d2876134d9fb4ad4f9cb012e
+      internalID: -1687723916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_33
+      name: 1718482839_33
       rect:
         serializedVersion: 2
         x: 3300
@@ -817,14 +817,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8400d6145eab704fa3d98ee9835db70
-      internalID: 145651794
+      spriteID: 07cd8b0fc1f83844688dcda62e14d5ed
+      internalID: 374081552
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_34
+      name: 1718482839_34
       rect:
         serializedVersion: 2
         x: 3400
@@ -838,14 +838,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b76f92d236c0d84f92d5824d9d1a909
-      internalID: -1958814725
+      spriteID: 5376478008af94a48aa172e059d54be1
+      internalID: 1857452228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_35
+      name: 1718482839_35
       rect:
         serializedVersion: 2
         x: 3500
@@ -859,14 +859,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ebee703d29e52548aafd0310224d42e
-      internalID: -2140496866
+      spriteID: 119033164393a3546a00d6bf76ac12fc
+      internalID: 691427376
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_36
+      name: 1718482839_36
       rect:
         serializedVersion: 2
         x: 3600
@@ -880,14 +880,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91724105eedb5d84f88aa3c300d59468
-      internalID: -1994513760
+      spriteID: 01a327ef7fa622940865535fde42eec0
+      internalID: -1296276526
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_37
+      name: 1718482839_37
       rect:
         serializedVersion: 2
         x: 3700
@@ -901,14 +901,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed627838c1a3e19438e7238d09439173
-      internalID: 989338573
+      spriteID: ee71e64bca32dad46a07ed35253e6199
+      internalID: 2110975126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_38
+      name: 1718482839_38
       rect:
         serializedVersion: 2
         x: 3800
@@ -922,14 +922,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6abca0328508f844bed3dd6d517a965
-      internalID: -237699260
+      spriteID: 84f54f4af6846674cbe2eb87581f8023
+      internalID: 1471120894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_39
+      name: 1718482839_39
       rect:
         serializedVersion: 2
         x: 3900
@@ -943,14 +943,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 701e79246cedb6e40bc379ae060c02da
-      internalID: -1704719787
+      spriteID: 1bf59a907b6ddff4b8fae4f448e6986a
+      internalID: 1094927409
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_40
+      name: 1718482839_40
       rect:
         serializedVersion: 2
         x: 4000
@@ -964,14 +964,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ecb27b335eba2c459076194e98834a4
-      internalID: -2043632435
+      spriteID: 9fc74593e95e117418a53f5618549ce8
+      internalID: -600604441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_41
+      name: 1718482839_41
       rect:
         serializedVersion: 2
         x: 4100
@@ -985,14 +985,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 541fbfccae22b2a409a863df2054b8f6
-      internalID: -575153551
+      spriteID: cbb764e0cc79e794181999072683fc27
+      internalID: -1544416209
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_42
+      name: 1718482839_42
       rect:
         serializedVersion: 2
         x: 4200
@@ -1006,14 +1006,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92710ef40b7c61345b2a317ab9d589b7
-      internalID: 2129999199
+      spriteID: a6dd3ea915512e24092385dda70cde0d
+      internalID: -971730399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_43
+      name: 1718482839_43
       rect:
         serializedVersion: 2
         x: 4300
@@ -1027,14 +1027,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42b728b2b8bf21449b77354c574b4ad9
-      internalID: 1339657623
+      spriteID: ae969d432e6f62f488400d8b684928df
+      internalID: 1865931630
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_44
+      name: 1718482839_44
       rect:
         serializedVersion: 2
         x: 4400
@@ -1048,14 +1048,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b76734e498ec0d418320100c3f6dab0
-      internalID: 1355839109
+      spriteID: b190cca56cc18ee4d968dbcc7d65823b
+      internalID: -1057242961
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_45
+      name: 1718482839_45
       rect:
         serializedVersion: 2
         x: 4500
@@ -1069,14 +1069,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ab40323b04bbcc4588b33d77d6ca48a
-      internalID: -1257554606
+      spriteID: bbe4d3fcdd9983b48873599dea16b680
+      internalID: -1266817244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_46
+      name: 1718482839_46
       rect:
         serializedVersion: 2
         x: 4600
@@ -1090,14 +1090,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b9d0cf50eb6bab4cbac3ae92bf95ad0
-      internalID: -590211079
+      spriteID: e250e6c395899f1498ea6cc34edb9685
+      internalID: -494054490
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_47
+      name: 1718482839_47
       rect:
         serializedVersion: 2
         x: 4700
@@ -1111,14 +1111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9559f5607f7cefd44a90adf77408d169
-      internalID: 404034385
+      spriteID: ce58b158ab5ec4d4399f77ee695bf2d0
+      internalID: 713306991
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_48
+      name: 1718482839_48
       rect:
         serializedVersion: 2
         x: 4800
@@ -1132,14 +1132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d258b3a6ebd1bd42a637d7138a2a939
-      internalID: 593518678
+      spriteID: e4613528fdff3c64bb8438683d69666a
+      internalID: 1206543749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixel planet dry_49
+      name: 1718482839_49
       rect:
         serializedVersion: 2
         x: 4900
@@ -1153,8 +1153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 074ad95d85c372048b9087e2712c1b59
-      internalID: -110337881
+      spriteID: d00402a649aa94a4da567e56d52b2e8a
+      internalID: 1940856697
       vertices: []
       indices: 
       edges: []
@@ -1170,56 +1170,56 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pixel planet dry_0: 750604298
-      pixel planet dry_1: 1495013853
-      pixel planet dry_10: -982949608
-      pixel planet dry_11: 504993105
-      pixel planet dry_12: 1294481714
-      pixel planet dry_13: 190900357
-      pixel planet dry_14: 1150538335
-      pixel planet dry_15: 1908839630
-      pixel planet dry_16: 1253737845
-      pixel planet dry_17: -407995432
-      pixel planet dry_18: 1142783657
-      pixel planet dry_19: 921024568
-      pixel planet dry_2: 1312599700
-      pixel planet dry_20: 1212025904
-      pixel planet dry_21: -2111846966
-      pixel planet dry_22: -1751661171
-      pixel planet dry_23: 119995825
-      pixel planet dry_24: 1886126261
-      pixel planet dry_25: -1756726519
-      pixel planet dry_26: 443700625
-      pixel planet dry_27: -1394895995
-      pixel planet dry_28: 496013719
-      pixel planet dry_29: -1163299038
-      pixel planet dry_3: 845092672
-      pixel planet dry_30: -328612939
-      pixel planet dry_31: 210487292
-      pixel planet dry_32: -166593350
-      pixel planet dry_33: 145651794
-      pixel planet dry_34: -1958814725
-      pixel planet dry_35: -2140496866
-      pixel planet dry_36: -1994513760
-      pixel planet dry_37: 989338573
-      pixel planet dry_38: -237699260
-      pixel planet dry_39: -1704719787
-      pixel planet dry_4: 966878783
-      pixel planet dry_40: -2043632435
-      pixel planet dry_41: -575153551
-      pixel planet dry_42: 2129999199
-      pixel planet dry_43: 1339657623
-      pixel planet dry_44: 1355839109
-      pixel planet dry_45: -1257554606
-      pixel planet dry_46: -590211079
-      pixel planet dry_47: 404034385
-      pixel planet dry_48: 593518678
-      pixel planet dry_49: -110337881
-      pixel planet dry_5: -1487050579
-      pixel planet dry_6: -1660375459
-      pixel planet dry_7: -286567822
-      pixel planet dry_8: -327245236
-      pixel planet dry_9: 524568993
+      1718482839_0: 2116526031
+      1718482839_1: -1784462651
+      1718482839_10: -988405052
+      1718482839_11: 1584493162
+      1718482839_12: 1704351223
+      1718482839_13: 683873875
+      1718482839_14: 405290485
+      1718482839_15: 865616085
+      1718482839_16: 979473266
+      1718482839_17: -1757876876
+      1718482839_18: 1692268258
+      1718482839_19: 99961494
+      1718482839_2: 315992929
+      1718482839_20: 953308128
+      1718482839_21: -206471826
+      1718482839_22: 1022162030
+      1718482839_23: -1586365240
+      1718482839_24: 1206966503
+      1718482839_25: 441088427
+      1718482839_26: -230398810
+      1718482839_27: 591062835
+      1718482839_28: 1319338514
+      1718482839_29: -449852601
+      1718482839_3: 1530287992
+      1718482839_30: -204928872
+      1718482839_31: -1074018331
+      1718482839_32: -1687723916
+      1718482839_33: 374081552
+      1718482839_34: 1857452228
+      1718482839_35: 691427376
+      1718482839_36: -1296276526
+      1718482839_37: 2110975126
+      1718482839_38: 1471120894
+      1718482839_39: 1094927409
+      1718482839_4: 1696808742
+      1718482839_40: -600604441
+      1718482839_41: -1544416209
+      1718482839_42: -971730399
+      1718482839_43: 1865931630
+      1718482839_44: -1057242961
+      1718482839_45: -1266817244
+      1718482839_46: -494054490
+      1718482839_47: 713306991
+      1718482839_48: 1206543749
+      1718482839_49: 1940856697
+      1718482839_5: 1474725625
+      1718482839_6: -1057526905
+      1718482839_7: -1976382598
+      1718482839_8: -2054336652
+      1718482839_9: 1305285083
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
