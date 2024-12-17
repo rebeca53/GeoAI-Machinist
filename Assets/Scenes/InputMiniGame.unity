@@ -214,6 +214,7 @@ MonoBehaviour:
   teleportationDeviceTile: {fileID: 5179490145842757990, guid: e96b224b63af8a940a83d1e6228be0ed, type: 3}
   timedDialogueBalloon: {fileID: 140822404}
   dialogueBalloon: {fileID: 1862547051}
+  cameraZoom: {fileID: 1339554161}
 --- !u!1 &55732412
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraZoom: {fileID: 1339554161}
+  zoom: 2
 --- !u!4 &195506923
 Transform:
   m_ObjectHideFlags: 0

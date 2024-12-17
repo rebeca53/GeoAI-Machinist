@@ -14,6 +14,7 @@ public class InputMiniGameManager : BaseBoard
 
     public TimedDialogueBalloon timedDialogueBalloon;
     public DialogueBalloon dialogueBalloon;
+    public CameraZoom cameraZoom;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "redEdge" };
 
@@ -270,8 +271,21 @@ public class InputMiniGameManager : BaseBoard
         timedDialogueBalloon.Hide();
     }
 
+    private void DisplayGameOverMessage()
+    {
+        string message = "Good job, now the Input Layer Room is fixed!";
+        Debug.Log("init turn message " + message);
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
+        dialogueBalloon.OnDone += GameOver;
+        cameraZoom.ChangeZoomTarget(NPC.gameObject);
+    }
     protected override void GameOver()
     {
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
         GameManager.instance.solvedMinigames["Input"] = true;
         GameManager.instance.StartOverviewScene();
     }
@@ -307,7 +321,7 @@ public class InputMiniGameManager : BaseBoard
 
         if (currentTurn == 2)
         {
-            GameOver();
+            DisplayGameOverMessage();
             return;
         }
 

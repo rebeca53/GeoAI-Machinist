@@ -88,7 +88,7 @@ class Turn
             case "Highway":
                 return "In this scenario, one spectral band is enough to extract features.";
             case "Residential":
-                return "For this sample, multiple bands combined provide better features. Good job, now the room is fixed!";
+                return "For this sample, multiple bands combined provide better features.";
             default:
                 return "";
         }
