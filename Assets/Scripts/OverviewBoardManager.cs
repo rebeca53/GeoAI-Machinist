@@ -51,6 +51,11 @@ public class OverviewBoardManager : BaseBoard
         LayoutCNNLayers();
         LayoutInputHolder();
 
+        if (GameManager.instance.IsGameOver())
+        {
+            return;
+        }
+
         NPC.Spawn(this, new Vector2Int(0, 8));
         NPC.OnHover += DisplayIntroduction;
         if (firstLoad)

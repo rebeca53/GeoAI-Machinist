@@ -82,7 +82,7 @@ public class NonPlayerCharacter : MonoBehaviour
     public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
-        DisplayIntroduction();
+        // DisplayIntroduction();
     }
 
     public void Spawn(BaseBoard boardManager, Vector2Int cell)

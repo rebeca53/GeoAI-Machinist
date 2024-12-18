@@ -84,6 +84,21 @@ public class GameManager : MonoBehaviour
         return solvedMinigames[type];
     }
 
+    public bool IsGameOver()
+    {
+        bool allSolved = true;
+        foreach (KeyValuePair<string, bool> entry in solvedMinigames)
+        {
+            if (entry.Value == false)
+            {
+                allSolved = false;
+                break;
+            }
+        }
+
+        return allSolved;
+    }
+
     public void GameOver()
     {
         enabled = false;

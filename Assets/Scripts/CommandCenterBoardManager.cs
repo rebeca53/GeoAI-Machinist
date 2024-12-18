@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 // TODO: Have an Abstract class for all Board Manager
 public class CommandCenterBoardManager : MonoBehaviour
 {
+    // Scene
     private Tilemap m_Tilemap;
     private Tilemap m_Wallsmap;
     private Grid m_Grid;
@@ -19,6 +20,15 @@ public class CommandCenterBoardManager : MonoBehaviour
     public Tile[] GroundTiles;
 
     public Tile[] WallTiles; // [TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight]
+
+    // Instances
+    public GameObject screen;
+    public GameObject dryPlanet;
+    public GameObject healthyPlanet;
+    public GameObject helpPods;
+
+    // public CommandCenter commandCenter;
+    public CommandCenterPlaybackDirector playbackDirector;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +58,28 @@ public class CommandCenterBoardManager : MonoBehaviour
                 m_Tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
         }
+
+        if (GameManager.instance.IsGameOver())
+        {
+            OnGameOver();
+        }
+    }
+
+    void OnGameOver()
+    {
+        Debug.Log("Game Over!");
+        // Fade Out
+        // Place Player and NPC
+        NonPlayerCharacter NPC = GameObject.Find("NPC").GetComponent<NonPlayerCharacter>();
+        PlayerController Player = GameObject.Find("Player").GetComponent<PlayerController>();
+
+        NPC.Spawn(this, new Vector2Int(7, 5));
+        Player.Spawn(this, new Vector2Int(8, 5));
+
+        // Playback Director play dialogue
+        playbackDirector.StartAnimation();
+        // Playback Director play game over animation
+        // Go back to Home
     }
 
     private bool IsCorridor(int x, int y)

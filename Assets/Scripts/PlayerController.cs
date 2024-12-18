@@ -370,6 +370,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (nearObject && nearObject.CompareTag("CommandCenter"))
+        {
+            CommandCenter commandCenter = nearObject.GetComponent<CommandCenter>();
+            commandCenter.Activate();
+            return;
+        }
+
         // TODO: improve the context of an action
         if (grabbedObject)
         {
@@ -476,7 +483,7 @@ public class PlayerController : MonoBehaviour
         if (IsValidNearObject(other))
         {
             nearObject = other.gameObject;
-            Debug.Log("On trigger stay 2d " + other.tag);
+            // Debug.Log("On trigger stay 2d " + other.tag);
         }
     }
 
