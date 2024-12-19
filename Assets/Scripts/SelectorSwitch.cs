@@ -105,7 +105,6 @@ public class SelectorSwitch : MonoBehaviour
 
     public void UpdateState(string newLineState)
     {
-        Debug.Log("Update state: " + newLineState);
         lineState = newLineState;
         switch (lineState)
         {
@@ -123,8 +122,6 @@ public class SelectorSwitch : MonoBehaviour
                 lineRenderer.endColor = inactiveColor;
                 break;
         }
-        Debug.Log("Update state done: " + newLineState);
-
     }
 
     public void Reset()

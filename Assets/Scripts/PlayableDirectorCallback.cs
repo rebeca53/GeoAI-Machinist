@@ -44,7 +44,6 @@ public class PlayableDirectorCallback : MonoBehaviour
     {
         if (director == aDirector)
         {
-            Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
             ZoomIn();
 
             Player.TurnRight();
@@ -72,7 +71,6 @@ public class PlayableDirectorCallback : MonoBehaviour
             dialogueBalloon.PlaceUpperRight();
             if (HasSpeakerChanged())
             {
-                Debug.Log("speaker has changed");
                 if (currentLineIndex == 0)
                 {
                     NPC.Speak();
@@ -86,7 +84,6 @@ public class PlayableDirectorCallback : MonoBehaviour
             dialogueBalloon.PlaceUpperLeft();
             if (HasSpeakerChanged())
             {
-                Debug.Log("speaker has changed");
                 FollowSpeaker(Player.gameObject);
             }
         }
@@ -97,20 +94,14 @@ public class PlayableDirectorCallback : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
     private void OnEndAnimationStopped(PlayableDirector aDirector)
     {
-        if (endAnimation == aDirector)
+        if (endAnimation == aDirector && Player)
         {
-            Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
             hintBalloon.SetTarget(Player.gameObject);
             hintBalloon.SetArrowRightKey();
             hintBalloon.Show();
@@ -126,52 +117,43 @@ public class PlayableDirectorCallback : MonoBehaviour
 
     public void ZoomIn()
     {
-        Debug.Log("Zoom In");
         GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
         CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
 
         if (cameraZoom == null)
         {
             Debug.LogError("Unable to retrieve camera");
+            return;
         }
-        else
-        {
-            Debug.Log("Retrieveing object");
-        }
+
         cameraZoom.ChangeZoomSmooth(1.5f);
     }
 
     public void ZoomOut()
     {
-        Debug.Log("Zoom In");
         GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
         CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
 
         if (cameraZoom == null)
         {
             Debug.LogError("Unable to retrieve camera");
+            return;
         }
-        else
-        {
-            Debug.Log("Retrieveing object");
-        }
+
         cameraZoom.ChangeZoomSmooth(4f);
     }
 
     public void FollowSpeaker(GameObject speaker)
     {
-        Debug.Log("FollowSpeaker");
         GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
         CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
 
         if (cameraZoom == null)
         {
             Debug.LogError("Unable to retrieve camera");
+            return;
         }
-        else
-        {
-            Debug.Log("Retrieveing object");
-        }
+
         cameraZoom.ChangeZoomTarget(speaker);
     }
 

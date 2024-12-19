@@ -39,7 +39,6 @@ public class InputHolder : MonoBehaviour
         inputObject.transform.parent = gameObject.transform;
         inputObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
 
-        Debug.Log("Objecct added to the input holder");
         OnAddedObject?.Invoke();
     }
 
@@ -59,11 +58,13 @@ public class InputHolder : MonoBehaviour
         if (line == null)
         {
             Debug.LogError("Failed to retrieve Line");
+            return;
         }
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {
             Debug.LogError("Failed to retrieve LineRenderer");
+            return;
         }
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);

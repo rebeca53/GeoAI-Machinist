@@ -93,7 +93,6 @@ public class DataLabelingMiniGameManager : BaseBoard
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
                 gridPositions.Add(new Vector3(x, y, 0f));
-                Debug.Log("Possible grid position " + new Vector3(x, y, 0f));
             }
         }
     }
@@ -170,7 +169,6 @@ public class DataLabelingMiniGameManager : BaseBoard
             gridPositions.Remove(new(xPosition - 0.5f, yPosition, 0f));
 
             //Instantiate tileChoice at the position
-            Debug.Log("Container " + container.type + " position " + position);
             GameObject instance = Instantiate(tileChoice, position, Quaternion.identity);
             Container containerScript = instance.GetComponent<Container>();
             containerScript.OnMatchDisplay += DisplayClassInfo;
@@ -230,7 +228,6 @@ public class DataLabelingMiniGameManager : BaseBoard
         cameraZoom.ChangeZoomSmooth(1.2f);
     }
 
-
     void HideClassInfo(string type)
     {
         timedDialogueBalloon.Hide();
@@ -254,9 +251,20 @@ public class DataLabelingMiniGameManager : BaseBoard
 
     void HintExit()
     {
+        StartCoroutine(HintExitCoroutine());
+    }
+
+    IEnumerator HintExitCoroutine()
+    {
+        cameraZoom.ChangeZoomTarget(exitScript.gameObject);
+
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(exitScript.gameObject);
         hintBalloon.PlaceOver();
         hintBalloon.Show();
+
+        yield return new WaitForSeconds(2);
+
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
     }
 }

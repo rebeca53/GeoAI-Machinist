@@ -92,7 +92,6 @@ public class ActivationMiniGameManager : BaseBoard
 
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
-        Debug.Log("SPAWN NPC position " + NPC.transform.position);
 
         LoadMatrix();
 
@@ -127,7 +126,6 @@ public class ActivationMiniGameManager : BaseBoard
 
     private void UnregisterActivationViewsMessages()
     {
-        Debug.Log("Unregister activation views");
         foreach (KeyValuePair<string, ActivationView> entry in activationViews)
         {
             entry.Value.OnHover -= DisplayActivationFunctionMessage;
@@ -137,7 +135,6 @@ public class ActivationMiniGameManager : BaseBoard
 
     private void RegisterActivationViewsMessages()
     {
-        Debug.Log("Register activation views");
         foreach (KeyValuePair<string, ActivationView> entry in activationViews)
         {
             entry.Value.OnHover += DisplayActivationFunctionMessage;
@@ -161,31 +158,17 @@ public class ActivationMiniGameManager : BaseBoard
 
     void LoadMatrix()
     {
-        Debug.Log(dataText.text);
+        // Debug.Log(dataText.text);
         data = JsonUtility.FromJson<ActivationData>(dataText.text);
 
         if (data == null)
         {
-            Debug.Log("Failed to retrieve from JSON");
-        }
-        else
-        {
-            if (data.inputMatrix == null)
-            {
-                Debug.Log("Input is none");
-            }
-
-            Debug.Log("input Matrix [0]" + data.inputMatrix[0]);
-            Debug.Log("input Matrix [1]" + data.inputMatrix[1]);
-            Debug.Log("input Matrix [2]" + data.inputMatrix[2]);
-
-            Debug.Log("input Matrix [0,0]" + UnflatMatrix(data.inputMatrix, 64)[0, 0]);
+            Debug.LogError("Failed to retrieve from JSON");
         }
     }
 
     void OnActivationStopped(string type)
     {
-        Debug.Log(type);
         // Update outputline
         if (activationViews[type].HasActivationBox())
         {
@@ -205,9 +188,7 @@ public class ActivationMiniGameManager : BaseBoard
 
         if (IsGameOver())
         {
-            Debug.Log("Game is over");
             DisplayGameOverMessage();
-            // GameOver();
         }
         else if (NeedRemoveWrongActivation())
         {
@@ -217,7 +198,6 @@ public class ActivationMiniGameManager : BaseBoard
 
     private void DisplayActivationFunctionMessage(string type)
     {
-        // Debug.Log("DisplayActivationFunctionMessage");
         string message = "";
         switch (type)
         {
@@ -249,7 +229,6 @@ public class ActivationMiniGameManager : BaseBoard
         ZoomIn();
         // NPC speaks message
         string message = "Good job picking the best activation function for this scenario. Let's go back for the CNN Room.";
-        // Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();

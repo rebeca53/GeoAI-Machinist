@@ -23,15 +23,11 @@ public class DialogueBalloon : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Dialogue Ballon Awake");
         speech = transform.Find("Speech");
         label = speech.GetComponent<TextMeshPro>();
         hint = transform.Find("Hint");
-        Debug.Log("Dialogue Ballon Awake Done");
 
-        // Hide();
         HideHint();
-        // Place();
     }
 
     private void Place()
@@ -73,7 +69,6 @@ public class DialogueBalloon : MonoBehaviour
     {
         if (label == null)
         {
-            Debug.Log("label is null");
             speech = transform.Find("Speech");
             label = speech.GetComponent<TextMeshPro>();
         }
@@ -114,7 +109,6 @@ public class DialogueBalloon : MonoBehaviour
 
         if (waitingKey && Input.GetKeyDown("space"))
         {
-            Debug.Log("SPACE pressed");
             waitingKey = false;
             HideHint();
             OnDone?.Invoke();

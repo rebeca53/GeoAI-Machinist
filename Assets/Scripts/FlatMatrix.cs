@@ -43,7 +43,6 @@ public class FlatMatrix : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("Reset output matrix");
         foreach (OutputPixel pixel in outputPixels)
         {
             pixel.Reset();

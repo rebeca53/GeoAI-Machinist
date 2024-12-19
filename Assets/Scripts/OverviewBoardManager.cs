@@ -72,6 +72,7 @@ public class OverviewBoardManager : BaseBoard
 
     public void DisplayIntroduction()
     {
+        ZoomIn();
         NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
         NPCDialogueBalloon.SetMessage("This room has a Convolutional Neural Network (CNN) to classify land use and cover. CNNs process matrices through layers of mathematical operations. For us, images are matrices.\nFour layers are damaged—enter their room to fix them!");
         NPCDialogueBalloon.PlaceUpperRight();
@@ -80,19 +81,11 @@ public class OverviewBoardManager : BaseBoard
 
     public void FollowPlayer()
     {
-        Debug.Log("FollowSpeaker");
-        {
-            Debug.Log("Retrieveing object");
-        }
         cameraZoom.ChangeZoomTarget(Player.gameObject);
     }
 
     public void ZoomIn()
     {
-        Debug.Log("Zoom In");
-        {
-            Debug.Log("Retrieveing object");
-        }
         cameraZoom.ChangeZoomSmooth(0.8f);
     }
 

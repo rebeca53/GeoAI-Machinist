@@ -132,7 +132,6 @@ public class ConvolutionalView : MonoBehaviour
 
     public void InitKernel(List<double> flatKernel, double[,] kernel)
     {
-        // Debug.Log("Init Kernel");
         kernelMatrix.name = "Kernel" + id;
         kernelMatrix.SetMatrix(flatKernel, kernel);
         locker.AddKernel(kernelMatrix.gameObject);
@@ -145,7 +144,6 @@ public class ConvolutionalView : MonoBehaviour
 
     public void RemoveKernel()
     {
-        Debug.Log("Remove Kernel");
         kernelAtInputHolder = false;
         OnUnhover?.Invoke(id);
         StopConvolution();
@@ -173,7 +171,6 @@ public class ConvolutionalView : MonoBehaviour
 
     void StartConvolution()
     {
-        Debug.Log("Start Convolution");
         kernelAtInputHolder = true;
         kernelMatrix.transform.localScale = new(0.1f, 0.1f, 1f);
         kernelMatrix.OnGrabbed += RemoveKernel;
@@ -287,7 +284,6 @@ public class ConvolutionalView : MonoBehaviour
 
     void StopConvolution()
     {
-        Debug.Log("Stop Convolution");
         kernelMatrix.OnGrabbed -= StopConvolution;
         movingKernelMatrix.gameObject.SetActive(false);
 
@@ -340,10 +336,8 @@ public class ConvolutionalView : MonoBehaviour
             return;
         }
 
-        // Debug.Log("id[" + id + "] animate output state: " + outputState);
         if (outputState.Equals("correct"))
         {
-            // Debug.Log("using Lerp because it is correct.");
             outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
             outputLineRenderer.startWidth = inactiveWidth * 2;
             outputLineRenderer.endWidth = inactiveWidth * 2;

@@ -25,7 +25,6 @@ public class InputMatrixPixel : MonoBehaviour
 
     private Color GetPixelColor()
     {
-        // Debug.Log("colorMap " + colorMap);
         float colorValue = (float)pixelValue;
         if (colorMap.Equals("grayscale"))
         {
@@ -70,24 +69,4 @@ public class InputMatrixPixel : MonoBehaviour
     {
         Unhighlight();
     }
-
-    // private void OnTriggerStay2D(Collider2D other)
-    // {
-    //     Debug.Log("stay over pixel. tag: " + other.tag);
-    //     // Debug.Log("stay over pixel. tag parent: " + other.transform.parent.tag);
-    //     if (other.CompareTag("KernelCenter"))
-    //     {
-    //         Highlight();
-    //     }
-
-    // }
-
-    // private void OnTriggerExit2D(Collider2D other)
-    // {
-    //     Debug.Log("out of pixel");
-    //     if (other.CompareTag("KernelCenter"))
-    //     {
-    //         Unhighlight();
-    //     }
-    // }
 }

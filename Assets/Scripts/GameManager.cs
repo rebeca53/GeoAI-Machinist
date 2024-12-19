@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        Debug.Log("Wake Game Manger");
+        // Debug.Log("Wake Game Manger");
     }
 
     public void StartDataLabeling()

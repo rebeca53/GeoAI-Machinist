@@ -61,7 +61,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         }
 
         var line = screenplay[currentLineIndex];
-        Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
+        // Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
         switch (line.Item1)
         {
             case "action":
@@ -85,12 +85,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        // Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        // Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        // Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
@@ -132,9 +127,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         hintBalloon.Show();
 
         Player.Enable();
-        // hintBalloon.OnDone += Player.Disable;
         hintBalloon.OnDone += NextLine;
-        // hintBalloon.OnDone += ZoomIn;
     }
 
     void ZoomIn()
@@ -144,7 +137,6 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
     void End()
     {
-        // Debug.Log("End");
         dialogueBalloon.Hide();
         ClearCallbacks();
 

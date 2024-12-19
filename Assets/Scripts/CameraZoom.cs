@@ -67,7 +67,7 @@ public class CameraZoom : MonoBehaviour
 
     public void ChangeZoom(float orthoSize)
     {
-        Debug.Log("change zoom suddenly to " + orthoSize);
+        // Debug.Log("change zoom suddenly to " + orthoSize);
 
         virtualCamera.m_Lens.OrthographicSize = orthoSize;
     }

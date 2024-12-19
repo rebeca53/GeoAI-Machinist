@@ -18,11 +18,8 @@ public class TimedDialogueBalloon : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Dialogue Ballon Awake");
         speech = transform.Find("Speech");
         label = speech.GetComponent<TextMeshPro>();
-
-        // Hide();
     }
 
     private void Place()
@@ -83,7 +80,6 @@ public class TimedDialogueBalloon : MonoBehaviour
 
     public void Show(float durationSeconds = 30f)
     {
-        // Debug.Log("Set game object as active");
         gameObject.SetActive(true);
         timeout = durationSeconds;
         timer = 0;

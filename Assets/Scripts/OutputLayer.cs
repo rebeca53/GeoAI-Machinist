@@ -49,7 +49,6 @@ public class OutputLayer : MonoBehaviour
 
         public void UpdateOutputState(string newLineState)
         {
-            Debug.Log("Update state: " + newLineState);
             outputState = newLineState;
             switch (outputState)
             {
@@ -80,8 +79,6 @@ public class OutputLayer : MonoBehaviour
             outputLineRenderer.material.color = newColor;
             outputLineRenderer.startColor = newColor;
             outputLineRenderer.endColor = newColor;
-            // outputLineRenderer.startWidth = width;
-            // outputLineRenderer.endWidth = width;
         }
 
         public void AnimateOutputState()
@@ -92,39 +89,14 @@ public class OutputLayer : MonoBehaviour
                 return;
             }
 
-            // Debug.Log("id[" + id + "] animate output state: " + outputState);
             if (outputState.Equals("correct"))
             {
-                // Debug.Log("using Lerp because it is correct.");
                 outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
                 outputLineRenderer.startWidth = inactiveWidth * 2;
                 outputLineRenderer.endWidth = inactiveWidth * 2;
             }
         }
     }
-    // public void SetLogitNodes(List<LogitNode> nodes)
-    // {
-    //     logitNodes = nodes;
-
-    //     // draw gray lines
-    //     DrawLines();
-    // }
-
-    // void DrawLines()
-    // {
-    //     foreach (LogitNode node in logitNodes)
-    //     {
-    //         GameObject instance = Instantiate(lineObject, new(0, 0, 0), Quaternion.identity);
-
-    //         OutputLine outputLine = new(instance.GetComponent<LineRenderer>());
-    //         outputLine.Draw(node.transform.position.y);
-    //         outputLines.Add(outputLine);
-
-    //         // compute total sum for softmax
-    //         totalLogit += Math.Exp(node.GetLogit());
-    //     }
-    // }
-
 
     void Awake()
     {
@@ -146,14 +118,13 @@ public class OutputLayer : MonoBehaviour
         // softmaxBox.Block();
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("LogitNode");
-        Debug.Log("We found numerb od nodes: " + nodes.Length);
 
         for (int i = 0; i < nodes.Length; i++)
         {
             LogitNode node = nodes[i].GetComponent<LogitNode>();
             if (node == null)
             {
-                Debug.Log("Could not find LogitNode script");
+                Debug.LogError("Could not find LogitNode script");
                 return;
             }
             // draw outputlines
@@ -171,7 +142,7 @@ public class OutputLayer : MonoBehaviour
             node.SetSoftmaxMode(ApplySoftmax(node));
 
             // Add percentage value
-            Debug.Log("percentage softmax = " + Math.Round(100 * softmax, 2));
+            // Debug.Log("percentage softmax = " + Math.Round(100 * softmax, 2));
 
             // update outputlines
             outputLines[i].UpdateLine(node.GetSoftmaxColor(), (float)softmax);
@@ -193,11 +164,6 @@ public class OutputLayer : MonoBehaviour
         outputLines.Add(outputLine);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     double ApplySoftmax(LogitNode node)
     {

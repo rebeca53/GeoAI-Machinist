@@ -16,6 +16,7 @@ public class CommandCenterLine : MonoBehaviour
         if (lineRenderer == null)
         {
             Debug.LogError("Failed to retrieve LineRenderer");
+            return;
         }
 
         Vector3 startPoint = new(xStart, yStart, 0f);

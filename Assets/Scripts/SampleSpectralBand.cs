@@ -80,7 +80,6 @@ public class SampleSpectralBand : MonoBehaviour
     // Instantiate the loaded prefab on complete
     private void OnLoadDone(AsyncOperationHandle<Sprite> operation)
     {
-        Debug.Log("On load done. " + address);
         if (operation.Status == AsyncOperationStatus.Succeeded)
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();

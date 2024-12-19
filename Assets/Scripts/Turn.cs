@@ -81,7 +81,6 @@ class Turn
 
     public string GetTurnOverMessage()
     {
-        Debug.Log("sampleName " + sampleName);
         switch (sampleName)
         {
             case "River":
@@ -107,7 +106,6 @@ class Turn
         }
         else
         {
-            Debug.Log("is wrong " + bandName);
             wrong.Add(bandName);
         }
     }
@@ -140,16 +138,16 @@ class Turn
             }
         }
 
-        Debug.Log("Is turn over? correct " + printList(correct));
-        Debug.Log("Is turn over? wrong " + printList(wrong));
-        Debug.Log("Is turn over? characteristicBands " + printList(characteristicBands));
+        // Debug.Log("Is turn over? correct " + printList(correct));
+        // Debug.Log("Is turn over? wrong " + printList(wrong));
+        // Debug.Log("Is turn over? characteristicBands " + printList(characteristicBands));
 
-        Debug.Log("Is turn over? correct containes characteristic abnds? " + allCharacteristicSelected);
+        // Debug.Log("Is turn over? correct containes characteristic abnds? " + allCharacteristicSelected);
 
-        Debug.Log("Is turn over? wrong Count " + wrong.Count);
+        // Debug.Log("Is turn over? wrong Count " + wrong.Count);
 
         bool over = allCharacteristicSelected && (wrong.Count == 0);
-        Debug.Log("Is turn over? " + over);
+        // Debug.Log("Is turn over? " + over);
         return over;
     }
 

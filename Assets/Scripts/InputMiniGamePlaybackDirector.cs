@@ -63,7 +63,7 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         }
 
         var line = screenplay[currentLineIndex];
-        Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
+        // Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
         switch (line.Item1)
         {
             case "action":
@@ -85,7 +85,6 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
                 dialogueBalloon.PlaceUpperLeft();
                 if (HasSpeakerChanged())
                 {
-                    Debug.Log("speaker has changed");
                     cameraZoom.ChangeZoomTarget(Player.gameObject);
                 }
                 dialogueBalloon.SetMessage(line.Item2);
@@ -99,12 +98,7 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
@@ -117,13 +111,6 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
                 break;
             case "action2":
                 HintInputSample();
-                // PlayerWalk();
-                break;
-            case "action3":
-                // HintDropOnContainer();
-                break;
-            case "action4":
-                // NPCWalkToExit();
                 break;
         }
     }
@@ -162,7 +149,6 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
 
     void End()
     {
-        Debug.Log("End");
         dialogueBalloon.Hide();
         ClearCallbacks();
 
@@ -186,12 +172,5 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         hintBalloon.OnDone -= Player.Disable;
         hintBalloon.OnDone -= NextLine;
         hintBalloon.OnDone -= ZoomIn;
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

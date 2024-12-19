@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -83,7 +84,7 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
         }
 
         var line = screenplay[currentLineIndex];
-        Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
+        // Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
         switch (line.Item1)
         {
             case "action":
@@ -107,12 +108,7 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        // Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        // Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        // Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
@@ -161,12 +157,9 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
 
     void End()
     {
-        // Debug.Log("End");
         Player.Disable();
         dialogueBalloon.Hide();
         ClearCallbacks();
-
-        // Player.Enable();
     }
 
     void ClearCallbacks()
@@ -180,7 +173,6 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
     void OnDisable()
     {
         sendHelp.stopped -= OnPlayableDirectorStopped;
-        hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
     }
 }

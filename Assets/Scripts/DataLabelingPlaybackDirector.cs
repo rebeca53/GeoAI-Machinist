@@ -66,7 +66,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         }
 
         var line = screenplay[currentLineIndex];
-        Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
+        // Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
         switch (line.Item1)
         {
             case "action":
@@ -88,7 +88,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
                 dialogueBalloon.PlaceUpperLeft();
                 if (HasSpeakerChanged())
                 {
-                    Debug.Log("speaker has changed");
                     cameraZoom.ChangeZoomTarget(Player.gameObject);
                 }
                 dialogueBalloon.SetMessage(line.Item2);
@@ -102,12 +101,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
@@ -136,13 +130,13 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     // on grab, block player again
     void HintGrabSample()
     {
-        Debug.Log("Action 1");
         dialogueBalloon.HideHint();
 
         GameObject residentialBox = GameObject.Find("Residential_Box(Clone)");
         if (residentialBox == null)
         {
-            Debug.Log("Not able to find residential Box");
+            Debug.LogError("Not able to find residential Box");
+            return;
         }
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(residentialBox);
@@ -157,7 +151,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
 
     void NPCWalkToContainer()
     {
-        Debug.Log("Action 2");
         dialogueBalloon.Hide();
         directorWalkContainer.Play(); // on stopped, it calls NextLine
     }
@@ -167,7 +160,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     // on drop in the container, display message
     void HintDropOnContainer()
     {
-        Debug.Log("Action 3");
         ZoomOut();
         dialogueBalloon.HideHint();
 
@@ -195,7 +187,8 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         GameObject exit = GameObject.FindGameObjectWithTag("Exit");
         if (exit == null)
         {
-            Debug.Log("Not able to find exit");
+            Debug.LogError("Not able to find exit");
+            return;
         }
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(exit);
@@ -231,7 +224,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
 
     void End()
     {
-        Debug.Log("End");
         dialogueBalloon.Hide();
         ClearCallbacks();
 

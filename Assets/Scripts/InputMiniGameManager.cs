@@ -74,10 +74,7 @@ public class InputMiniGameManager : BaseBoard
         if (cameraZoom == null)
         {
             Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
-        }
-        else
-        {
-            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+            return;
         }
         cameraZoom.Block();
     }
@@ -90,44 +87,33 @@ public class InputMiniGameManager : BaseBoard
         if (cameraZoom == null)
         {
             Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
-        }
-        else
-        {
-            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+            return;
         }
         cameraZoom.Release();
     }
 
     public void ZoomIn()
     {
-        Debug.Log("InputMiniGameManager Zoom In");
         GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
         CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
 
         if (cameraZoom == null)
         {
             Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
-        }
-        else
-        {
-            Debug.Log("InputMiniGameManager Zoom In Retrieveing object");
+            return;
         }
         cameraZoom.ChangeZoomSmooth(1.2f);
     }
 
     public void ZoomOut(float zoom = 5f)
     {
-        Debug.Log("InputMiniGameManager Zoom Out");
         GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
         CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
 
         if (cameraZoom == null)
         {
             Debug.LogError("InputMiniGameManager Zoom Out Unable to retrieve camera");
-        }
-        else
-        {
-            Debug.Log("InputMiniGameManager Zoom Out Retrieveing object");
+            return;
         }
         cameraZoom.ChangeZoomSmooth(zoom);
     }
@@ -141,7 +127,6 @@ public class InputMiniGameManager : BaseBoard
 
     private void LayoutSample()
     {
-        Debug.Log("Layout Sample");
         teleportationDevice.Blink();
 
         Turn current = turns[currentTurn];
@@ -210,8 +195,6 @@ public class InputMiniGameManager : BaseBoard
 
     private void CheckWinTurn(string type)
     {
-        Debug.Log("Check Win Turn");
-
         Turn current = turns[currentTurn];
         current.Match(type);
 
@@ -247,7 +230,6 @@ public class InputMiniGameManager : BaseBoard
         Turn current = turns[currentTurn];
         // NPC displays message
         string message = current.GetTurnOverMessage();
-        Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
@@ -258,7 +240,6 @@ public class InputMiniGameManager : BaseBoard
     {
         Turn current = turns[currentTurn];
         string message = current.instruction;
-        Debug.Log("init turn message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
@@ -274,7 +255,6 @@ public class InputMiniGameManager : BaseBoard
     private void DisplayGameOverMessage()
     {
         string message = "Good job, now the Input Layer Room is fixed!";
-        Debug.Log("init turn message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
@@ -316,7 +296,6 @@ public class InputMiniGameManager : BaseBoard
 
     void InitNewTurn()
     {
-        Debug.Log("Change turn");
         dialogueBalloon.OnDone -= InitNewTurn;
 
         if (currentTurn == 2)
@@ -327,7 +306,6 @@ public class InputMiniGameManager : BaseBoard
 
         ResetContainers();
 
-        Debug.Log("Increment turn");
         currentTurn++;
         sampleBox.Reset();
         LayoutSample();
@@ -336,7 +314,6 @@ public class InputMiniGameManager : BaseBoard
 
     void TurnOver()
     {
-        Debug.Log("Turn Over");
         CleanUnusedBands();
         DisplayTurnOverMessage();
         dialogueBalloon.OnDone += InitNewTurn;

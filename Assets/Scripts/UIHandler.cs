@@ -60,7 +60,7 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayMessage(string content, float time = displayTime)
     {
-        Debug.Log("Display Message during " + time + " seconds");
+        // Debug.Log("Display Message during " + time + " seconds");
         timeout = time;
         displayingMessage = true;
         message.text = content;
@@ -69,7 +69,6 @@ public class UIHandler : MonoBehaviour
 
     public void HideMessage()
     {
-        // Debug.Log("Hide Message");
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
         displayingMessage = false;
     }

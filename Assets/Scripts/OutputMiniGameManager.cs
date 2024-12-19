@@ -129,7 +129,6 @@ public class OutputMiniGameManager : BaseBoard
         // Player.Disable();
         // NPC speaks message
         string message = "Good job flatenning the image and applying softmax to calculate probabilities. Explore this room a bit more if you will, then go back to the CNN room.";
-        // Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();

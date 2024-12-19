@@ -64,11 +64,13 @@ public class ActivationView : MonoBehaviour
         if (line == null)
         {
             Debug.LogError("Failed to retrieve Line");
+            return;
         }
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {
             Debug.LogError("Failed to retrieve LineRenderer");
+            return;
         }
 
         Vector3 startPoint = new(0f, -1f, 0f);
@@ -83,11 +85,13 @@ public class ActivationView : MonoBehaviour
         if (line == null)
         {
             Debug.LogError("Failed to retrieve Line");
+            return;
         }
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {
             Debug.LogError("Failed to retrieve LineRenderer");
+            return;
         }
 
         workingStartColor = lineRenderer.startColor;
@@ -129,7 +133,6 @@ public class ActivationView : MonoBehaviour
 
     public void InitActivationBox(string type)
     {
-        Debug.Log("Init Activation Box");
         this.type = type;
         activationBox.SetFunction(type);
         locker.AddActivationBox(activationBox.gameObject);
@@ -142,7 +145,6 @@ public class ActivationView : MonoBehaviour
 
     public void RemoveActivationBox()
     {
-        Debug.Log("Remove Kernel");
         activationBoxAtInputHolder = false;
         OnUnhover?.Invoke(type);
         StopActivation();
@@ -152,7 +154,6 @@ public class ActivationView : MonoBehaviour
 
     void StartActivation()
     {
-        Debug.Log("Start Convolution");
         activationBoxAtInputHolder = true;
         activationBox.transform.localScale = new(0.3f, 0.3f, 1f);
         activationBox.OnGrabbed += RemoveActivationBox;
@@ -198,8 +199,8 @@ public class ActivationView : MonoBehaviour
         // Debug.Log("start loop iConvNext " + iConvNext + ", jConvNext " + jConvNext);
         while ((stepDone < animationStep) && (jNext < matrixSize) && (iNext < matrixSize))
         {
-            Debug.Log("iConvNext " + iNext + " limit " + matrixSize);
-            Debug.Log("jConvNext " + jNext + " limit " + (jActivation + animationStep));
+            // Debug.Log("iConvNext " + iNext + " limit " + matrixSize);
+            // Debug.Log("jConvNext " + jNext + " limit " + (jActivation + animationStep));
             outputMatrix.ShowPixel(iNext, jNext);
             jNext++;
             if (jNext >= matrixSize)
@@ -226,7 +227,6 @@ public class ActivationView : MonoBehaviour
 
     void StopActivation()
     {
-        Debug.Log("Stop Activation");
         activationBox.OnGrabbed -= StopActivation;
         movingActivationBox.gameObject.SetActive(false);
 
@@ -245,7 +245,6 @@ public class ActivationView : MonoBehaviour
     // TODO: abstract OutputLine
     public void UpdateOutputState(string newLineState)
     {
-        Debug.Log("Update state: " + newLineState);
         outputState = newLineState;
         switch (outputState)
         {
@@ -279,10 +278,8 @@ public class ActivationView : MonoBehaviour
             return;
         }
 
-        // Debug.Log("id[" + id + "] animate output state: " + outputState);
         if (outputState.Equals("correct"))
         {
-            // Debug.Log("using Lerp because it is correct.");
             outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
             outputLineRenderer.startWidth = inactiveWidth * 2;
             outputLineRenderer.endWidth = inactiveWidth * 2;

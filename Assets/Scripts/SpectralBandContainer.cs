@@ -56,18 +56,17 @@ public class SpectralBandContainer : MonoBehaviour
 
     public bool IsMatch(SampleSpectralBand sampleSpectralBand)
     {
-        Debug.Log("Spectral band" + sampleSpectralBand.GetBandType() + " is MATCH with ?" + type);
+        // Debug.Log("Spectral band" + sampleSpectralBand.GetBandType() + " is MATCH with ?" + type);
         return sampleSpectralBand.GetBandType().Equals(type);
     }
 
     public void MatchSpectralBand(SampleSpectralBand sampleSpectralBand)
     {
-        Debug.Log("MatchSpectralBand");
-
         Transform parentSquare = transform;
         if (parentSquare == null)
         {
             Debug.LogError("Failed to get parent based on sample spectral band class");
+            return;
         }
 
         // float verticalOffset = 0.2f;
@@ -117,11 +116,13 @@ public class SpectralBandContainer : MonoBehaviour
         if (line == null)
         {
             Debug.LogError("Failed to retrieve Line");
+            return;
         }
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {
             Debug.LogError("Failed to retrieve LineRenderer");
+            return;
         }
 
         Vector3 startPoint = inputPosition;
@@ -137,11 +138,13 @@ public class SpectralBandContainer : MonoBehaviour
         if (line == null)
         {
             Debug.LogError("Failed to retrieve Line");
+            return;
         }
         LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
         if (lineRenderer == null)
         {
             Debug.LogError("Failed to retrieve LineRenderer");
+            return;
         }
 
         workingStartColor = lineRenderer.startColor;
@@ -158,8 +161,6 @@ public class SpectralBandContainer : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("MatchSpectralBand");
-
         countMatched = 0;
 
         UpdateState("inactive");
@@ -199,7 +200,6 @@ public class SpectralBandContainer : MonoBehaviour
 
     public void UpdateState(string newLineState)
     {
-        Debug.Log("Update state: " + newLineState);
         lineState = newLineState;
         switch (lineState)
         {

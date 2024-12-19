@@ -23,7 +23,6 @@ public class InputMatrix : MonoBehaviour
     public void SetColor(string newColorMap)
     {
         colorMap = newColorMap;
-        Debug.Log("InputMatrix Set Color to " + colorMap);
     }
 
     public void SetPixelSize(float newPixelSize)
@@ -35,16 +34,11 @@ public class InputMatrix : MonoBehaviour
     {
         inputMatrix = matrix;
         matrixSize = size;
-        // Debug.Log("Before: Position of input matrix [" + id + "]:" + transform.position);
-        // transform.position = transform.parent.position; //new(1.5f, -2f, 0f);
-        // Debug.Log("Position of input matrix [" + id + "]:" + transform.position);
-
         Draw();
     }
 
     void Draw()
     {
-        // Debug.Log("pixel size " + pixelSize);
         float verticalOffset = transform.position.y;
         float horizontalOffset = transform.position.x;
 
@@ -93,8 +87,6 @@ public class InputMatrix : MonoBehaviour
             new(x, y-pixelSize, 0f),
             new(x+pixelSize, y-pixelSize, 0f)
         };
-
-        // Debug.Log("For the pixel: " + pixelPosition);
 
         foreach (Vector3 position in nbPositions)
         {

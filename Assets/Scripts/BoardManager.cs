@@ -244,10 +244,6 @@ public class BoardManager : MonoBehaviour
         {
             Debug.LogError("Unable to retrieve camera");
         }
-        else
-        {
-            Debug.Log("Retrieveing object");
-        }
 
         PlayerController playerController = player.GetComponent<PlayerController>();
         // Zoom in

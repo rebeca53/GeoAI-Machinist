@@ -73,7 +73,6 @@ public class DenseView : MonoBehaviour
     // Instantiate the loaded prefab on complete
     private void OnLoadDone(AsyncOperationHandle<TextAsset> operation)
     {
-        Debug.Log("On load done. " + address);
         if (operation.Status == AsyncOperationStatus.Succeeded)
         {
             dataText = operation.Result;
@@ -89,23 +88,11 @@ public class DenseView : MonoBehaviour
 
     void ReadMatrix()
     {
-        Debug.Log(dataText.text);
+        // Debug.Log(dataText.text);
         data = JsonUtility.FromJson<OutputData>(dataText.text);
-
         if (data == null)
         {
-            Debug.Log("Failed to retrieve from JSON");
-        }
-        else
-        {
-            if (data.label == null)
-            {
-                Debug.Log("Input is none");
-            }
-            else
-            {
-                Debug.Log("Data label " + data.label + ", logit " + data.logit);
-            }
+            Debug.LogError("Failed to retrieve from JSON");
         }
     }
 
@@ -116,9 +103,9 @@ public class DenseView : MonoBehaviour
         float gap = lineWidth / 3;
 
         float maxYPosition = verticalOffset + data.weights.Count * lineWidth - transform.position.y;
-        Debug.Log("maxYPosition " + maxYPosition);
-        Debug.Log("data.weights.Count * lineWidth " + data.weights.Count * lineWidth);
-        Debug.Log("transform.position.y " + transform.position.y);
+        // Debug.Log("maxYPosition " + maxYPosition);
+        // Debug.Log("data.weights.Count * lineWidth " + data.weights.Count * lineWidth);
+        // Debug.Log("transform.position.y " + transform.position.y);
         for (int i = 0; i < data.weights.Count; i++)
         {
             GameObject instance = Instantiate(lineObject, new(0f, 0f, 0f), Quaternion.identity);
@@ -188,19 +175,13 @@ public class DenseView : MonoBehaviour
 
     public void ShowWeights()
     {
-        Debug.Log("On hover logit node show weights");
+        // Debug.Log("On hover logit node show weights");
         weightsRoot.gameObject.SetActive(true);
     }
 
     public void HideWeights()
     {
-        Debug.Log("On unhover logit node hide weights");
+        // Debug.Log("On unhover logit node hide weights");
         weightsRoot.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

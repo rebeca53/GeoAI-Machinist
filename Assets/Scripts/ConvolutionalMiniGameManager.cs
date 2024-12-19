@@ -57,14 +57,12 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     void UpdateProgress(float progress)
     {
-        // Debug.Log("Update progress " + progress);
         Image bar = GameObject.Find("ProgressBar").GetComponent<Image>();
         bar.fillAmount = progress;
     }
 
     void IncrementProgress(float progress)
     {
-        // Debug.Log("IncrementProgress by " + progress);
         Image bar = GameObject.Find("ProgressBar").GetComponent<Image>();
         bar.fillAmount += progress;
     }
@@ -127,7 +125,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     private void UnregisterConvolutionalViewsMessages()
     {
-        // Debug.Log("Unregister convolutional views");
         for (int i = 0; i < KernelAmount; i++)
         {
             ConvolutionalView script = convolutionalViews[i];
@@ -138,7 +135,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     private void RegisterConvolutionalViewsMessages()
     {
-        // Debug.Log("Register convolutional views");
         for (int i = 0; i < KernelAmount; i++)
         {
             ConvolutionalView script = convolutionalViews[i];
@@ -186,31 +182,12 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     void LoadMatrix()
     {
-        Debug.Log(convDataText.text);
+        // Debug.Log(convDataText.text);
         data = JsonUtility.FromJson<ConvData>(convDataText.text);
 
         if (data == null)
         {
-            Debug.Log("Failed to retrieve from JSON");
-        }
-        else
-        {
-            if (data.kernelMatrix == null)
-            {
-                Debug.Log("Kernel is none");
-            }
-            Debug.Log("kernel lenght " + data.kernelMatrix.Count);
-            Debug.Log("kernel [0] " + data.kernelMatrix[0]);
-            Debug.Log("kernel [1] " + data.kernelMatrix[1]);
-            Debug.Log("kernel [2] " + data.kernelMatrix[2]);
-
-            Debug.Log("kernel [0][0] " + UnflatMatrix(data.kernelMatrix, 3)[0, 0]);
-
-            Debug.Log("input Matrix [0]" + data.inputMatrix[0]);
-            Debug.Log("input Matrix [1]" + data.inputMatrix[1]);
-            Debug.Log("input Matrix [2]" + data.inputMatrix[2]);
-
-            Debug.Log("input Matrix [0,0]" + UnflatMatrix(data.inputMatrix, 64)[0, 0]);
+            Debug.LogError("Failed to retrieve from JSON");
         }
     }
 
@@ -239,9 +216,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         if (IsGameOver())
         {
-            Debug.Log("Game is over");
             DisplayGameOverMessage();
-            // GameOver();
         }
         else if (NeedRemoveWrongKernel())
         {
@@ -282,8 +257,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
         ZoomIn();
         // NPC speaks message
         string message = "Good job picking the kernel that enhances human-made features to analyze a residential area. Let's go back for the CNN Room.";
-        // string message = "Human-made features often present geometric patterns such as transport networks. Good job picking the kernel that enhances human-made features to analyze a residential area.";
-        Debug.Log("turnover message " + message);
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();

@@ -59,28 +59,10 @@ public class Exit : MonoBehaviour
 
     private void UnlockExit()
     {
-        Debug.Log("UnlockExit");
-
-        // UIHandler.Instance.DisplayMessage("Wow! You really know everything about Land Cover and Land Use as expected from the GeoAI Machinist ;)");
-
         isUnlocked = true;
         PlaySound(unlockClip);
         spriteRenderer.sprite = unlockedDoor;
         spriteRenderer.color = Color.green;
-
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("Unable to retrieve camera");
-        }
-        else
-        {
-            Debug.Log("Retrieveing object");
-        }
-        cameraZoom.ChangeZoomSmooth(4f);
-
         OnUnlockExit?.Invoke();
     }
 
@@ -94,7 +76,6 @@ public class Exit : MonoBehaviour
         if (!HasCollectedAllCoins())
         {
             OnExitWithoutCoins?.Invoke();
-            // UIHandler.Instance.DisplayMessage("Oops! I see you didn't collect all Coins. They will be useful in the future!", 10);
         }
         else if (IsPhaseOver())
         {
@@ -107,15 +88,12 @@ public class Exit : MonoBehaviour
         else
         {
             OnExitWithoutLabels?.Invoke();
-            // UIHandler.Instance.DisplayMessage("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn.");
         }
 
     }
 
     private bool IsPhaseOver()
     {
-        Debug.Log("Exit is unlocked: " + isUnlocked);
-        Debug.Log("has collected all coins: " + HasCollectedAllCoins());
         return HasCollectedAllCoins() && isUnlocked;
     }
 

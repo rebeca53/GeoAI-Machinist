@@ -21,7 +21,6 @@ public class HintBalloon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start HintBalloon");
         spaceKey = transform.Find("Space");
         arrowRightKey = transform.Find("ArrowRight");
     }
@@ -69,7 +68,6 @@ public class HintBalloon : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("Show hint balloon");
         gameObject.SetActive(true);
     }
 
@@ -89,23 +87,8 @@ public class HintBalloon : MonoBehaviour
 
         if (Input.GetKeyDown(hintedKey))
         {
-            if (nearObject && nearObject.CompareTag("Player"))
-            {
-                Debug.Log("hinted key: " + hintedKey);
-                Debug.Log("key pressed");
-                Hide();
-                OnDone?.Invoke();
-            }
-            else
-            {
-                Debug.Log("key pressed but Player was not over me.");
-                if (nearObject)
-                {
-                    Debug.Log("nearObject tag: " + nearObject.tag);
-                }
-                Hide();
-                OnDone?.Invoke();
-            }
+            Hide();
+            OnDone?.Invoke();
         }
     }
 

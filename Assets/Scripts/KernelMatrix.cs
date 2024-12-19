@@ -59,17 +59,9 @@ public class KernelMatrix : MonoBehaviour
 
     public void Grab(Vector3 grabberPosition)
     {
-        // Debug.Log("xgrab previous transform position " + transform.position);
-        // Debug.Log("xgrab previous transform local position " + transform.localPosition);
-
-        // Debug.Log("xgrab " + grabberPosition);
         grabbed = true;
         Vector3 relativeToParentPosition = new(0f, 0f, 0f);
         transform.localPosition = relativeToParentPosition;
-        // transform.position = new(grabberPosition.x, grabberPosition.y, grabberPosition.z);
-        // Debug.Log("xgrab transform position " + transform.position);
-        // Debug.Log("xgrab transform local position " + transform.localPosition);
-
         OnGrabbed?.Invoke();
         StopBlink();
     }
@@ -88,7 +80,6 @@ public class KernelMatrix : MonoBehaviour
     {
         foreach (KernelPixel pixel in kernelPixels)
         {
-            Debug.Log("change the color of a kernel pixel");
             pixel.SetConvoluting();
         }
     }
@@ -97,7 +88,6 @@ public class KernelMatrix : MonoBehaviour
     {
         foreach (KernelPixel pixel in kernelPixels)
         {
-            Debug.Log("change the color of a kernel pixel");
             pixel.SetDefault();
         }
     }
@@ -106,8 +96,6 @@ public class KernelMatrix : MonoBehaviour
     {
         transform.parent = null;
         target = targetPosition;
-        Debug.Log("currentPosition " + currentPosition);
-        Debug.Log("target " + target);
     }
 
     public void MoveRight(float x)

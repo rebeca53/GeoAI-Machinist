@@ -29,8 +29,6 @@ public class Container : MonoBehaviour
         animator = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
-
-        // Debug.Log("Container type is " + type);
     }
 
     private string SplitCamelCase(string input)
@@ -60,7 +58,6 @@ public class Container : MonoBehaviour
 
     public bool IsMatch(SampleBox sampleBox)
     {
-        Debug.Log("container type is " + type + ", and box type is " + sampleBox.type);
         return sampleBox.type == type;
     }
 

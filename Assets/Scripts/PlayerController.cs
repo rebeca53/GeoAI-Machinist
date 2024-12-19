@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -32,7 +33,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Hello Player");
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         TurnLeft();
@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
     public void Disable()
     {
-        Debug.Log("Disable Player");
         isEnabled = false;
     }
 
@@ -60,7 +59,6 @@ public class PlayerController : MonoBehaviour
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
-        // Debug.Log("Player spawn at " + transform.position);
     }
 
     public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
@@ -75,13 +73,11 @@ public class PlayerController : MonoBehaviour
 
     private void TurnLeft()
     {
-        Debug.Log("Turn left");
         animator.SetFloat("LastInputX", -1f);
     }
 
     public void TurnRight()
     {
-        Debug.Log("Turn right");
         animator.SetFloat("LastInputX", 1f);
     }
 
@@ -176,15 +172,12 @@ public class PlayerController : MonoBehaviour
 
     private void GrabSampleBox()
     {
-        Debug.Log("grab " + nearObject.tag);
-
         if (nearObject == null || !(nearObject.CompareTag("SampleBox") || nearObject.CompareTag("SpectralBand")))
         {
             return;
         }
 
         animator.SetTrigger("playerGrab");
-        // Debug.Log("grab object");
         // Change scale
         nearObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         // change box parent
@@ -198,7 +191,6 @@ public class PlayerController : MonoBehaviour
 
     private void BreakSampleBox()
     {
-        Debug.Log("break " + nearObject.tag);
         if (nearObject == null || !nearObject.CompareTag("SampleBox"))
         {
             return;
@@ -211,7 +203,6 @@ public class PlayerController : MonoBehaviour
     private void DropObject()
     {
         animator.SetTrigger("playerGrab");
-        // Debug.Log("drop object");
         // Change scale
         grabbedObject.transform.localScale = new Vector3(1f, 1f, 1f);
         if (grabbedObject.CompareTag("Kernel"))
@@ -229,8 +220,6 @@ public class PlayerController : MonoBehaviour
 
     private void AttemptToFillAContainer()
     {
-        Debug.Log("drop object onto container");
-
         Container container = nearObject.GetComponent<Container>();
         SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
 
@@ -246,8 +235,6 @@ public class PlayerController : MonoBehaviour
 
     private void AttemptToFillSpectralBandContainer()
     {
-        Debug.Log("drop object onto SPECTRAL BAND container");
-
         SpectralBandContainer container = nearObject.GetComponent<SpectralBandContainer>();
         SampleSpectralBand sampleBand = grabbedObject.GetComponent<SampleSpectralBand>();
 
@@ -265,7 +252,6 @@ public class PlayerController : MonoBehaviour
 
         grabbeableObject.GetComponent<KernelMatrix>().Grab(transform.position);
 
-        // Debug.Log("grab object");
         // Change scale
         // change box parent
         GameObject playerObj = GameObject.Find("Player");
@@ -285,7 +271,6 @@ public class PlayerController : MonoBehaviour
 
         nearObject.GetComponent<ActivationBox>().Grab(transform.position);
 
-        // Debug.Log("grab object");
         // Change scale
         // change box parent
         GameObject playerObj = GameObject.Find("Player");
@@ -299,15 +284,8 @@ public class PlayerController : MonoBehaviour
 
     private void FillInputHolder()
     {
-        // Debug.Log("drop object onto container");
-
         InputHolder inputHolder = nearObject.GetComponent<InputHolder>();
-
         inputHolder.AddInputObject(grabbedObject);
-        // SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
-
-        // inputHolder.FeedInputSample(sampleBox);
-
         grabbedObject = null;
     }
 
@@ -333,20 +311,12 @@ public class PlayerController : MonoBehaviour
         if (parent != null)
         {
             CNNLayer layer = parent.GetComponent<CNNLayer>();
-            Debug.Log("layer " + layer.type);
-
             if (GameManager.instance.IsSolved(layer.type))
             {
-                Debug.Log("Level already solved");
-                UIHandler.Instance.DisplayMessage("Layer already fixed.");
                 return;
             }
 
             GameManager.instance.StartMiniGame(layer.type);
-        }
-        else
-        {
-            Debug.Log("This GameObject has no parent!");
         }
     }
 
@@ -380,16 +350,6 @@ public class PlayerController : MonoBehaviour
         // TODO: improve the context of an action
         if (grabbedObject)
         {
-            Debug.Log("space action and BUT grabbed object " + grabbedObject.tag);
-            if (nearObject == null)
-            {
-                Debug.Log("No nearObject to drop on");
-            }
-            else
-            {
-                Debug.Log("nearObject is " + nearObject.tag);
-            }
-
             if (nearObject && nearObject.CompareTag("Container"))
             {
                 AttemptToFillAContainer();
@@ -413,10 +373,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.Log("space action and no grabbed object");
             if (nearObject == null)
             {
-                Debug.Log("No nearObject to grab");
+                // Debug.Log("No nearObject to grab");
                 return;
             }
 
@@ -442,7 +401,7 @@ public class PlayerController : MonoBehaviour
             {
                 nearObject.GetComponent<SelectorSwitch>().Switch();
             }
-            else if (nearObject.transform.parent.CompareTag("Kernel"))
+            else if (nearObject.transform.parent && nearObject.transform.parent.CompareTag("Kernel"))
             {
                 GrabKernel();
             }
@@ -459,7 +418,7 @@ public class PlayerController : MonoBehaviour
         GameObject playerObj = GameObject.Find("Player");
         if (playerObj == null)
         {
-            Debug.LogError("Cloud not find player");
+            Debug.LogError("could not find player");
         }
 
         if (grabbedObject)
@@ -473,7 +432,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsValidNearObject(other))
         {
-            Debug.Log("On trigger enter 2d " + other.tag);
+            // Debug.Log("On trigger enter 2d " + other.tag);
             nearObject = other.gameObject;
         }
     }
@@ -497,7 +456,7 @@ public class PlayerController : MonoBehaviour
 
         if (grabbedObject && grabbedObject.CompareTag(other.tag))
         {
-            Debug.Log("Ignore grabbed object which is same tag as near object:" + other.tag);
+            // Debug.Log("Ignore grabbed object which is same tag as near object:" + other.tag);
             return false;
         }
 
@@ -511,7 +470,7 @@ public class PlayerController : MonoBehaviour
             // Ignore
             return;
         }
-        Debug.Log("on trigger exit 2d " + other.tag);
+        // Debug.Log("on trigger exit 2d " + other.tag);
         nearObject = null;
     }
 }

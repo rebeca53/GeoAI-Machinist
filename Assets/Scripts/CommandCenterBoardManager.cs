@@ -67,7 +67,6 @@ public class CommandCenterBoardManager : MonoBehaviour
 
     void OnGameOver()
     {
-        Debug.Log("Game Over!");
         // Fade Out
         // Place Player and NPC
         NonPlayerCharacter NPC = GameObject.Find("NPC").GetComponent<NonPlayerCharacter>();

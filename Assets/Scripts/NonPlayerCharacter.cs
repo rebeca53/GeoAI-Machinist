@@ -21,7 +21,6 @@ public class NonPlayerCharacter : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Start NPC");
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -30,7 +29,6 @@ public class NonPlayerCharacter : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnHover?.Invoke();
-            // DisplayIntroduction();
         }
     }
 
@@ -45,8 +43,6 @@ public class NonPlayerCharacter : MonoBehaviour
 
     public void DisplayIntroduction(float time = 30f)
     {
-        Debug.Log("DisplayIntroduction during " + time);
-
         Scene currentScene = SceneManager.GetActiveScene();
         // Retrieve the name of this scene.
         string sceneName = currentScene.name;
@@ -82,14 +78,11 @@ public class NonPlayerCharacter : MonoBehaviour
     public void Spawn(CommandCenterBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
-        // DisplayIntroduction();
     }
 
     public void Spawn(BaseBoard boardManager, Vector2Int cell)
     {
-        Debug.Log("Spawn");
         transform.position = boardManager.CellToWorld(cell);
-        // DisplayIntroduction();
     }
 
     public void WalkTo(Vector3 position)

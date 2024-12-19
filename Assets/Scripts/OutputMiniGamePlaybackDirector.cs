@@ -31,15 +31,15 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     {
         screenplay = new List<(string, string)>() {
         new("NPC", "This room is the Output Layer of the CNN. At this point, each layer has extracted and highlighted features in the image."),
-        new("NPC", "Follow me to see how the image looks now."),
+        new("NPC", "Follow me to see how the image looks now."), // instruction
         new("action", "action1"), // Robot Walk
         new("action", "action2"), // Wait Player
         new("NPC", "The CNN extracted features, but we can't tell which class this image belongs to. We need more steps."),
         new("NPC", "Find and activate the Flatenning Pull Lever to flat the matrix."),
         new("action", "action3"), // Wait player flatten
         // new("action", "action4"), // Layer flattened, class nodes animation done
-        new("NPC", "Each pixel will have a weight in the classification result."),
-        new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."),
+        new("NPC", "Each pixel have a weight in the classification result."),
+        new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."), // instruction
         // new("NPC", "Approach a class node to highlight the weights."),
         new("NPC", "Ok, some class nodes are brighter than others. But we can not tell yet which class to choose."),
         new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class"),
@@ -74,7 +74,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
                 ExecuteAction(line.Item2);
                 break;
             case "NPC":
-                Debug.Log("NPC position " + NPC.transform.position);
                 dialogueBalloon.SetSpeaker(NPC.gameObject);
                 dialogueBalloon.PlaceUpperRight();
                 if (HasSpeakerChanged())
@@ -92,12 +91,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
@@ -113,9 +107,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
                 break;
             case "action3":
                 WaitPlayerFlatten();
-                break;
-            case "action4":
-                OnClassNodesRendered();
                 break;
             default:
                 // Do nothing
@@ -140,15 +131,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void WaitPlayerFlatten()
     {
         cameraZoom.Release();
-        // ZoomOut();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
-    }
-
-    void OnClassNodesRendered()
-    {
-        Debug.Log("On Flattened");
-        // TODO: NPC walks to the player
-        // NextLine();
     }
 
     void HintSoftmax()
@@ -170,7 +153,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void End()
     {
-        Debug.Log("End");
         dialogueBalloon.Hide();
         ClearCallbacks();
 
@@ -193,7 +175,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void OnDisable()
     {
-        // introductionAnimation.stopped -= OnPlayableDirectorStopped;
         hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
     }

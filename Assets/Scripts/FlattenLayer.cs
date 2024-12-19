@@ -51,8 +51,6 @@ public class FlattenLayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start Flatten");
-
         ResetFlattening();
 
         LoadMatrix();
@@ -64,19 +62,18 @@ public class FlattenLayer : MonoBehaviour
 
     void LoadMatrix()
     {
-        Debug.Log("Flatten Layer Load Input Matrix");
-        Debug.Log(dataText.text);
+        // Debug.Log(dataText.text);
         data = JsonUtility.FromJson<FlattenData>(dataText.text);
 
         if (data == null)
         {
-            Debug.Log("Failed to retrieve from JSON");
+            Debug.LogError("Failed to retrieve from JSON");
         }
         else
         {
             if (data.inputMatrix == null)
             {
-                Debug.Log("Input is none");
+                Debug.LogError("Input is none");
             }
         }
     }
@@ -84,7 +81,6 @@ public class FlattenLayer : MonoBehaviour
     /* Flattening */
     void ResetFlattening()
     {
-        Debug.Log("Reset Flattening");
         iFlat = 0;
         jFlat = 0;
         isFlattening = false;
@@ -92,7 +88,6 @@ public class FlattenLayer : MonoBehaviour
         selectorSwitch.OnSwitch -= ResetFlattening;
         selectorSwitch.OnSwitch += StartFlattening;
         selectorSwitch.UpdateState("inactive");
-        Debug.Log("Reset Flattening done");
     }
 
     public void InitInput(double[,] input)
@@ -104,7 +99,6 @@ public class FlattenLayer : MonoBehaviour
 
     void StartFlattening()
     {
-        Debug.Log("Start Flatten");
         selectorSwitch.UpdateState("correct");
         selectorSwitch.OnSwitch -= StartFlattening;
         selectorSwitch.OnSwitch += ResetFlattening;
@@ -167,8 +161,6 @@ public class FlattenLayer : MonoBehaviour
 
     void StopFlatenning()
     {
-        Debug.Log("Stop Flatenning");
-
         isFlattening = false;
         selectorSwitch.Disable();
         OnFlatten?.Invoke();

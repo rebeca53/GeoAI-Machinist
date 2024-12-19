@@ -65,14 +65,13 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
         }
 
         var line = screenplay[currentLineIndex];
-        Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
+        // Debug.Log("Current line: " + line.Item1 + " - " + line.Item2);
         switch (line.Item1)
         {
             case "action":
                 ExecuteAction(line.Item2);
                 break;
             case "NPC":
-                Debug.Log("NPC position " + NPC.transform.position);
                 dialogueBalloon.SetSpeaker(NPC.gameObject);
                 dialogueBalloon.PlaceUpperRight();
                 if (HasSpeakerChanged())
@@ -90,12 +89,7 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
 
     private bool HasSpeakerChanged()
     {
-        Debug.Log("idx " + currentLineIndex);
-
         if (currentLineIndex < 1) return true;
-        Debug.Log("previous " + screenplay[currentLineIndex - 1].Item1);
-        Debug.Log("current " + screenplay[currentLineIndex].Item1);
-
         return !screenplay[currentLineIndex].Item1.Equals(screenplay[currentLineIndex - 1].Item1);
     }
 
@@ -117,7 +111,6 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
 
     void End()
     {
-        Debug.Log("End");
         dialogueBalloon.Hide();
         ClearCallbacks();
 
@@ -138,7 +131,6 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
 
     void OnDisable()
     {
-        // introductionAnimation.stopped -= OnPlayableDirectorStopped;
         hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
     }
