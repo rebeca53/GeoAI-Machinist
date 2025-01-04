@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.esri.arcgis-maps-sdk": "file:C:/Users/rebec/Downloads/arcgis-maps-sdk-unity-1.7.0/package",
     "com.unity.addressables": "1.22.3",
     "com.unity.cinemachine": "2.10.2",
     "com.unity.collab-proxy": "2.5.2",
