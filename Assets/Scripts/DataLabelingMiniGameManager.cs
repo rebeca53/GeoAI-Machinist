@@ -206,13 +206,13 @@ public class DataLabelingMiniGameManager : BaseBoard
         {
             { "AnnualCrop", "Annual crops are those that do not last more than two growing seasons. These include crops like wheat, rice, and potatoes." },
             { "Forest", "Forests are lands with tree crown cover. The trees should be able to reach a minimum height of 5 meters at maturity in situ." },
-            { "HerbaceousVegetation", "Herbaceous vegetation consists of non-woody plants, such as grasses." },
-            { "Highway", "Highways are major public roads, often connecting cities and towns, designed for high-speed traffic." },
-            { "Industrial", "Industrial areas are zones for manufacturing, and other commercial enterprises involved in the production of goods and services." },
+            { "HerbaceousVegetation", "Herbaceous vegetation consists of non-woody plants, such as natural grasslands, bushes, and herbaceous plants." },
+            { "Highway", "Highways are major roads for fast transit." },
+            { "Industrial", "Industrial areas are occupied by buildings for industrial, commercial, or transport-related uses." },
             { "Pasture", "Pastures are grasslands or other vegetative areas for the grazing of livestock, such as cattle, sheep, and goats." },
             { "PermanentCrop", "Permanent crops (e.g., fruit trees and vines) last for more than two growing seasons." },
-            { "Residential", "Residential areas are zones for housing and infrastructure like schools, parks, and other community facilities." },
-            { "River", "Rivers are natural inland waterways, that flow towards a larger body of water such as an ocean, sea, lake, or another river." },
+            { "Residential", "Residential areas are built-up areas for housing and associated lands like gardens, and parks." },
+            { "River", "Rivers are natural inland water courses that empty into another body of water or the sea." },
             { "SeaLake", "Sea and lakes are large waterbodies, with seas being saline water connected to oceans and lakes being often enclosed by land." }
         };
 

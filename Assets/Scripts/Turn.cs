@@ -58,19 +58,19 @@ class Turn
             switch (sampleName)
             {
                 case "River":
-                    return "The Red Edge spectral band is the perfect choice. It has high reflectance on vegetation and low reflectance on water bodies.";
+                    return "The Red Edge spectral band is a good choice. It has high reflectance on vegetation and low reflectance on water bodies.";
                 case "Highway":
                     return "The Blue band is useful for identifying man-made features and soil and vegetation discrimination.";
                 case "Residential":
                     switch (bandName)
                     {
                         case "red":
-                            return "The Red band is useful for identifying urban (city and town) areas, vegetation types, and soils.";
+                            return "The Red band is useful for identifying urban areas, vegetation types, and soils.";
                         case "blue":
                             return "The Blue band is useful for identifying man-made features and soil and vegetation discrimination.";
                         case "redEdge":
                             // https://www.sciencedirect.com/science/article/pii/S1470160X24011026
-                            return "The Red Edge spectral band is the perfect choice. It has high reflectance on vegetation and low reflectance on buildings.";
+                            return "The Red Edge spectral band is a good choice. It has high reflectance on vegetation and low reflectance on buildings.";
                         default:
                             return "";
                     }
