@@ -241,7 +241,7 @@ public class InputMiniGameManager : BaseBoard
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
-        dialogueBalloon.Show();
+        dialogueBalloon.Show(8f);
         dialogueBalloon.DisableKey();
         NPC.OnHover += dialogueBalloon.WaitForKey;
     }

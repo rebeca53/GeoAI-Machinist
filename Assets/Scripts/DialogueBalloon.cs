@@ -75,10 +75,11 @@ public class DialogueBalloon : MonoBehaviour
         label.text = message;
     }
 
-    public void Show()
+    public void Show(float minDuration = 5f)
     {
         gameObject.SetActive(true);
         waitingKey = true;
+        hintTimeout = minDuration;
         HideHint();
     }
 

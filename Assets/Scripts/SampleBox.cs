@@ -6,6 +6,7 @@ using UnityEngine;
 public class SampleBox : MonoBehaviour
 {
     public event Action<string, Vector3> OnBreak;
+    bool broken = false;
     public string type;
     private BoxCollider2D boxCollider;
 
@@ -23,7 +24,11 @@ public class SampleBox : MonoBehaviour
 
     public void BreakMultiband()
     {
-        OnBreak?.Invoke(type, transform.position);
+        if (!broken)
+        {
+            broken = true;
+            OnBreak?.Invoke(type, transform.position);
+        }
     }
 
     public void Reset()

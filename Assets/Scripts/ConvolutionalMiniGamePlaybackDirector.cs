@@ -108,6 +108,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
     {
         dialogueBalloon.Hide();
         HintKernel();
+        HintInputHolder();
         introductionAnimation.Play(); // on stopped, it calls NextLine
     }
 
@@ -125,9 +126,6 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         hintBalloon.SetTarget(inputHolder);
         hintBalloon.PlaceOver();
         hintBalloon.Show();
-
-        Player.Enable();
-        hintBalloon.OnDone += NextLine;
     }
 
     void ZoomIn()
@@ -145,6 +143,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         ZoomIn();
 
         Player.Enable();
+        HintInputHolder();
     }
 
     void ClearCallbacks()
