@@ -62,11 +62,6 @@ public class OutputMiniGameManager : BaseBoard
         NPC.Spawn(this, new Vector2Int(1, 1));
 
         LayoutDenseView();
-        // LayoutSoftmaxView();
-        // LayoutInputHolder();
-        // LayoutFlatenningGear();
-        // LayoutFlatHolder();
-        // LayoutDenseView(); // weights, bias, class, OnHoverClassLabel
         playbackDirector.StartAnimation();
         flattenLayer.OnFlatten += StartAnimationDenseView;
         outputLayer.OnDone += DisplayGameOverMessage;

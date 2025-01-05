@@ -72,6 +72,16 @@ public class InputMatrix : MonoBehaviour
         }
     }
 
+    public void HighlightPixel(int i, int j)
+    {
+        pixelPositions[(i, j)].GetComponent<InputMatrixPixel>().Highlight();
+    }
+
+    public void HidePixel(int i, int j)
+    {
+        pixelPositions[(i, j)].SetActive(false);
+    }
+
     public void HighlightNeighboors(Vector3 pixelPosition)
     {
         float x = pixelPosition.x;

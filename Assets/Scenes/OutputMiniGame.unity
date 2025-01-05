@@ -4381,6 +4381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectorSwitch: {fileID: 1747690329}
+  cameraZoom: {fileID: 692666407}
+  Player: {fileID: 503394038}
+  flatScreen: {fileID: 22880850}
   inputMatrix: {fileID: 276819978}
   flatMatrix: {fileID: 1802911752}
   dataText: {fileID: 4900000, guid: c7236222f6ce2dc47a6f090d91dce129, type: 3}

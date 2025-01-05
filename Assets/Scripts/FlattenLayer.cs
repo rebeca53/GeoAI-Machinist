@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class FlattenLayer : MonoBehaviour
@@ -9,6 +10,9 @@ public class FlattenLayer : MonoBehaviour
 
     // Scene objects
     public SelectorSwitch selectorSwitch;
+    public CameraZoom cameraZoom;
+    public PlayerController Player;
+    public GameObject flatScreen;
 
     // Matrices
     public InputMatrix inputMatrix;
@@ -19,6 +23,7 @@ public class FlattenLayer : MonoBehaviour
     int animationStep = 1;
     int iFlat = 0;
     int jFlat = 0;
+    int kFlat = 0;
     int matrixSize = 13;
 
     // Data
@@ -83,6 +88,7 @@ public class FlattenLayer : MonoBehaviour
     {
         iFlat = 0;
         jFlat = 0;
+        kFlat = 0;
         isFlattening = false;
         flatMatrix.Reset();
         selectorSwitch.OnSwitch -= ResetFlattening;
@@ -106,17 +112,22 @@ public class FlattenLayer : MonoBehaviour
         flatMatrix.Reset();
         iFlat = 0;
         jFlat = 0;
+        kFlat = 0;
         isFlattening = true;
 
         for (int k = 0; k < 169; k++)
         {
             int i = k / matrixSize;
             int j = k - i * matrixSize;
-            double value = inputMatrix.GetPixelValue(i, j); ;
+            double value = inputMatrix.GetPixelValue(i, j);
 
             flatMatrix.SetPixel(k, value);
             flatMatrix.HidePixel(k);
         }
+
+        Player.Disable();
+        cameraZoom.ChangeZoomTarget(flatScreen);
+        cameraZoom.ChangeZoomSmooth(5f);
     }
 
     void Flatten()
@@ -135,7 +146,10 @@ public class FlattenLayer : MonoBehaviour
             // Debug.Log("iConvNext " + iNext + " limit " + matrixSize);
             // Debug.Log("jConvNext " + jNext + " limit " + (jFlat + animationStep));
             int k = iNext + jNext * matrixSize;
-            flatMatrix.ShowPixel(k);
+            inputMatrix.HidePixel(iNext, jNext);
+            flatMatrix.ShowPixel(kFlat);
+            // Debug.Log(kFlat);
+            kFlat++;
             jNext++;
             if (jNext >= matrixSize)
             {
@@ -163,12 +177,22 @@ public class FlattenLayer : MonoBehaviour
     {
         isFlattening = false;
         selectorSwitch.Disable();
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
+        Player.Enable();
+        cameraZoom.ChangeZoomSmooth(1.4f);
         OnFlatten?.Invoke();
     }
 
+    float timeoutSeconds = 3f / 169;
+    float timer = 0f;
     // Update is called once per frame
     void Update()
     {
-        Flatten();
+        timer += Time.deltaTime;
+        if (timer > timeoutSeconds)
+        {
+            timer = 0f;
+            Flatten();
+        }
     }
 }
