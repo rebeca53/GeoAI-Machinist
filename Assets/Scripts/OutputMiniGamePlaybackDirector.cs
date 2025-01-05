@@ -30,18 +30,21 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay = new List<(string, string)>() {
-        new("NPC", "This room is the Output Layer of the CNN. At this point, each layer has extracted and highlighted features in the image."),
+        new("NPC", "This room is the Output Layer of the CNN."),
+        new("NPC", "At this point, each layer has extracted and highlighted features in the image."),
         new("NPC", "Follow me to see how the image looks now."), // instruction
         new("action", "action1"), // Robot Walk
         new("action", "action2"), // Wait Player
-        new("NPC", "The CNN extracted features, but we can't tell which class this image belongs to. We need more steps."),
+        new("action", "action3"), // Show feature map
+        new("NPC", "We cannot interpret the extracted features, and we don't have the classification result yet."),
         new("NPC", "Find and activate the Flatenning Pull Lever to flat the matrix."),
-        new("action", "action3"), // Wait player flatten
-        // new("action", "action4"), // Layer flattened, class nodes animation done
+        new("NPC", "By flattening, we change the shape of the extracted features to access each individual pixel."),
+        new("action", "action4"), // Wait player flatten
         new("NPC", "Each pixel have a weight in the classification result."),
-        new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."), // instruction
+        // new("action", "action4"), // Layer flattened, class nodes animation done
+        // new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."), // instruction
         // new("NPC", "Approach a class node to highlight the weights."),
-        new("NPC", "Ok, some class nodes are brighter than others. But we can not tell yet which class to choose."),
+        new("NPC", "The classification is almost done. We have class nodes with different values. Just one more step to go..."),
         new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class"),
         };
     }
@@ -75,7 +78,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
                 break;
             case "NPC":
                 dialogueBalloon.SetSpeaker(NPC.gameObject);
-                dialogueBalloon.PlaceUpperRight();
+                dialogueBalloon.PlaceUpperLeft();
                 if (HasSpeakerChanged())
                 {
                     cameraZoom.ChangeZoomTarget(NPC.gameObject);
@@ -106,6 +109,9 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
                 WaitPlayer();
                 break;
             case "action3":
+                StartCoroutine(ShowFeatureMap());
+                break;
+            case "action4":
                 WaitPlayerFlatten();
                 break;
             default:
@@ -126,6 +132,15 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         Player.Enable();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         NPC.OnHover += NextLine;
+    }
+
+    IEnumerator ShowFeatureMap()
+    {
+        yield return new WaitForSeconds(0.5f);
+        cameraZoom.ChangeZoomTarget(inputScreen);
+        yield return new WaitForSeconds(2f);
+        cameraZoom.ChangeZoomTarget(NPC.gameObject);
+        NextLine();
     }
 
     void WaitPlayerFlatten()

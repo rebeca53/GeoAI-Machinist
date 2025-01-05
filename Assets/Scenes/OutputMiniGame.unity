@@ -408,11 +408,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7180559290486485830, guid: e72611c0621a9ab458775288ad35f643, type: 3}
   m_PrefabInstance: {fileID: 255091762}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &255091764 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4159964671385374413, guid: e72611c0621a9ab458775288ad35f643, type: 3}
-  m_PrefabInstance: {fileID: 255091762}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &276819976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1774,7 +1769,7 @@ MonoBehaviour:
   playbackRobotWalk: {fileID: 1619169706}
   Player: {fileID: 503394038}
   NPC: {fileID: 653875758}
-  inputScreen: {fileID: 255091764}
+  inputScreen: {fileID: 1012877837}
   dialogueBalloon: {fileID: 675176284}
   hintBalloon: {fileID: 1314880659}
   cameraZoom: {fileID: 692666407}
@@ -2855,6 +2850,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1012877837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 470208182596209186, guid: e72611c0621a9ab458775288ad35f643, type: 3}
+  m_PrefabInstance: {fileID: 255091762}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1030153416
 GameObject:
   m_ObjectHideFlags: 0
