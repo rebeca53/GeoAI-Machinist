@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.Playables;
 public class InputMiniGamePlaybackDirector : MonoBehaviour
 {
     // public PlayableDirector director;
+    public Action OnEnd;
     public PlayableDirector firstTurnAnimation;
     public PlayerController Player;
     public NonPlayerCharacter NPC;
@@ -157,6 +159,7 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         ZoomIn();
 
         Player.Enable();
+        OnEnd?.Invoke();
     }
 
     void OnDisable()

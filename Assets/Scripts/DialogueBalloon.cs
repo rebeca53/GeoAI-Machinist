@@ -79,12 +79,23 @@ public class DialogueBalloon : MonoBehaviour
     {
         gameObject.SetActive(true);
         waitingKey = true;
+        HideHint();
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
         waitingKey = false;
+    }
+
+    public void DisableKey()
+    {
+        waitingKey = false;
+    }
+
+    public void WaitForKey()
+    {
+        waitingKey = true;
     }
 
     public void ShowHint()
@@ -94,24 +105,30 @@ public class DialogueBalloon : MonoBehaviour
 
     public void HideHint()
     {
-        hintTimer = hintTimeout;
+        hintTimer = 0f;
         hint.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (waitingKey == false)
+        {
+            return;
+        }
+
         hintTimer += Time.deltaTime;
         if (hintTimer >= hintTimeout)
         {
             ShowHint();
+            if (waitingKey && Input.GetKeyDown("space"))
+            {
+                waitingKey = false;
+                HideHint();
+                OnDone?.Invoke();
+            }
         }
 
-        if (waitingKey && Input.GetKeyDown("space"))
-        {
-            waitingKey = false;
-            HideHint();
-            OnDone?.Invoke();
-        }
+
     }
 }

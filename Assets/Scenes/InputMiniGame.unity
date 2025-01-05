@@ -212,6 +212,7 @@ MonoBehaviour:
   spectralBandContainerTile: {fileID: 3192559152887246772, guid: 414c176359d6fcc4c8077bf169cad1c9, type: 3}
   selectorSwitch: {fileID: 7975651227175653580, guid: 95b2bea181959f34590ba19ebe926f89, type: 3}
   teleportationDeviceTile: {fileID: 5179490145842757990, guid: e96b224b63af8a940a83d1e6228be0ed, type: 3}
+  playbackDirector: {fileID: 502848287}
   timedDialogueBalloon: {fileID: 140822404}
   dialogueBalloon: {fileID: 1862547051}
   cameraZoom: {fileID: 1339554161}
@@ -430,7 +431,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.75
+  m_fontSize: 0.7
   m_fontSizeBase: 0.75
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1768,6 +1769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 9060441300644082271, guid: 5ca2353d8589a5b459bec930122380bd, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2483,7 +2488,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.75
+  m_fontSize: 0.7
   m_fontSizeBase: 0.75
   m_fontWeight: 400
   m_enableAutoSizing: 1

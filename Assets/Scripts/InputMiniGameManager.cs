@@ -12,6 +12,7 @@ public class InputMiniGameManager : BaseBoard
     public GameObject selectorSwitch;
     public GameObject teleportationDeviceTile;
 
+    public InputMiniGamePlaybackDirector playbackDirector;
     public TimedDialogueBalloon timedDialogueBalloon;
     public DialogueBalloon dialogueBalloon;
     public CameraZoom cameraZoom;
@@ -64,6 +65,14 @@ public class InputMiniGameManager : BaseBoard
         LayoutInputHolder();
         LayoutSample();
         LayoutBandContainers();
+
+        playbackDirector.OnEnd += DisplayMessageOnHoverNPC;
+    }
+
+    private void DisplayMessageOnHoverNPC()
+    {
+        Debug.Log("DisplayMessageOnHoverNPC");
+        NPC.OnHover += DisplayInitTurnMessage;
     }
 
     private void DisableManualZoom()
@@ -234,6 +243,8 @@ public class InputMiniGameManager : BaseBoard
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
+        dialogueBalloon.DisableKey();
+        NPC.OnHover += dialogueBalloon.WaitForKey;
     }
 
     private void DisplayInitTurnMessage()
@@ -309,11 +320,13 @@ public class InputMiniGameManager : BaseBoard
         currentTurn++;
         sampleBox.Reset();
         LayoutSample();
+        NPC.OnHover += DisplayInitTurnMessage;
         DisplayInitTurnMessage();
     }
 
     void TurnOver()
     {
+        NPC.OnHover -= DisplayInitTurnMessage;
         CleanUnusedBands();
         DisplayTurnOverMessage();
         dialogueBalloon.OnDone += InitNewTurn;
