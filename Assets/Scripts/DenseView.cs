@@ -136,9 +136,16 @@ public class DenseView : MonoBehaviour
 
     Color GetLineColor(double weight)
     {
-        // minmax normalization
-        double normalized = (weight - MinWeight) / (MaxWeight - MinWeight);
-        return Color.Lerp(Color.yellow, Color.cyan, (float)normalized);
+        double threshold = 0.045f;
+        if (weight > threshold)
+        {
+            return Color.green;
+        }
+        if (weight < -threshold)
+        {
+            return Color.red;
+        }
+        return Color.gray;
     }
 
     void LayoutLogit()
