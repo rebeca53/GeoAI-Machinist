@@ -53,7 +53,7 @@ public class DataLabelingMiniGameManager : BaseBoard
         LayoutContainerFixed();
 
         //Instantiate a random number of coind tiles based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(coinTile, coinCount);
+        // LayoutObjectAtRandom(coinTile, coinCount);
 
         // //Instantiate the ten Sample tiles
         LayoutSampleAtRandom();
@@ -74,7 +74,7 @@ public class DataLabelingMiniGameManager : BaseBoard
         Instantiate(invisibleWall, new Vector3(exitXPosition + 0.5f, Height + 0.5f, 0f), Quaternion.identity);
 
         exitScript = instance.GetComponent<Exit>();
-        exitScript.OnExitWithoutCoins += DisplayNoCoinsMessage;
+        // exitScript.OnExitWithoutCoins += DisplayNoCoinsMessage;
         exitScript.OnExitWithoutLabels += DisplayNoLabelsMessage;
         exitScript.OnUnlockExit += HintExit;
     }
