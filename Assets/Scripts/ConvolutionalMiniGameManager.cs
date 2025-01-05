@@ -289,9 +289,18 @@ public class ConvolutionalMiniGameManager : BaseBoard
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
-        timedDialogueBalloon.Show(10f);
+        timedDialogueBalloon.Show(5f);
         timedDialogueBalloon.OnDone += RegisterConvolutionalViewsMessages;
         ZoomIn();
+
+        // NPC speaks message
+        string robotMessage = "Oops, you need to disconnect the non-optimal kernels.";
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(robotMessage);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.DisableKey();
+        NPC.OnHover += dialogueBalloon.WaitForKey;
     }
 
     void ZoomIn()

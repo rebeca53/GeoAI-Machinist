@@ -208,7 +208,7 @@ public class ActivationMiniGameManager : BaseBoard
                 message = "The ReLu function is f(x) = max(0,x). It is simple and non-linear. As a consequence, it allows the CNN to find more complex solutions.";
                 break;
             case "Sigmoid":
-                message = "The sigmoid is f(x) = 1 / (1 + exp(-x)). It is non-linear and allows the CNN to find more complex solutions, but it costs the complex computation of an exponent.";
+                message = "The sigmoid is f(x) = 1 / (1 + exp(-x)). It is non-linear and fits our purpose, but it costs complex computation.";
                 break;
         }
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
@@ -282,8 +282,17 @@ public class ActivationMiniGameManager : BaseBoard
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
-        timedDialogueBalloon.Show(10f);
+        timedDialogueBalloon.Show(5f);
         ZoomIn();
+
+        // NPC speaks message
+        string robotMessage = "Oops, make sure only ONE activation function is connected.";
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(robotMessage);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.DisableKey();
+        NPC.OnHover += dialogueBalloon.WaitForKey;
     }
 
     protected override void GameOver()

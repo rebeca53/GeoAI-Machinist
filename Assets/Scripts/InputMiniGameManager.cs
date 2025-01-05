@@ -71,7 +71,6 @@ public class InputMiniGameManager : BaseBoard
 
     private void DisplayMessageOnHoverNPC()
     {
-        Debug.Log("DisplayMessageOnHoverNPC");
         NPC.OnHover += DisplayInitTurnMessage;
     }
 
