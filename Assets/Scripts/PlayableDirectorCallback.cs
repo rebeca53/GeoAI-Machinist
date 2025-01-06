@@ -10,6 +10,8 @@ public class PlayableDirectorCallback : MonoBehaviour
     public PlayerController Player;
     public NonPlayerCharacter NPC;
 
+    public GameObject transitionFloor;
+
     public DialogueBalloon dialogueBalloon;
     public HintBalloon hintBalloon;
     List<(string, string)> screenplay = new List<(string, string)>();
@@ -89,7 +91,14 @@ public class PlayableDirectorCallback : MonoBehaviour
         }
 
         dialogueBalloon.SetMessage(line.Item2);
-        dialogueBalloon.Show();
+        if (currentLineIndex > 4)
+        {
+            dialogueBalloon.Show(2f);
+        }
+        else
+        {
+            dialogueBalloon.Show();
+        }
     }
 
     private bool HasSpeakerChanged()
@@ -113,6 +122,7 @@ public class PlayableDirectorCallback : MonoBehaviour
         FollowSpeaker(Player.gameObject);
 
         endAnimation.Play();
+        transitionFloor.SetActive(true);
     }
 
     public void ZoomIn()
