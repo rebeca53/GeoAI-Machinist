@@ -210,7 +210,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     void OnConvolutionStopped(int id)
     {
-        if (id < convolutionalViews.Count && id > 0)
+        if (id <= convolutionalViews.Count && id > 0)
         {
             // Update outputline
             if (convolutionalViews[id - 1].HasKernel())
