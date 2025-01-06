@@ -15,6 +15,7 @@ public class InputMiniGameManager : BaseBoard
     public InputMiniGamePlaybackDirector playbackDirector;
     public TimedDialogueBalloon timedDialogueBalloon;
     public DialogueBalloon dialogueBalloon;
+    public HintBalloon hintBalloon;
     public CameraZoom cameraZoom;
 
     private List<string> bandTypes = new List<string> { "red", "green", "blue", "redEdge" };
@@ -317,8 +318,18 @@ public class InputMiniGameManager : BaseBoard
         currentTurn++;
         sampleBox.Reset();
         LayoutSample();
+        HintInputSample();
         NPC.OnHover += DisplayInitTurnMessage;
         DisplayInitTurnMessage();
+    }
+
+    void HintInputSample()
+    {
+        GameObject inputSample = sampleBox.gameObject;
+        hintBalloon.SetSpaceKey();
+        hintBalloon.SetTarget(inputSample);
+        hintBalloon.PlaceOver();
+        hintBalloon.Show();
     }
 
     void TurnOver()

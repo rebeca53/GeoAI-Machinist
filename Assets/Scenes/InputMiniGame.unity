@@ -203,11 +203,9 @@ MonoBehaviour:
   Player: {fileID: 457495160}
   NPC: {fileID: 925519514}
   sampleTiles:
-  - {fileID: 4279266988055134235, guid: 27619ef6d4ff19e489f22feaea1d4f87, type: 3}
-  - {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
-  - {fileID: 865287147992422790, guid: 01800c2c7ec64fd4c970030be85f1801, type: 3}
-  - {fileID: 6251051242839970032, guid: f459c631a6e49994b8b3ecf4eebcb191, type: 3}
-  - {fileID: 7968378284765316319, guid: 5f9998f2950756b4c944cf98a47ece9b, type: 3}
+  - {fileID: 5717418728442520458, guid: 04888af39e1182649b720e34b7fd5531, type: 3}
+  - {fileID: 3468304657942201258, guid: fadc633986c5f1945ba6422542773671, type: 3}
+  - {fileID: 6454952962725736166, guid: 29e6dcca66e422e439a49dee537d6ea3, type: 3}
   spectralBandTile: {fileID: 1569074529029992454, guid: f15a5eb81e5083148a4dd11ee71cb6da, type: 3}
   spectralBandContainerTile: {fileID: 3192559152887246772, guid: 414c176359d6fcc4c8077bf169cad1c9, type: 3}
   selectorSwitch: {fileID: 7975651227175653580, guid: 95b2bea181959f34590ba19ebe926f89, type: 3}
@@ -215,6 +213,7 @@ MonoBehaviour:
   playbackDirector: {fileID: 502848287}
   timedDialogueBalloon: {fileID: 140822404}
   dialogueBalloon: {fileID: 1862547051}
+  hintBalloon: {fileID: 1066777996}
   cameraZoom: {fileID: 1339554161}
 --- !u!1 &55732412
 GameObject:
