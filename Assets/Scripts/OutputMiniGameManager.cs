@@ -7,7 +7,6 @@ public class OutputMiniGameManager : BaseBoard
     // Pre-fabs
     public GameObject denseViewObject;
     public GameObject outputLayerObject;
-    public GameObject outputLayerScreen;
 
     // UI-related Instances
     public OutputMiniGamePlaybackDirector playbackDirector;
@@ -63,7 +62,7 @@ public class OutputMiniGameManager : BaseBoard
         NPC.Spawn(this, new Vector2Int(1, 1));
 
         LayoutDenseView();
-        // playbackDirector.StartAnimation();
+        playbackDirector.StartAnimation();
         flattenLayer.OnFlatten += StartAnimationDenseView;
         outputLayer.OnDone += DisplayGameOverMessage;
     }
@@ -112,17 +111,8 @@ public class OutputMiniGameManager : BaseBoard
 
     private void DisplayGameOverMessage()
     {
-        StartCoroutine(AnimateGameOver());
-    }
-
-    IEnumerator AnimateGameOver()
-    {
-        cameraZoom.ChangeZoomTarget(outputLayerScreen);
-        ZoomOut();
-        yield return new WaitForSeconds(2);
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
-        // Player.Disable();
         // NPC speaks message
         string message = "Good job flatenning the image and applying softmax to calculate probabilities. Explore this room a bit more if you will, then go back to the CNN room.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);

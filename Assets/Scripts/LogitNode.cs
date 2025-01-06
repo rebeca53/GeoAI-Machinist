@@ -87,11 +87,11 @@ public class LogitNode : MonoBehaviour
     {
         // minmax normalization
         double normalized = (logit - MinLogit) / (MaxLogit - MinLogit);
-        return Color.Lerp(Color.black, Color.green, (float)normalized);
+        return Color.Lerp(Color.black, Color.cyan, (float)normalized + 0.1f);
     }
 
     public Color GetSoftmaxColor()
     {
-        return Color.Lerp(Color.grey, Color.white, (float)softmaxValue);
+        return Color.Lerp(Color.grey, Color.cyan, (float)softmaxValue);
     }
 }

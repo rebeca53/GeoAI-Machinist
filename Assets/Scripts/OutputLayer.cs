@@ -6,6 +6,11 @@ using UnityEngine;
 public class OutputLayer : MonoBehaviour
 {
     public Action OnDone;
+
+    public CameraZoom cameraZoom;
+    public PlayerController Player;
+    public GameObject outputLayerScreen;
+
     // Pre-fabs
     public GameObject lineObject;
     Transform linesRoot;
@@ -15,7 +20,7 @@ public class OutputLayer : MonoBehaviour
     public ActivationBox softmaxBox;
     // List<LogitNode> logitNodes;
     List<OutputLine> outputLines = new List<OutputLine>();
-
+    GameObject[] nodes;
     double totalLogit;
 
     class OutputLine
@@ -117,7 +122,7 @@ public class OutputLayer : MonoBehaviour
     {
         // softmaxBox.Block();
 
-        GameObject[] nodes = GameObject.FindGameObjectsWithTag("LogitNode");
+        nodes = GameObject.FindGameObjectsWithTag("LogitNode");
 
         for (int i = 0; i < nodes.Length; i++)
         {
@@ -134,10 +139,19 @@ public class OutputLayer : MonoBehaviour
             totalLogit += Math.Exp(node.GetLogit());
         }
 
+        StartCoroutine(AnimateSoftmax());
+    }
+
+    IEnumerator AnimateSoftmax()
+    {
+        Player.Disable();
+
         for (int i = 0; i < nodes.Length; i++)
         {
             // change nodes color
             LogitNode node = nodes[i].GetComponent<LogitNode>();
+            cameraZoom.ChangeZoomTarget(node.gameObject);
+
             double softmax = ApplySoftmax(node);
             node.SetSoftmaxMode(ApplySoftmax(node));
 
@@ -146,12 +160,16 @@ public class OutputLayer : MonoBehaviour
 
             // update outputlines
             outputLines[i].UpdateLine(node.GetSoftmaxColor(), (float)softmax);
+            yield return new WaitForSeconds(0.5f);
 
             // TODO: on hover line display softmax calculation
         }
 
-        OnDone?.Invoke();
+        cameraZoom.ChangeZoomTarget(outputLayerScreen);
+        cameraZoom.ChangeZoomSmooth(5f);
+        yield return new WaitForSeconds(2);
 
+        OnDone?.Invoke();
     }
 
     void DrawLine(LogitNode node)
@@ -169,4 +187,5 @@ public class OutputLayer : MonoBehaviour
     {
         return Math.Exp(node.GetLogit()) / totalLogit;
     }
+
 }

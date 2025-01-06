@@ -4283,6 +4283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425310aaff9f5ec40985091f3f319068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraZoom: {fileID: 692666407}
+  Player: {fileID: 503394038}
+  outputLayerScreen: {fileID: 1380908085}
   lineObject: {fileID: 650984331633240572, guid: 4967d9b0e7a10884bbe9e5f3ee8b6123, type: 3}
   softmaxHolder: {fileID: 1545937200}
   locker: {fileID: 735728240}
@@ -4808,7 +4811,6 @@ MonoBehaviour:
   NPC: {fileID: 653875758}
   denseViewObject: {fileID: 8043865356184850180, guid: 7090b32725d0b634d887ae542a775cfd, type: 3}
   outputLayerObject: {fileID: 1766820185}
-  outputLayerScreen: {fileID: 1380908085}
   playbackDirector: {fileID: 692526495}
   timedDialogueBalloon: {fileID: 729077444}
   dialogueBalloon: {fileID: 675176284}
