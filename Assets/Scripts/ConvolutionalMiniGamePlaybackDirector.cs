@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.Playables;
 
 public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 {
+    public Action OnEnd;
     public PlayableDirector introductionAnimation;
 
     public PlayerController Player;
@@ -31,8 +33,8 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
     {
         screenplay = new List<(string, string)>() {
         new("NPC", "This room is a Convolutional Layer of the CNN. It multiplies a filter, known as 'kernel', by an input image."),
-        new("NPC", "A kernel is a matrix with pre-determined values to enhance features in an image. Follow me to see how a kernel looks like."),
-        new("action", "action1"), // Robot Walk
+        new("NPC", "A kernel is a matrix with pre-determined values to enhance features in an image. You can see a kernel blinking over there."),
+        new("action", "action1"), // Robot Walk and Hint Kernel
         // new("action", "action2"), // Hint Kernel
         new("NPC", "Place the kernel in the input holder to start a convolution."),
         new("NPC", "Choose the best kernel that enhances the streets' footprint in the image."),
@@ -106,10 +108,13 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
     void NPCWalkToKernel()
     {
-        dialogueBalloon.Hide();
+        // dialogueBalloon.Hide();
+        dialogueBalloon.Show(0f);
+        dialogueBalloon.OnDone += NextLine;
+
         HintKernel();
-        HintInputHolder();
-        introductionAnimation.Play(); // on stopped, it calls NextLine
+        // HintInputHolder();
+        // introductionAnimation.Play(); // on stopped, it calls NextLine
     }
 
     void HintKernel()
@@ -144,6 +149,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
         Player.Enable();
         HintInputHolder();
+        OnEnd?.Invoke();
     }
 
     void ClearCallbacks()

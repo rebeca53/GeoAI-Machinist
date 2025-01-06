@@ -121,6 +121,23 @@ public class ConvolutionalMiniGameManager : BaseBoard
         RegisterConvolutionalViewsMessages();
         loadingScreen.SetActive(false);
         playbackDirector.StartAnimation();
+        playbackDirector.OnEnd += SetupNPC;
+    }
+
+    void SetupNPC()
+    {
+        NPC.OnHover += DisplayInstruction;
+    }
+
+    void DisplayInstruction()
+    {
+        // NPC speaks message
+        string robotMessage = "Choose the best kernel that enhances the streets' footprint in the image, and place it in the input holder to start the convolution.";
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(robotMessage);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
 
     private void UnregisterConvolutionalViewsMessages()
@@ -256,6 +273,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
     private void DisplayGameOverMessage()
     {
         Player.Disable();
+        NPC.OnHover -= DisplayInstruction;
+
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
         // NPC speaks message
@@ -302,8 +321,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         dialogueBalloon.SetMessage(robotMessage);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
-        dialogueBalloon.DisableKey();
-        NPC.OnHover += dialogueBalloon.WaitForKey;
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
 
     void ZoomIn()

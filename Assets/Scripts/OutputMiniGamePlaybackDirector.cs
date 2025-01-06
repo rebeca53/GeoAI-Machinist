@@ -147,6 +147,29 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     {
         cameraZoom.Release();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
+        NPC.OnHover += DisplayFlattenInstruction;
+    }
+
+    void DisplayFlattenInstruction()
+    {
+        // NPC speaks message
+        string message = "Activate the Flatenning Pull Lever to flat the matrix and allow access to each individual pixel.";
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
+    }
+
+    void DisplaySoftmaxInstruction()
+    {
+        // NPC speaks message
+        string message = "We need a softmax activation function to calculate the probability of the image belonging to each class";
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(message);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
 
     void HintSoftmax()
@@ -168,6 +191,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void End()
     {
+        NPC.OnHover -= DisplayFlattenInstruction;
         dialogueBalloon.Hide();
         ClearCallbacks();
 
@@ -177,6 +201,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
         Player.Enable();
         HintSoftmax();
+        NPC.OnHover += DisplaySoftmaxInstruction;
     }
 
     void ClearCallbacks()
@@ -192,5 +217,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     {
         hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
+        NPC.OnHover -= DisplaySoftmaxInstruction;
     }
 }
