@@ -9,8 +9,8 @@ public class DataLabelingMiniGameManager : BaseBoard
     public GameObject[] sampleTiles;
     public GameObject containerTile;
 
-    public TimedDialogueBalloon timedDialogueBalloon;
-    public TimedDialogueBalloon NPCDialogueBalloon;
+    public TimedDialogueBalloon timedDialogueBalloon; // Thought balloon
+    public DialogueBalloon NPCDialogueBalloon;
 
     public HintBalloon hintBalloon;
     public CameraZoom cameraZoom;
@@ -261,6 +261,7 @@ public class DataLabelingMiniGameManager : BaseBoard
 
     IEnumerator HintExitCoroutine()
     {
+        NPCDialogueBalloon.Hide();
         cameraZoom.ChangeZoomTarget(exitScript.gameObject);
 
         hintBalloon.SetSpaceKey();

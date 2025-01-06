@@ -232,6 +232,15 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         ZoomIn();
 
         Player.Enable();
+        NPC.OnHover += DisplayInstruction;
+    }
+
+    void DisplayInstruction()
+    {
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage("Place each sample under the correct label, so the Big Machine can learn from you.");
+        dialogueBalloon.PlaceUpperRight();
+        dialogueBalloon.Show();
     }
 
     void OnDisable()
@@ -239,6 +248,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         director.stopped -= OnPlayableDirectorStopped;
         hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
+        NPC.OnHover -= DisplayInstruction;
     }
 
     void ClearCallbacks()

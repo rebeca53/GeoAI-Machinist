@@ -620,7 +620,7 @@ MonoBehaviour:
   - {fileID: 5893761661544321983, guid: bed6627608f3a5f4fb9d3bb17939d400, type: 3}
   containerTile: {fileID: 113377864810306097, guid: 45f1156f560c7f14288d371403d0a880, type: 3}
   timedDialogueBalloon: {fileID: 1277974170}
-  NPCDialogueBalloon: {fileID: 61996301}
+  NPCDialogueBalloon: {fileID: 1731285423}
   hintBalloon: {fileID: 972727761}
   cameraZoom: {fileID: 1063811079}
   containerCount: 10
