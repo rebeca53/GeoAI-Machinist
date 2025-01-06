@@ -131,6 +131,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("playerWalk", isWalking);
     }
 
+    public void Celebrate()
+    {
+        animator.SetBool("playerBlink", true);
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         animator.SetBool("playerWalk", true);

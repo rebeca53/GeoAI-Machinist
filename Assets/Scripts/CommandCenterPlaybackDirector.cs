@@ -75,6 +75,7 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
 
     void NextLine()
     {
+        dialogueBalloon.Hide();
         ClearCallbacks();
 
         if (screenplay.Count <= currentLineIndex)
@@ -140,9 +141,11 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
 
     void DisplayGameOverAnimation()
     {
-        cameraZoom.ChangeZoomSmooth(3f);
+        cameraZoom.ChangeZoomSmooth(3.7f);
         cameraZoom.ChangeZoomTarget(screen);
         sendHelp.Play();
+        Player.Disable();
+        Player.Celebrate();
     }
 
     void ZoomIn()
