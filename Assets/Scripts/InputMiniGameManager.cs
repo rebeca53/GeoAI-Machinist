@@ -242,8 +242,6 @@ public class InputMiniGameManager : BaseBoard
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show(8f);
-        dialogueBalloon.DisableKey();
-        NPC.OnHover += dialogueBalloon.WaitForKey;
     }
 
     private void DisplayInitTurnMessage()
