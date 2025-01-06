@@ -15,6 +15,8 @@ public class DialogueBalloon : MonoBehaviour
     public float hintTimeout = 5f;
     public float hintTimer = 0f;
 
+    public GameObject leftConnection;
+    public GameObject rightConnection;
     public GameObject speaker;
     private Transform speech;
     private Transform hint;
@@ -41,10 +43,14 @@ public class DialogueBalloon : MonoBehaviour
         if (relativePosition == "upperRight")
         {
             transform.position = new(speaker.transform.position.x + xOffset, speaker.transform.position.y + yOffset, speaker.transform.position.z);
+            leftConnection.SetActive(true);
+            rightConnection.SetActive(false);
         }
         else if (relativePosition == "upperLeft")
         {
             transform.position = new(speaker.transform.position.x - xOffset, speaker.transform.position.y + yOffset, speaker.transform.position.z);
+            leftConnection.SetActive(false);
+            rightConnection.SetActive(true);
         }
     }
 

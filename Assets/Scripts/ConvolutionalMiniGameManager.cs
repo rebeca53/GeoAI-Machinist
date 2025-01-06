@@ -193,25 +193,28 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     void OnConvolutionStopped(int id)
     {
-        // Update outputline
-        if (convolutionalViews[id - 1].HasKernel())
+        if (id < convolutionalViews.Count && id > 0)
         {
-            switch (id)
+            // Update outputline
+            if (convolutionalViews[id - 1].HasKernel())
             {
-                case 1:
-                    convolutionalViews[0].UpdateOutputState("wrong");
-                    break;
-                case 2:
-                    convolutionalViews[1].UpdateOutputState("wrong");
-                    break;
-                case 3:
-                    convolutionalViews[2].UpdateOutputState("correct");
-                    break;
+                switch (id)
+                {
+                    case 1:
+                        convolutionalViews[0].UpdateOutputState("wrong");
+                        break;
+                    case 2:
+                        convolutionalViews[1].UpdateOutputState("wrong");
+                        break;
+                    case 3:
+                        convolutionalViews[2].UpdateOutputState("correct");
+                        break;
+                }
             }
-        }
-        else
-        {
-            convolutionalViews[id - 1].UpdateOutputState("inactive");
+            else
+            {
+                convolutionalViews[id - 1].UpdateOutputState("inactive");
+            }
         }
 
         if (IsGameOver())
