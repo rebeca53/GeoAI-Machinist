@@ -72,14 +72,14 @@ public class LogitNode : MonoBehaviour
     public void SetSoftmaxMode(double value)
     {
         softmaxValue = value;
-        spriteRenderer.color = GetSoftmaxColor();
+        // spriteRenderer.color = GetSoftmaxColor();
         softmaxLabel.GetComponent<TextMeshPro>().text = Math.Round(value * 100, 2) + "%";
         softmaxLabel.gameObject.SetActive(true);
     }
 
     public void SetSoftmaxMode()
     {
-        spriteRenderer.color = GetSoftmaxColor();
+        // spriteRenderer.color = GetSoftmaxColor();
         softmaxLabel.gameObject.SetActive(true);
     }
 

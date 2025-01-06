@@ -7,6 +7,7 @@ public class OutputMiniGameManager : BaseBoard
     // Pre-fabs
     public GameObject denseViewObject;
     public GameObject outputLayerObject;
+    public GameObject outputLayerScreen;
 
     // UI-related Instances
     public OutputMiniGamePlaybackDirector playbackDirector;
@@ -62,7 +63,7 @@ public class OutputMiniGameManager : BaseBoard
         NPC.Spawn(this, new Vector2Int(1, 1));
 
         LayoutDenseView();
-        playbackDirector.StartAnimation();
+        // playbackDirector.StartAnimation();
         flattenLayer.OnFlatten += StartAnimationDenseView;
         outputLayer.OnDone += DisplayGameOverMessage;
     }
@@ -116,7 +117,7 @@ public class OutputMiniGameManager : BaseBoard
 
     IEnumerator AnimateGameOver()
     {
-        cameraZoom.ChangeZoomTarget(outputLayer.gameObject);
+        cameraZoom.ChangeZoomTarget(outputLayerScreen);
         ZoomOut();
         yield return new WaitForSeconds(2);
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
