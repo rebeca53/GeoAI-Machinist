@@ -43,11 +43,11 @@ public class DataLabelingMiniGameManager : BaseBoard
             }
         }
 
-        Player.Spawn(this, new Vector2Int(2, 1));
-        NPC.Spawn(this, new Vector2Int(1, 1));
-
         //Reset our list of gridpositions.
         InitialiseList();
+
+        Player.Spawn(this, new Vector2Int(2, 1));
+        NPC.Spawn(this, new Vector2Int(1, 1));
 
         // Instiate the ten Container tiles
         LayoutContainerFixed();
@@ -86,11 +86,16 @@ public class DataLabelingMiniGameManager : BaseBoard
         gridPositions.Clear();
 
         //Loop through x axis (columns).
-        for (int x = 1; x < Width - 1; x++)
+        for (int x = 1; x < Width; x++)
         {
             //Within each column, loop through y axis (rows).
             for (int y = 2; y < Height - 1; y++)
             {
+                // Clear area behind the Player and the NPC
+                if (x < 4 && y < 3)
+                {
+                    continue;
+                }
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
                 gridPositions.Add(new Vector3(x, y, 0f));
             }
