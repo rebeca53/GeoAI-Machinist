@@ -2346,7 +2346,7 @@ MonoBehaviour:
   exitObject: {fileID: 0}
   Player: {fileID: 517288183}
   NPC: {fileID: 187762547}
-  NPCDialogueBalloon: {fileID: 2059396045}
+  NPCDialogueBalloon: {fileID: 1107053579}
   cnnLayerRoom: {fileID: 2211488293589547634, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
   inputHolder: {fileID: 8700647280722168030, guid: 04c406387d8836f4b8a8f0aa53fc8b63, type: 3}
   sampleTile: {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}

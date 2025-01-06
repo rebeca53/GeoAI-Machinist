@@ -9,7 +9,7 @@ public class OverviewBoardManager : BaseBoard
     float startCorridor;
     float endCorridor;
 
-    public TimedDialogueBalloon NPCDialogueBalloon;
+    public DialogueBalloon NPCDialogueBalloon;
 
     public GameObject cnnLayerRoom;
 
@@ -77,6 +77,7 @@ public class OverviewBoardManager : BaseBoard
         NPCDialogueBalloon.SetMessage("This room has a Convolutional Neural Network (CNN) to classify land use and cover. A Convolutional Neural Network is a sequence of stages to extract information from images.\nFour layers are damaged—enter their room to fix them!");
         NPCDialogueBalloon.PlaceUpperRight();
         NPCDialogueBalloon.Show();
+        NPCDialogueBalloon.OnDone += NPCDialogueBalloon.Hide;
     }
 
     public void FollowPlayer()
