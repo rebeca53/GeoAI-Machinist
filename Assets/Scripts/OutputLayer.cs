@@ -120,7 +120,7 @@ public class OutputLayer : MonoBehaviour
 
     void OnSoftmaxAdded()
     {
-        // softmaxBox.Block();
+        softmaxBox.Block();
 
         nodes = GameObject.FindGameObjectsWithTag("LogitNode");
 

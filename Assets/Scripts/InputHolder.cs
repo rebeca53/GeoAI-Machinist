@@ -31,10 +31,6 @@ public class InputHolder : MonoBehaviour
         // Change scale
         inputObject.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
 
-        if (inputObject.CompareTag("ActivationBox"))
-        {
-            inputObject.transform.localScale = new Vector3(1f, 0.8f, 1f);
-        }
         // change box parent
         inputObject.transform.parent = gameObject.transform;
         inputObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
