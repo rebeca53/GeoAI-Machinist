@@ -18,7 +18,18 @@ public class ActivationBox : MonoBehaviour
 
     // Data
     string type;
+    private int id = -1;
 
+    public void Init(int newId)
+    {
+        id = newId;
+        gameObject.name = "ActivationBox" + id;
+    }
+
+    public int GetId()
+    {
+        return id;
+    }
     public void SetFunction(string newType)
     {
         type = newType;

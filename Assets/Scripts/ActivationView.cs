@@ -22,6 +22,8 @@ public class ActivationView : MonoBehaviour
     public InputMatrix inputMatrix;
     public OutputMatrix outputMatrix;
     public string type;
+    public int id;
+    static int viewCounter = 0;
 
     // Activation
     bool isApplying = false;
@@ -39,9 +41,11 @@ public class ActivationView : MonoBehaviour
     private Color wrongColor = Color.red;
     private Color inactiveColor = Color.gray;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        viewCounter++;
+        id = viewCounter;
+
         ResetActivation();
 
         LayoutKernelHolder();
@@ -53,6 +57,7 @@ public class ActivationView : MonoBehaviour
 
     private void LayoutKernelHolder()
     {
+        activationBoxHolder.Init(id);
         activationBoxHolder.DrawConnection();
         activationBoxHolder.OnAddedObject += StartActivation;
     }
@@ -134,12 +139,16 @@ public class ActivationView : MonoBehaviour
     public void InitActivationBox(string type)
     {
         this.type = type;
+        activationBox.Init(id);
         activationBox.SetFunction(type);
+
+        locker.Init(id);
         locker.AddActivationBox(activationBox.gameObject);
 
         GameObject instance = Instantiate(activationBox.gameObject, activationBox.transform.position, Quaternion.identity);
         movingActivationBox = instance.GetComponent<ActivationBox>();
         movingActivationBox.gameObject.SetActive(false);
+        movingActivationBox.Init(id);
         movingActivationBox.SetFunction(type);
     }
 

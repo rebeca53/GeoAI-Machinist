@@ -24,7 +24,8 @@ public class Locker : MonoBehaviour
         }
         else if (gameObject.CompareTag("ActivationBox"))
         {
-            return CanAddActivationBox();
+            ActivationBox activationBox = gameObject.GetComponent<ActivationBox>();
+            return CanAddActivationBox(activationBox);
         }
 
         return false;
@@ -35,10 +36,9 @@ public class Locker : MonoBehaviour
         return kernel.GetId() == id;
     }
 
-    public bool CanAddActivationBox()
+    public bool CanAddActivationBox(ActivationBox activationBox)
     {
-        // TODO
-        return true;
+        return activationBox.GetId() == id;
     }
 
     public void AddKernel(GameObject kernel)

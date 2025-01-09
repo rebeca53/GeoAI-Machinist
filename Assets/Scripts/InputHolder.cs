@@ -42,7 +42,8 @@ public class InputHolder : MonoBehaviour
         }
         else if (gameObject.CompareTag("ActivationBox"))
         {
-            return CanAddActivationBox();
+            ActivationBox activationBox = gameObject.GetComponent<ActivationBox>();
+            return CanAddActivationBox(activationBox);
         }
 
         return false;
@@ -53,10 +54,9 @@ public class InputHolder : MonoBehaviour
         return kernel.GetId() == id;
     }
 
-    public bool CanAddActivationBox()
+    public bool CanAddActivationBox(ActivationBox activationBox)
     {
-        // TODO
-        return true;
+        return activationBox.GetId() == id;
     }
 
     public void AddInputObject(GameObject inputObject)
