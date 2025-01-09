@@ -9,7 +9,6 @@ public class ActivationMiniGameManager : BaseBoard
     public GameObject activationViewObject;
     public GameObject loadingScreen;
 
-
     // Constants
     readonly int ActivationFunctionAmount = 3;
 
@@ -122,6 +121,23 @@ public class ActivationMiniGameManager : BaseBoard
         RegisterActivationViewsMessages();
         loadingScreen.SetActive(false);
         playbackDirector.StartAnimation();
+        playbackDirector.OnEnd += SetupNPC;
+    }
+
+    void SetupNPC()
+    {
+        NPC.OnHover += DisplayInstruction;
+    }
+
+    void DisplayInstruction()
+    {
+        // NPC speaks message
+        string robotMessage = "Choose the best activation function that enhances the features in the image.";
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage(robotMessage);
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
 
     private void UnregisterActivationViewsMessages()
@@ -188,7 +204,7 @@ public class ActivationMiniGameManager : BaseBoard
 
         if (IsGameOver())
         {
-            DisplayGameOverMessage();
+            StartCoroutine(AnimateGameOver());
         }
         else if (NeedRemoveWrongActivation())
         {
@@ -222,12 +238,19 @@ public class ActivationMiniGameManager : BaseBoard
         timedDialogueBalloon.Hide();
     }
 
-    private void DisplayGameOverMessage()
+    IEnumerator AnimateGameOver()
     {
         Player.Disable();
+        NPC.OnHover -= DisplayInstruction;
+
+        // Show the correct answer
+        cameraZoom.ChangeZoomTarget(activationViews["ReLu"].GetPivot());
+        cameraZoom.ChangeZoomSmooth(4f);
+        yield return new WaitForSeconds(4f);
+
+        // NPC speaks message
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
-        // NPC speaks message
         string message = "Good job picking the best activation function for this scenario. Let's go back for the CNN Room.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);

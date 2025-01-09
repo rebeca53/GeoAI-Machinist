@@ -37,6 +37,7 @@ Transform:
   - {fileID: 7596460039320460806}
   - {fileID: 5152255220764029235}
   - {fileID: 4852589916872602551}
+  - {fileID: 1894198727754168809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8184489083393587186
@@ -55,10 +56,12 @@ MonoBehaviour:
   locker: {fileID: 2414108295280780597}
   inputScreen: {fileID: 2133911990299577528}
   outputScreen: {fileID: 1822424738394213948}
+  center: {fileID: 1809856338279286902}
   activationBox: {fileID: 3343507827410640554}
   inputMatrix: {fileID: 8820934256585920800}
   outputMatrix: {fileID: 1137022519156636151}
   type: 
+  id: 0
 --- !u!50 &8073651737401390
 Rigidbody2D:
   serializedVersion: 4
@@ -131,6 +134,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 4}
   m_EdgeRadius: 0
+--- !u!1 &1809856338279286902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1894198727754168809}
+  m_Layer: 0
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1894198727754168809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809856338279286902}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.5, y: 1, z: -0.0935334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3874158942667942829}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2373859283265028337
 PrefabInstance:
   m_ObjectHideFlags: 0

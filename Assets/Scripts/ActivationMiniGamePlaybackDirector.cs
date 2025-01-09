@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,12 @@ using UnityEngine.Playables;
 
 public class ActivationMiniGamePlaybackDirector : MonoBehaviour
 {
+    public Action OnEnd;
+
     // public PlayableDirector introductionAnimation;
     public PlayerController Player;
     public NonPlayerCharacter NPC;
     public DialogueBalloon dialogueBalloon;
-    public HintBalloon hintBalloon;
     public CameraZoom cameraZoom;
     List<(string, string)> screenplay = new List<(string, string)>();
     int currentLineIndex = 0;
@@ -119,19 +121,16 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
         ZoomIn();
 
         Player.Enable();
+        OnEnd?.Invoke();
     }
 
     void ClearCallbacks()
     {
         dialogueBalloon.OnDone -= NextLine;
-        hintBalloon.OnDone -= Player.Disable;
-        hintBalloon.OnDone -= NextLine;
-        hintBalloon.OnDone -= ZoomIn;
     }
 
     void OnDisable()
     {
-        hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
     }
 }

@@ -16,6 +16,8 @@ public class ActivationView : MonoBehaviour
     public GameObject inputScreen;
     public GameObject outputScreen;
 
+    public GameObject center;
+
     // Matrices and functions
     public ActivationBox activationBox;
     ActivationBox movingActivationBox;
@@ -109,6 +111,11 @@ public class ActivationView : MonoBehaviour
 
         outputLineRenderer = conn.lineRenderer;
         UpdateOutputState("inactive");
+    }
+
+    public GameObject GetPivot()
+    {
+        return center;
     }
 
     /* Activation method */
@@ -290,8 +297,8 @@ public class ActivationView : MonoBehaviour
         if (outputState.Equals("correct"))
         {
             outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
-            outputLineRenderer.startWidth = inactiveWidth * 2;
-            outputLineRenderer.endWidth = inactiveWidth * 2;
+            outputLineRenderer.startWidth = Mathf.Lerp(inactiveWidth, inactiveWidth * 5, Mathf.PingPong(Time.time, 0.5f));
+            outputLineRenderer.endWidth = Mathf.Lerp(inactiveWidth, inactiveWidth * 5, Mathf.PingPong(Time.time, 0.5f));
         }
     }
 

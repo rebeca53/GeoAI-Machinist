@@ -300,7 +300,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         // Show the correct answer
         cameraZoom.ChangeZoomTarget(convolutionalViews[2].GetPivot());
         cameraZoom.ChangeZoomSmooth(4f);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         // NPC speaks message
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
