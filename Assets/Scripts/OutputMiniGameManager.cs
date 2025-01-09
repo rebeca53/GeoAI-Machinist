@@ -114,7 +114,7 @@ public class OutputMiniGameManager : BaseBoard
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
         // NPC speaks message
-        string message = "Good job flatenning the image and applying softmax to calculate probabilities. Explore this room a bit more if you will, then go back to the CNN room.";
+        string message = "Good job flatenning the image and applying softmax to calculate probabilities. Let's go back to the CNN room.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
@@ -134,9 +134,7 @@ public class OutputMiniGameManager : BaseBoard
 
     protected override void GameOver()
     {
-        Player.Enable();
-        cameraZoom.ChangeZoomTarget(Player.gameObject);
-
         GameManager.instance.solvedMinigames["Output"] = true;
+        GameManager.instance.StartOverviewScene();
     }
 }

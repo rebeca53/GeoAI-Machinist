@@ -52,6 +52,11 @@ public class LogitNode : MonoBehaviour
         label.localPosition = new(0, -0.9f, 0);
     }
 
+    public string GetLabel()
+    {
+        return classLabel;
+    }
+
     public void SetLogitMode(double value)
     {
         logitValue = value;

@@ -68,6 +68,11 @@ public class ActivationBox : MonoBehaviour
         transform.tag = "Untagged"; // Player cannot grab Untagged objects
     }
 
+    public void Release()
+    {
+        transform.tag = "ActivationBox";
+    }
+
     public double ApplyFunction(double pixelValue)
     {
         switch (type)

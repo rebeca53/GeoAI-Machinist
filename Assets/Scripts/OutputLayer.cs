@@ -20,6 +20,8 @@ public class OutputLayer : MonoBehaviour
     public ActivationBox softmaxBox;
     // List<LogitNode> logitNodes;
     List<OutputLine> outputLines = new List<OutputLine>();
+    OutputLine residentialLine;
+
     GameObject[] nodes;
     double totalLogit;
 
@@ -94,12 +96,9 @@ public class OutputLayer : MonoBehaviour
                 return;
             }
 
-            if (outputState.Equals("correct"))
-            {
-                outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
-                outputLineRenderer.startWidth = inactiveWidth * 2;
-                outputLineRenderer.endWidth = inactiveWidth * 2;
-            }
+            outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
+            outputLineRenderer.startWidth = Mathf.Lerp(inactiveWidth, inactiveWidth * 5, Mathf.PingPong(Time.time, 0.5f));
+            outputLineRenderer.endWidth = Mathf.Lerp(inactiveWidth, inactiveWidth * 5, Mathf.PingPong(Time.time, 0.5f));
         }
     }
 
@@ -111,6 +110,7 @@ public class OutputLayer : MonoBehaviour
     void Start()
     {
         softmaxBox.SetFunction("Softmax");
+        softmaxBox.Block();
 
         softmaxHolder.OnAddedObject += OnSoftmaxAdded;
         locker.AddActivationBox(softmaxBox.gameObject);
@@ -180,12 +180,25 @@ public class OutputLayer : MonoBehaviour
         OutputLine outputLine = new(instance.GetComponent<LineRenderer>());
         outputLine.Draw(node.transform.position.x, node.transform.position.y);
         outputLines.Add(outputLine);
+        Debug.Log(node.GetLabel());
+        if (node.GetLabel().Equals("Residential"))
+        {
+            residentialLine = outputLine;
+        }
     }
-
 
     double ApplySoftmax(LogitNode node)
     {
         return Math.Exp(node.GetLogit()) / totalLogit;
+    }
+
+    void Update()
+    {
+        if (residentialLine == null)
+        {
+            return;
+        }
+        residentialLine.AnimateOutputState();
     }
 
 }

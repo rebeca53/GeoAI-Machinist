@@ -11,7 +11,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     public GameObject inputScreen;
     public DialogueBalloon dialogueBalloon;
-    public HintBalloon hintBalloon;
     public CameraZoom cameraZoom;
     List<(string, string)> screenplay = new List<(string, string)>();
     int currentLineIndex = 0;
@@ -177,6 +176,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         GameObject softmaxObject = GameObject.Find("ActivationBox");
         ActivationBox activationBox = softmaxObject.GetComponent<ActivationBox>();
         activationBox.Blink();
+        activationBox.Release();
     }
 
     void ZoomIn()
@@ -207,15 +207,11 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void ClearCallbacks()
     {
         dialogueBalloon.OnDone -= NextLine;
-        hintBalloon.OnDone -= Player.Disable;
-        hintBalloon.OnDone -= NextLine;
-        hintBalloon.OnDone -= ZoomIn;
         NPC.OnHover -= NextLine;
     }
 
     void OnDisable()
     {
-        hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
         NPC.OnHover -= DisplaySoftmaxInstruction;
     }
