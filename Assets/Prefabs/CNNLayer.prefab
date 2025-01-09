@@ -572,7 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Output
   isEndOfRow: 1
-  statusBad: {fileID: 21300000, guid: 0799174d9e3c27f48870099ce87e293f, type: 3}
+  statusBad: {fileID: 21300000, guid: 7341f6271bec52342bbe8d1ae2b420e4, type: 3}
   statusGood: {fileID: 21300000, guid: b4e389d2a5e399c46a24261399c9deeb, type: 3}
   wormholeAnimation: {fileID: 5404461490243369430}
 --- !u!1 &4622687814682402773
@@ -905,7 +905,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: -1252171544, guid: 65ba1ebdfb53401428d6a9acde5d24ec, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.026851654, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1009,7 +1009,7 @@ SpriteRenderer:
   m_SortingLayerID: 1003343121
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 0799174d9e3c27f48870099ce87e293f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7341f6271bec52342bbe8d1ae2b420e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

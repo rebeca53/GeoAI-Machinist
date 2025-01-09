@@ -1,9 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-// TODO: Have an Abstract class for all Board Manager
 public class OverviewBoardManager : BaseBoard
 {
     float startCorridor;
@@ -63,11 +62,13 @@ public class OverviewBoardManager : BaseBoard
             GameManager.instance.playerPositionOverview = new(1, 8);
             firstLoad = false;
             DisplayIntroduction();
-            // NPC.DisplayIntroduction(60f);
+            NPCDialogueBalloon.OnDone += ZoomOutOnFirst;
+        }
+        else
+        {
+            ZoomOut();
         }
         Player.Spawn(this, GameManager.instance.playerPositionOverview);
-        // FollowPlayer();
-        ZoomIn();
     }
 
     public void DisplayIntroduction()
@@ -80,6 +81,12 @@ public class OverviewBoardManager : BaseBoard
         NPCDialogueBalloon.OnDone += NPCDialogueBalloon.Hide;
     }
 
+    void ZoomOutOnFirst()
+    {
+        NPCDialogueBalloon.OnDone -= ZoomOutOnFirst;
+        ZoomOut();
+    }
+
     public void FollowPlayer()
     {
         cameraZoom.ChangeZoomTarget(Player.gameObject);
@@ -88,6 +95,11 @@ public class OverviewBoardManager : BaseBoard
     public void ZoomIn()
     {
         cameraZoom.ChangeZoomSmooth(0.8f);
+    }
+
+    public void ZoomOut()
+    {
+        cameraZoom.ChangeZoomSmooth(5f);
     }
 
     // TODO: move to Abstract class 
@@ -163,6 +175,7 @@ public class OverviewBoardManager : BaseBoard
         // Default
         return WallTiles[1];
     }
+
 
     void LayoutCNNLayers()
     {
