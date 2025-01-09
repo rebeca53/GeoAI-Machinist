@@ -225,25 +225,11 @@ public class DataLabelingMiniGameManager : BaseBoard
         timedDialogueBalloon.SetMessage(myDict[type]);
         timedDialogueBalloon.PlaceUpperLeft();
         timedDialogueBalloon.Show();
-        ZoomIn();
-    }
-
-    void ZoomIn()
-    {
-        cameraZoom.ChangeZoomSmooth(1.2f);
     }
 
     void HideClassInfo(string type)
     {
         timedDialogueBalloon.Hide();
-    }
-
-    void DisplayNoCoinsMessage()
-    {
-        NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
-        NPCDialogueBalloon.SetMessage("Oops! I see you didn't collect all Coins. They will be useful in the future!");
-        NPCDialogueBalloon.PlaceUpperRight();
-        NPCDialogueBalloon.Show();
     }
 
     void DisplayNoLabelsMessage()

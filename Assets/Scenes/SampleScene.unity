@@ -568,7 +568,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1531055085
   m_SortingLayer: 6
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -615,6 +615,7 @@ MonoBehaviour:
   Player: {fileID: 4603652088259903135}
   NPC: {fileID: 6048908290853480485}
   dialogueBalloon: {fileID: 1731285423}
+  playerBalloon: {fileID: 1277974170}
   hintBalloon: {fileID: 972727761}
   cameraZoom: {fileID: 1063811079}
 --- !u!4 &436701703
@@ -1962,7 +1963,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1531055085
   m_SortingLayer: 6
-  m_SortingOrder: 111
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1516485598
 GameObject:

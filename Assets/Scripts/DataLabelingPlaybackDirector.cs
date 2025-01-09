@@ -40,7 +40,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         screenplay.Add(new("NPC", "Now, lets find the correct container and drop the sample."));
         screenplay.Add(new("action", "action2"));
         screenplay.Add(new("action", "action3"));
-        screenplay.Add(new("NPC", "Did the container turn green? Perfect, do the same for the other samples. I will wait at the Exit"));
+        screenplay.Add(new("NPC", "Did the container turn green? Perfect, do the same for the other samples. I will wait at the Exit."));
         screenplay.Add(new("action", "action4"));
         // Robot walks to the Exit
     }
@@ -48,7 +48,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     void Init()
     {
         Player.Disable();
-        cameraZoom.Block();
         ZoomIn();
         dialogueBalloon.Hide();
 
@@ -74,21 +73,17 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
                 break;
             case "NPC":
                 dialogueBalloon.SetSpeaker(NPC.gameObject);
-                dialogueBalloon.PlaceUpperRight();
+                if (currentLineIndex == 6) // Did the Container turn...
+                {
+                    dialogueBalloon.PlaceUpperLeft();
+                }
+                else
+                {
+                    dialogueBalloon.PlaceUpperRight();
+                }
                 if (HasSpeakerChanged())
                 {
                     cameraZoom.ChangeZoomTarget(NPC.gameObject);
-                }
-                dialogueBalloon.SetMessage(line.Item2);
-                dialogueBalloon.Show();
-                dialogueBalloon.OnDone += NextLine;
-                break;
-            case "Player":
-                dialogueBalloon.SetSpeaker(Player.gameObject);
-                dialogueBalloon.PlaceUpperLeft();
-                if (HasSpeakerChanged())
-                {
-                    cameraZoom.ChangeZoomTarget(Player.gameObject);
                 }
                 dialogueBalloon.SetMessage(line.Item2);
                 dialogueBalloon.Show();
@@ -320,8 +315,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         ClearCallbacks();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
-        cameraZoom.Release();
-        ZoomIn();
+        ZoomOut();
 
         ResetSamples();
         ResetContainers();
@@ -334,7 +328,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     {
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage("Place each sample under the correct label, so the Big Machine can learn from you.");
-        dialogueBalloon.PlaceUpperRight();
+        dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
         dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
