@@ -21,6 +21,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
     public TimedDialogueBalloon timedDialogueBalloon;
 
     public DialogueBalloon dialogueBalloon;
+    public HintBalloon hintBalloon;
 
     public CameraZoom cameraZoom;
 
@@ -120,6 +121,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         RegisterConvolutionalViewsMessages();
         loadingScreen.SetActive(false);
+        HintKernel();
         playbackDirector.StartAnimation();
         playbackDirector.OnEnd += SetupNPC;
     }
@@ -236,7 +238,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         if (IsGameOver())
         {
-            DisplayGameOverMessage();
+            StartCoroutine(AnimateGameOver());
         }
         else if (NeedRemoveWrongKernel())
         {
@@ -270,14 +272,39 @@ public class ConvolutionalMiniGameManager : BaseBoard
         timedDialogueBalloon.Hide();
     }
 
-    private void DisplayGameOverMessage()
+    void HintKernel()
+    {
+        GameObject kernelObject = GameObject.Find("Kernel1");
+        KernelMatrix kernelMatrix = kernelObject.GetComponent<KernelMatrix>();
+        kernelMatrix.Blink();
+    }
+
+    void StopHintKernel()
+    {
+        GameObject kernelObject = GameObject.Find("Kernel1");
+        if (!kernelObject)
+        {
+            return;
+        }
+        KernelMatrix kernelMatrix = kernelObject.GetComponent<KernelMatrix>();
+        kernelMatrix.StopBlink();
+    }
+
+    IEnumerator AnimateGameOver()
     {
         Player.Disable();
         NPC.OnHover -= DisplayInstruction;
+        StopHintKernel();
+        hintBalloon.Hide();
 
+        // Show the correct answer
+        cameraZoom.ChangeZoomTarget(convolutionalViews[2].GetPivot());
+        cameraZoom.ChangeZoomSmooth(4f);
+        yield return new WaitForSeconds(3f);
+
+        // NPC speaks message
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
-        // NPC speaks message
         string message = "Good job picking the kernel that enhances human-made features to analyze a residential area. Let's go back for the CNN Room.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);

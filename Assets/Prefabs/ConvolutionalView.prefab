@@ -37,6 +37,7 @@ Transform:
   - {fileID: 4304227745242712666}
   - {fileID: 163061187116155904}
   - {fileID: 492674313096350501}
+  - {fileID: 1230439380804924248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2826516094938151827
@@ -55,6 +56,7 @@ MonoBehaviour:
   locker: {fileID: 6675921848270549779}
   inputScreen: {fileID: 6367560167348517259}
   outputScreen: {fileID: 6686444497235818158}
+  center: {fileID: 8974550250585826989}
   kernelMatrix: {fileID: 1828959421083636660}
   inputMatrix: {fileID: 2448566022561789445}
   outputMatrix: {fileID: 804540010403299924}
@@ -131,6 +133,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &8974550250585826989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1230439380804924248}
+  m_Layer: 0
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1230439380804924248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974550250585826989}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.5, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3465237991377027435}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1664036555003154443
 PrefabInstance:
   m_ObjectHideFlags: 0
