@@ -8,6 +8,7 @@ public class DialogueBalloon : MonoBehaviour
 {
     public Action OnDone;
     bool waitingKey = false;
+    bool isIntroduction = false;
     string relativePosition = "upperRight"; // can be upperLeft
 
     float xOffset = 0.85f;
@@ -87,6 +88,42 @@ public class DialogueBalloon : MonoBehaviour
         waitingKey = true;
         hintTimeout = minDuration;
         HideHint();
+        isIntroduction = false;
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+        waitingKey = true;
+        hintTimeout = CalculateDuration();
+        HideHint();
+        isIntroduction = false;
+    }
+
+    public void ShowIntroduction()
+    {
+        gameObject.SetActive(true);
+        waitingKey = true;
+        hintTimeout = CalculateDuration();
+        HideHint();
+        isIntroduction = true;
+    }
+
+    private float CalculateDuration()
+    {
+        int averageLength = 140;
+        int messageLength = label.text.Length;
+        if (messageLength > averageLength)
+        {
+            return 5f;
+        }
+
+        float duration = 5f * messageLength / averageLength;
+        // 140 -- 5
+        // messageLength -- x
+        // 140 *x = 5 * messageLength
+        // x = 5 * messageLength / 140
+        return duration;
     }
 
     public void Hide()
@@ -108,6 +145,12 @@ public class DialogueBalloon : MonoBehaviour
     public void ShowHint()
     {
         hint.gameObject.SetActive(true);
+        if (isIntroduction)
+        {
+            // Debug.Log("Show Press SPACE");
+            label.text += "\n(Press SPACE)";
+            isIntroduction = false;
+        }
     }
 
     public void HideHint()
