@@ -2349,7 +2349,7 @@ MonoBehaviour:
   NPCDialogueBalloon: {fileID: 1107053579}
   cnnLayerRoom: {fileID: 2211488293589547634, guid: 76e0951f110efe44b9ed87ff529a578f, type: 3}
   inputHolder: {fileID: 8700647280722168030, guid: 04c406387d8836f4b8a8f0aa53fc8b63, type: 3}
-  sampleTile: {fileID: 4826458062136276216, guid: 5218bcb00a09a614eb3d35047d39776f, type: 3}
+  sampleTile: {fileID: 865287147992422790, guid: 01800c2c7ec64fd4c970030be85f1801, type: 3}
   cameraZoom: {fileID: 696425703}
 --- !u!1 &1813578612
 GameObject:

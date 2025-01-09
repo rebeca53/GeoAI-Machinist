@@ -207,6 +207,7 @@ public class OverviewBoardManager : BaseBoard
     {
         GameObject instance = Instantiate(sampleTile, new Vector3(1f, 10f, 0f), Quaternion.identity);
         SampleBox sampleBox = instance.GetComponent<SampleBox>();
+        sampleBox.Block();
         inputHolder.FeedInputSample(sampleBox);
     }
 
