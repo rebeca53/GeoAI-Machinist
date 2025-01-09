@@ -170,15 +170,16 @@ public class DialogueBalloon : MonoBehaviour
         hintTimer += Time.deltaTime;
         if (hintTimer >= hintTimeout)
         {
-            ShowHint();
-            if (waitingKey && Input.GetKeyDown("space"))
+            if (waitingKey)
             {
-                waitingKey = false;
-                HideHint();
-                OnDone?.Invoke();
+                ShowHint();
+                if (Input.GetKeyDown("space"))
+                {
+                    waitingKey = false;
+                    HideHint();
+                    OnDone?.Invoke();
+                }
             }
         }
-
-
     }
 }

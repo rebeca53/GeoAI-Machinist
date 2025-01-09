@@ -250,23 +250,35 @@ public class DataLabelingMiniGameManager : BaseBoard
     {
         NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
         NPCDialogueBalloon.SetMessage("Don't forget your mission, GeoAI Machinist: labeling the data is essential so the Big Machine can learn");
-        NPCDialogueBalloon.PlaceUpperRight();
+        NPCDialogueBalloon.PlaceUpperLeft();
         NPCDialogueBalloon.Show();
+        NPCDialogueBalloon.OnDone += NPCDialogueBalloon.Hide;
+    }
+
+    void DisplayPhaseOverMessage()
+    {
+        NPCDialogueBalloon.SetSpeaker(NPC.gameObject);
+        NPCDialogueBalloon.SetMessage("Perfect, you labeled samples with which the Big Machine will learn.");
+        NPCDialogueBalloon.PlaceUpperLeft();
+        NPCDialogueBalloon.Show();
+        NPCDialogueBalloon.DisableKey();
     }
 
     void HintExit()
     {
+        DisplayPhaseOverMessage();
+        NPC.OnHover += DisplayPhaseOverMessage;
         StartCoroutine(HintExitCoroutine());
     }
 
     IEnumerator HintExitCoroutine()
     {
-        NPCDialogueBalloon.Hide();
         cameraZoom.ChangeZoomTarget(exitScript.gameObject);
 
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(exitScript.gameObject);
         hintBalloon.PlaceOver();
+        hintBalloon.SetWaitKey(false);
         hintBalloon.Show();
 
         yield return new WaitForSeconds(2);

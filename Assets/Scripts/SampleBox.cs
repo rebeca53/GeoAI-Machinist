@@ -6,7 +6,14 @@ using UnityEngine;
 public class SampleBox : MonoBehaviour
 {
     public event Action<string, Vector3> OnBreak;
+    public event Action OnTryGrabBlocked;
+    public event Action OnGrab;
+
+    public event Action OnWrongDrop;
+
     bool broken = false;
+    bool blocked = false;
+    bool canDrop = true;
     public string type;
     private BoxCollider2D boxCollider;
 
@@ -20,6 +27,43 @@ public class SampleBox : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider2D>();
         type = gameObject.name.Substring(0, gameObject.name.LastIndexOf("_"));
+    }
+
+    public void Block()
+    {
+        blocked = true;
+    }
+
+    public void Release()
+    {
+        blocked = false;
+    }
+
+    public bool CanDropOnFloor()
+    {
+        if (!canDrop)
+        {
+            OnWrongDrop?.Invoke();
+        }
+        return canDrop;
+    }
+
+    public void SetCanDrop(bool drop)
+    {
+        canDrop = drop;
+    }
+
+    public bool IsBlocked()
+    {
+        if (blocked)
+        {
+            OnTryGrabBlocked?.Invoke();
+        }
+        else
+        {
+            OnGrab?.Invoke();
+        }
+        return blocked;
     }
 
     public void BreakMultiband()

@@ -30,8 +30,7 @@ public class PlayerController : MonoBehaviour
     // Audio
     AudioSource audioSource;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -41,14 +40,10 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void SetEnable(bool enable)
-    {
-        isEnabled = enable;
-    }
-
     public void Disable()
     {
         isEnabled = false;
+        rb.velocity = new(0f, 0f);
     }
 
     public void Enable()
@@ -182,16 +177,20 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        animator.SetTrigger("playerGrab");
-        // Change scale
-        nearObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        // change box parent
-        GameObject playerObj = GameObject.Find("Player");
-        nearObject.transform.parent = playerObj.transform;
-        // get player position and Change box position
-        nearObject.transform.position = playerObj.transform.position;
+        SampleBox sampleBox = nearObject.GetComponent<SampleBox>();
+        if (!sampleBox.IsBlocked())
+        {
+            animator.SetTrigger("playerGrab");
+            // Change scale
+            nearObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            // change box parent
+            GameObject playerObj = GameObject.Find("Player");
+            nearObject.transform.parent = playerObj.transform;
+            // get player position and Change box position
+            nearObject.transform.position = playerObj.transform.position;
 
-        grabbedObject = nearObject;
+            grabbedObject = nearObject;
+        }
     }
 
     private void BreakSampleBox()
@@ -207,6 +206,15 @@ public class PlayerController : MonoBehaviour
 
     private void DropObject()
     {
+        if (grabbedObject.CompareTag("SampleBox"))
+        {
+            SampleBox sampleBox = grabbedObject.GetComponent<SampleBox>();
+            if (!sampleBox.CanDropOnFloor())
+            {
+                return;
+            }
+        }
+
         animator.SetTrigger("playerGrab");
         // Change scale
         grabbedObject.transform.localScale = new Vector3(1f, 1f, 1f);

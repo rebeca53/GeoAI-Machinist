@@ -17,6 +17,7 @@ public class HintBalloon : MonoBehaviour
     GameObject nearObject;
 
     public Action OnDone;
+    bool waitingKey = true;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +67,10 @@ public class HintBalloon : MonoBehaviour
         arrowRightKey.gameObject.SetActive(true);
     }
 
+    public void SetWaitKey(bool waitKey)
+    {
+        waitingKey = waitKey;
+    }
     public void Show()
     {
         gameObject.SetActive(true);
@@ -76,7 +81,6 @@ public class HintBalloon : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -85,7 +89,7 @@ public class HintBalloon : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(hintedKey))
+        if (waitingKey && Input.GetKeyDown(hintedKey))
         {
             Hide();
             OnDone?.Invoke();

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Container : MonoBehaviour
 {
     public event Action OnMatch;
+    public event Action OnWrongMatch;
     public event Action<string> OnMatchDisplay;
     public event Action<string> OnHover;
     public event Action<string> OnUnhover;
@@ -65,6 +66,7 @@ public class Container : MonoBehaviour
     {
         PlaySound(mismatchClip);
         animator.SetTrigger("mismatchContainer");
+        OnWrongMatch?.Invoke();
     }
 
     public void PlaySound(AudioClip clip)

@@ -120,7 +120,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
                 break;
             case "action4":
                 NPCWalkToExit();
-                HintExit();
                 break;
         }
     }
@@ -141,12 +140,69 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(residentialBox);
         hintBalloon.PlaceOver();
+        hintBalloon.SetWaitKey(false);
         hintBalloon.Show();
-        hintBalloon.OnDone += Player.Disable;
-        hintBalloon.OnDone += NextLine;
+
+        BlockOtherSamples();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         Player.Enable();
+    }
+
+    void DisplayWrongSampleMessage()
+    {
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage("Grab the sample that is highlighted.");
+        dialogueBalloon.PlaceUpperRight();
+        dialogueBalloon.Show();
+        dialogueBalloon.DisableKey();
+    }
+
+    void ResidentialSampleGrabbed()
+    {
+        hintBalloon.Hide();
+        Player.Disable();
+        NextLine();
+    }
+
+    void BlockOtherSamples()
+    {
+        GameObject[] samples = GameObject.FindGameObjectsWithTag("SampleBox");
+        foreach (GameObject sampleObject in samples)
+        {
+            SampleBox sampleBox = sampleObject.GetComponent<SampleBox>();
+            if (sampleBox.type.Equals("Residential"))
+            {
+                sampleBox.OnGrab += ResidentialSampleGrabbed;
+                sampleBox.OnWrongDrop += DisplayWrongContainerMessage;
+            }
+            else
+            {
+                sampleBox.Block();
+                sampleBox.OnTryGrabBlocked += DisplayWrongSampleMessage;
+            }
+            sampleBox.SetCanDrop(false);
+        }
+    }
+
+    void ResetSamples()
+    {
+        GameObject[] samples = GameObject.FindGameObjectsWithTag("SampleBox");
+        foreach (GameObject sampleObject in samples)
+        {
+            SampleBox sampleBox = sampleObject.GetComponent<SampleBox>();
+            if (sampleBox.type.Equals("Residential"))
+            {
+                sampleBox.OnGrab -= NextLine;
+                sampleBox.OnWrongDrop -= DisplayWrongContainerMessage;
+            }
+            else
+            {
+                sampleBox.Release();
+                sampleBox.OnTryGrabBlocked -= DisplayWrongSampleMessage;
+            }
+            sampleBox.SetCanDrop(true);
+        }
     }
 
     void NPCWalkToContainer()
@@ -167,12 +223,62 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(residentialContainer);
         hintBalloon.PlaceOver();
+        hintBalloon.SetWaitKey(false);
         hintBalloon.Show();
+        SetupContainers();
 
         Player.Enable();
-        hintBalloon.OnDone += Player.Disable;
-        hintBalloon.OnDone += NextLine;
-        hintBalloon.OnDone += ZoomIn;
+    }
+
+    void ResidentialContainerFilled()
+    {
+        hintBalloon.Hide();
+        Player.Disable();
+        NextLine();
+        ZoomIn();
+    }
+
+    void DisplayWrongContainerMessage()
+    {
+        dialogueBalloon.SetSpeaker(NPC.gameObject);
+        dialogueBalloon.SetMessage("Place the sample on the Residential container.");
+        dialogueBalloon.PlaceUpperLeft();
+        dialogueBalloon.Show();
+        dialogueBalloon.DisableKey();
+    }
+
+    void SetupContainers()
+    {
+        GameObject[] containers = GameObject.FindGameObjectsWithTag("Container");
+        foreach (GameObject containerObject in containers)
+        {
+            Container container = containerObject.GetComponent<Container>();
+            if (container.type.Equals("Residential"))
+            {
+                container.OnMatch += ResidentialContainerFilled;
+            }
+            else
+            {
+                container.OnWrongMatch += DisplayWrongContainerMessage;
+            }
+        }
+    }
+
+    void ResetContainers()
+    {
+        GameObject[] containers = GameObject.FindGameObjectsWithTag("Container");
+        foreach (GameObject containerObject in containers)
+        {
+            Container container = containerObject.GetComponent<Container>();
+            if (container.type.Equals("Residential"))
+            {
+                container.OnMatch -= NextLine;
+            }
+            else
+            {
+                container.OnWrongMatch -= DisplayWrongContainerMessage;
+            }
+        }
     }
 
     void NPCWalkToExit()
@@ -180,20 +286,6 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         dialogueBalloon.Hide();
         ZoomOut();
         director.Play(); // on stopped, it calls NextLine
-    }
-
-    void HintExit()
-    {
-        GameObject exit = GameObject.FindGameObjectWithTag("Exit");
-        if (exit == null)
-        {
-            Debug.LogError("Not able to find exit");
-            return;
-        }
-        hintBalloon.SetSpaceKey();
-        hintBalloon.SetTarget(exit);
-        hintBalloon.PlaceOver();
-        hintBalloon.Show();
     }
 
     private GameObject FindResidentialContainer()
@@ -231,6 +323,9 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         cameraZoom.Release();
         ZoomIn();
 
+        ResetSamples();
+        ResetContainers();
+
         Player.Enable();
         NPC.OnHover += DisplayInstruction;
     }
@@ -241,6 +336,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         dialogueBalloon.SetMessage("Place each sample under the correct label, so the Big Machine can learn from you.");
         dialogueBalloon.PlaceUpperRight();
         dialogueBalloon.Show();
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
 
     void OnDisable()
