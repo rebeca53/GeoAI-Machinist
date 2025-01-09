@@ -131,12 +131,21 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(inputSample);
         hintBalloon.PlaceOver();
+        hintBalloon.SetWaitKey(false);
         hintBalloon.Show();
 
+        SampleBox sampleBox = inputSample.GetComponent<SampleBox>();
+        sampleBox.OnBreak += OnHintedSampleBroken;
+
         Player.Enable();
-        hintBalloon.OnDone += Player.Disable;
-        hintBalloon.OnDone += NextLine;
-        hintBalloon.OnDone += ZoomIn;
+    }
+
+    void OnHintedSampleBroken(string sampleBox, Vector3 position)
+    {
+        // hintBalloon.Hide() is called by InputMiniGameManager.LayoutGrayscaleBands
+        Player.Disable();
+        NextLine();
+        ZoomIn();
     }
 
     void ZoomOut()
@@ -165,15 +174,11 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
     void OnDisable()
     {
         firstTurnAnimation.stopped -= OnPlayableDirectorStopped;
-        hintBalloon.OnDone -= Player.Disable;
         dialogueBalloon.OnDone -= NextLine;
     }
 
     void ClearCallbacks()
     {
         dialogueBalloon.OnDone -= NextLine;
-        hintBalloon.OnDone -= Player.Disable;
-        hintBalloon.OnDone -= NextLine;
-        hintBalloon.OnDone -= ZoomIn;
     }
 }

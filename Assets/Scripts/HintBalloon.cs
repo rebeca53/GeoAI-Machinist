@@ -71,6 +71,7 @@ public class HintBalloon : MonoBehaviour
     {
         waitingKey = waitKey;
     }
+    
     public void Show()
     {
         gameObject.SetActive(true);

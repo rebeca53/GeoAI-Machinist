@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
 
     private void GrabSampleBox()
     {
-        if (nearObject == null || !(nearObject.CompareTag("SampleBox") || nearObject.CompareTag("SpectralBand")))
+        if (nearObject == null || !nearObject.CompareTag("SampleBox"))
         {
             return;
         }
@@ -191,6 +191,25 @@ public class PlayerController : MonoBehaviour
 
             grabbedObject = nearObject;
         }
+    }
+
+    private void GrabSampleSpectralBand()
+    {
+        if (nearObject == null || !nearObject.CompareTag("SpectralBand"))
+        {
+            return;
+        }
+
+        animator.SetTrigger("playerGrab");
+        // Change scale
+        nearObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        // change box parent
+        GameObject playerObj = GameObject.Find("Player");
+        nearObject.transform.parent = playerObj.transform;
+        // get player position and Change box position
+        nearObject.transform.position = playerObj.transform.position;
+
+        grabbedObject = nearObject;
     }
 
     private void BreakSampleBox()
@@ -415,7 +434,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (nearObject.CompareTag("SpectralBand"))
             {
-                GrabSampleBox();
+                GrabSampleSpectralBand();
             }
             else if (nearObject.CompareTag("SelectorSwitch"))
             {

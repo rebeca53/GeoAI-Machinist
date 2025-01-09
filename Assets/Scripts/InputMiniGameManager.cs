@@ -148,6 +148,7 @@ public class InputMiniGameManager : BaseBoard
 
     private void LayoutGrayscaleBands(string sampleBox, Vector3 position)
     {
+        hintBalloon.Hide();
         teleportationDevice.StopBlink();
 
         GameObject tileChoice = spectralBandTile;
@@ -272,6 +273,7 @@ public class InputMiniGameManager : BaseBoard
         dialogueBalloon.OnDone += GameOver;
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
     }
+
     protected override void GameOver()
     {
         cameraZoom.ChangeZoomTarget(Player.gameObject);
@@ -329,6 +331,7 @@ public class InputMiniGameManager : BaseBoard
         hintBalloon.SetSpaceKey();
         hintBalloon.SetTarget(inputSample);
         hintBalloon.PlaceOver();
+        hintBalloon.SetWaitKey(false);
         hintBalloon.Show();
     }
 
