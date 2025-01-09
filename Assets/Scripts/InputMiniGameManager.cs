@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -11,6 +12,7 @@ public class InputMiniGameManager : BaseBoard
     public GameObject spectralBandContainerTile;
     public GameObject selectorSwitch;
     public GameObject teleportationDeviceTile;
+    public TextMeshPro turnCounter;
 
     public InputMiniGamePlaybackDirector playbackDirector;
     public TimedDialogueBalloon timedDialogueBalloon;
@@ -68,6 +70,12 @@ public class InputMiniGameManager : BaseBoard
         LayoutBandContainers();
 
         playbackDirector.OnEnd += DisplayMessageOnHoverNPC;
+        UpdateTurnCounter();
+    }
+
+    private void UpdateTurnCounter()
+    {
+        turnCounter.text = "Turn " + (currentTurn + 1) + "/3";
     }
 
     private void DisplayMessageOnHoverNPC()
@@ -129,7 +137,7 @@ public class InputMiniGameManager : BaseBoard
 
     void LayoutInputHolder()
     {
-        GameObject instance = Instantiate(teleportationDeviceTile, new Vector3(1f, 6.9f, 0f), Quaternion.identity);
+        GameObject instance = Instantiate(teleportationDeviceTile, new Vector3(2.5f, 6.9f, 0f), Quaternion.identity);
         instance.transform.localScale = new(2f, 2f, 1f);
         teleportationDevice = instance.GetComponent<TeleportationDevice>();
     }
@@ -185,7 +193,7 @@ public class InputMiniGameManager : BaseBoard
     {
         float verticalGap = 2f;
         float verticalOffset = 2f;
-        float xPosition = 6f;
+        float xPosition = 6.5f;
 
         for (int i = 0; i < bandTypes.Count; i++)
         {
@@ -194,7 +202,7 @@ public class InputMiniGameManager : BaseBoard
             GameObject instance = Instantiate(spectralBandContainerTile, position, Quaternion.identity);
             SpectralBandContainer spectralBandContainer = instance.GetComponent<SpectralBandContainer>();
             spectralBandContainer.SetType(bandTypes[i]);
-            spectralBandContainer.DrawConnections(inputPosition: new(-4.9f, (Height / 2) - yPosition, 0f));
+            spectralBandContainer.DrawConnections(inputPosition: new(-3.9f, (Height / 2) - yPosition, 0f));
             spectralBandContainer.OnFilled += CheckWinTurn;
             spectralBandContainer.OnHover += DisplayMessage;
             spectralBandContainer.OnUnhover += HideMessage;
@@ -318,6 +326,7 @@ public class InputMiniGameManager : BaseBoard
         ResetContainers();
 
         currentTurn++;
+        UpdateTurnCounter();
         sampleBox.Reset();
         LayoutSample();
         HintInputSample();
