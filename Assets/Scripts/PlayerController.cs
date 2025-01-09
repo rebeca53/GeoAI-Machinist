@@ -286,27 +286,34 @@ public class PlayerController : MonoBehaviour
         grabbedObject = grabbeableObject.gameObject;
     }
 
-
     private void FillInputHolder()
     {
         InputHolder inputHolder = nearObject.GetComponent<InputHolder>();
-        inputHolder.AddInputObject(grabbedObject);
-        grabbedObject = null;
+        // Verify if Kernel/ActivationBox and InputHolder are in the same ConvolutionalView
+        if (inputHolder.CanAdd(grabbedObject))
+        {
+            inputHolder.AddInputObject(grabbedObject);
+            grabbedObject = null;
+        }
     }
 
     private void FillLocker()
     {
         Locker locker = nearObject.GetComponent<Locker>();
-        switch (grabbedObject.tag)
+        // Verify if Kernel/ActivationBox and Locker are in the same ConvolutionalView
+        if (locker.CanAdd(grabbedObject))
         {
-            case "Kernel":
-                locker.AddKernel(grabbedObject);
-                break;
-            case "ActivationBox":
-                locker.AddActivationBox(grabbedObject);
-                break;
+            switch (grabbedObject.tag)
+            {
+                case "Kernel":
+                    locker.AddKernel(grabbedObject);
+                    break;
+                case "ActivationBox":
+                    locker.AddActivationBox(grabbedObject);
+                    break;
+            }
+            grabbedObject = null;
         }
-        grabbedObject = null;
     }
 
     private void StartMiniGame()

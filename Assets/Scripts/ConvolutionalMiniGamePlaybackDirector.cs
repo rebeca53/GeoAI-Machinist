@@ -119,7 +119,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
 
     void HintKernel()
     {
-        GameObject kernelObject = GameObject.Find("Kernel0");
+        GameObject kernelObject = GameObject.Find("Kernel1");
         KernelMatrix kernelMatrix = kernelObject.GetComponent<KernelMatrix>();
         kernelMatrix.Blink();
     }

@@ -7,6 +7,40 @@ public class Locker : MonoBehaviour
     private float yOffset = 0f;
     private float xOffset = 0.3f;
 
+    private int id = -1;
+
+    public void Init(int newId)
+    {
+        id = newId;
+        gameObject.name = "Locker" + id;
+    }
+
+    public bool CanAdd(GameObject gameObject)
+    {
+        if (gameObject.CompareTag("Kernel"))
+        {
+            KernelMatrix kernel = gameObject.GetComponent<KernelMatrix>();
+            return CanAddKernel(kernel);
+        }
+        else if (gameObject.CompareTag("ActivationBox"))
+        {
+            return CanAddActivationBox();
+        }
+
+        return false;
+    }
+
+    public bool CanAddKernel(KernelMatrix kernel)
+    {
+        return kernel.GetId() == id;
+    }
+
+    public bool CanAddActivationBox()
+    {
+        // TODO
+        return true;
+    }
+
     public void AddKernel(GameObject kernel)
     {
         Vector3 position = gameObject.transform.position;

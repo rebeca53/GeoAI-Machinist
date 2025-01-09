@@ -8,6 +8,13 @@ public class InputHolder : MonoBehaviour
     public Action OnAddedObject;
     private float verticalOffset = 0.7f;
     private float horizontalOffset = 0.013f;
+    int id = -1;
+
+    public void Init(int newId)
+    {
+        id = newId;
+        gameObject.name = "KernelHolder" + id;
+    }
 
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
@@ -24,6 +31,32 @@ public class InputHolder : MonoBehaviour
         // change box parent
         sampleBox.gameObject.transform.parent = gameObject.transform;
         sampleBox.gameObject.transform.position = new Vector3(gameObject.transform.position.x + horizontalOffset, gameObject.transform.position.y + verticalOffset);
+    }
+
+    public bool CanAdd(GameObject gameObject)
+    {
+        if (gameObject.CompareTag("Kernel"))
+        {
+            KernelMatrix kernel = gameObject.GetComponent<KernelMatrix>();
+            return CanAddKernel(kernel);
+        }
+        else if (gameObject.CompareTag("ActivationBox"))
+        {
+            return CanAddActivationBox();
+        }
+
+        return false;
+    }
+
+    public bool CanAddKernel(KernelMatrix kernel)
+    {
+        return kernel.GetId() == id;
+    }
+
+    public bool CanAddActivationBox()
+    {
+        // TODO
+        return true;
     }
 
     public void AddInputObject(GameObject inputObject)

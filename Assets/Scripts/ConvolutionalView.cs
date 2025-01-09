@@ -40,9 +40,7 @@ public class ConvolutionalView : MonoBehaviour
     private Color wrongColor = Color.red;
     private Color inactiveColor = Color.gray;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         viewCounter++;
         id = viewCounter;
@@ -58,7 +56,7 @@ public class ConvolutionalView : MonoBehaviour
 
     private void LayoutKernelHolder()
     {
-        kernelHolder.name = "KernelHolder" + id;
+        kernelHolder.Init(id);
         kernelHolder.DrawConnection();
         kernelHolder.OnAddedObject += StartConvolution;
     }
@@ -132,13 +130,16 @@ public class ConvolutionalView : MonoBehaviour
 
     public void InitKernel(List<double> flatKernel, double[,] kernel)
     {
-        kernelMatrix.name = "Kernel" + id;
+        kernelMatrix.Init(id);
         kernelMatrix.SetMatrix(flatKernel, kernel);
+
+        locker.Init(id);
         locker.AddKernel(kernelMatrix.gameObject);
 
         GameObject instance = Instantiate(kernelMatrix.gameObject, kernelMatrix.transform.position, Quaternion.identity);
         movingKernelMatrix = instance.GetComponent<KernelMatrix>();
         movingKernelMatrix.gameObject.SetActive(false);
+        movingKernelMatrix.Init(id);
         movingKernelMatrix.SetMatrix(flatKernel, kernel);
     }
 

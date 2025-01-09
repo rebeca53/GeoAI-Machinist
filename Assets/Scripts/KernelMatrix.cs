@@ -10,6 +10,7 @@ public class KernelMatrix : MonoBehaviour
     public Action OnGrabbed;
     public float pixelSize = ConvolutionalMiniGameManager.pixelSize;
 
+    private int id = -1;
     private bool grabbed = false;
     private KernelPixel center;
     KernelPixel[] kernelPixels;
@@ -32,7 +33,17 @@ public class KernelMatrix : MonoBehaviour
         flatKernel = newFlatKernel;
         Draw();
     }
+    public void Init(int newId)
+    {
+        id = newId;
+        gameObject.name = "Kernel" + id;
+        Debug.Log(gameObject.name);
+    }
 
+    public int GetId()
+    {
+        return id;
+    }
     void Draw()
     {
         kernelPixels = GetComponentsInChildren<KernelPixel>();
