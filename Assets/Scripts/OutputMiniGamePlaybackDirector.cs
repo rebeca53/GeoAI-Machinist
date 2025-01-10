@@ -44,7 +44,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         // new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."), // instruction
         // new("NPC", "Approach a class node to highlight the weights."),
         new("NPC", "The classification is almost done. We have class nodes with different values. Just one more step to go..."),
-        new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class"),
+        new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class."),
         };
     }
 
