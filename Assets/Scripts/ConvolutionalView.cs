@@ -21,7 +21,7 @@ public class ConvolutionalView : MonoBehaviour
     public InputMatrix inputMatrix;
     public OutputMatrix outputMatrix;
     public int id;
-    static int viewCounter = 0;
+    public static int viewCounter = 0;
 
     // Convolution
     int stride = 1;

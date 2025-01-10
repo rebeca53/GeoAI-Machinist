@@ -44,7 +44,6 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
     void Init()
     {
         Player.Disable();
-        cameraZoom.Block();
         ZoomIn();
         dialogueBalloon.Hide();
 
@@ -105,24 +104,6 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         }
     }
 
-    // void NPCWalkToKernel()
-    // {
-    //     // dialogueBalloon.Hide();
-    //     dialogueBalloon.Show(0f);
-    //     dialogueBalloon.OnDone += NextLine;
-
-    //     HintKernel();
-    //     // HintInputHolder();
-    //     // introductionAnimation.Play(); // on stopped, it calls NextLine
-    // }
-
-    // void HintKernel()
-    // {
-    //     GameObject kernelObject = GameObject.Find("Kernel1");
-    //     KernelMatrix kernelMatrix = kernelObject.GetComponent<KernelMatrix>();
-    //     kernelMatrix.Blink();
-    // }
-
     void HintInputHolder()
     {
         GameObject inputHolderObject = GameObject.Find("KernelHolder1");
@@ -141,14 +122,18 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
         cameraZoom.ChangeZoomSmooth(1.4f);
     }
 
+    void ZoomOut()
+    {
+        cameraZoom.ChangeZoomSmooth(5f);
+    }
+
     void End()
     {
         dialogueBalloon.Hide();
         ClearCallbacks();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
-        cameraZoom.Release();
-        ZoomIn();
+        ZoomOut();
 
         Player.Enable();
         HintInputHolder();

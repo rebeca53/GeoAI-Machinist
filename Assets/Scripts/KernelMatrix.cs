@@ -37,7 +37,6 @@ public class KernelMatrix : MonoBehaviour
     {
         id = newId;
         gameObject.name = "Kernel" + id;
-        Debug.Log(gameObject.name);
     }
 
     public int GetId()

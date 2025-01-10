@@ -50,8 +50,10 @@ public class ConvolutionalMiniGameManager : BaseBoard
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        ConvolutionalView.viewCounter = 0;
+        Player.Disable();
         UpdateProgress(0f);
         StartCoroutine(LayoutAll());
     }
@@ -243,6 +245,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         else if (NeedRemoveWrongKernel())
         {
             DisplayWrongKernelMessage();
+            NPC.OnHover += DisplayWrongKernelMessage;
         }
     }
 
@@ -340,7 +343,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
         timedDialogueBalloon.PlaceUpperLeft();
         timedDialogueBalloon.Show(5f);
         timedDialogueBalloon.OnDone += RegisterConvolutionalViewsMessages;
-        ZoomIn();
 
         // NPC speaks message
         string robotMessage = "Oops, you need to disconnect the non-optimal kernels.";
