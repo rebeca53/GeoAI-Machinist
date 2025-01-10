@@ -36,6 +36,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay.Add(new("NPC", "This is the Data Labeling Room. Looks like all the samples are shuffled. You need to place them in the container with the correct label."));
+        screenplay.Add(new("NPC", "Our AI relies on labeled data as ground truth to identify patterns and improve its ability to make accurate predictions."));
         screenplay.Add(new("NPC", "First step is to grab a sample. There is one sample just behind you."));
         screenplay.Add(new("action", "action1"));
         screenplay.Add(new("NPC", "Now, lets find the correct container and drop the sample."));
