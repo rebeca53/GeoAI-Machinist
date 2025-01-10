@@ -51,7 +51,6 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void Init()
     {
         Player.Disable();
-        cameraZoom.Block();
         ZoomIn();
         dialogueBalloon.Hide();
 
@@ -128,6 +127,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void WaitPlayer()
     {
+        ZoomOut();
         Player.Enable();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         NPC.OnHover += NextLine;
@@ -135,16 +135,19 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     IEnumerator ShowFeatureMap()
     {
-        yield return new WaitForSeconds(0.5f);
+        Player.Disable();
+        ZoomIn();
         cameraZoom.ChangeZoomTarget(inputScreen);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
+        Player.Enable();
+
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         NextLine();
     }
 
     void WaitPlayerFlatten()
     {
-        cameraZoom.Release();
+        ZoomOut();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         NPC.OnHover += DisplayFlattenInstruction;
     }
@@ -173,6 +176,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void HintSoftmax()
     {
+        ZoomOut();
         GameObject softmaxObject = GameObject.Find("ActivationBox");
         ActivationBox activationBox = softmaxObject.GetComponent<ActivationBox>();
         activationBox.Blink();
@@ -186,7 +190,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void ZoomOut()
     {
-        cameraZoom.ChangeZoomSmooth(4f);
+        cameraZoom.ChangeZoomSmooth(5f);
     }
 
     void End()
@@ -196,8 +200,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         ClearCallbacks();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
-        cameraZoom.Release();
-        ZoomIn();
+        ZoomOut();
 
         Player.Enable();
         HintSoftmax();

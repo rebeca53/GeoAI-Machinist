@@ -146,6 +146,7 @@ public class OutputLayer : MonoBehaviour
     {
         Player.Disable();
 
+        cameraZoom.ChangeZoomSmooth(2f);
         for (int i = 0; i < nodes.Length; i++)
         {
             // change nodes color
@@ -160,14 +161,15 @@ public class OutputLayer : MonoBehaviour
 
             // update outputlines
             outputLines[i].UpdateLine(node.GetSoftmaxColor(), (float)softmax);
-            yield return new WaitForSeconds(0.5f);
+
+            yield return new WaitForSeconds(1f);
 
             // TODO: on hover line display softmax calculation
         }
 
         cameraZoom.ChangeZoomTarget(outputLayerScreen);
         cameraZoom.ChangeZoomSmooth(5f);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3f);
 
         OnDone?.Invoke();
     }
