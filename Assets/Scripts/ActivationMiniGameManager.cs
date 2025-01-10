@@ -46,7 +46,6 @@ public class ActivationMiniGameManager : BaseBoard
     // Start is called before the first frame update
     void Start()
     {
-        Player.Disable();
         UpdateProgress(0f);
         StartCoroutine(LayoutAll());
     }
@@ -92,6 +91,7 @@ public class ActivationMiniGameManager : BaseBoard
 
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
+        Player.Disable();
 
         LoadMatrix();
 

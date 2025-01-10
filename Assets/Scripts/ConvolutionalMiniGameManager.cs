@@ -53,7 +53,6 @@ public class ConvolutionalMiniGameManager : BaseBoard
     void Awake()
     {
         ConvolutionalView.viewCounter = 0;
-        Player.Disable();
         UpdateProgress(0f);
         StartCoroutine(LayoutAll());
     }
@@ -94,6 +93,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         }
 
         Player.Spawn(this, new Vector2Int(2, 1));
+        Player.Disable();
         NPC.Spawn(this, new Vector2Int(1, 1));
         LoadMatrix();
 
