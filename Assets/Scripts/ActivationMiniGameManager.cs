@@ -46,6 +46,7 @@ public class ActivationMiniGameManager : BaseBoard
     // Start is called before the first frame update
     void Start()
     {
+        Player.Disable();
         UpdateProgress(0f);
         StartCoroutine(LayoutAll());
     }
@@ -209,6 +210,7 @@ public class ActivationMiniGameManager : BaseBoard
         else if (NeedRemoveWrongActivation())
         {
             DisplayWrongActivationMessage();
+            NPC.OnHover += DisplayWrongActivationMessage;
         }
     }
 
@@ -306,7 +308,6 @@ public class ActivationMiniGameManager : BaseBoard
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
         timedDialogueBalloon.Show(5f);
-        ZoomIn();
 
         // NPC speaks message
         string robotMessage = "Oops, make sure only ONE activation function is connected.";
@@ -314,8 +315,7 @@ public class ActivationMiniGameManager : BaseBoard
         dialogueBalloon.SetMessage(robotMessage);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
-        dialogueBalloon.DisableKey();
-        NPC.OnHover += dialogueBalloon.WaitForKey;
+        dialogueBalloon.OnDone += dialogueBalloon.Hide;
     }
 
     protected override void GameOver()

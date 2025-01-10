@@ -49,7 +49,6 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
     void Init()
     {
         Player.Disable();
-        cameraZoom.Block();
         ZoomIn();
         dialogueBalloon.Hide();
 
@@ -111,14 +110,18 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
         cameraZoom.ChangeZoomSmooth(1.4f);
     }
 
+    void ZoomOut()
+    {
+        cameraZoom.ChangeZoomSmooth(5f);
+    }
+
     void End()
     {
         dialogueBalloon.Hide();
         ClearCallbacks();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
-        cameraZoom.Release();
-        ZoomIn();
+        ZoomOut();
 
         Player.Enable();
         OnEnd?.Invoke();
