@@ -47,7 +47,6 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
     void Init()
     {
         Player.Disable();
-        cameraZoom.Block();
         ZoomIn();
         dialogueBalloon.Hide();
 
@@ -145,7 +144,7 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         // hintBalloon.Hide() is called by InputMiniGameManager.LayoutGrayscaleBands
         Player.Disable();
         NextLine();
-        ZoomIn();
+        ZoomOut();
     }
 
     void ZoomOut()
@@ -164,8 +163,6 @@ public class InputMiniGamePlaybackDirector : MonoBehaviour
         ClearCallbacks();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
-        cameraZoom.Release();
-        ZoomIn();
 
         Player.Enable();
         OnEnd?.Invoke();

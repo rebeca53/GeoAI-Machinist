@@ -65,7 +65,7 @@ public class SampleSpectralBand : MonoBehaviour
         return "";
     }
 
-    public void FitInContainer()
+    public void Block()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;

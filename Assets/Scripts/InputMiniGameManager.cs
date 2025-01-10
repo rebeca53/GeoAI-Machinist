@@ -83,55 +83,13 @@ public class InputMiniGameManager : BaseBoard
         NPC.OnHover += DisplayInitTurnMessage;
     }
 
-    private void DisableManualZoom()
-    {
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
-            return;
-        }
-        cameraZoom.Block();
-    }
-
-    private void EnableManualZoom()
-    {
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
-            return;
-        }
-        cameraZoom.Release();
-    }
-
     public void ZoomIn()
     {
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("InputMiniGameManager Zoom In Unable to retrieve camera");
-            return;
-        }
         cameraZoom.ChangeZoomSmooth(1.2f);
     }
 
     public void ZoomOut(float zoom = 5f)
     {
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("InputMiniGameManager Zoom Out Unable to retrieve camera");
-            return;
-        }
         cameraZoom.ChangeZoomSmooth(zoom);
     }
 
@@ -158,6 +116,7 @@ public class InputMiniGameManager : BaseBoard
     {
         hintBalloon.Hide();
         teleportationDevice.StopBlink();
+        ZoomOut();
 
         GameObject tileChoice = spectralBandTile;
 
@@ -202,7 +161,7 @@ public class InputMiniGameManager : BaseBoard
             GameObject instance = Instantiate(spectralBandContainerTile, position, Quaternion.identity);
             SpectralBandContainer spectralBandContainer = instance.GetComponent<SpectralBandContainer>();
             spectralBandContainer.SetType(bandTypes[i]);
-            spectralBandContainer.DrawConnections(inputPosition: new(-3.9f, (Height / 2) - yPosition, 0f));
+            spectralBandContainer.DrawConnections(inputPosition: new(-3.9f, (float)Math.Ceiling(Height / 2f) - yPosition, 0f));
             spectralBandContainer.OnFilled += CheckWinTurn;
             spectralBandContainer.OnHover += DisplayMessage;
             spectralBandContainer.OnUnhover += HideMessage;
@@ -240,7 +199,6 @@ public class InputMiniGameManager : BaseBoard
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
         timedDialogueBalloon.Show();
-        ZoomIn();
     }
 
     private void DisplayTurnOverMessage()
@@ -297,19 +255,24 @@ public class InputMiniGameManager : BaseBoard
         }
     }
 
-    private void CleanUnusedBands()
+    private void CleanAllBands()
     {
         GameObject[] spectralBands = GameObject.FindGameObjectsWithTag("SpectralBand");
-        Turn current = turns[currentTurn];
-
         foreach (GameObject gameObject in spectralBands)
         {
             SampleSpectralBand sampleSpectralBand = gameObject.GetComponent<SampleSpectralBand>();
-            if (!current.IsCharacteristicBand(sampleSpectralBand.GetBandType()))
-            {
-                gameObject.SetActive(false);
-                gameObject.transform.parent = null;
-            }
+            sampleSpectralBand.gameObject.SetActive(false);
+            sampleSpectralBand.transform.parent = null;
+        }
+    }
+
+    private void BlockAllSpectralBands()
+    {
+        GameObject[] spectralBands = GameObject.FindGameObjectsWithTag("SpectralBand");
+        foreach (GameObject gameObject in spectralBands)
+        {
+            SampleSpectralBand sampleSpectralBand = gameObject.GetComponent<SampleSpectralBand>();
+            sampleSpectralBand.Block();
         }
     }
 
@@ -323,6 +286,7 @@ public class InputMiniGameManager : BaseBoard
             return;
         }
 
+        CleanAllBands();
         ResetContainers();
 
         currentTurn++;
@@ -347,7 +311,7 @@ public class InputMiniGameManager : BaseBoard
     void TurnOver()
     {
         NPC.OnHover -= DisplayInitTurnMessage;
-        CleanUnusedBands();
+        BlockAllSpectralBands();
         DisplayTurnOverMessage();
         dialogueBalloon.OnDone += InitNewTurn;
         ZoomOut(3f);

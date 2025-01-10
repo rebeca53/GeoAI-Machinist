@@ -76,7 +76,7 @@ public class SpectralBandContainer : MonoBehaviour
         // change box parent
         sampleSpectralBand.gameObject.transform.parent = parentSquare;
         sampleSpectralBand.gameObject.transform.position = new Vector3(parentSquare.position.x, parentSquare.position.y);
-        sampleSpectralBand.FitInContainer();
+        sampleSpectralBand.Block();
 
         countMatched++;
         if (countMatched == totalMatched)
@@ -150,8 +150,8 @@ public class SpectralBandContainer : MonoBehaviour
         workingStartColor = lineRenderer.startColor;
         workingEndColor = lineRenderer.endColor;
 
-        Vector3 startPoint = new(0f, -1f, 0f);
-        Vector3 endPoint = new(4f, -1f, 0f);
+        Vector3 startPoint = new(-0.1f, -1f, 0f);
+        Vector3 endPoint = new(3.4f, -1f, 0f);
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawStraightLine();
@@ -164,14 +164,6 @@ public class SpectralBandContainer : MonoBehaviour
         countMatched = 0;
 
         UpdateState("inactive");
-        Transform child = transform.Find("SpectralBand(Clone)");
-        if (child == null)
-        {
-            // Debug.LogError("Failed to SpectralBand(Clone)");
-            return;
-        }
-        child.gameObject.SetActive(false);
-        child.parent = null;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -231,8 +223,8 @@ public class SpectralBandContainer : MonoBehaviour
         {
             case "correct":
                 outputLineRenderer.material.color = Color.Lerp(Color.white, Color.cyan, Mathf.PingPong(Time.time, 0.5f));
-                outputLineRenderer.startWidth = inactiveWidth * 2;
-                outputLineRenderer.endWidth = inactiveWidth * 2;
+                outputLineRenderer.startWidth = Mathf.Lerp(inactiveWidth, inactiveWidth * 5, Mathf.PingPong(Time.time, 0.5f));
+                outputLineRenderer.endWidth = Mathf.Lerp(inactiveWidth, inactiveWidth * 5, Mathf.PingPong(Time.time, 0.5f));
                 break;
             case "wrong":
                 outputLineRenderer.material.color = Color.white;
