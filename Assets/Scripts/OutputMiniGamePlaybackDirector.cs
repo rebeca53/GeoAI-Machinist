@@ -150,6 +150,9 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         ZoomOut();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         NPC.OnHover += DisplayFlattenInstruction;
+        GameObject selectorObject = GameObject.Find("SelectorSwitch");
+        SelectorSwitch selectorSwitch = selectorObject.GetComponent<SelectorSwitch>();
+        selectorSwitch.Enable();
     }
 
     void DisplayFlattenInstruction()

@@ -62,6 +62,7 @@ public class FlattenLayer : MonoBehaviour
 
         InitInput(UnflatMatrix(data.inputMatrix, matrixSize));
 
+        selectorSwitch.Disable();
         selectorSwitch.OnSwitch += StartFlattening;
     }
 

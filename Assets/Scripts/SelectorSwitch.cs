@@ -74,7 +74,12 @@ public class SelectorSwitch : MonoBehaviour
 
     public void Disable()
     {
-        transform.tag = "Untagged";
+        transform.tag = "Untagged";// Player cannot grab Untagged objects
+    }
+
+    public void Enable()
+    {
+        transform.tag = "SelectorSwitch";
     }
 
     public void SetType(string newType)
