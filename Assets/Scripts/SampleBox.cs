@@ -20,6 +20,7 @@ public class SampleBox : MonoBehaviour
     public void FitInContainer()
     {
         boxCollider.enabled = false;
+        UIHandler.Instance.Hide();
     }
 
     // Start is called before the first frame update
@@ -45,6 +46,10 @@ public class SampleBox : MonoBehaviour
         {
             OnWrongDrop?.Invoke();
         }
+        else
+        {
+            UIHandler.Instance.Hide();
+        }
         return canDrop;
     }
 
@@ -61,6 +66,9 @@ public class SampleBox : MonoBehaviour
         }
         else
         {
+            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            UIHandler.Instance.SetSample(spriteRenderer.sprite);
+            UIHandler.Instance.Show();
             OnGrab?.Invoke();
         }
         return blocked;

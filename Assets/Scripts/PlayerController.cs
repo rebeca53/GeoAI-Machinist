@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
     public void ChangeMoney(int amount)
     {
         currentMoney += amount;
-        UIHandler.Instance.SetMoneyValue(currentMoney);
         GameManager.instance.playerCoinPoints = currentMoney;
     }
 

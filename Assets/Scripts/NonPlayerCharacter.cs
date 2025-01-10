@@ -41,18 +41,6 @@ public class NonPlayerCharacter : MonoBehaviour
         }
     }
 
-    public void DisplayIntroduction(float time = 30f)
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        // Retrieve the name of this scene.
-        string sceneName = currentScene.name;
-        if (!sceneToInstruction.ContainsKey(sceneName))
-        {
-            return;
-        }
-        UIHandler.Instance.DisplayMessage(sceneToInstruction[sceneName], time);
-    }
-
     // Actually not working. It is just play on Awake
     public void PlaySound(AudioClip clip)
     {

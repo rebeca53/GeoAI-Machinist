@@ -220,9 +220,6 @@ public class BoardManager : MonoBehaviour
 
         //Instantiate the exit tile in the upper right hand corner of our game board
         LayoutExitFixed();
-
-        UIHandler.Instance.RegisterContainers();
-        StartCoroutine(AnimateIntroduction());
     }
 
     private void LayoutExitFixed()
@@ -234,41 +231,4 @@ public class BoardManager : MonoBehaviour
         GameObject[] containers = GameObject.FindGameObjectsWithTag("Container");
         exitScript.RegisterContainers(containers);
     }
-
-    IEnumerator AnimateIntroduction()
-    {
-        GameObject virtualCamera = GameObject.FindGameObjectWithTag("VirtualCamera");
-        CameraZoom cameraZoom = virtualCamera.GetComponent<CameraZoom>();
-
-        if (cameraZoom == null)
-        {
-            Debug.LogError("Unable to retrieve camera");
-        }
-
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        // Zoom in
-        cameraZoom.Block();
-        // cameraZoom.ChangeZoom(1f);
-
-        // block player
-        playerController.Disable();
-
-        // display message one
-        // Audio source plays
-        NPC.GetComponent<NonPlayerCharacter>().DisplayIntroduction();
-        yield return new WaitForSeconds(3f);
-
-        // TODO:
-        // have an animation
-        // listen to click to advance to the next message / or time out?
-        // display messages in the queue
-
-        // zoom out
-        // cameraZoom.ChangeZoom(4f);
-        cameraZoom.Release();
-
-        // enable player
-        playerController.Enable();
-    }
-
 }

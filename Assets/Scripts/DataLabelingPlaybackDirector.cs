@@ -12,6 +12,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     public NonPlayerCharacter NPC;
     public DialogueBalloon dialogueBalloon;
     public HintBalloon hintBalloon;
+    public HintBalloon arrowHintBalloon;
 
     public CameraZoom cameraZoom;
 
@@ -138,6 +139,11 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
         hintBalloon.SetWaitKey(false);
         hintBalloon.Show();
 
+        arrowHintBalloon.SetTarget(Player.gameObject);
+        arrowHintBalloon.SetArrowRightKey();
+        arrowHintBalloon.SetWaitKey(false);
+        arrowHintBalloon.Show();
+
         BlockOtherSamples();
 
         cameraZoom.ChangeZoomTarget(Player.gameObject);
@@ -156,6 +162,7 @@ public class DataLabelingPlaybackDirector : MonoBehaviour
     void ResidentialSampleGrabbed()
     {
         hintBalloon.Hide();
+        arrowHintBalloon.Hide();
         Player.Disable();
         NextLine();
     }
