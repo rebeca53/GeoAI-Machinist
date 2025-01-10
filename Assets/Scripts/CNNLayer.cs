@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class CNNLayer : MonoBehaviour
 {
+    public event Action<string> OnHover;
+    public event Action<string> OnUnhover;
+
     public string type;
     private TextMeshPro label;
     public bool isEndOfRow = false;
@@ -91,5 +95,23 @@ public class CNNLayer : MonoBehaviour
         // Debug.Log("Draw connection from " + startPoint + " to " + endPoint);
         Connection conn = new(startPoint, endPoint, lineRenderer);
         conn.DrawLongLine();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Debug.Log(" layer on trigger enter 2d " + other.tag);
+        OnHover?.Invoke(type);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        // Debug.Log(" layer on trigger stay 2d " + other.tag);
+        OnHover?.Invoke(type);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Debug.Log(" layer on trigger exit 2d " + other.tag);
+        OnUnhover?.Invoke(type);
     }
 }
