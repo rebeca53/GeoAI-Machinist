@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -16,6 +17,8 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
     CameraZoom cameraZoom;
     public CommandCenter commandCenter;
     public GameObject screen;
+
+    public TextMeshPro conditionsLabel;
     List<(string, string)> screenplay = new List<(string, string)>();
     int currentLineIndex = 0;
 
@@ -37,11 +40,6 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
     {
         InitializeScreenplay();
         Init();
-    }
-
-    void OnPlayableDirectorStopped(PlayableDirector aDirector)
-    {
-        NextLine();
     }
 
     void InitializeScreenplay()
@@ -145,7 +143,14 @@ public class CommandCenterPlaybackDirector : MonoBehaviour
         cameraZoom.ChangeZoomTarget(screen);
         sendHelp.Play();
         Player.Disable();
+    }
+
+    void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    {
+        conditionsLabel.text = "28 °C\nReal Feel 32°\nHumidity 50%";
+        conditionsLabel.color = Color.green;
         Player.Celebrate();
+        NextLine();
     }
 
     void ZoomIn()

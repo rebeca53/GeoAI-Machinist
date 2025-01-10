@@ -31,8 +31,8 @@ public class PlayableDirectorCallback : MonoBehaviour
         // screenplay.Add(new("NPC", "I'm your Robot Assistant, here to guide you. I'll provide all mission details shortly."));
         screenplay.Add(new("NPC", "As the GeoAI Machinist, your mission is to maintain the Big Machine—a space station designed to survey Earth and respond to emergency situations."));
         // screenplay.Add(new("NPC", "Records indicate that Earth has entered another Heat Season, and the delicate balance necessary for the last humans to survive is in danger."));
-        screenplay.Add(new("NPC", "A critical malfunction was detected in the Big Machine. The Artificial Intelligence, our core operational system... has gone offline. You must repair it."));
-        screenplay.Add(new("NPC", "Without the AI functioning, the Big Machine cannot deploy the Help Pods, which are essential for Earth's survival."));
+        screenplay.Add(new("NPC", "A critical malfunction was detected in the Big Machine. The Artificial Intelligence... has gone offline. You must repair it."));
+        screenplay.Add(new("NPC", "Without the AI functioning, the Big Machine cannot deploy the Help Pods to the RESIDENTIAL zones, which are suffering under extreme heat conditions."));
         // screenplay.Add(new("Player", "What are Help Pods?"));
         // screenplay.Add(new("NPC", "These pods are loaded with critical resources: food, water, medical supplies, emergency cooling units—everything needed to counter the deadly heat."));
         // screenplay.Add(new("Player", "How severe is the AI damage?"));
@@ -136,7 +136,7 @@ public class PlayableDirectorCallback : MonoBehaviour
             return;
         }
 
-        cameraZoom.ChangeZoomSmooth(1.5f);
+        cameraZoom.ChangeZoomSmooth(1.8f);
     }
 
     public void ZoomOut()
