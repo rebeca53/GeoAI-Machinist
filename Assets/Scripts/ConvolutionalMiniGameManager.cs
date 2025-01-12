@@ -94,6 +94,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
         Player.Spawn(this, new Vector2Int(2, 1));
         Player.Disable();
+        Player.OnDropObject += CheckGameOver;
         NPC.Spawn(this, new Vector2Int(1, 1));
         LoadMatrix();
 
@@ -238,6 +239,15 @@ public class ConvolutionalMiniGameManager : BaseBoard
             }
         }
 
+        if (NeedRemoveWrongKernel())
+        {
+            StartCoroutine(OnWrongKernel());
+        }
+    }
+
+    void CheckGameOver()
+    {
+        Debug.Log("");
         if (IsGameOver())
         {
             StartCoroutine(AnimateGameOver());
@@ -261,7 +271,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
                 message = "This is a horizontal edge detection kernel.";
                 break;
             case 3:
-                message = "This kernel highlights the features I'm aiming for.";
+                message = "This kernel detects continuous regions, not just edges, and assigns different pixel values (shades of blue) to highlight different areas.";
+                // message = "This kernel identify continuous regions, and not only horizontal and vertical edges. Plus, it generates different pixel values (shades of blue) to different regions.";
                 break;
         }
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
@@ -295,6 +306,8 @@ public class ConvolutionalMiniGameManager : BaseBoard
 
     IEnumerator AnimateGameOver()
     {
+        yield return new WaitForSeconds(1f);
+
         Player.Disable();
         NPC.OnHover -= DisplayInstruction;
         StopHintKernel();
@@ -334,6 +347,13 @@ public class ConvolutionalMiniGameManager : BaseBoard
         return trainedKernel && (verticalEdgeDetection || horizontalEdgeDetection);
     }
 
+    IEnumerator OnWrongKernel()
+    {
+        yield return new WaitForSeconds(3f);
+        DisplayWrongKernelMessage();
+        NPC.OnHover += DisplayWrongKernelMessage;
+    }
+
     private void DisplayWrongKernelMessage()
     {
         UnregisterConvolutionalViewsMessages();
@@ -341,7 +361,7 @@ public class ConvolutionalMiniGameManager : BaseBoard
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
-        timedDialogueBalloon.Show(5f);
+        timedDialogueBalloon.Show(3f);
         timedDialogueBalloon.OnDone += RegisterConvolutionalViewsMessages;
 
         // NPC speaks message

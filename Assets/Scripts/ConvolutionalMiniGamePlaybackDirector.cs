@@ -31,7 +31,7 @@ public class ConvolutionalMiniGamePlaybackDirector : MonoBehaviour
     void InitializeScreenplay()
     {
         screenplay = new List<(string, string)>() {
-        new("NPC", "This room is a Convolutional Layer of the CNN. It multiplies a filter, known as 'kernel', by an input image."),
+        new("NPC", "This room is a Convolutional Layer of the CNN. It applies a filter, known as ‘kernel’, to an input image, through matrix multiplication on their matrix representations."),
         new("NPC", "A kernel is a matrix with pre-determined values to enhance features in an image. You can see a kernel blinking over there."),
         // new("action", "action1"), // Robot Walk and Hint Kernel
         // new("action", "action2"), // Hint Kernel

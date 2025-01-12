@@ -30,12 +30,12 @@ public class ConvolutionalView : MonoBehaviour
 
     bool isConvoluting = false;
     bool kernelAtInputHolder = false;
-    int convolutionAnimationStep = 8; // step = 4 ==> 10 seconds, step = 8 ==> 3 seconds
+    int convolutionAnimationStep = 24; // step = 4 ==> 10 seconds, step = 8 ==> 3 seconds
 
     // TODO: abstract OutputLine
     string outputState = "inactive"; // inactice, wrong, correct
     LineRenderer outputLineRenderer;
-    readonly float inactiveWidth = 0.05f;
+    readonly float inactiveWidth = 0.02f;
     private Color workingStartColor;
     private Color workingEndColor;
     private Color wrongColor = Color.red;

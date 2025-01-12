@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     // TODO: refactor to have a OnObjectGrabbed<tag>
     public Action OnKernelGrabbed;
+    public Action OnDropObject;
 
     // Money system
     public int CurrentMoney { get { return currentMoney; } }
@@ -247,6 +248,8 @@ public class PlayerController : MonoBehaviour
         // change box parent
         grabbedObject.transform.parent = null;
         grabbedObject = null;
+
+        OnDropObject?.Invoke();
     }
 
     private void AttemptToFillAContainer()
@@ -339,6 +342,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             grabbedObject = null;
+            OnDropObject?.Invoke();
         }
     }
 
