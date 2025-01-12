@@ -92,6 +92,7 @@ public class ActivationMiniGameManager : BaseBoard
         Player.Spawn(this, new Vector2Int(2, 1));
         NPC.Spawn(this, new Vector2Int(1, 1));
         Player.Disable();
+        Player.OnDropObject += CheckGameOver;
 
         LoadMatrix();
 
@@ -203,6 +204,14 @@ public class ActivationMiniGameManager : BaseBoard
             activationViews[type].UpdateOutputState("inactive");
         }
 
+        if (NeedRemoveWrongActivation())
+        {
+            StartCoroutine(OnWrongActivation());
+        }
+    }
+
+    void CheckGameOver()
+    {
         if (IsGameOver())
         {
             StartCoroutine(AnimateGameOver());
@@ -220,13 +229,13 @@ public class ActivationMiniGameManager : BaseBoard
         switch (type)
         {
             case "Linear":
-                message = "The linear function is f(x) = x. It resembles a straight line and restricts the CNN to find results that are linear combinations of the input.";
+                message = "The linear function is f(x) = x. It resembles a straight line and it is simply repeating the values, so it doesn't learn new features.";
                 break;
             case "ReLu":
-                message = "The ReLu function is f(x) = max(0,x). It is simple and non-linear. As a consequence, it allows the CNN to find more complex solutions.";
+                message = "The ReLu function is f(x) = max(0,x). It is simple and non-linear. In this case, it reveals a new complex feature: the streets footprints.";
                 break;
             case "Sigmoid":
-                message = "The sigmoid is f(x) = 1 / (1 + exp(-x)). It is non-linear and fits our purpose, but it costs complex computation.";
+                message = "The sigmoid is f(x) = 1 / (1 + exp(-x)). It is non-linear, but it requires more computational power. Besides, the new complex feature is not helpful.";
                 break;
         }
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
@@ -242,6 +251,8 @@ public class ActivationMiniGameManager : BaseBoard
 
     IEnumerator AnimateGameOver()
     {
+        yield return new WaitForSeconds(1f);
+
         Player.Disable();
         NPC.OnHover -= DisplayInstruction;
 
@@ -303,19 +314,26 @@ public class ActivationMiniGameManager : BaseBoard
 
     private void DisplayWrongActivationMessage()
     {
-        string message = "Oops, I need to disconnect the other activation functions.";
+        string message = "Oops, I need to connect only the best activation function.";
         timedDialogueBalloon.SetSpeaker(Player.gameObject);
         timedDialogueBalloon.SetMessage(message);
         timedDialogueBalloon.PlaceUpperLeft();
-        timedDialogueBalloon.Show(5f);
+        timedDialogueBalloon.Show(3f);
 
         // NPC speaks message
-        string robotMessage = "Oops, make sure only ONE activation function is connected.";
+        string robotMessage = "Oops, you need to connect only the best activation function.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(robotMessage);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
         dialogueBalloon.OnDone += dialogueBalloon.Hide;
+    }
+
+    IEnumerator OnWrongActivation()
+    {
+        yield return new WaitForSeconds(6.5f); // time to read the activation function message
+        DisplayWrongActivationMessage();
+        NPC.OnHover += DisplayWrongActivationMessage;
     }
 
     protected override void GameOver()

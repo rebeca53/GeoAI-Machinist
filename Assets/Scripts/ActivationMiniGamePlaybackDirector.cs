@@ -39,7 +39,10 @@ public class ActivationMiniGamePlaybackDirector : MonoBehaviour
     {
         screenplay = new List<(string, string)>() {
         new("NPC", "This room is an Activation Layer of the CNN. It applies an activation function to the result of a convolution."),
-        new("NPC", "The activation function is a non-linear function that enables a CNN to solve non-linear problems."),
+        // An activation function helps a CNN combine simple patterns into complex ones, making it flexible and able to understand diverse data.
+        // new("NPC", "The activation function is a non-linear function that enables a CNN be more 'creative' and generate new, complex and different features."),
+        new("NPC", "An activation function adds non-linearity, enabling a CNN to learn complex patterns and better understand diverse data."),
+        new("NPC", "It allows the CNN to adapt and learn more meaningful patterns, beyond the basic features extracted by earlier layers."),
         new("NPC", "Place the activation function in the input holder to apply it."),
         new("NPC", "Choose the best activation function that enhances the features in the image."),
         // new("action", "action1"), // Robot Walk

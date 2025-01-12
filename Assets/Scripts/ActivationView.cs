@@ -30,14 +30,14 @@ public class ActivationView : MonoBehaviour
     // Activation
     bool isApplying = false;
     bool activationBoxAtInputHolder = false;
-    int animationStep = 8;
+    int animationStep = 32;
     int iActivation = 0;
     int jActivation = 0;
     int matrixSize = 62;
     // TODO: abstract OutputLine
     string outputState = "inactive"; // inactice, wrong, correct
     LineRenderer outputLineRenderer;
-    readonly float inactiveWidth = 0.05f;
+    readonly float inactiveWidth = 0.02f;
     private Color workingStartColor;
     private Color workingEndColor;
     private Color wrongColor = Color.red;
