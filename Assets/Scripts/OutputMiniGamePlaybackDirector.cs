@@ -36,12 +36,16 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
         new("action", "action2"), // Wait Player
         new("action", "action3"), // Show feature map
         new("NPC", "We cannot interpret the extracted features, and we don't have the classification result yet."),
-        new("NPC", "Find and activate the Flatenning Pull Lever to flat the matrix."),
-        new("NPC", "By flattening, we change the shape of the extracted features to access each individual pixel."),
+        new("NPC", "Find and activate the Flattenning Pull Lever to flatten the matrix representing the image."),
+        // new("NPC", "By flattening, we prepare the image for the final step, involving a fully-connected layer."),
+        new("NPC", "Flattening prepares the image for a layer where every pixel connects to decision nodes."),
+        new("NPC", "This step ensures all pixel information contributes to the final decision-making process in the classification."),
         new("action", "action4"), // Wait player flatten
-        new("NPC", "Each pixel have a weight in the classification result."),
+        new("NPC", "Did you see how each pixel connects to each decision node?"),
+        // new("NPC", "Each pixel connects to each class node, which means we have a fully-connected layer in this final step."),
         // new("action", "action4"), // Layer flattened, class nodes animation done
-        // new("NPC", "The connection between a pixel and a class node displays the weight of the pixel."), // instruction
+        // new("NPC", "The connections displays whether the pixel has a positive, negative or small weight  in the classification result."), // instruction
+        new("NPC", "The connections show whether each pixel has a positive, negative, or negligible weight in determining the classification result."),
         // new("NPC", "Approach a class node to highlight the weights."),
         new("NPC", "The classification is almost done. We have class nodes with different values. Just one more step to go..."),
         new("NPC", "We need a softmax activation function to calculate the probability of the image belonging to each class."),
@@ -127,6 +131,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void WaitPlayer()
     {
+        dialogueBalloon.Hide();
         ZoomOut();
         Player.Enable();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
@@ -147,6 +152,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
 
     void WaitPlayerFlatten()
     {
+        dialogueBalloon.Hide();
         ZoomOut();
         cameraZoom.ChangeZoomTarget(Player.gameObject);
         NPC.OnHover += DisplayFlattenInstruction;
@@ -158,7 +164,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void DisplayFlattenInstruction()
     {
         // NPC speaks message
-        string message = "Activate the Flatenning Pull Lever to flat the matrix and allow access to each individual pixel.";
+        string message = "Activate the Flattenning Pull Lever to flatten the image and prepare it for the classification.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
@@ -169,7 +175,7 @@ public class OutputMiniGamePlaybackDirector : MonoBehaviour
     void DisplaySoftmaxInstruction()
     {
         // NPC speaks message
-        string message = "We need a softmax activation function to calculate the probability of the image belonging to each class";
+        string message = "We need a softmax activation function to calculate the probability of the image belonging to each class.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();

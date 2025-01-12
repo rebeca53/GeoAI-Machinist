@@ -25,7 +25,9 @@ public class DenseView : MonoBehaviour
     readonly float MaxWeight = 0.15f;
     readonly float MinLogit = -26f;
     readonly float MaxLogit = 16f;
-
+    double greenCounter = 0;
+    double redCounter = 0;
+    double negligibleCounter = 0;
     float lineWidth = 0.05f; // same as pixel size in the FlatMatrix
 
     // Data
@@ -106,6 +108,9 @@ public class DenseView : MonoBehaviour
         // Debug.Log("maxYPosition " + maxYPosition);
         // Debug.Log("data.weights.Count * lineWidth " + data.weights.Count * lineWidth);
         // Debug.Log("transform.position.y " + transform.position.y);
+        greenCounter = 0;
+        redCounter = 0;
+        negligibleCounter = 0;
         for (int i = 0; i < data.weights.Count; i++)
         {
             GameObject instance = Instantiate(lineObject, new(0f, 0f, 0f), Quaternion.identity);
@@ -132,6 +137,12 @@ public class DenseView : MonoBehaviour
 
             weightsRoot.gameObject.SetActive(false);
         }
+        // Debug.Log(label);
+        // Debug.Log("green " + greenCounter);
+        // Debug.Log("red counter " + redCounter);
+        // Debug.Log("above threshold counter " + (greenCounter + redCounter));
+        // Debug.Log("negligible " + negligibleCounter);
+
     }
 
     Color GetLineColor(double weight)
@@ -139,12 +150,15 @@ public class DenseView : MonoBehaviour
         double threshold = 0.045f;
         if (weight > threshold)
         {
+            greenCounter++;
             return Color.green;
         }
         if (weight < -threshold)
         {
+            redCounter++;
             return Color.red;
         }
+        negligibleCounter++;
         return Color.gray;
     }
 

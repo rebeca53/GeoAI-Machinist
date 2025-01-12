@@ -162,7 +162,7 @@ public class OutputLayer : MonoBehaviour
             // update outputlines
             outputLines[i].UpdateLine(node.GetSoftmaxColor(), (float)softmax);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
 
             // TODO: on hover line display softmax calculation
         }
@@ -182,7 +182,7 @@ public class OutputLayer : MonoBehaviour
         OutputLine outputLine = new(instance.GetComponent<LineRenderer>());
         outputLine.Draw(node.transform.position.x, node.transform.position.y);
         outputLines.Add(outputLine);
-        Debug.Log(node.GetLabel());
+        // Debug.Log(node.GetLabel());
         if (node.GetLabel().Equals("Residential"))
         {
             residentialLine = outputLine;

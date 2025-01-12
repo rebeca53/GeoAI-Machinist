@@ -14,6 +14,8 @@ public class OutputMiniGameManager : BaseBoard
     public DialogueBalloon dialogueBalloon;
     public CameraZoom cameraZoom;
 
+    public HintBalloon hintBalloon;
+
     // Instances
     public FlattenLayer flattenLayer;
     List<DenseView> denseViews = new List<DenseView>();
@@ -64,7 +66,7 @@ public class OutputMiniGameManager : BaseBoard
         LayoutDenseView();
         playbackDirector.StartAnimation();
         flattenLayer.OnFlatten += StartAnimationDenseView;
-        outputLayer.OnDone += DisplayGameOverMessage;
+        outputLayer.OnDone += DisplayGameOver;
     }
 
     void LayoutDenseView()
@@ -109,17 +111,43 @@ public class OutputMiniGameManager : BaseBoard
         playbackDirector.NextLine();
     }
 
-    private void DisplayGameOverMessage()
+    private void DisplayGameOver()
     {
         cameraZoom.ChangeZoomTarget(NPC.gameObject);
         ZoomIn();
         // NPC speaks message
-        string message = "Good job flatenning the image and applying softmax to calculate probabilities. Let's go back to the CNN room.";
+        GameOverMessage();
+        NPC.OnHover += GameOverMessage;
+        dialogueBalloon.OnDone += GameOver;
+        hintBalloon.SetArrowRightKey();
+        hintBalloon.SetWaitKey(false);
+        hintBalloon.Show();
+    }
+
+    private void GameOverMessage()
+    {
+        // string message = "Good job flattenning the image and applying softmax to calculate probabilities. Let's go back to the CNN room.";
+        string message = "Good job flattenning the image and applying softmax to calculate probabilities. Explore this room a bit more if you will, then go back to the CNN room.";
         dialogueBalloon.SetSpeaker(NPC.gameObject);
         dialogueBalloon.SetMessage(message);
         dialogueBalloon.PlaceUpperLeft();
         dialogueBalloon.Show();
-        dialogueBalloon.OnDone += GameOver;
+    }
+
+    IEnumerator AnimateGameOver()
+    {
+        dialogueBalloon.Hide();
+        ZoomOut();
+        yield return new WaitForSeconds(1.5f);
+        cameraZoom.ChangeZoomTarget(hintBalloon.gameObject);
+        ZoomIn();
+
+        yield return new WaitForSeconds(3f);
+        ZoomOut();
+        yield return new WaitForSeconds(1.5f);
+
+        Player.Enable();
+        cameraZoom.ChangeZoomTarget(Player.gameObject);
     }
 
     void ZoomIn()
@@ -134,7 +162,13 @@ public class OutputMiniGameManager : BaseBoard
 
     protected override void GameOver()
     {
+        dialogueBalloon.OnDone -= GameOver;
+        StartCoroutine(AnimateGameOver());
+
         GameManager.instance.solvedMinigames["Output"] = true;
-        GameManager.instance.StartOverviewScene();
+
+        // Player.Enable();
+        // cameraZoom.ChangeZoomTarget(Player.gameObject);
+        // GameManager.instance.StartOverviewScene();
     }
 }
