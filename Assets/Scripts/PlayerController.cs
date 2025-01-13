@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour
         isEnabled = true;
     }
 
+    public bool IsGrabbing()
+    {
+        // Debug.Log("Player is grabbing " + grabbedObject != null);
+        return grabbedObject != null;
+    }
+
     public void Spawn(OverviewBoardManager boardManager, Vector2Int cell)
     {
         transform.position = boardManager.CellToWorld(cell);
@@ -284,8 +290,6 @@ public class PlayerController : MonoBehaviour
         Transform grabbeableObject = nearObject.transform.parent;
         animator.SetTrigger("playerGrab");
 
-        grabbeableObject.GetComponent<KernelMatrix>().Grab(transform.position);
-
         // Change scale
         // change box parent
         GameObject playerObj = GameObject.Find("Player");
@@ -294,6 +298,8 @@ public class PlayerController : MonoBehaviour
         grabbeableObject.position = playerObj.transform.position;
 
         grabbedObject = grabbeableObject.gameObject;
+
+        grabbeableObject.GetComponent<KernelMatrix>().Grab(transform.position);
 
         OnKernelGrabbed?.Invoke();
     }
@@ -303,8 +309,6 @@ public class PlayerController : MonoBehaviour
         Transform grabbeableObject = nearObject.transform;
         animator.SetTrigger("playerGrab");
 
-        nearObject.GetComponent<ActivationBox>().Grab(transform.position);
-
         // Change scale
         // change box parent
         GameObject playerObj = GameObject.Find("Player");
@@ -313,6 +317,8 @@ public class PlayerController : MonoBehaviour
         grabbeableObject.position = playerObj.transform.position;
 
         grabbedObject = grabbeableObject.gameObject;
+
+        nearObject.GetComponent<ActivationBox>().Grab(transform.position);
     }
 
     private void FillInputHolder()

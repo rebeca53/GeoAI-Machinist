@@ -208,10 +208,18 @@ public class ActivationMiniGameManager : BaseBoard
         {
             StartCoroutine(OnWrongActivation());
         }
+        else
+        {
+            CheckGameOver();
+        }
     }
 
     void CheckGameOver()
     {
+        if (Player.IsGrabbing())
+        {
+            return;
+        }
         if (IsGameOver())
         {
             StartCoroutine(AnimateGameOver());

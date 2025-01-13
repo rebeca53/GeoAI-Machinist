@@ -243,10 +243,18 @@ public class ConvolutionalMiniGameManager : BaseBoard
         {
             StartCoroutine(OnWrongKernel());
         }
+        else
+        {
+            CheckGameOver();
+        }
     }
 
     void CheckGameOver()
     {
+        if (Player.IsGrabbing())
+        {
+            return;
+        }
         Debug.Log("");
         if (IsGameOver())
         {
